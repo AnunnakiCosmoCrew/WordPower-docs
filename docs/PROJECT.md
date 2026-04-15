@@ -1,20 +1,39 @@
 # WordPower (Working Title) — Project Document
 
+> [!abstract] Vision
 > A personal word notebook that turns everyday vocabulary discoveries into lasting knowledge — collect words from daily life, and let the app teach you their meaning, spelling, pronunciation, and related vocabulary through quizzes, flashcards, and spaced repetition.
 
-**Project Manager:** Mert Ertugrul
-**Originally Conceived:** January 17, 2024
-**Platform:** Flutter (iOS & Android)
+| | |
+|---|---|
+| **Project Manager** | Mert Ertugrul |
+| **Originally Conceived** | January 17, 2024 |
+| **Platform** | Flutter (iOS & Android) |
+
+Related: [[SPACED_REPETITION]] | [[COMPETITIVE_ANALYSIS]]
 
 ---
 
 ## 1. Vision
 
-WordPower is a personal word notebook. Users collect words they encounter in daily life — from conversations, books, articles, exams, or anywhere else — and jot them down like they would in a notebook. The app then enriches each word with its meaning, pronunciation, synonyms, CEFR level, and semantic domain. It also surfaces similar words at the same level or in the same category, helping users expand their vocabulary organically. Through quizzes, spelling drills, pronunciation listening, flashcards, and vocabulary exercises, the app turns a personal word collection into deep, lasting knowledge. Words resurface at scientifically-timed intervals so users spend time on what they actually need to review.
+WordPower is a ==personal word notebook==. Users collect words they encounter in daily life — from conversations, books, articles, exams, or anywhere else — and jot them down like they would in a notebook. The app then enriches each word with its meaning, pronunciation, synonyms, CEFR level, and semantic domain. It also surfaces similar words at the same level or in the same category, helping users expand their vocabulary organically. Through quizzes, spelling drills, pronunciation listening, flashcards, and vocabulary exercises, the app turns a personal word collection into deep, lasting knowledge. Words resurface at scientifically-timed intervals so users spend time on what they actually need to review.
+
+```mermaid
+flowchart LR
+    A["Encounter a word\nin daily life"] --> B["Jot it down\nin WordPower"]
+    B --> C["App auto-enriches\n(definition, pronunciation,\ndomain, level, root)"]
+    C --> D["Learn through\nquizzes & flashcards"]
+    D --> E["SRS resurfaces it\nat the right time"]
+    E --> D
+    C --> F["Discover\nrelated words"]
+    F --> B
+```
 
 ## 2. Core Features
 
 ### 2.1 Word Notebook
+
+> [!tip] Core principle
+> The notebook is the heart of the app. ==Quick Capture must be frictionless== — type a word, tap save, done. Everything else flows from this.
 
 | Feature | Description |
 |---|---|
@@ -24,7 +43,7 @@ WordPower is a personal word notebook. Users collect words they encounter in dai
 | **Bulk Import** | Import word lists from CSV or Excel files for users migrating from other tools |
 | **Word Detail View** | Full word card showing everything the app discovered plus your personal notes |
 | **Word Lists / Folders** | Organize your collected words into custom collections (e.g., "IELTS Prep", "Words from Breaking Bad", "Office vocabulary") |
-| **Word Domains** | Every word is automatically tagged with a semantic domain and CEFR level (see Section 2.6) |
+| **Word Domains** | Every word is automatically tagged with a semantic domain and CEFR level (see [[#2.6 Word Domain & Level System]]) |
 
 ### 2.2 Learning & Quiz Engine
 
@@ -32,7 +51,8 @@ All quiz types draw from the user's personal word collection. New types are intr
 
 #### Core Quizzes (Phase 3)
 
-The foundation — these build the quiz engine architecture and SRS integration.
+> [!note] Foundation
+> These build the quiz engine architecture and [[SPACED_REPETITION|SRS]] integration.
 
 | Quiz Type | How It Works |
 |---|---|
@@ -45,7 +65,8 @@ The foundation — these build the quiz engine architecture and SRS integration.
 
 #### Semantic Quizzes (Phase 4)
 
-Leverage WordNet synonyms/antonyms and domain groupings — no new data sources needed.
+> [!note] Data source
+> Leverage WordNet synonyms/antonyms and domain groupings — ==no new data sources needed==.
 
 | Quiz Type | How It Works |
 |---|---|
@@ -54,7 +75,8 @@ Leverage WordNet synonyms/antonyms and domain groupings — no new data sources 
 
 #### Contextual Quizzes (Phase 5)
 
-Require rich example sentences and contextual data. Collocation Check needs a new data source (Oxford Collocations Dictionary or collocations mined from Oxford API example sentences).
+> [!warning] New data source required
+> Collocation Check needs a collocation data source not in the current pipeline (Oxford Collocations Dictionary or collocations mined from Oxford API example sentences).
 
 | Quiz Type | How It Works |
 |---|---|
@@ -64,7 +86,8 @@ Require rich example sentences and contextual data. Collocation Check needs a ne
 
 #### Gamified Modes (Phase 6)
 
-Engagement and fluency layers built on top of the working quiz engine.
+> [!note]
+> Engagement and fluency layers built on top of the working quiz engine.
 
 | Quiz Type | How It Works |
 |---|---|
@@ -74,11 +97,25 @@ Engagement and fluency layers built on top of the working quiz engine.
 
 ### 2.3 Spaced Repetition System (SRS)
 
-- Algorithm based on SM-2 (SuperMemo 2) or a modern variant (FSRS)
+> [!info] Deep dive
+> See [[SPACED_REPETITION]] for a full concept guide covering the forgetting curve, SM-2 algorithm, FSRS, and how the review queue works.
+
+- Algorithm based on ==SM-2== (SuperMemo 2) or a modern variant (==FSRS==)
 - Each word has a familiarity score, interval, and next review date
 - Daily review queue is generated automatically based on due words
 - Performance in any quiz type feeds back into the SRS scheduling
 - Dashboard shows: words due today, mastered count, learning streak
+
+```mermaid
+stateDiagram-v2
+    [*] --> NEW: Word collected
+    NEW --> LEARNING: First review
+    LEARNING --> REVIEW: Interval ≥ 3 days
+    REVIEW --> MASTERED: Interval > 60 days
+    REVIEW --> RELEARN: Rated "Again"
+    LEARNING --> RELEARN: Rated "Again"
+    RELEARN --> LEARNING: Back to short intervals
+```
 
 ### 2.4 Pronunciation & Audio
 
@@ -88,55 +125,53 @@ Engagement and fluency layers built on top of the working quiz engine.
 
 ### 2.6 Word Domain & Level System
 
-Every word in the app lives on two axes: **what it's about** (semantic domain) and **how advanced it is** (CEFR level). This lets users browse, filter, and study vocabulary by topic, difficulty, or both.
+Every word in WordPower lives on ==three axes==:
 
-Every word in WordPower lives on three axes:
-
-```
-         AXIS 1                AXIS 2              AXIS 3
-      What it's about       How hard it is      How it's built
-     ──────────────        ──────────────      ──────────────
-     Semantic Domain         CEFR Level        Root Family
-
-     Travel & Places            A2             port- (to carry)
-           │                    │                    │
-           ▼                    ▼                    ▼
-       "transport"          "transport"         "transport"
-       "commute"            "recipe"            "export"
-       "itinerary"          "luggage"           "import"
-                                                "portable"
-                                                "support"
+```mermaid
+mindmap
+  root((Word))
+    Axis 1: Semantic Domain
+      What it's about
+      Travel & Places
+      Body & Health
+      Work & Business
+    Axis 2: CEFR Level
+      How hard it is
+      A1 → C2
+    Axis 3: Root Family
+      How it's built
+      port- = to carry
+      graph- = to write
 ```
 
 Users can explore vocabulary from any axis — by topic, by difficulty, or by word family. Learning one root unlocks 10+ words.
 
 #### Axis 1: Semantic Domain Tree
 
-Inspired by the Historical Thesaurus of the OED (HTOED), reorganized for modern learners:
+> [!info] Inspiration
+> Inspired by the ==Historical Thesaurus of the OED (HTOED)==, reorganized for modern learners.
 
-```
-WordPower Domains
-│
-├── The Physical World
-│   ├── Nature (weather, seasons, geography, animals, plants)
-│   ├── Body & Health (body parts, illness, medicine, fitness)
-│   ├── Food & Drink (cooking, meals, ingredients, dining)
-│   ├── Home & Living (furniture, rooms, household, clothing)
-│   └── Science & Technology (physics, chemistry, computing, AI)
-│
-├── The Mind
-│   ├── Emotions & Feelings (joy, anger, fear, surprise, love)
-│   ├── Thinking & Learning (logic, memory, creativity, education)
-│   ├── Communication (speech, writing, argument, persuasion)
-│   └── Character & Personality (traits, virtues, flaws)
-│
-└── Society
-    ├── Work & Business (careers, finance, management, trade)
-    ├── Travel & Places (transport, accommodation, destinations)
-    ├── Culture & Arts (music, film, literature, sports)
-    ├── Relationships (family, friendship, social, romance)
-    ├── Law & Politics (government, justice, rights, crime)
-    └── Daily Life (shopping, time, numbers, routines)
+```mermaid
+mindmap
+  root((WordPower Domains))
+    The Physical World
+      Nature
+      Body & Health
+      Food & Drink
+      Home & Living
+      Science & Technology
+    The Mind
+      Emotions & Feelings
+      Thinking & Learning
+      Communication
+      Character & Personality
+    Society
+      Work & Business
+      Travel & Places
+      Culture & Arts
+      Relationships
+      Law & Politics
+      Daily Life
 ```
 
 #### Axis 2: CEFR Levels
@@ -154,99 +189,100 @@ WordPower Domains
 
 Words are grouped by their morphological root — the core unit of meaning that generates entire word families through prefixes and suffixes.
 
-**Root origins:**
+> [!example]- Root origins
+>
+> | Origin | Character | Example roots |
+> |---|---|---|
+> | **Germanic** (Old English) | Everyday, simple, emotional | hand-, break-, love-, stand-, light- |
+> | **Latin** (via French) | Formal, academic, professional | port-, dict-, duct-, ject-, rupt-, scrib- |
+> | **Greek** | Scientific, technical, medical | graph-, log-, phon-, bio-, psych-, chron- |
 
-| Origin | Character | Example roots |
-|---|---|---|
-| **Germanic** (Old English) | Everyday, simple, emotional | hand-, break-, love-, stand-, light- |
-| **Latin** (via French) | Formal, academic, professional | port-, dict-, duct-, ject-, rupt-, scrib- |
-| **Greek** | Scientific, technical, medical | graph-, log-, phon-, bio-, psych-, chron- |
+> [!example]- How a root family expands — `port-` (Latin: "to carry")
+>
+> ```
+> Root: port- (Latin: "to carry")
+> │
+> ├── trans + port         = transport (carry across)
+> ├── ex + port            = export (carry out)
+> ├── im + port            = import (carry in)
+> │   └── import + -ant    = important (carrying weight)
+> ├── re + port            = report (carry back)
+> ├── de + port            = deport (carry away)
+> ├── sup + port           = support (carry from below)
+> ├── port + -able         = portable (can be carried)
+> ├── port + -er           = porter (one who carries)
+> └── port + -folio        = portfolio (carry + leaf/page)
+> ```
 
-**How a root family expands:**
+> [!example]- Prefix meanings (how they change the root)
+>
+> | Prefix | Meaning | With "port" | With "duct" | With "ject" |
+> |---|---|---|---|---|
+> | trans- | across | transport | transduct | — |
+> | ex- | out | export | — | eject |
+> | im-/in- | in | import | induct | inject |
+> | re- | back/again | report | reduce | reject |
+> | de- | away/down | deport | deduct | — |
+> | pro- | forward | — | produce | project |
+> | con- | together | — | conduct | — |
+> | sub-/sup- | under/below | support | — | subject |
 
-```
-Root: port- (Latin: "to carry")
-│
-├── trans + port         = transport (carry across)
-├── ex + port            = export (carry out)
-├── im + port            = import (carry in)
-│   └── import + -ant    = important (carrying weight)
-├── re + port            = report (carry back)
-├── de + port            = deport (carry away)
-├── sup + port           = support (carry from below)
-├── port + -able         = portable (can be carried)
-├── port + -er           = porter (one who carries)
-└── port + -folio        = portfolio (carry + leaf/page)
-```
+> [!example]- Suffix meanings (how they change word class)
+>
+> | Suffix | Creates | Example |
+> |---|---|---|
+> | -tion, -sion | noun (action/result) | act → ac**tion**, export → exporta**tion** |
+> | -ment | noun (result/state) | enjoy → enjoy**ment**, govern → govern**ment** |
+> | -ness | noun (quality) | happy → happi**ness**, dark → dark**ness** |
+> | -able, -ible | adjective (can be) | break → break**able**, port → port**able** |
+> | -ive | adjective (tending to) | act → act**ive**, product → product**ive** |
+> | -ous, -ful | adjective (full of) | danger → danger**ous**, hope → hope**ful** |
+> | -ly | adverb (in the manner of) | quick → quick**ly**, active → active**ly** |
+> | -ize, -ify | verb (to make) | modern → modern**ize**, simple → simpl**ify** |
+> | -er, -or, -ist | noun (person who) | teach → teach**er**, act → act**or**, art → art**ist** |
 
-**Prefix meanings (how they change the root):**
-
-| Prefix | Meaning | With "port" | With "duct" | With "ject" |
-|---|---|---|---|---|
-| trans- | across | transport | transduct | — |
-| ex- | out | export | — | eject |
-| im-/in- | in | import | induct | inject |
-| re- | back/again | report | reduce | reject |
-| de- | away/down | deport | deduct | — |
-| pro- | forward | — | produce | project |
-| con- | together | — | conduct | — |
-| sub-/sup- | under/below | support | — | subject |
-
-**Suffix meanings (how they change word class):**
-
-| Suffix | Creates | Example |
-|---|---|---|
-| -tion, -sion | noun (action/result) | act → ac**tion**, export → exporta**tion** |
-| -ment | noun (result/state) | enjoy → enjoy**ment**, govern → govern**ment** |
-| -ness | noun (quality) | happy → happi**ness**, dark → dark**ness** |
-| -able, -ible | adjective (can be) | break → break**able**, port → port**able** |
-| -ive | adjective (tending to) | act → act**ive**, product → product**ive** |
-| -ous, -ful | adjective (full of) | danger → danger**ous**, hope → hope**ful** |
-| -ly | adverb (in the manner of) | quick → quick**ly**, active → active**ly** |
-| -ize, -ify | verb (to make) | modern → modern**ize**, simple → simpl**ify** |
-| -er, -or, -ist | noun (person who) | teach → teach**er**, act → act**or**, art → art**ist** |
-
-**Exceptions and traps (the app should highlight these):**
-
-| Trap | Example | Why |
-|---|---|---|
-| **False roots** | "uncle" is not un- + cle; "island" is not is- + land | Not all letter patterns are morphemes |
-| **Meaning drift** | "awful" meant "full of awe" (positive), now means terrible | Meaning shifted over centuries |
-| **Irregular negation** | im-possible, un-able, ir-regular, dis-loyal, in-accurate | Prefix depends on Latin vs Germanic origin and first letter |
-| **Unpredictable suffixes** | "action" but "amazement" (not "amazion"); "happiness" but "boredom" (not "boreness") | Historical/phonological reasons |
-| **Dead metaphors** | "understand" ≠ "under" + "stand"; "breakfast" = "break" + "fast" (stop fasting) | Compound origins lose literal meaning |
-| **Ambiguous affixes** | "unlockable" = "able to unlock" or "not lockable"? | Structural ambiguity — context required |
-| **Register pairs** | begin (Germanic) vs commence (Latin) — same meaning, different formality | English has parallel vocabularies from different origins |
+> [!warning]- Exceptions and traps (the app should highlight these)
+>
+> | Trap | Example | Why |
+> |---|---|---|
+> | **False roots** | "uncle" is not un- + cle; "island" is not is- + land | Not all letter patterns are morphemes |
+> | **Meaning drift** | "awful" meant "full of awe" (positive), now means terrible | Meaning shifted over centuries |
+> | **Irregular negation** | im-possible, un-able, ir-regular, dis-loyal, in-accurate | Prefix depends on Latin vs Germanic origin and first letter |
+> | **Unpredictable suffixes** | "action" but "amazement" (not "amazion"); "happiness" but "boredom" (not "boreness") | Historical/phonological reasons |
+> | **Dead metaphors** | "understand" ≠ "under" + "stand"; "breakfast" = "break" + "fast" (stop fasting) | Compound origins lose literal meaning |
+> | **Ambiguous affixes** | "unlockable" = "able to unlock" or "not lockable"? | Structural ambiguity — context required |
+> | **Register pairs** | begin (Germanic) vs commence (Latin) — same meaning, different formality | English has parallel vocabularies from different origins |
 
 #### Data Sources — Three Tiers
 
-WordPower's word intelligence comes from three tiers: paid API, free open data, and copyrighted reference material studied to inform our design.
+> [!info]
+> WordPower's word intelligence comes from three tiers: paid API, free open data, and copyrighted reference material studied to inform our design.
 
-**Tier 1 — Paid Integration (direct API calls)**
+> [!example]- Tier 1 — Paid Integration (direct API calls)
+>
+> | Source | What it provides | Cost |
+> |---|---|---|
+> | **Oxford Dictionaries API** | Definitions, pronunciation audio, phonetics, examples, part of speech | ~£50/mo (cached) |
 
-| Source | What it provides | Cost |
-|---|---|---|
-| **Oxford Dictionaries API** | Definitions, pronunciation audio, phonetics, examples, part of speech | ~£50/mo (cached) |
+> [!example]- Tier 2 — Free/Open Data (shipped as static assets or Firestore collections)
+>
+> | Source | What it provides | License |
+> |---|---|---|
+> | **Open English WordNet (2025)** | 117K+ synonym sets (synsets), semantic hierarchy (is-a, part-of), antonyms, definitions. Primary source for synonyms, related words, and domain auto-tagging. | CC BY 4.0 |
+> | **CEFR-J / Words-CEFR-Dataset** | Word → CEFR level mapping with POS, ~7,600 words. Primary source for level assignment. | Free for commercial use |
+> | **Wordfreq** | Word frequency data across multiple corpora, 400K+ words. Powers "learn useful words first" and supplements CEFR leveling. | MIT |
+> | **Roget's Thesaurus 1911** | 1,022 thematic categories with word clusters. Supplements WordNet with broader thematic groupings for quiz distractors and word discovery. | Public domain |
 
-**Tier 2 — Free/Open Data (shipped as static assets or Firestore collections)**
-
-| Source | What it provides | License |
-|---|---|---|
-| **Open English WordNet (2025)** | 117K+ synonym sets (synsets), semantic hierarchy (is-a, part-of), antonyms, definitions. Primary source for synonyms, related words, and domain auto-tagging. | CC BY 4.0 |
-| **CEFR-J / Words-CEFR-Dataset** | Word → CEFR level mapping with POS, ~7,600 words. Primary source for level assignment. | Free for commercial use |
-| **Wordfreq** | Word frequency data across multiple corpora, 400K+ words. Powers "learn useful words first" and supplements CEFR leveling. | MIT |
-| **Roget's Thesaurus 1911** | 1,022 thematic categories with word clusters. Supplements WordNet with broader thematic groupings for quiz distractors and word discovery. | Public domain |
-
-**Tier 3 — Copyrighted Reference (studied, not copied)**
-
-These are purchased/subscribed to, studied for methodology and structure, then used to inform our own original domain taxonomy and learning design. No data is extracted or redistributed.
-
-| Source | What we learn from it | Access |
-|---|---|---|
-| **HTOED** (Historical Thesaurus of the OED) | How to structure a semantic taxonomy of English — the three-tier division (External World / Mind / Society), how categories relate hierarchically, how to handle words that belong in multiple domains | OED subscription (~£100/yr) |
-| **David Crystal — Words in Time and Place** | How semantic fields work in practice across 15 worked examples, how words within a field relate chronologically and thematically, what makes a good domain boundary | Book (~£15) |
-| **English Vocabulary Profile (full)** | How Cambridge assigns CEFR levels — what criteria distinguish B1 from B2, how polysemous words get different levels per sense, how collocations factor in | Cambridge site (free lookup, study methodology) |
-| **Oxford Learner's Dictionaries** | How Oxford organizes topic vocabulary for learners, which semantic groupings work best for language education, how to balance breadth vs depth per topic | Free online access |
+> [!example]- Tier 3 — Copyrighted Reference (studied, not copied)
+>
+> These are purchased/subscribed to, studied for methodology and structure, then used to inform our own original domain taxonomy and learning design. ==No data is extracted or redistributed.==
+>
+> | Source | What we learn from it | Access |
+> |---|---|---|
+> | **HTOED** (Historical Thesaurus of the OED) | How to structure a semantic taxonomy of English — the three-tier division (External World / Mind / Society), how categories relate hierarchically, how to handle words that belong in multiple domains | OED subscription (~£100/yr) |
+> | **David Crystal — Words in Time and Place** | How semantic fields work in practice across 15 worked examples, how words within a field relate chronologically and thematically, what makes a good domain boundary | Book (~£15) |
+> | **English Vocabulary Profile (full)** | How Cambridge assigns CEFR levels — what criteria distinguish B1 from B2, how polysemous words get different levels per sense, how collocations factor in | Cambridge site (free lookup, study methodology) |
+> | **Oxford Learner's Dictionaries** | How Oxford organizes topic vocabulary for learners, which semantic groupings work best for language education, how to balance breadth vs depth per topic | Free online access |
 
 #### How Levels Get Assigned Automatically
 
@@ -278,31 +314,31 @@ Multiple sources are combined to power word connections:
 | **Word families** | WordNet derivational links | — |
 | **Domain auto-tagging** | WordNet is-a hierarchy | Roget's category mapping |
 
-**Processing pipeline (one-time, at build):**
-
-```
-Open English WordNet 2025 (CC BY 4.0)
-  → Parse synsets, relationships, hierarchy
-  → Map hypernym chains to WordPower domains
-  → Extract synonym/antonym/related word lists
-
-Roget's 1911 (public domain)
-  → Parse 1,022 entries
-  → Filter archaic words (cross-reference with Wordfreq)
-  → Map categories to WordPower domains
-  → Extract thematic clusters for quiz distractors
-
-CEFR-J + Wordfreq
-  → Build word → CEFR level lookup table
-  → Build frequency rank table
-
-→ Merge all into unified dataset
-→ Ship as static asset in app + Firestore /dictionary-meta/ collection
-```
+> [!example]- Processing pipeline (one-time, at build)
+>
+> ```mermaid
+> flowchart TD
+>     A["Open English WordNet 2025\n(CC BY 4.0)"] --> D["Parse synsets,\nrelationships, hierarchy"]
+>     D --> E["Map hypernym chains\nto WordPower domains"]
+>     D --> F["Extract synonym/antonym/\nrelated word lists"]
+> 
+>     B["Roget's 1911\n(public domain)"] --> G["Parse 1,022 entries"]
+>     G --> H["Filter archaic words\n(cross-ref with Wordfreq)"]
+>     H --> I["Map categories to\nWordPower domains"]
+>     H --> J["Extract thematic clusters\nfor quiz distractors"]
+> 
+>     C["CEFR-J + Wordfreq"] --> K["Build word → CEFR\nlevel lookup table"]
+>     C --> L["Build frequency\nrank table"]
+> 
+>     E & F & I & J & K & L --> M[("Unified Dataset")]
+>     M --> N["Static asset in app"]
+>     M --> O["Firestore\n/dictionary-meta/"]
+> ```
 
 #### User Experience
 
-The user's own collection is the centre of the app. Browsing and discovery always start from words the user has saved.
+> [!tip] Design principle
+> The user's own collection is the centre of the app. Browsing and discovery ==always start from words the user has saved==.
 
 | Path | Example |
 |---|---|
@@ -323,7 +359,8 @@ The user's own collection is the centre of the app. Browsing and discovery alway
 
 ## 3. Target User
 
-English language learners who want a personalized vocabulary tool — not a fixed curriculum. Users who prefer to collect words they encounter in real life (reading, conversations, exams) and actively practice them.
+> [!quote]
+> English language learners who want a personalized vocabulary tool — not a fixed curriculum. Users who prefer to ==collect words they encounter in real life== (reading, conversations, exams) and actively practice them.
 
 ## 4. Language Scope
 
@@ -348,8 +385,11 @@ English language learners who want a personalized vocabulary tool — not a fixe
 
 ## 6. Key Screens
 
+> [!important]
+> **Add Word** is the ==most important screen== — it must be the fastest, lowest-friction path in the app.
+
 1. **Home / Dashboard** — Today's review count, streak, words collected this week, progress stats
-2. **Add Word** — Quick-capture screen: type a word, tap save, app enriches it automatically. Minimal friction — this is the most important screen
+2. **Add Word** — Quick-capture screen: type a word, tap save, app enriches it automatically. Minimal friction — ==this is the most important screen==
 3. **My Words** — Browse, search, filter your collected words (by domain, level, root family, status, or list)
 4. **Word Detail** — Full word card with auto-fetched info + personal notes, domain badge, CEFR level, root family, edit capability
 5. **Discover** — Word suggestions based on your collection: same domain, same level, same root family. "Words you might encounter next"
@@ -360,156 +400,183 @@ English language learners who want a personalized vocabulary tool — not a fixe
 
 ## 7. Data Model (High-Level)
 
-```
-User
-  ├── id, email, displayName, createdAt
-  │
-  ├── WordLists[]
-  │     ├── id, name, description, createdAt
-  │     └── wordIds[]
-  │
-  └── UserWords[] (per-user learning state)
-        ├── id, wordId (→ /dictionary/{word})
-        ├── personalNotes, nativeTranslation
-        ├── tags[]
-        └── SRS Fields
-              ├── easeFactor, interval, repetitions
-              ├── nextReviewDate, lastReviewDate
-              └── status (new | learning | review | mastered)
+```mermaid
+erDiagram
+    User ||--o{ WordList : creates
+    User ||--o{ UserWord : collects
+    UserWord }o--|| DictionaryCache : references
+    WordList ||--o{ UserWord : contains
+    DictionaryCache }o--|| RootFamily : "belongs to"
 
-Shared Dictionary Cache (/dictionary/{word})
-  ├── word, definitions[], partOfSpeech
-  ├── exampleSentences[], pronunciation (IPA), audioUrl
-  ├── synonyms[], antonyms[]
-  ├── domain (e.g., "body-health", "work-business")
-  ├── domainPath (e.g., "The Physical World > Body & Health")
-  ├── cefrLevel (A1 | A2 | B1 | B2 | C1 | C2)
-  ├── frequencyRank (from COCA or similar corpus)
-  ├── rogetCategory (e.g., 769)
-  ├── relatedWords[] (from Roget's cluster, filtered for modern usage)
-  ├── Root Family Fields
-  │     ├── rootId (e.g., "port")
-  │     ├── rootMeaning (e.g., "to carry")
-  │     ├── rootOrigin (germanic | latin | greek)
-  │     ├── prefixes[] (e.g., ["trans-"])
-  │     ├── suffixes[] (e.g., ["-ation"])
-  │     └── familyWords[] (e.g., ["export", "import", "portable", ...])
-  ├── source: "oxford"
-  └── fetchedAt: Timestamp
+    User {
+        string id PK
+        string email
+        string displayName
+        timestamp createdAt
+    }
 
-Root Families (/roots/{rootId})
-  ├── root (e.g., "port")
-  ├── meaning (e.g., "to carry")
-  ├── origin (germanic | latin | greek)
-  ├── words[] (all words derived from this root)
-  ├── commonPrefixes[] (prefixes that combine with this root)
-  ├── commonSuffixes[] (suffixes that combine with this root)
-  └── exceptions[] (false friends / traps to highlight)
+    WordList {
+        string id PK
+        string name
+        string description
+        timestamp createdAt
+    }
+
+    UserWord {
+        string id PK
+        string wordId FK
+        string personalNotes
+        string nativeTranslation
+        float easeFactor
+        int interval
+        int repetitions
+        date nextReviewDate
+        date lastReviewDate
+        enum status "new | learning | review | mastered"
+    }
+
+    DictionaryCache {
+        string word PK
+        string[] definitions
+        string partOfSpeech
+        string phonetic
+        string audioUrl
+        string[] exampleSentences
+        string[] synonyms
+        string[] antonyms
+        string domain
+        string domainPath
+        enum cefrLevel "A1 | A2 | B1 | B2 | C1 | C2"
+        int frequencyRank
+        string rootId FK
+        string source
+        timestamp fetchedAt
+    }
+
+    RootFamily {
+        string rootId PK
+        string root
+        string meaning
+        enum origin "germanic | latin | greek"
+        string[] words
+        string[] commonPrefixes
+        string[] commonSuffixes
+        string[] exceptions
+    }
 ```
 
 ## 8. Monetization
 
 - **Model:** 7-day free trial → paid subscription
-- **Pricing:** $4.99/month or $29.99/year
+- **Pricing:** ==$4.99/month== or ==$29.99/year==
 - **Free trial gives full access** — users experience Oxford-quality data before deciding
 - **Break-even:** ~19 paying users at $4.99/mo (covers ~$78/mo infrastructure)
 - **App Store / Play Store cut:** 15% (Apple Small Business Program, Google reduced rate under $1M)
 
-### Monthly Cost Baseline (500 active users)
-
-| Expense | Cost |
-|---|---|
-| Oxford API Lite | ~$63 (£50) |
-| Apple Developer Program | $8.25 |
-| Google Play (amortized) | ~$2 |
-| Firebase (Auth + Firestore) | $0–5 |
-| **Total** | **~$73–78** |
+> [!example]- Monthly Cost Baseline (500 active users)
+>
+> | Expense | Cost |
+> |---|---|
+> | Oxford API Lite | ~$63 (£50) |
+> | Apple Developer Program | $8.25 |
+> | Google Play (amortized) | ~$2 |
+> | Firebase (Auth + Firestore) | $0–5 |
+> | **Total** | **~$73–78** |
 
 ### Dictionary Caching Architecture
 
-A shared, server-side cache ensures each English word is fetched from Oxford **exactly once**, regardless of how many users look it up.
+> [!important]
+> A shared, server-side cache ensures each English word is fetched from Oxford ==exactly once==, regardless of how many users look it up.
 
-```
-┌──────────┐       ┌──────────────────┐       ┌─────────────────────┐
-│  Flutter  │──────▶│  Cloud Function   │──────▶│  Firestore          │
-│   App     │◀──────│  (lookupWord)     │       │  /dictionary/{word} │
-└──────────┘       └────────┬─────────┘       └─────────────────────┘
-                            │                          │
-                            │  CACHE MISS only         │ CACHE HIT
-                            ▼                          │ (most calls)
-                   ┌──────────────────┐                │
-                   │  Oxford API      │                │
-                   │  (external call) │                │
-                   └──────────────────┘                │
-                            │                          │
-                            └──── save to Firestore ───┘
+```mermaid
+flowchart LR
+    A["Flutter App"] -->|"lookupWord()"| B["Cloud Function"]
+    B -->|"Check cache"| C[("Firestore\n/dictionary/{word}")]
+    C -->|"CACHE HIT\n(most calls)"| B
+    B -->|"CACHE MISS only"| D["Oxford API"]
+    D -->|"Save to cache"| C
+    B -->|"Return data"| A
 ```
 
-**Flow:**
+> [!example]- Flow detail
+>
+> 1. User types a word in the app
+> 2. App calls a Firebase Cloud Function (`lookupWord`)
+> 3. Cloud Function checks Firestore `/dictionary/{word}`
+>    - **HIT** → return cached data immediately (no Oxford API call)
+>    - **MISS** → call Oxford API → save response to `/dictionary/{word}` → return to user
+> 4. All future lookups for that word by any user are served from Firestore
 
-1. User types a word in the app
-2. App calls a Firebase Cloud Function (`lookupWord`)
-3. Cloud Function checks Firestore `/dictionary/{word}`
-   - **HIT** → return cached data immediately (no Oxford API call)
-   - **MISS** → call Oxford API → save response to `/dictionary/{word}` → return to user
-4. All future lookups for that word by any user are served from Firestore
+> [!example]- Firestore `/dictionary/{word}` document
+>
+> ```json
+> {
+>   "word": "ambiguous",
+>   "definitions": ["..."],
+>   "partOfSpeech": "adjective",
+>   "phonetic": "/amˈbɪɡjʊəs/",
+>   "audioUrl": "https://...",
+>   "exampleSentences": ["..."],
+>   "synonyms": ["..."],
+>   "antonyms": ["..."],
+>   "domain": "communication",
+>   "domainPath": "The Mind > Communication",
+>   "cefrLevel": "B2",
+>   "frequencyRank": 4521,
+>   "rogetCategory": 520,
+>   "relatedWords": ["vague", "unclear", "equivocal", "enigmatic", "cryptic"],
+>   "source": "oxford",
+>   "fetchedAt": "Timestamp"
+> }
+> ```
 
-**Firestore `/dictionary/{word}` document:**
-
-```
-{
-  word: "ambiguous",
-  definitions: [...],
-  partOfSpeech: "adjective",
-  phonetic: "/amˈbɪɡjʊəs/",
-  audioUrl: "https://...",
-  exampleSentences: [...],
-  synonyms: [...],
-  antonyms: [...],
-  domain: "communication",
-  domainPath: "The Mind > Communication",
-  cefrLevel: "B2",
-  frequencyRank: 4521,
-  rogetCategory: 520,
-  relatedWords: ["vague", "unclear", "equivocal", "enigmatic", "cryptic"],
-  source: "oxford",
-  fetchedAt: Timestamp
-}
-```
-
-**Why this matters:**
-
-- 500 users looking up "ambiguous" = **1 API call**, not 500
-- English has ~170,000 words in common use; after a few months the cache covers nearly every word users will ever search
-- Oxford API costs stay flat at the base plan even as user count grows to thousands
-- The Oxford API key never touches the client — it stays secure in Cloud Functions
+> [!success] Why this matters
+> - 500 users looking up "ambiguous" = ==**1 API call**==, not 500
+> - English has ~170,000 words in common use; after a few months the cache covers nearly every word users will ever search
+> - Oxford API costs stay flat at the base plan even as user count grows to thousands
+> - The Oxford API key never touches the client — it stays secure in Cloud Functions
 
 ## 9. Success Metrics
 
-- **Words collected per user per week** — the notebook habit is the core engagement loop
-- **Collection-to-review ratio** — are users coming back to learn what they collected?
-- Daily active users returning for review sessions
-- Average words mastered per user per month
-- Review completion rate (% of due words actually reviewed)
-- Retention rate (7-day, 30-day)
+| Metric | Type | Why it matters |
+|---|---|---|
+| **Words collected per user per week** | Engagement | ==The notebook habit is the core engagement loop== |
+| **Collection-to-review ratio** | Engagement | Are users coming back to learn what they collected? |
+| Daily active users returning for review sessions | Retention | Core usage pattern |
+| Average words mastered per user per month | Learning | Outcome measure |
+| Review completion rate | Learning | % of due words actually reviewed |
+| Retention rate (7-day, 30-day) | Retention | Long-term stickiness |
 
 ## 10. Risks
 
 | Risk | Mitigation |
 |---|---|
 | Oxford API rate limits or downtime | Aggressive Firestore caching (1 call per word ever); manual entry as fallback |
-| Users abandoning due to lack of motivation | Streaks, progress stats, achievement badges |
-| Complex SRS logic introducing bugs | Unit test the scheduling algorithm thoroughly in isolation |
+| Users abandoning due to lack of motivation | Streaks, progress stats, achievement badges. See [[COMPETITIVE_ANALYSIS#Why Users Abandon Vocabulary Apps]] |
+| Complex SRS logic introducing bugs | Unit test the scheduling algorithm thoroughly in isolation. See [[SPACED_REPETITION#7. The SM-2 Algorithm]] |
 | Cloud sync conflicts | Use Firestore's real-time sync with conflict resolution; last-write-wins for simple fields |
 
 ## 11. Milestones (Rough Phases)
 
-| Phase | Scope |
-|---|---|
-| **Phase 1 — The Notebook** | Flutter project setup, auth, cloud DB, quick-capture word entry, personal word list UI — the core notebook experience |
-| **Phase 2 — Auto-Enrichment** | Dictionary API integration, auto-fill definitions/pronunciation/domain/level, word detail view, word discovery suggestions |
-| **Phase 3 — Core Quizzes** | Flashcards, multiple choice, spelling, listening, matching, fill-in-the-blank + basic SRS scheduling + review queue |
-| **Phase 4 — Semantic Quizzes** | Synonym/antonym match, odd one out — leveraging WordNet + Roget's data |
-| **Phase 5 — Contextual Quizzes** | Collocation check (+ new data source), error correction, sentence scramble + CSV/Excel import |
-| **Phase 6 — Gamified Modes** | Speed recall, definition reverse, word ladder + dashboard stats, streaks, notifications |
-| **Phase 7 — Launch** | App Store / Play Store submission, beta testing, polish |
+```mermaid
+timeline
+    title WordPower Development Phases
+    Phase 1 — The Notebook : Flutter setup, auth, cloud DB
+                            : Quick-capture word entry
+                            : Personal word list UI
+    Phase 2 — Auto-Enrichment : Dictionary API integration
+                               : Auto-fill definitions, pronunciation, domain, level
+                               : Word detail view, word discovery
+    Phase 3 — Core Quizzes : Flashcards, multiple choice, spelling
+                            : Listening, matching, fill-in-the-blank
+                            : Basic SRS scheduling + review queue
+    Phase 4 — Semantic Quizzes : Synonym/antonym match
+                                : Odd one out
+    Phase 5 — Contextual Quizzes : Collocation check + new data source
+                                  : Error correction, sentence scramble
+                                  : CSV/Excel import
+    Phase 6 — Gamified Modes : Speed recall, definition reverse, word ladder
+                              : Dashboard stats, streaks, notifications
+    Phase 7 — Launch : App Store / Play Store submission
+                      : Beta testing, polish
+```

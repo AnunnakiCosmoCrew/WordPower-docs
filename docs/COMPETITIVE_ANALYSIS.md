@@ -1,6 +1,10 @@
 # Competitive Analysis — Vocabulary Learning Apps
 
-> Research conducted March 2026
+> [!info] Research conducted March 2026
+
+Related: [[PROJECT#1. Vision]] | [[PROJECT#2.2 Learning & Quiz Engine]]
+
+---
 
 ## Competitor Overview
 
@@ -22,36 +26,43 @@
 
 ## Detailed Competitor Profiles
 
-### Anki — The Power Tool
-- **Strengths**: Gold standard SRS (SM-2). Fully customizable cards (text, images, audio, cloze). Open-source desktop app. Massive shared deck library. No subscription.
-- **Weaknesses**: Steep learning curve ("designed by engineers for engineers"). Dated, ugly UI. iOS app costs $25. No built-in dictionary — users must create all content. Mobile lacks add-on support. Missing a day creates punishing review debt.
-- **User base**: Medical students, law students, language learners. Loyal but niche.
+> [!example]- Anki — The Power Tool
+>
+> - **Strengths**: Gold standard SRS (SM-2). Fully customizable cards (text, images, audio, cloze). Open-source desktop app. Massive shared deck library. No subscription.
+> - **Weaknesses**: Steep learning curve ("designed by engineers for engineers"). Dated, ugly UI. iOS app costs $25. No built-in dictionary — users must create all content. Mobile lacks add-on support. ==Missing a day creates punishing review debt.==
+> - **User base**: Medical students, law students, language learners. Loyal but niche.
 
-### Quizlet — The Market Leader
-- **Strengths**: Largest user-generated flashcard ecosystem (500M+ sets). Polished UI. Multiple study modes. AI features (Magic Notes, Q-Chat). Easy import from CSV.
-- **Weaknesses**: Free tier gutted in 2023 (major backlash). No true spaced repetition. User-generated content full of errors. Aggressive upselling. $7.99/mo feels expensive for flashcards.
-- **Trend**: Moving toward AI-powered features, but SRS remains weak.
+> [!example]- Quizlet — The Market Leader
+>
+> - **Strengths**: Largest user-generated flashcard ecosystem (500M+ sets). Polished UI. Multiple study modes. AI features (Magic Notes, Q-Chat). Easy import from CSV.
+> - **Weaknesses**: ==Free tier gutted in 2023== (major backlash). No true spaced repetition. User-generated content full of errors. Aggressive upselling. $7.99/mo feels expensive for flashcards.
+> - **Trend**: Moving toward AI-powered features, but SRS remains weak.
 
-### Memrise — The Media-Rich One
-- **Strengths**: Native speaker video clips. AI conversation practice. Gamification with streaks and leaderboards.
-- **Weaknesses**: Deprecated community-created courses (angered power users). Repetitive "mindless tapping" exercises. Very limited free tier. Custom word list support diminished.
-- **Trend**: Pivoting toward AI-powered conversation, away from traditional vocabulary.
+> [!example]- Memrise — The Media-Rich One
+>
+> - **Strengths**: Native speaker video clips. AI conversation practice. Gamification with streaks and leaderboards.
+> - **Weaknesses**: ==Deprecated community-created courses== (angered power users). Repetitive "mindless tapping" exercises. Very limited free tier. Custom word list support diminished.
+> - **Trend**: Pivoting toward AI-powered conversation, away from traditional vocabulary.
 
-### WordUp — The Frequency-Based Learner
-- **Strengths**: Teaches most useful words first (frequency-ranked). Rich multimedia context (movie/TV clips). Beautiful modern UI. "Knowledge Map" showing percentage of English known.
-- **Weaknesses**: English only. Expensive premium ($9.99/mo). Cannot create fully custom word lists. Smaller content library. Repetitive exercises.
-- **Closest competitor to WordPower**: Similar target audience, but lacks custom lists and user-driven word selection.
+> [!example]- WordUp — The Frequency-Based Learner
+>
+> - **Strengths**: Teaches most useful words first (frequency-ranked). Rich multimedia context (movie/TV clips). Beautiful modern UI. "Knowledge Map" showing percentage of English known.
+> - **Weaknesses**: English only. Expensive premium ($9.99/mo). ==Cannot create fully custom word lists.== Smaller content library. Repetitive exercises.
+> - **Closest competitor to WordPower**: Similar target audience, but lacks custom lists and user-driven word selection.
 
-### Vocabulary.com — The Scholar's Choice
-- **Strengths**: Exceptionally clear, conversational definitions (best for learners). Adaptive algorithm. Deep word exploration (etymology, usage over time). Strong classroom integration.
-- **Weaknesses**: Dated app feel. Minimal gamification outside classrooms. English-only. Limited offline functionality.
-- **Dictionary**: Built on WordNet (Princeton) with proprietary editorial layer.
+> [!example]- Vocabulary.com — The Scholar's Choice
+>
+> - **Strengths**: Exceptionally clear, conversational definitions (best for learners). Adaptive algorithm. Deep word exploration (etymology, usage over time). Strong classroom integration.
+> - **Weaknesses**: Dated app feel. Minimal gamification outside classrooms. English-only. Limited offline functionality.
+> - **Dictionary**: Built on WordNet (Princeton) with proprietary editorial layer.
 
 ## Why Users Abandon Vocabulary Apps
 
+> [!danger] Key research — these inform WordPower's design decisions
+
 | Reason | Frequency | Details |
 |---|---|---|
-| **Review pile-up / guilt spiral** | Very High | Missing days creates 200+ review backlogs. Users quit rather than face the pile. |
+| ==**Review pile-up / guilt spiral**== | Very High | Missing days creates 200+ review backlogs. Users quit rather than face the pile. |
 | **Plateau feeling** | High | "I've learned 2000 words but still can't understand native content." |
 | **Boredom / repetitiveness** | High | Same exercise types every session. No variety. |
 | **Words out of context** | High | Isolated definition-translation pairs. No real sentences or usage. |
@@ -60,9 +71,16 @@
 | **Too much setup required** | Medium | Creating cards, finding content, configuring settings (Anki especially). |
 | **App doesn't adapt to level** | Medium | Showing words user already knows, or too-easy/too-hard words. |
 
+> [!tip] How WordPower addresses these
+> - **Review pile-up** → Forgiving SRS that spreads overdue words across days. See [[SPACED_REPETITION#Overdue words]]
+> - **Boredom** → 14 quiz types across 4 tiers. See [[PROJECT#2.2 Learning & Quiz Engine]]
+> - **Too much setup** → Quick Capture + Auto-Enrichment = zero manual card creation
+> - **Doesn't adapt to level** → CEFR auto-tagging + per-word SRS adaptation
+
 ## Features Users Wish Existed (from Reddit, reviews)
 
 ### High Demand
+
 - **Context-rich learning**: Words in real sentences, articles, TV clips — not just definitions
 - **Forgiving SRS**: Adapts to inconsistent schedules without guilt or review avalanche
 - **Adaptive placement**: Skip words the user already knows
@@ -70,6 +88,7 @@
 - **Word families & collocations**: Learn "commit a crime," "commit to," "commitment" together
 
 ### Medium Demand
+
 - **Time-aware sessions**: "I have 5 minutes" mode that prioritizes highest-value reviews
 - **Usage frequency data**: Is this word actually used by native speakers?
 - **Real-world benchmarks**: "You know 80% of B2-level vocabulary"
@@ -77,48 +96,41 @@
 - **Native speaker audio** (not TTS)
 
 ### Niche but Passionate
+
 - **Export/interoperability**: Move data between apps (CSV, Anki export)
 - **Domain-specific vocabulary**: Medical, legal, tech, academic
 - **Collaborative learning**: Study groups, shared lists with quality control
 
 ## Market Gap: Where WordPower Fits
 
-The market has two camps with nothing in between:
+> [!important] The market has two camps with nothing in between
 
-```
-POWERFUL BUT HOSTILE          FRIENDLY BUT SHALLOW
-┌─────────────────┐          ┌─────────────────┐
-│  Anki            │          │  Quizlet         │
-│  Clozemaster     │          │  Memrise         │
-│  Flashcards Dlx  │          │  Drops           │
-│                  │          │  Word of the Day  │
-│  - Strong SRS    │          │  - Pretty UI     │
-│  - Customizable  │          │  - Easy to use   │
-│  - Ugly/complex  │          │  - Weak SRS      │
-│  - No dictionary │          │  - No depth      │
-│  - DIY content   │          │  - Paywalled     │
-└─────────────────┘          └─────────────────┘
-
-                   WordPower
-              ┌─────────────────┐
-              │  POWERFUL AND    │
-              │  BEAUTIFUL       │
-              │                  │
-              │  - Oxford dict   │
-              │  - Real SRS      │
-              │  - Modern UX     │
-              │  - All quiz types│
-              │  - Honest pricing│
-              └─────────────────┘
+```mermaid
+quadrantChart
+    title Vocabulary App Landscape
+    x-axis "Simple / Shallow" --> "Powerful / Deep"
+    y-axis "Hostile UX" --> "Beautiful UX"
+    quadrant-1 "WordPower's target"
+    quadrant-2 "Friendly but shallow"
+    quadrant-3 "Nobody wants this"
+    quadrant-4 "Powerful but hostile"
+    Anki: [0.85, 0.15]
+    Quizlet: [0.25, 0.75]
+    Memrise: [0.30, 0.70]
+    WordUp: [0.55, 0.80]
+    Drops: [0.15, 0.85]
+    Vocabulary.com: [0.70, 0.40]
+    Clozemaster: [0.65, 0.25]
+    WordPower: [0.80, 0.85]
 ```
 
 ## WordPower Differentiators
 
 | Feature | WordPower | vs. Anki | vs. Quizlet | vs. WordUp |
 |---|---|---|---|---|
-| Oxford-quality definitions | Built-in (auto-fetch) | None (DIY) | User-generated (errors) | Proprietary (limited) |
+| Oxford-quality definitions | ==Built-in (auto-fetch)== | None (DIY) | User-generated (errors) | Proprietary (limited) |
 | Spaced repetition | SM-2/FSRS | SM-2 | Weak/none | Basic |
-| Quiz variety (6 types) | All | Flashcards only | 4 modes | Limited |
+| Quiz variety (14 types) | All | Flashcards only | 4 modes | Limited |
 | Custom word lists | Yes | Yes | Yes | Limited |
 | Pronunciation (audio) | Oxford audio + TTS | User must add | None | Yes |
 | Modern UI | Yes | No (dated) | Yes | Yes |
