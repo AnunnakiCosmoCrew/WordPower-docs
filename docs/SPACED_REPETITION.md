@@ -242,23 +242,148 @@ pie title "Daily Queue Breakdown (example: 500 words in notebook)"
 >
 > Users who collect words casually shouldn't feel punished for missing a review day. This is the #1 reason people abandon apps like Anki (see [[COMPETITIVE_ANALYSIS#Why Users Abandon Vocabulary Apps]]).
 
-## 10. How Quiz Types Feed Into SRS
+## 10. How Quiz Types Feed Into SRS — Rating Inference Model
 
-> [!note]
-> Every quiz type produces a rating that feeds back into the SRS. The quiz type doesn't matter — what matters is whether the user recalled the word.
+> [!important] Design principle: never ask the user to rate themselves
+> The only quiz type that requires a self-rating is **Flashcards** (because only the user knows if they truly recalled the answer before flipping the card). For every other quiz type, the app ==auto-infers the rating== from the answer itself.
 
-| Quiz type | How it generates a rating |
+### Recognition vs Production
+
+> [!warning] Not all correct answers are equal
+> A correct answer on a **multiple choice** question (recognition — picking from options) is cognitively easier than a correct answer on a **spelling** quiz (production — generating from memory). If we treat both as the same SM-2 quality, we'll overestimate memory strength for recognition-based quizzes, and the user will fail when forced to produce the word later.
+
+WordPower classifies each quiz type by its ==cognitive demand==:
+
+| Cognitive Type | What it tests | Quiz Types |
+|---|---|---|
+| **Production** (harder) | User generates the answer from memory | Spelling, Fill-in-the-Blank, Sentence Scramble, Definition Reverse |
+| **Recognition** (easier) | User identifies the answer from options | Multiple Choice, Matching, Synonym/Antonym Match, Odd One Out, Collocation Check, Listening |
+| **Self-assessed** | User judges their own recall | Flashcards |
+| **Gamified** | Tests fluency/speed, not core recall | Speed Recall, Word Ladder, Error Correction |
+
+### Rating Inference Rules
+
+#### Production quizzes (Spelling, Fill-in-the-Blank, Sentence Scramble, Definition Reverse)
+
+| Outcome | SM-2 Quality ($q$) | Logic |
+|---|---|---|
+| Correct | 4 (Good) | Active recall succeeded |
+| Correct but slow (> 15s) | 3 (Hard) | Knew it, but with significant effort |
+| Close misspelling (1 letter off) | 3 (Hard) | Partial recall — nearly there |
+| Used a hint, then correct | 3 (Hard) | Assisted recall — cap at Hard |
+| Wrong, then correct on retry | 3 (Hard) | Needed a second attempt |
+| Wrong | 1 (Again) | Failed to produce |
+
+#### Recognition quizzes (Multiple Choice, Matching, Synonym/Antonym, Odd One Out, Collocation, Listening)
+
+> [!note] Recognition correct maps to Hard (3), not Good (4)
+> This is the key difference. Recognition is easier than production, so a correct answer gets a ==lower quality score==, which means the interval grows more slowly. The user will need to prove they know the word through a production quiz before intervals accelerate.
+
+| Outcome | SM-2 Quality ($q$) | Logic |
+|---|---|---|
+| Correct | 3 (Hard) | Recognition succeeded — but weaker evidence than production |
+| Correct but slow (> 15s) | 3 (Hard) | Already at the recognition floor |
+| Wrong | 1 (Again) | Failed even to recognize |
+
+#### Self-assessed (Flashcards only)
+
+| User taps | SM-2 Quality ($q$) |
 |---|---|
-| **Flashcard** | User self-rates: Again / Hard / Good / Easy |
-| **Multiple Choice** | Correct = Good, Wrong = Again. Response time can adjust (fast correct = Easy) |
-| **Spelling** | Correct spelling = Good, Wrong = Again. Close misspelling = Hard |
-| **Listening** | Correct identification = Good, Wrong = Again |
-| **Matching** | Each matched pair is rated individually. Correct = Good, Missed = Again |
-| **Fill-in-the-Blank** | Correct word = Good, Wrong = Again |
+| Again | 1 |
+| Hard | 3 |
+| Good | 4 |
+| Easy | 5 |
 
-This means a user can practice the same word through different quiz types across different review sessions, and all results contribute to the same SRS schedule for that word.
+> [!tip] Simplification option
+> Flashcards could also use a **2-button** UI (Got it / Didn't get it) mapped to Good (4) / Again (1). Fewer buttons = less friction. The 4-button version is more precise but could be offered as an advanced setting.
 
-## 11. Key Terminology Glossary
+#### Gamified modes (Speed Recall, Word Ladder, Error Correction)
+
+> [!warning] Asymmetric updates — protect real progress
+> Gamified modes test speed and lateral thinking, not direct semantic recall. A failure in Speed Recall (swiped too slowly) shouldn't destroy a word's hard-earned 30-day interval.
+
+| Outcome | SRS Effect | Logic |
+|---|---|---|
+| Correct | Micro-bump: treat as $q = 3$ | Small interval extension — bonus review credit |
+| Wrong | ==Ignored entirely== | No SRS penalty — the game mode doesn't reflect true recall |
+
+### Response Time Thresholds
+
+> [!warning] Time is used only for downgrading, never for upgrading
+> Mobile has too many confounders — keyboard latency, reading longer sentences, audio loading, distractions. Using fast response time to upgrade a score (e.g., "< 3s = Easy") introduces noise.
+
+| Rule | Threshold | Effect |
+|---|---|---|
+| Slow correct (production) | > 15s | Downgrade from Good (4) → Hard (3) |
+| Slow correct (recognition) | > 15s | Already at Hard (3) — no change |
+| Fast correct | Any | ==No upgrade==. Stay at the quiz type's default |
+
+> [!tip] Future enhancement
+> Once enough data is collected, replace the hardcoded 15s threshold with a ==dynamic baseline== calculated from the user's own average response time per quiz type. What's "slow" for one user might be normal for another.
+
+### Summary: Complete Rating Matrix
+
+| Quiz Type | Phase | Cognitive Type | Correct | Slow Correct | Wrong |
+|---|---|---|---|---|---|
+| **Flashcards** | 3 | Self-assessed | User chooses | User chooses | User chooses |
+| **Multiple Choice** | 3 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
+| **Spelling** | 3 | Production | 4 (Good) | 3 (Hard) | 1 (Again) |
+| **Listening** | 3 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
+| **Matching** | 3 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
+| **Fill-in-the-Blank** | 3 | Production | 4 (Good) | 3 (Hard) | 1 (Again) |
+| **Synonym/Antonym Match** | 4 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
+| **Odd One Out** | 4 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
+| **Collocation Check** | 5 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
+| **Error Correction** | 5 | Gamified | 3 (micro-bump) | 3 | Ignored |
+| **Sentence Scramble** | 5 | Production | 4 (Good) | 3 (Hard) | 1 (Again) |
+| **Speed Recall** | 6 | Gamified | 3 (micro-bump) | 3 | Ignored |
+| **Definition Reverse** | 6 | Production | 4 (Good) | 3 (Hard) | 1 (Again) |
+| **Word Ladder** | 6 | Gamified | 3 (micro-bump) | 3 | Ignored |
+
+## 11. Review Telemetry — Preparing for FSRS
+
+> [!important] Log raw data, not just inferred scores
+> When we migrate from SM-2 to FSRS, the optimizer needs precise review history to train per-user models. If we only save the inferred SM-2 quality score (1, 3, 4, 5), we lose the context FSRS needs.
+
+Every quiz interaction should log a raw telemetry event to Firestore:
+
+```json
+{
+  "wordId": "ubiquitous",
+  "userId": "user-123",
+  "timestamp": "2026-05-15T14:30:00Z",
+  "quizType": "SPELLING",
+  "cognitiveType": "PRODUCTION",
+  "phase": 3,
+  "outcome": "CORRECT",
+  "durationMs": 4200,
+  "hintUsed": false,
+  "retryAttempt": false,
+  "inferredQuality": 4,
+  "spellingDistance": 0
+}
+```
+
+> [!note] Fields explained
+>
+> | Field | Purpose |
+> |---|---|
+> | `quizType` | Which quiz generated this review |
+> | `cognitiveType` | `PRODUCTION`, `RECOGNITION`, `SELF_ASSESSED`, or `GAMIFIED` |
+> | `outcome` | `CORRECT`, `WRONG`, `CLOSE_MISSPELLING`, `HINT_USED`, `RETRY_CORRECT` |
+> | `durationMs` | Raw response time — FSRS can learn its own thresholds from this |
+> | `inferredQuality` | The SM-2 quality we calculated — useful for comparison when FSRS takes over |
+> | `spellingDistance` | Edit distance for spelling quizzes (0 = exact, 1 = one letter off) |
+
+> [!tip] Why this matters for FSRS migration
+> With this telemetry, FSRS can mathematically determine:
+> - *"For this user, a Multiple Choice correct is worth 0.6× a Spelling correct"*
+> - *"This user's 'slow' threshold is 8 seconds, not 15"*
+> - *"Words this user gets wrong on Listening quizzes have a 70% chance of being forgotten within 3 days"*
+>
+> We get ==personalized, data-driven weights== instead of our hardcoded heuristics. The heuristics are a starting point; the telemetry makes them obsolete over time.
+
+## 12. Key Terminology Glossary
 
 > [!abstract]- Expand glossary
 >
@@ -275,8 +400,11 @@ This means a user can practice the same word through different quiz types across
 > | **Stability** | How long a memory lasts before retrievability drops below a threshold |
 > | **Lapse** | When a user forgets a previously learned word (rates "Again" on a REVIEW word) |
 > | **Leech** | A word that keeps getting forgotten despite many reviews — may need a different learning approach |
+> | **Recognition** | Identifying the correct answer from options (easier — e.g., multiple choice) |
+> | **Production** | Generating the answer from memory (harder — e.g., spelling, fill-in-the-blank) |
+> | **Telemetry** | Raw interaction data logged per quiz event, used to train FSRS and improve rating inference |
 
-## 12. Further Reading
+## 13. Further Reading
 
 - [Wozniak, P. (1990). SM-2 Algorithm](https://super-memory.com/english/ol/sm2.htm) — The original SM-2 paper
 - [Ye, J. (2023). FSRS Algorithm](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm) — FSRS documentation and research
