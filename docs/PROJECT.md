@@ -28,6 +28,12 @@ WordPower is a personal word notebook. Users collect words they encounter in dai
 
 ### 2.2 Learning & Quiz Engine
 
+All quiz types draw from the user's personal word collection. New types are introduced across phases as the engine and data sources mature.
+
+#### Core Quizzes (Phase 3)
+
+The foundation — these build the quiz engine architecture and SRS integration.
+
 | Quiz Type | How It Works |
 |---|---|
 | **Flashcards** | Show word → reveal definition (and vice versa). User self-rates: Easy / Good / Hard / Again |
@@ -35,7 +41,36 @@ WordPower is a personal word notebook. Users collect words they encounter in dai
 | **Spelling** | Hear the word pronounced → type the correct spelling |
 | **Listening** | Hear the word → select the correct definition or type the word |
 | **Matching** | Match a set of words to their definitions by dragging/tapping |
-| **Fill-in-the-Blank** | Complete a sentence with the correct word from the user's database |
+| **Fill-in-the-Blank** | Complete a sentence with the correct word from the user's notebook |
+
+#### Semantic Quizzes (Phase 4)
+
+Leverage WordNet synonyms/antonyms and domain groupings — no new data sources needed.
+
+| Quiz Type | How It Works |
+|---|---|
+| **Synonym/Antonym Match** | Provide a word and ask the user to pick its closest synonym or opposite from a list |
+| **Odd One Out** | Present 4 words (3 related, 1 unrelated). User must identify the word that doesn't belong in the semantic group |
+
+#### Contextual Quizzes (Phase 5)
+
+Require rich example sentences and contextual data. Collocation Check needs a new data source (Oxford Collocations Dictionary or collocations mined from Oxford API example sentences).
+
+| Quiz Type | How It Works |
+|---|---|
+| **Collocation Check** | Ask the user which word typically "goes with" the target word (e.g., for "commit," the user picks "crime" or "mistake" over "homework") |
+| **Error Correction** | Show a sentence where the target word is used incorrectly (wrong tense, wrong context, or misspelled). The user must fix it |
+| **Sentence Scramble** | Provide a sentence using the target word, but with the words in random order. User must rearrange them correctly |
+
+#### Gamified Modes (Phase 6)
+
+Engagement and fluency layers built on top of the working quiz engine.
+
+| Quiz Type | How It Works |
+|---|---|
+| **Speed Recall** | A "beat the clock" mode where the user identifies as many definitions as possible in 60 seconds |
+| **Definition Reverse** | Provide a complex definition and have the user "build" the word from a scrambled set of letters |
+| **Word Ladder** | User must change one letter at a time to get from a starting word to the target word (useful for vocabulary with similar roots) |
 
 ### 2.3 Spaced Repetition System (SRS)
 
@@ -472,8 +507,9 @@ A shared, server-side cache ensures each English word is fetched from Oxford **e
 | Phase | Scope |
 |---|---|
 | **Phase 1 — The Notebook** | Flutter project setup, auth, cloud DB, quick-capture word entry, personal word list UI — the core notebook experience |
-| **Phase 2 — Auto-Enrichment** | Dictionary API integration, auto-fill definitions/pronunciation/domain/level, word detail view |
-| **Phase 3 — Quiz Engine** | Flashcards + multiple choice, basic SRS scheduling, review queue |
-| **Phase 4 — Advanced Quizzes** | Spelling, listening, matching, fill-in-the-blank |
-| **Phase 5 — Import & Polish** | CSV/Excel import, dashboard stats, streaks, notifications |
-| **Phase 6 — Launch** | App Store / Play Store submission, beta testing, polish |
+| **Phase 2 — Auto-Enrichment** | Dictionary API integration, auto-fill definitions/pronunciation/domain/level, word detail view, word discovery suggestions |
+| **Phase 3 — Core Quizzes** | Flashcards, multiple choice, spelling, listening, matching, fill-in-the-blank + basic SRS scheduling + review queue |
+| **Phase 4 — Semantic Quizzes** | Synonym/antonym match, odd one out — leveraging WordNet + Roget's data |
+| **Phase 5 — Contextual Quizzes** | Collocation check (+ new data source), error correction, sentence scramble + CSV/Excel import |
+| **Phase 6 — Gamified Modes** | Speed recall, definition reverse, word ladder + dashboard stats, streaks, notifications |
+| **Phase 7 — Launch** | App Store / Play Store submission, beta testing, polish |
