@@ -14,16 +14,17 @@ WordPower is a personal word notebook. Users collect words they encounter in dai
 
 ## 2. Core Features
 
-### 2.1 Word Management
+### 2.1 Word Notebook
 
 | Feature | Description |
 |---|---|
-| **Manual Entry** | Users add words with their own definitions, notes, and example sentences |
-| **Dictionary API Lookup** | Type a word and auto-fetch its definition, pronunciation (audio + phonetic), part of speech, and example usage |
-| **Bulk Import** | Import word lists from CSV or Excel files |
-| **Word Detail View** | Shows definition, pronunciation (with audio playback), example sentences, part of speech, synonyms/antonyms, and personal notes |
-| **Word Lists / Folders** | Organize words into custom collections (e.g., "IELTS", "Business", "Daily") |
-| **Word Domains** | Every word is tagged with a semantic domain and CEFR level (see Section 2.6) |
+| **Quick Capture** | Jot down a word as fast as possible — just type the word you encountered and save. No friction, like scribbling in a notebook |
+| **Auto-Enrichment** | The app automatically fills in the definition, pronunciation (audio + phonetic), part of speech, example sentences, CEFR level, semantic domain, and root family via the Dictionary API |
+| **Personal Notes** | Optionally add your own context — where you heard the word, your own definition, a native-language translation |
+| **Bulk Import** | Import word lists from CSV or Excel files for users migrating from other tools |
+| **Word Detail View** | Full word card showing everything the app discovered plus your personal notes |
+| **Word Lists / Folders** | Organize your collected words into custom collections (e.g., "IELTS Prep", "Words from Breaking Bad", "Office vocabulary") |
+| **Word Domains** | Every word is automatically tagged with a semantic domain and CEFR level (see Section 2.6) |
 
 ### 2.2 Learning & Quiz Engine
 
@@ -266,15 +267,17 @@ CEFR-J + Wordfreq
 
 #### User Experience
 
+The user's own collection is the centre of the app. Browsing and discovery always start from words the user has saved.
+
 | Path | Example |
 |---|---|
-| **Browse by domain** | "I want medical vocabulary" → Body & Health → words sorted A1→C2 |
-| **Browse by level** | "I'm B1, what should I learn?" → all B1 words across all domains |
-| **Browse by root** | "Show me the 'port' family" → transport, export, import, portable, support... |
-| **Combine axes** | "B1 Business vocabulary" → Work & Business × B1 |
-| **Root discovery** | User learns "transport" → app suggests: "You know the root *port-* (to carry). Explore 9 more words from this family?" |
-| **Custom lists** | User creates "IELTS Prep" list → adds words from any domain/level/family |
-| **Auto-tagged** | User looks up "prognosis" → auto-tags: Body & Health, C1, root: *gnos-* (to know) |
+| **Jot & enrich** | User hears "prognosis" at the doctor → jots it down → app auto-fills: Body & Health, C1, root: *gnos-* (to know), synonyms, pronunciation |
+| **Browse your notebook** | Filter your collected words by domain, level, root family, or list |
+| **Discover from your words** | User saved "transport" → app suggests: "You know the root *port-* (to carry). Want to add *export*, *import*, *portable* to your notebook?" |
+| **Similar word suggestions** | User has 5 Body & Health words → app surfaces related words at the same CEFR level: "You might also encounter *ailment*, *symptom*, *diagnosis*" |
+| **Combine axes** | "Show me my B1 Business words" → filters your collection: Work & Business × B1 |
+| **Custom lists** | User creates "IELTS Prep" list → organizes collected words from any domain/level/family |
+| **Level progress** | "You've collected 40 B2 words and mastered 28 — here are B2 words related to ones you already know" |
 
 ### 2.7 User Accounts & Cloud Sync
 
@@ -310,14 +313,13 @@ English language learners who want a personalized vocabulary tool — not a fixe
 
 ## 6. Key Screens
 
-1. **Home / Dashboard** — Today's review count, streak, progress stats, CEFR level progress
-2. **Explore Domains** — Browse the semantic domain tree; tap a domain to see its words by level
-3. **Explore Roots** — Browse word root families by origin (Germanic, Latin, Greek); tap a root to see all derived words
-4. **Word List** — Browse, search, filter all saved words (by domain, level, root family, status, or list)
-4. **Add Word** — Manual entry form + dictionary lookup toggle (auto-tags domain + level)
-5. **Word Detail** — Full word card with all info, domain badge, CEFR level, edit capability
-6. **Quiz Session** — Active quiz with the selected quiz type (can filter by domain/level)
-7. **Review Queue** — SRS-driven daily review session (mixed quiz types)
+1. **Home / Dashboard** — Today's review count, streak, words collected this week, progress stats
+2. **Add Word** — Quick-capture screen: type a word, tap save, app enriches it automatically. Minimal friction — this is the most important screen
+3. **My Words** — Browse, search, filter your collected words (by domain, level, root family, status, or list)
+4. **Word Detail** — Full word card with auto-fetched info + personal notes, domain badge, CEFR level, root family, edit capability
+5. **Discover** — Word suggestions based on your collection: same domain, same level, same root family. "Words you might encounter next"
+6. **Quiz Session** — Active quiz with the selected quiz type (can filter by domain/level from your collection)
+7. **Review Queue** — SRS-driven daily review session (mixed quiz types, drawn from your words)
 8. **Import** — CSV/Excel upload and field mapping
 9. **Profile / Settings** — Account, sync status, quiz preferences, target CEFR level, notifications
 
@@ -449,6 +451,8 @@ A shared, server-side cache ensures each English word is fetched from Oxford **e
 
 ## 9. Success Metrics
 
+- **Words collected per user per week** — the notebook habit is the core engagement loop
+- **Collection-to-review ratio** — are users coming back to learn what they collected?
 - Daily active users returning for review sessions
 - Average words mastered per user per month
 - Review completion rate (% of due words actually reviewed)
@@ -467,8 +471,8 @@ A shared, server-side cache ensures each English word is fetched from Oxford **e
 
 | Phase | Scope |
 |---|---|
-| **Phase 1 — Foundation** | Flutter project setup, auth, cloud DB, word CRUD (manual entry), basic word list UI |
-| **Phase 2 — Dictionary** | Dictionary API integration, pronunciation/audio, auto-fill word details |
+| **Phase 1 — The Notebook** | Flutter project setup, auth, cloud DB, quick-capture word entry, personal word list UI — the core notebook experience |
+| **Phase 2 — Auto-Enrichment** | Dictionary API integration, auto-fill definitions/pronunciation/domain/level, word detail view |
 | **Phase 3 — Quiz Engine** | Flashcards + multiple choice, basic SRS scheduling, review queue |
 | **Phase 4 — Advanced Quizzes** | Spelling, listening, matching, fill-in-the-blank |
 | **Phase 5 — Import & Polish** | CSV/Excel import, dashboard stats, streaks, notifications |
