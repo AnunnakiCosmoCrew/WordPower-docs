@@ -1,6 +1,6 @@
 # WordPower (Working Title) — Project Document
 
-> A vocabulary-learning app that helps users build, practice, and master English words through interactive quizzes, spelling challenges, and spaced repetition.
+> A personal word notebook that turns everyday vocabulary discoveries into lasting knowledge — collect words from daily life, and let the app teach you their meaning, spelling, pronunciation, and related vocabulary through quizzes, flashcards, and spaced repetition.
 
 **Project Manager:** Mert Ertugrul
 **Originally Conceived:** January 17, 2024
@@ -10,7 +10,7 @@
 
 ## 1. Vision
 
-Users create their own personal word database and the app turns it into a learning engine — generating flashcards, quizzes, spelling drills, and listening exercises. Words resurface at scientifically-timed intervals so users spend time on what they actually need to review.
+WordPower is a personal word notebook. Users collect words they encounter in daily life — from conversations, books, articles, exams, or anywhere else — and jot them down like they would in a notebook. The app then enriches each word with its meaning, pronunciation, synonyms, CEFR level, and semantic domain. It also surfaces similar words at the same level or in the same category, helping users expand their vocabulary organically. Through quizzes, spelling drills, pronunciation listening, flashcards, and vocabulary exercises, the app turns a personal word collection into deep, lasting knowledge. Words resurface at scientifically-timed intervals so users spend time on what they actually need to review.
 
 ## 2. Core Features
 
