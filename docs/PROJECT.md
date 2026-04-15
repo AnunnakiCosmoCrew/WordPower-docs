@@ -7,9 +7,39 @@
 |---|---|
 | **Project Manager** | Mert Ertugrul |
 | **Originally Conceived** | January 17, 2024 |
-| **Platform** | Flutter (iOS & Android) |
+| **Platform** | Flutter (Web → iOS → Android) |
 
 Related: [[SPACED_REPETITION]] | [[COMPETITIVE_ANALYSIS]]
+
+---
+
+## Table of Contents
+
+1. [[#1. Vision]]
+2. [[#2. Core Features]]
+   - [[#2.1 Word Notebook]]
+   - [[#2.2 Learning & Quiz Engine]]
+   - [[#2.3 Spaced Repetition System (SRS)]]
+   - [[#2.4 Pronunciation & Audio]]
+   - [[#2.6 Word Domain & Level System]]
+   - [[#2.7 User Accounts & Cloud Sync]]
+3. [[#3. Target User]]
+4. [[#4. Language Scope]]
+5. [[#5. Platform Strategy]]
+6. [[#6. Technical Stack]]
+   - [[#Environments]]
+7. [[#7. Key Screens]]
+8. [[#8. Data Model (High-Level)]]
+9. [[#9. Monetization]]
+10. [[#10. Success Metrics]]
+11. [[#11. Risks]]
+12. [[#12. Milestones]]
+    - [[#Phase 1 — MVP: "Jot & Flip"]]
+    - [[#Phase 2 — Cloud & Enrichment: "Smart Notebook"]]
+    - [[#Phase 3 — Quiz Engine & SRS: "Learn for Real"]]
+    - [[#Phase 4 — Vocabulary System: "Organized Learning"]]
+    - [[#Phase 5 — Advanced Modes: "Deep Practice"]]
+    - [[#Phase 6 — Launch: "Ship It"]]
 
 ---
 
@@ -49,7 +79,7 @@ flowchart LR
 
 All quiz types draw from the user's personal word collection. New types are introduced across phases as the engine and data sources mature.
 
-#### Core Quizzes (Phase 3)
+#### Core Quizzes (Phase 3 — Quiz Engine & SRS)
 
 > [!note] Foundation
 > These build the quiz engine architecture and [[SPACED_REPETITION|SRS]] integration.
@@ -63,7 +93,7 @@ All quiz types draw from the user's personal word collection. New types are intr
 | **Matching** | Match a set of words to their definitions by dragging/tapping |
 | **Fill-in-the-Blank** | Complete a sentence with the correct word from the user's notebook |
 
-#### Semantic Quizzes (Phase 4)
+#### Semantic Quizzes (Phase 5 — Advanced Modes)
 
 > [!note] Data source
 > Leverage WordNet synonyms/antonyms and domain groupings — ==no new data sources needed==.
@@ -73,7 +103,7 @@ All quiz types draw from the user's personal word collection. New types are intr
 | **Synonym/Antonym Match** | Provide a word and ask the user to pick its closest synonym or opposite from a list |
 | **Odd One Out** | Present 4 words (3 related, 1 unrelated). User must identify the word that doesn't belong in the semantic group |
 
-#### Contextual Quizzes (Phase 5)
+#### Contextual Quizzes (Phase 5 — Advanced Modes)
 
 > [!warning] New data source required
 > Collocation Check needs a collocation data source not in the current pipeline (Oxford Collocations Dictionary or collocations mined from Oxford API example sentences).
@@ -84,7 +114,7 @@ All quiz types draw from the user's personal word collection. New types are intr
 | **Error Correction** | Show a sentence where the target word is used incorrectly (wrong tense, wrong context, or misspelled). The user must fix it |
 | **Sentence Scramble** | Provide a sentence using the target word, but with the words in random order. User must rearrange them correctly |
 
-#### Gamified Modes (Phase 6)
+#### Gamified Modes (Phase 5 — Advanced Modes)
 
 > [!note]
 > Engagement and fluency layers built on top of the working quiz engine.
@@ -264,7 +294,7 @@ Words are grouped by their morphological root — the core unit of meaning that 
 > |---|---|---|
 > | **Oxford Dictionaries API** | Definitions, pronunciation audio, phonetics, examples, part of speech | ~£50/mo (cached) |
 
-> [!example]- Tier 2 — Free/Open Data (shipped as static assets or Firestore collections)
+> [!example]- Tier 2 — Free/Open Data (shipped as static assets or database seed data)
 >
 > | Source | What it provides | License |
 > |---|---|---|
@@ -332,7 +362,7 @@ Multiple sources are combined to power word connections:
 > 
 >     E & F & I & J & K & L --> M[("Unified Dataset")]
 >     M --> N["Static asset in app"]
->     M --> O["Firestore\n/dictionary-meta/"]
+>     M --> O["PostgreSQL\ndictionary tables"]
 > ```
 
 #### User Experience
@@ -352,8 +382,8 @@ Multiple sources are combined to power word connections:
 
 ### 2.7 User Accounts & Cloud Sync
 
-- User authentication (email/password, Google Sign-In, Apple Sign-In)
-- Cloud database (Firebase Firestore or Supabase)
+- User authentication via Firebase Auth (email/password, Google Sign-In, Apple Sign-In)
+- Cloud database (PostgreSQL via Neon) accessed through Spring Boot API
 - Real-time sync across devices
 - Offline support with local cache — syncs when back online
 
@@ -368,22 +398,47 @@ Multiple sources are combined to power word connections:
 - **Interface/translations:** Initially English UI; native-language translation field available per word for personal reference
 - Future: expandable to other target languages if demand exists
 
-## 5. Technical Stack
+## 5. Platform Strategy
+
+> [!info] Approach
+> Web first for fast iteration and validation, then iOS for the natural mobile use case, then Android if traction proves demand.
+
+| Phase | Platform | Rationale |
+|---|---|---|
+| Phase 1 — MVP | Web | Zero friction — deploy, share a URL, iterate fast. No app store costs or review delays |
+| Phase 2 — Cloud & Enrichment | Web + iOS | iOS brings the natural mobile use case (collect words on the go, quick reviews) |
+| Phase 3–5 | Web + iOS | Single Flutter codebase targets both |
+| Phase 6 — Launch | Web + iOS | App Store + web deployment |
+| Post-launch | + Android | Added if the product proves successful |
+
+## 6. Technical Stack
 
 | Layer | Technology |
 |---|---|
-| **Framework** | Flutter (Dart) |
-| **State Management** | TBD (Riverpod, Bloc, or Provider) |
-| **Local Storage** | Hive, Isar, or SQLite (drift) for offline cache |
-| **Backend / Auth** | Firebase (Auth + Firestore + Cloud Functions) |
-| **Dictionary API** | Oxford Dictionaries API (API Lite plan) with aggressive server-side caching |
+| **Frontend** | Flutter (Dart) |
+| **State Management** | Riverpod |
+| **Local Storage** | SQLite via drift (mirrors PostgreSQL schema for sync) |
+| **Backend Testing** | Testcontainers (PostgreSQL) for component/integration tests |
+| **Backend API** | Spring Boot (Java 21) |
+| **Auth** | Firebase Auth (email/password, Google Sign-In, Apple Sign-In) |
+| **Database** | PostgreSQL via Neon (serverless) |
+| **Cloud** | Google Cloud Platform (Cloud Run) |
+| **Dictionary API** | Oxford Dictionaries API (API Lite plan) with aggressive server-side caching in PostgreSQL |
 | **Word Intelligence** | Open English WordNet 2025 (synonyms, hierarchy, domains) + Roget's 1911 (thematic clusters, quiz distractors) |
 | **CEFR Leveling** | CEFR-J Dataset + Wordfreq (frequency-to-level mapping) |
 | **Reference Material** | HTOED, David Crystal's *Words in Time and Place*, English Vocabulary Profile, Oxford Learner's Dictionaries — studied for taxonomy design and leveling methodology |
 | **TTS** | Platform-native TTS + dictionary audio files |
-| **CI/CD** | GitHub Actions, Fastlane |
+| **CI/CD** | GitHub Actions |
 
-## 6. Key Screens
+### Environments
+
+| Environment | Purpose | Backend (Cloud Run) | Database (Neon) | Firebase Project |
+|---|---|---|---|---|
+| **DEV** | Local development, feature branches | dev instance | dev branch/database | dev project |
+| **TEST** | Integration testing, PR validation, staging | test instance | test branch/database | test project |
+| **PROD** | Live users | prod instance | prod database | prod project |
+
+## 7. Key Screens
 
 > [!important]
 > **Add Word** is the ==most important screen== — it must be the fastest, lowest-friction path in the app.
@@ -398,7 +453,7 @@ Multiple sources are combined to power word connections:
 8. **Import** — CSV/Excel upload and field mapping
 9. **Profile / Settings** — Account, sync status, quiz preferences, target CEFR level, notifications
 
-## 7. Data Model (High-Level)
+## 8. Data Model (High-Level)
 
 ```mermaid
 erDiagram
@@ -465,7 +520,7 @@ erDiagram
     }
 ```
 
-## 8. Monetization
+## 9. Monetization
 
 - **Model:** 7-day free trial → paid subscription
 - **Pricing:** ==$4.99/month== or ==$29.99/year==
@@ -480,7 +535,9 @@ erDiagram
 > | Oxford API Lite | ~$63 (£50) |
 > | Apple Developer Program | $8.25 |
 > | Google Play (amortized) | ~$2 |
-> | Firebase (Auth + Firestore) | $0–5 |
+> | Firebase Auth | $0 |
+| Neon PostgreSQL | $0–19 |
+| GCP Cloud Run | $0–10 |
 > | **Total** | **~$73–78** |
 
 ### Dictionary Caching Architecture
@@ -490,8 +547,8 @@ erDiagram
 
 ```mermaid
 flowchart LR
-    A["Flutter App"] -->|"lookupWord()"| B["Cloud Function"]
-    B -->|"Check cache"| C[("Firestore\n/dictionary/{word}")]
+    A["Flutter App"] -->|"GET /api/words/{word}"| B["Spring Boot API"]
+    B -->|"Check cache"| C[("PostgreSQL\ndictionary_cache")]
     C -->|"CACHE HIT\n(most calls)"| B
     B -->|"CACHE MISS only"| D["Oxford API"]
     D -->|"Save to cache"| C
@@ -501,13 +558,13 @@ flowchart LR
 > [!example]- Flow detail
 >
 > 1. User types a word in the app
-> 2. App calls a Firebase Cloud Function (`lookupWord`)
-> 3. Cloud Function checks Firestore `/dictionary/{word}`
+> 2. App calls the Spring Boot API (`GET /api/words/{word}`)
+> 3. API checks `dictionary_cache` table in PostgreSQL
 >    - **HIT** → return cached data immediately (no Oxford API call)
->    - **MISS** → call Oxford API → save response to `/dictionary/{word}` → return to user
-> 4. All future lookups for that word by any user are served from Firestore
+>    - **MISS** → call Oxford API → save response to `dictionary_cache` → return to user
+> 4. All future lookups for that word by any user are served from PostgreSQL
 
-> [!example]- Firestore `/dictionary/{word}` document
+> [!example]- `dictionary_cache` table row
 >
 > ```json
 > {
@@ -526,7 +583,7 @@ flowchart LR
 >   "rogetCategory": 520,
 >   "relatedWords": ["vague", "unclear", "equivocal", "enigmatic", "cryptic"],
 >   "source": "oxford",
->   "fetchedAt": "Timestamp"
+>   "fetchedAt": "2026-04-15T12:00:00Z"
 > }
 > ```
 
@@ -534,9 +591,9 @@ flowchart LR
 > - 500 users looking up "ambiguous" = ==**1 API call**==, not 500
 > - English has ~170,000 words in common use; after a few months the cache covers nearly every word users will ever search
 > - Oxford API costs stay flat at the base plan even as user count grows to thousands
-> - The Oxford API key never touches the client — it stays secure in Cloud Functions
+> - The Oxford API key never touches the client — it stays secure in the Spring Boot API on GCP
 
-## 9. Success Metrics
+## 10. Success Metrics
 
 | Metric | Type | Why it matters |
 |---|---|---|
@@ -547,36 +604,117 @@ flowchart LR
 | Review completion rate | Learning | % of due words actually reviewed |
 | Retention rate (7-day, 30-day) | Retention | Long-term stickiness |
 
-## 10. Risks
+## 11. Risks
 
 | Risk | Mitigation |
 |---|---|
-| Oxford API rate limits or downtime | Aggressive Firestore caching (1 call per word ever); manual entry as fallback |
+| Oxford API rate limits or downtime | Aggressive PostgreSQL caching (1 call per word ever); manual entry as fallback |
 | Users abandoning due to lack of motivation | Streaks, progress stats, achievement badges. See [[COMPETITIVE_ANALYSIS#Why Users Abandon Vocabulary Apps]] |
 | Complex SRS logic introducing bugs | Unit test the scheduling algorithm thoroughly in isolation. See [[SPACED_REPETITION#7. The SM-2 Algorithm]] |
-| Cloud sync conflicts | Use Firestore's real-time sync with conflict resolution; last-write-wins for simple fields |
+| Cloud sync conflicts | Last-write-wins for simple fields; conflict detection for complex state |
 
-## 11. Milestones (Rough Phases)
+## 12. Milestones
+
+> [!info] Approach
+> Each phase delivers a **usable product end-to-end** (skateboard → car). Phase 1 already lets users collect AND learn — every phase after that makes both better.
+
+### Phase 1 — MVP: "Jot & Flip"
+
+> **Platform:** Web
+
+The simplest usable product. A user can collect words and learn them today.
+
+| Deliverable | Details |
+|---|---|
+| Flutter project setup | Project structure, CI/CD skeleton, linting |
+| Quick Capture | Type a word, tap save — lowest friction possible |
+| Free dictionary lookup | Basic definition via free API (no Oxford yet) |
+| Simple flashcard review | Flip through collected words (word ↔ definition) |
+| Local-only storage | No auth, no cloud — everything on device |
+
+### Phase 2 — Cloud & Enrichment: "Smart Notebook"
+
+> **Platform:** Web + iOS
+
+Words get richer, data lives in the cloud. iOS enters as the natural mobile home.
+
+| Deliverable | Details |
+|---|---|
+| Firebase Auth | Email/password, Google Sign-In, Apple Sign-In |
+| Cloud sync | Real-time sync across devices via Spring Boot API |
+| Oxford API integration | Cloud Functions + server-side caching (1 call per word ever) |
+| Auto-enrichment | Definition, pronunciation (audio + IPA), part of speech, example sentences, CEFR level, semantic domain |
+| Word Detail View | Full word card with all enriched data + personal notes |
+| iOS deployment | App Store submission for iOS |
+
+### Phase 3 — Quiz Engine & SRS: "Learn for Real"
+
+Learning becomes structured and scientifically timed.
+
+| Deliverable | Details |
+|---|---|
+| Quiz engine architecture | Pluggable quiz type system — adding new types is easy |
+| Core quiz types | Flashcards (with SRS rating), multiple choice, spelling, listening, matching, fill-in-the-blank |
+| SM-2 spaced repetition | Familiarity score, intervals, next review date per word |
+| Daily review queue | Auto-generated from due words, mixed quiz types |
+
+### Phase 4 — Vocabulary System: "Organized Learning"
+
+The notebook becomes a real vocabulary system.
+
+| Deliverable | Details |
+|---|---|
+| Word Lists / Folders | Custom collections (e.g., "IELTS Prep", "Words from Breaking Bad") |
+| Domain browsing & filtering | Filter by semantic domain, CEFR level, status |
+| Root families | Root → word family tree, prefix/suffix breakdowns |
+| Word discovery | "You know *transport* — try *export*, *import*, *portable*" |
+| Dashboard | Stats, streaks, words collected/mastered, level progress |
+
+### Phase 5 — Advanced Modes: "Deep Practice"
+
+Richer quiz types and power-user features.
+
+| Deliverable | Details |
+|---|---|
+| Semantic quizzes | Synonym/antonym match, odd one out |
+| Contextual quizzes | Collocation check, error correction, sentence scramble |
+| Gamified modes | Speed recall, definition reverse, word ladder |
+| CSV/Excel import | Bulk import with field mapping |
+| Notifications | Review reminders, streak nudges |
+| Offline support | Local cache with sync-when-online |
+
+### Phase 6 — Launch: "Ship It"
+
+> **Platform:** Web + iOS (Android added post-launch if successful)
+
+Polish and publish.
+
+| Deliverable | Details |
+|---|---|
+| Onboarding flow | First-run experience explaining the collect → learn loop |
+| UI polish | Animations, transitions, edge cases, accessibility |
+| Beta testing | TestFlight (iOS) + web beta |
+| Store submission | iOS App Store + web deployment |
+| Analytics | Usage tracking, funnel analysis, crash reporting |
 
 ```mermaid
 timeline
     title WordPower Development Phases
-    Phase 1 — The Notebook : Flutter setup, auth, cloud DB
-                            : Quick-capture word entry
-                            : Personal word list UI
-    Phase 2 — Auto-Enrichment : Dictionary API integration
-                               : Auto-fill definitions, pronunciation, domain, level
-                               : Word detail view, word discovery
-    Phase 3 — Core Quizzes : Flashcards, multiple choice, spelling
-                            : Listening, matching, fill-in-the-blank
-                            : Basic SRS scheduling + review queue
-    Phase 4 — Semantic Quizzes : Synonym/antonym match
-                                : Odd one out
-    Phase 5 — Contextual Quizzes : Collocation check + new data source
-                                  : Error correction, sentence scramble
-                                  : CSV/Excel import
-    Phase 6 — Gamified Modes : Speed recall, definition reverse, word ladder
-                              : Dashboard stats, streaks, notifications
-    Phase 7 — Launch : App Store / Play Store submission
-                      : Beta testing, polish
+    Phase 1 — MVP (Web) : Flutter setup, local storage
+                        : Quick capture word entry
+                        : Free dictionary lookup
+                        : Simple flashcard review
+    Phase 2 — Cloud & Enrichment (Web + iOS) : Firebase auth + Spring Boot API
+                                              : Oxford API + caching
+                                              : Auto-enrichment, word detail view
+    Phase 3 — Quiz Engine & SRS : Core quiz types (6 types)
+                                : SM-2 spaced repetition
+                                : Daily review queue
+    Phase 4 — Vocabulary System : Lists, folders, domain browsing
+                                : Root families, word discovery
+                                : Dashboard, stats, streaks
+    Phase 5 — Advanced Modes : Semantic, contextual, gamified quizzes
+                              : CSV import, notifications, offline
+    Phase 6 — Launch : Onboarding, polish, beta testing
+                     : App Store + web deployment
 ```

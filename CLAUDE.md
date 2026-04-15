@@ -4,16 +4,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-WordPower is a personal word notebook app built with Flutter (iOS & Android). Users collect English words they encounter in daily life, and the app enriches them with definitions, pronunciation, CEFR levels, and semantic domains — then helps users learn through quizzes, flashcards, spelling drills, and spaced repetition.
+WordPower is a personal word notebook app built with Flutter (Web → iOS → Android). Users collect English words they encounter in daily life, and the app enriches them with definitions, pronunciation, CEFR levels, and semantic domains — then helps users learn through quizzes, flashcards, spelling drills, and spaced repetition.
 
-**This repository (`WordPower-docs`) contains project documentation only.** The Flutter app will live in a separate repo.
+**This repository (`WordPower-docs`) contains project documentation only.** The app lives in a separate repo.
 
 ## Repository Map
 
 | Repo | Purpose | Push to main? |
 |------|---------|---------------|
 | `AnunnakiCosmoCrew/WordPower-docs` (this repo) | Project docs, specs, competitive analysis | Yes — direct push |
-| `AnunnakiCosmoCrew/WordPower` (future) | Flutter app | No — branch + PR only |
+| `AnunnakiCosmoCrew/WordPower-app` | Monorepo: Spring Boot backend + Flutter frontend | No — branch + PR only |
 
 ## Git Workflow (Trunk-Based Development)
 
@@ -48,7 +48,7 @@ Examples:
 2. **Set an estimate** (Fibonacci: 0, 1, 2, 3, 5, 8, 13) on the project board. Bugs are `0`.
 3. **Move ticket to "In Progress"** on the project board before writing any code.
 4. **Create a feature branch** from latest `main`: `feature/wp-{N}-{slug}`.
-5. **Implement and verify**: `flutter analyze --no-fatal-infos`, `dart format --set-exit-if-changed`, and `flutter test` (all pass).
+5. **Implement and verify**: For frontend: `flutter analyze --no-fatal-infos`, `dart format --set-exit-if-changed`, `flutter test`. For backend: `./gradlew check`. All must pass.
 6. **Commit** to the feature branch with a descriptive message referencing the issue number.
 7. **Push and open a PR** with `Closes #NNN` in the body so the issue auto-closes on merge.
 
