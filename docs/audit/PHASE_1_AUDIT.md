@@ -121,6 +121,67 @@
 
 ---
 
+## Cycle Time & Lead Time
+
+> [!info] Definitions
+> - **Lead time** = time from issue created to issue closed (includes wait time in backlog)
+> - **Cycle time** = effectively the same here, since most issues were started shortly after creation
+
+### Overall
+
+| Metric | All issues (27) | Phase 1 planned (10) | Infra / bonus (17) |
+|---|---|---|---|
+| **Average** | 12.2 hours | 24.7 hours | 4.9 hours |
+| **Median** | 6.1 hours | 29.6 hours | 3.2 hours |
+| **Fastest** | 0.1 hours | 0.2 hours | 0.1 hours |
+| **Slowest** | 46.9 hours | 46.9 hours | 17.5 hours |
+
+### Phase 1 planned issues (by lead time)
+
+| # | Issue | Lead time |
+|---|---|---|
+| #53 | Max width centering | 0.2h |
+| #3 | Frontend CI pipeline | 10.8h |
+| #1 | Flutter scaffold | 10.9h |
+| #6 | Drift local DB | 12.2h |
+| #4 | Quick Capture screen | 16.3h |
+| #13 | Word list / My Words | 29.6h |
+| #14 | Web deployment | 31.3h |
+| #5 | Free Dictionary API | 42.5h |
+| #8 | Home dashboard | 46.2h |
+| #7 | Flashcard review | 46.9h |
+
+### Infrastructure issues (by lead time)
+
+| # | Issue | Lead time |
+|---|---|---|
+| #17 | Copilot instructions | 0.1h |
+| #62 | Smart CI skipping | 0.3h |
+| #15 | .gitignore | 0.3h |
+| #44 | Dependabot replace | 0.4h |
+| #56 | CI trigger fix | 0.6h |
+| #23 | Semgrep | 1.5h |
+| #28 | Frontend coverage | 1.7h |
+| #25 | JaCoCo coverage | 2.1h |
+| #21 | Checkstyle | 3.2h |
+| #22 | SpotBugs + PMD | 3.6h |
+| #26 | Cucumber BDD | 5.3h |
+| #27 | very_good_analysis | 5.9h |
+| #24 | OWASP dep-check | 6.1h |
+| #29 | Required status checks | 6.5h |
+| #2 | Spring Boot scaffold | 10.8h |
+| #41 | CI optimization | 17.1h |
+| #39 | Spring Boot bump | 17.5h |
+
+> [!tip] Observations
+>
+> - **Infra issues are fast** — median 3.2h. Mostly CI/tooling config with small, focused PRs.
+> - **Feature issues take longer** — median 29.6h. Expected: they involve UI, state management, tests, and iteration.
+> - **Longer lead times on #5, #7, #8** reflect backlog wait (created Apr 15, closed Apr 17) not active work time. True cycle time is shorter.
+> - **Phase 2 baseline:** expect feature issues to average ~1-2 days lead time based on Phase 1 velocity.
+
+---
+
 ## Phase 2 Readiness
 
 Phase 1 leaves the project well-positioned for Phase 2 ("Cloud & Enrichment"):
