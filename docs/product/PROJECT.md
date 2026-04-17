@@ -49,12 +49,12 @@ WordPower is a ==personal word notebook==. Users collect words they encounter in
 
 ```mermaid
 flowchart LR
-    A["Encounter a word\nin daily life"] --> B["Jot it down\nin WordPower"]
-    B --> C["App auto-enriches\n(definition, pronunciation,\ndomain, level, root)"]
-    C --> D["Learn through\nquizzes & flashcards"]
-    D --> E["SRS resurfaces it\nat the right time"]
+    A["Encounter a word<br/>in daily life"] --> B["Jot it down<br/>in WordPower"]
+    B --> C["App auto-enriches<br/>(definition, pronunciation,<br/>domain, level, root)"]
+    C --> D["Learn through<br/>quizzes & flashcards"]
+    D --> E["SRS resurfaces it<br/>at the right time"]
     E --> D
-    C --> F["Discover\nrelated words"]
+    C --> F["Discover<br/>related words"]
     F --> B
 ```
 
@@ -294,6 +294,43 @@ Words are grouped by their morphological root — the core unit of meaning that 
 > |---|---|---|
 > | **Oxford Dictionaries API** | Definitions, pronunciation audio, phonetics, examples, part of speech | ~£50/mo (cached) |
 
+> [!info]- Dictionary API Comparison — Phase 1 vs Phase 2
+>
+> Oxford API is the long-term source (Phase 2+), but it requires a paid key and a backend to protect it. Phase 1 is web-only and local-only — no server. We evaluated free alternatives for Phase 1:
+>
+> | Criteria | Free Dictionary API | WordsAPI | Wiktionary (direct) | Datamuse |
+> |---|---|---|---|---|
+> | Definitions | Yes | Yes | Yes (hard to parse) | No |
+> | Pronunciation audio | Yes | No | Yes (hard to parse) | No |
+> | Phonetics (IPA) | Yes | Yes | Yes (hard to parse) | Partial |
+> | Example sentences | Yes | No | Yes (hard to parse) | No |
+> | API key required | No | Yes (RapidAPI) | No | No |
+> | Rate limits | None | Limited free tier | None | 100K/day |
+> | Dart packages on pub.dev | Yes | No | No | No |
+>
+> **Decision:** ==Free Dictionary API (dictionaryapi.dev)== for Phase 1.
+>
+> - Covers all MVP needs: definitions, POS, phonetics, audio URLs, examples
+> - No API key, no rate limits, no cost
+> - Wiktionary data served as clean JSON — reliable and community-maintained
+> - Existing Dart packages (`free_dictionary_api_v2`) reduce integration work
+> - Endpoint: `https://api.dictionaryapi.dev/api/v2/entries/en/{word}`
+>
+> **Why not stay on Free Dictionary API permanently?**
+>
+> | | Free Dictionary API | Oxford Dictionaries API |
+> |---|---|---|
+> | Data quality | Good (Wiktionary-sourced) | Best (professional lexicographers) |
+> | Audio quality | Mixed (some words missing) | Consistent (native speaker recordings) |
+> | Sense disambiguation | Basic | Detailed (per-sense definitions with examples) |
+> | Register/frequency metadata | None | Yes (formal/informal, frequency bands) |
+> | Uptime SLA | None (community project) | Commercial SLA |
+> | CEFR level hints | None | Available in response metadata |
+>
+> Oxford's data quality justifies the ~£50/mo cost once we have a backend to cache responses (Phase 2). The ==server-side cache== (see [[#Dictionary Caching Architecture]]) means actual API call volume stays minimal regardless of user count.
+>
+> **Migration path:** `DictionaryService` is implemented behind an abstract interface from day one (WP-5). Swapping Free Dictionary for Oxford in Phase 2 is a single implementation class change — no frontend rewrites.
+
 > [!example]- Tier 2 — Free/Open Data (shipped as static assets or database seed data)
 >
 > | Source | What it provides | License |
@@ -348,21 +385,21 @@ Multiple sources are combined to power word connections:
 >
 > ```mermaid
 > flowchart TD
->     A["Open English WordNet 2025\n(CC BY 4.0)"] --> D["Parse synsets,\nrelationships, hierarchy"]
->     D --> E["Map hypernym chains\nto WordPower domains"]
->     D --> F["Extract synonym/antonym/\nrelated word lists"]
+>     A["Open English WordNet 2025<br/>(CC BY 4.0)"] --> D["Parse synsets,<br/>relationships, hierarchy"]
+>     D --> E["Map hypernym chains<br/>to WordPower domains"]
+>     D --> F["Extract synonym/antonym/<br/>related word lists"]
 > 
->     B["Roget's 1911\n(public domain)"] --> G["Parse 1,022 entries"]
->     G --> H["Filter archaic words\n(cross-ref with Wordfreq)"]
->     H --> I["Map categories to\nWordPower domains"]
->     H --> J["Extract thematic clusters\nfor quiz distractors"]
+>     B["Roget's 1911<br/>(public domain)"] --> G["Parse 1,022 entries"]
+>     G --> H["Filter archaic words<br/>(cross-ref with Wordfreq)"]
+>     H --> I["Map categories to<br/>WordPower domains"]
+>     H --> J["Extract thematic clusters<br/>for quiz distractors"]
 > 
->     C["CEFR-J + Wordfreq"] --> K["Build word → CEFR\nlevel lookup table"]
->     C --> L["Build frequency\nrank table"]
+>     C["CEFR-J + Wordfreq"] --> K["Build word → CEFR<br/>level lookup table"]
+>     C --> L["Build frequency<br/>rank table"]
 > 
 >     E & F & I & J & K & L --> M[("Unified Dataset")]
 >     M --> N["Static asset in app"]
->     M --> O["PostgreSQL\ndictionary tables"]
+>     M --> O["PostgreSQL<br/>dictionary tables"]
 > ```
 
 #### User Experience
@@ -525,7 +562,7 @@ erDiagram
 - **Model:** 7-day free trial → paid subscription
 - **Pricing:** ==$4.99/month== or ==$29.99/year==
 - **Free trial gives full access** — users experience Oxford-quality data before deciding
-- **Break-even:** ~19 paying users at $4.99/mo (covers ~$78/mo infrastructure)
+- **Break-even:** ~19 paying users at $4.99/mo (covers ~$78/mo infrastructure at launch; ~$15/mo during development without Oxford API)
 - **App Store / Play Store cut:** 15% (Apple Small Business Program, Google reduced rate under $1M)
 
 > [!example]- Monthly Cost Baseline (500 active users)
@@ -548,8 +585,8 @@ erDiagram
 ```mermaid
 flowchart LR
     A["Flutter App"] -->|"GET /api/words/{word}"| B["Spring Boot API"]
-    B -->|"Check cache"| C[("PostgreSQL\ndictionary_cache")]
-    C -->|"CACHE HIT\n(most calls)"| B
+    B -->|"Check cache"| C[("PostgreSQL<br/>dictionary_cache")]
+    C -->|"CACHE HIT<br/>(most calls)"| B
     B -->|"CACHE MISS only"| D["Oxford API"]
     D -->|"Save to cache"| C
     B -->|"Return data"| A
@@ -642,8 +679,7 @@ Words get richer, data lives in the cloud. iOS enters as the natural mobile home
 |---|---|
 | Firebase Auth | Email/password, Google Sign-In, Apple Sign-In |
 | Cloud sync | Real-time sync across devices via Spring Boot API |
-| Oxford API integration | Cloud Functions + server-side caching (1 call per word ever) |
-| Auto-enrichment | Definition, pronunciation (audio + IPA), part of speech, example sentences, CEFR level, semantic domain |
+| Auto-enrichment | Definition, pronunciation (audio + IPA), part of speech, example sentences via ==Free Dictionary API== (Oxford deferred to Phase 6 to avoid £600/yr during development) |
 | Word Detail View | Full word card with all enriched data + personal notes |
 | iOS deployment | App Store submission for iOS |
 
@@ -691,6 +727,7 @@ Polish and publish.
 
 | Deliverable | Details |
 |---|---|
+| Oxford API integration | Oxford Dictionaries API Lite (£50/mo) + server-side PostgreSQL caching (1 call per word ever). Replaces Free Dictionary API via the abstract `DictionaryService` interface — single class swap, no frontend changes |
 | Onboarding flow | First-run experience explaining the collect → learn loop |
 | UI polish | Animations, transitions, edge cases, accessibility |
 | Beta testing | TestFlight (iOS) + web beta |
