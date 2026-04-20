@@ -1,7 +1,7 @@
 # Testing Strategy — WordPower
 
 > [!abstract] Summary
-> WordPower uses a layered testing strategy: unit tests for logic, integration tests for the full stack, contract tests for API correctness, and fuzz tests for edge cases. Each layer catches different bugs at different speeds. A comprehensive static analysis and code quality toolchain — Checkstyle, PMD, SpotBugs, Semgrep, very_good_analysis, Spectral — enforces standards on every PR, with JaCoCo and lcov tracking coverage via a per-package ratcheting strategy.
+> WordPower uses a layered testing strategy: unit tests for logic, integration tests for the full stack, contract tests for API correctness, end-to-end tests for critical user journeys, and fuzz tests for edge cases. Each layer catches different bugs at different speeds. A comprehensive static analysis and code quality toolchain — Checkstyle, PMD, SpotBugs, Semgrep, very_good_analysis, Spectral — enforces standards on every PR, with JaCoCo and lcov tracking coverage via a per-package ratcheting strategy.
 
 Related: [[PROJECT#6. Technical Stack]] | [[LOCAL_FIRST_ARCHITECTURE]]
 
@@ -13,11 +13,12 @@ Related: [[PROJECT#6. Technical Stack]] | [[LOCAL_FIRST_ARCHITECTURE]]
 2. [[#2. Backend Testing]]
 3. [[#3. Frontend Testing]]
 4. [[#4. Contract Testing]]
-5. [[#5. Fuzz Testing (Schemathesis)]]
-6. [[#6. Static Analysis, Code Quality & Coverage Toolchain]]
-7. [[#7. What Runs When]]
-8. [[#8. Coverage Targets & Ratcheting]]
-9. [[#9. Glossary]]
+5. [[#5. End-to-End (E2E) Testing]]
+6. [[#6. Fuzz Testing (Schemathesis)]]
+7. [[#7. Static Analysis, Code Quality & Coverage Toolchain]]
+8. [[#8. What Runs When]]
+9. [[#9. Coverage Targets & Ratcheting]]
+10. [[#10. Glossary]]
 
 ---
 
@@ -28,13 +29,15 @@ flowchart TB
     subgraph Pyramid["Testing Pyramid (bottom = most, top = fewest)"]
         direction TB
         Fuzz["🔝 Fuzz Tests<br/>(Schemathesis)<br/>Nightly"]
+        E2EUI["Flutter Integration Tests<br/>(Chrome, real app UI)<br/>Pre-deploy"]
+        E2EAPI["API Journey Tests<br/>(multi-step HTTP scenarios)<br/>Every PR"]
         Contract["Contract Tests<br/>(spec validation + provider + consumer)<br/>Every PR"]
         Integration["Integration Tests<br/>(Testcontainers PostgreSQL, Cucumber BDD)<br/>Every PR"]
         Unit["Unit Tests<br/>(JUnit, flutter test)<br/>Every PR"]
         Static["⬇ Static Analysis<br/>(Checkstyle, SpotBugs, PMD, Semgrep, very_good_analysis)<br/>Every PR"]
     end
 
-    Static --> Unit --> Integration --> Contract --> Fuzz
+    Static --> Unit --> Integration --> Contract --> E2EAPI --> E2EUI --> Fuzz
 ```
 
 | Layer | Speed | Catches | Runs |
@@ -43,6 +46,8 @@ flowchart TB
 | **Unit tests** | ~15 sec | Logic bugs in isolated functions | Every PR |
 | **Integration tests** | ~60 sec | Full stack bugs (controller → service → DB) | Every PR |
 | **Contract tests** | ~10 sec | API spec drift (FE/BE disagreement) | Every PR |
+| **API journey tests** | ~20 sec | Multi-step workflow bugs across endpoints | Every PR |
+| **Flutter integration tests** | ~3 min | UI-level regressions on real app | Pre-deploy |
 | **Fuzz tests** | ~3 min | Edge cases, crashes, weird input | Nightly |
 
 ---
@@ -397,7 +402,211 @@ flowchart TB
 
 ---
 
-## 5. Fuzz Testing (Schemathesis)
+## 5. End-to-End (E2E) Testing
+
+E2E tests verify **complete user journeys** across the full system — something no lower layer covers. Unit tests verify logic in isolation, integration tests verify single request round-trips, and contract tests verify response shapes. But none of them prove that "a user can add a word, see it enriched, and review it in a quiz" actually works end-to-end.
+
+WordPower uses two E2E layers, each optimized for a different trade-off:
+
+| Layer | What it tests | Speed | Stability | Runs |
+|---|---|---|---|---|
+| **API journey tests** | Multi-step HTTP workflows across endpoints | ~20 sec | High (no UI) | Every PR |
+| **Flutter integration tests** | Real app UI on Chrome | ~3 min | Medium (browser, rendering) | Pre-deploy |
+
+### Layer 1: API journey tests
+
+**Tool:** JUnit 5 + RestAssured (or Spring's `TestRestTemplate`) against a running app with Testcontainers PostgreSQL
+
+**What they are:** multi-step HTTP test scenarios that exercise a complete user workflow at the API level — no UI, no browser. Each test chains multiple API calls in sequence, asserting state changes across endpoints.
+
+```java
+@SpringBootTest(webEnvironment = RANDOM_PORT)
+@Testcontainers
+class WordLifecycleJourneyTest extends BaseIntegrationTest {
+
+    @Autowired
+    TestRestTemplate restTemplate;
+
+    @Test
+    void addWord_enriched_thenReviewInQuiz() {
+        // Step 1: Add a word
+        var createResponse = restTemplate.postForEntity(
+            "/api/words",
+            new CreateWordRequest("ubiquitous"),
+            WordResponse.class);
+        assertThat(createResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        var wordId = createResponse.getBody().getId();
+
+        // Step 2: Verify enrichment populated
+        var getResponse = restTemplate.getForEntity(
+            "/api/words/{id}", WordResponse.class, wordId);
+        assertThat(getResponse.getBody().getDefinitions()).isNotEmpty();
+        assertThat(getResponse.getBody().getCefrLevel()).isNotNull();
+
+        // Step 3: Start a quiz and verify the word appears
+        var quizResponse = restTemplate.postForEntity(
+            "/api/quiz/start", null, QuizSessionResponse.class);
+        assertThat(quizResponse.getBody().getCards())
+            .extracting("wordId")
+            .contains(wordId);
+
+        // Step 4: Submit an answer and verify SRS interval updated
+        var answerId = quizResponse.getBody().getCards().get(0).getId();
+        restTemplate.put("/api/quiz/answer/{id}",
+            new AnswerRequest(Quality.GOOD), answerId);
+
+        var updatedWord = restTemplate.getForEntity(
+            "/api/words/{id}", WordResponse.class, wordId);
+        assertThat(updatedWord.getBody().getSrsInterval()).isGreaterThan(0);
+    }
+}
+```
+
+**Example journeys to cover:**
+
+| Journey | Steps | What it catches |
+|---|---|---|
+| Word lifecycle | Add → enrich → review → SRS update | Enrichment pipeline + SRS wiring |
+| Duplicate handling | Add word → add same word again → verify 409 | Upsert / conflict logic |
+| Bulk capture | Add 5 words rapidly → list all → verify count | Concurrency / race conditions |
+| Search after enrich | Add word → wait for enrichment → search by domain → find it | Search index consistency |
+| Delete cascade | Add word → add to notebook → delete word → verify notebook updated | Referential integrity |
+
+**Why this layer exists (what lower layers miss):**
+
+| Scenario | Unit test | Integration test | API journey test |
+|---|---|---|---|
+| Enrichment populates all fields after create | ❌ | ⚠️ Single-request | ✅ Multi-step |
+| SRS interval updates correctly after quiz answer | ❌ | ⚠️ Tests calc only | ✅ Full flow |
+| Duplicate word returns 409, not 500 | ❌ | ✅ | ✅ |
+| Word appears in quiz after enrichment completes | ❌ | ❌ | ✅ |
+
+**Infrastructure:** reuses the same Testcontainers PostgreSQL setup from integration tests (section 2). No additional Docker services needed. Runs as part of `./gradlew test` alongside integration tests.
+
+**Runtime:** ~20 seconds (app startup is already amortized by the shared Testcontainers base class).
+
+**Issue:** #144
+
+### Layer 2: Flutter integration tests (Chrome)
+
+**Tool:** `flutter test integration_test` running on Chrome via `chromedriver`
+
+**What they are:** real app UI tests that drive the Flutter web app in a browser. These tests interact with actual widgets — tapping buttons, entering text, navigating screens — against a real running backend.
+
+```dart
+// integration_test/word_capture_test.dart
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
+import 'package:wordpower/main.dart' as app;
+
+void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  testWidgets('Quick Capture → word appears in notebook', (tester) async {
+    app.main();
+    await tester.pumpAndSettle();
+
+    // Navigate to Quick Capture
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pumpAndSettle();
+
+    // Type a word and submit
+    await tester.enterText(find.byType(TextField), 'ubiquitous');
+    await tester.testTextInput.receiveAction(TextInputAction.done);
+    await tester.pumpAndSettle();
+
+    // Verify success feedback
+    expect(find.text('Saved!'), findsOneWidget);
+
+    // Navigate to notebook and verify word appears
+    await tester.tap(find.byIcon(Icons.book));
+    await tester.pumpAndSettle();
+    expect(find.text('ubiquitous'), findsOneWidget);
+  });
+
+  testWidgets('Flashcard flip and rate', (tester) async {
+    app.main();
+    await tester.pumpAndSettle();
+
+    // Navigate to flashcards
+    await tester.tap(find.text('Review'));
+    await tester.pumpAndSettle();
+
+    // Tap card to flip
+    await tester.tap(find.byType(FlashcardWidget));
+    await tester.pumpAndSettle();
+
+    // Verify definition is visible after flip
+    expect(find.textContaining('present, appearing, or found everywhere'),
+        findsOneWidget);
+
+    // Rate as "Good"
+    await tester.tap(find.text('Good'));
+    await tester.pumpAndSettle();
+
+    // Card should advance to next
+    expect(find.textContaining('ubiquitous'), findsNothing);
+  });
+}
+```
+
+**Critical journeys (keep to 3–5):**
+
+| Journey | What it proves |
+|---|---|
+| Quick Capture → word in notebook | Core capture flow works end-to-end through the UI |
+| Flashcard flip → rate → next card | Review loop renders and advances correctly |
+| Empty state → add first word → dashboard updates | First-run experience works |
+| Search → tap result → Word Detail View | Navigation + data display pipeline |
+
+**Why only Chrome:** WordPower is web-first. Chrome tests run on a standard GitHub Actions `ubuntu-latest` runner with `chromedriver` — no macOS runner, no iOS simulator, no Android emulator overhead. When iOS/Android ship later, platform-specific E2E can be added.
+
+**CI setup:**
+
+```yaml
+# Runs as a pre-deploy gate — not on every PR
+- name: Run Flutter integration tests (Chrome)
+  working-directory: frontend
+  run: |
+    chromedriver --port=4444 &
+    flutter drive \
+      --driver=test_driver/integration_test.dart \
+      --target=integration_test/all_tests.dart \
+      -d chrome \
+      --headless
+```
+
+**Runtime:** ~3 minutes (app compile + browser startup + test execution).
+
+**Issue:** #145
+
+### How the two E2E layers complement each other
+
+```mermaid
+flowchart LR
+    API["API Journey Tests<br/>(HTTP level)<br/>Every PR"]
+    UI["Flutter Integration Tests<br/>(Chrome UI)<br/>Pre-deploy"]
+
+    API -->|"Catches"| APIBugs["Multi-step workflow bugs<br/>State inconsistencies<br/>Missing enrichment fields"]
+    UI -->|"Catches"| UIBugs["Broken navigation<br/>Rendering regressions<br/>Widget interaction bugs"]
+
+    API -.->|"Does NOT catch"| UIBugs
+    UI -.->|"Does NOT catch"| APIBugs
+```
+
+| Concern | API journey test | Flutter integration test |
+|---|---|---|
+| Multi-step backend workflows | ✅ | ❌ (tests UI, not API logic) |
+| UI renders correctly | ❌ | ✅ |
+| Navigation between screens | ❌ | ✅ |
+| Widget interactions (tap, swipe, type) | ❌ | ✅ |
+| Fast, stable, runs on every PR | ✅ (~20 sec) | ❌ (~3 min, browser flakiness) |
+| Catches regressions before merge | ✅ | ❌ (pre-deploy only) |
+| Catches regressions before prod | ✅ | ✅ |
+
+---
+
+## 6. Fuzz Testing (Schemathesis)
 
 **Tool:** Schemathesis — auto-generates hundreds of API inputs from the OpenAPI spec
 
@@ -434,7 +643,7 @@ flowchart LR
 
 ---
 
-## 6. Static Analysis, Code Quality & Coverage Toolchain
+## 7. Static Analysis, Code Quality & Coverage Toolchain
 
 ### How static analysis works
 
@@ -747,7 +956,7 @@ Every quality tool must exclude generated code — otherwise findings are noise 
 
 ---
 
-## 7. What Runs When
+## 8. What Runs When
 
 ### Every PR
 
@@ -764,6 +973,7 @@ Every quality tool must exclude generated code — otherwise findings are noise 
 │  ├── checkstyle + spotbugs + pmd        │
 │  ├── unit tests                         │
 │  ├── integration tests (Testcontainers) │
+│  ├── API journey tests (Testcontainers) │
 │  ├── provider contract tests (@WebMvc)  │
 │  └── jacoco coverage report             │
 ├─────────────────────────────────────────┤
@@ -793,15 +1003,28 @@ All run in PARALLEL → wall clock ~90 seconds
 └─────────────────────────────────────────┘
 ```
 
+### Pre-deploy
+
+```
+┌─────────────────────────────────────────┐
+│ e2e-ui                  (~3 min)        │
+│  ├── chromedriver + headless Chrome     │
+│  ├── flutter drive (integration_test)   │
+│  ├── 3–5 critical user journeys         │
+│  └── deploy blocked on failure          │
+└─────────────────────────────────────────┘
+```
+
 ### Before release
 
 - Full Schemathesis run with higher `--hypothesis-max-examples`
+- Flutter integration tests on Chrome (same as pre-deploy, but manually verified)
 - Manual exploratory testing
 - Beta tester feedback (Phase 6)
 
 ---
 
-## 8. Coverage Targets & Ratcheting
+## 9. Coverage Targets & Ratcheting
 
 ### Current targets
 
@@ -827,12 +1050,12 @@ The ratchet only moves forward — once a package is enforced, it stays enforced
 
 JaCoCo verification rules in `build.gradle.kts` are pre-wired per package with `enabled = false`. Enforcement = flipping one boolean:
 
-| Package | Unit (80%) | Component (70%) |
-|---|---|---|
-| `com.wordpower.api.domain.*` | ⬜ Pending | — |
-| `com.wordpower.api.application.*` | ⬜ Pending | — |
-| `com.wordpower.api.web.*` | — | ⬜ Pending |
-| `com.wordpower.api.persistence.*` | — | ⬜ Pending |
+| Package                           | Unit (80%) | Component (70%) |
+| --------------------------------- | ---------- | --------------- |
+| `com.wordpower.api.domain.*`      | ⬜ Pending  | —               |
+| `com.wordpower.api.application.*` | ⬜ Pending  | —               |
+| `com.wordpower.api.web.*`         | —          | ⬜ Pending       |
+| `com.wordpower.api.persistence.*` | —          | ⬜ Pending       |
 
 #### Frontend ratchet (tracked on WP-28)
 
@@ -850,13 +1073,15 @@ Both backends and frontend CI render coverage summaries in the **GitHub Step Sum
 
 ---
 
-## 9. Glossary
+## 10. Glossary
 
 | Term | Definition |
 |---|---|
 | **Unit test** | Tests a single function or class in isolation, no external dependencies |
 | **Integration test** | Tests the full stack (controller → service → DB) against a real database |
 | **Contract test** | Verifies API responses match the OpenAPI spec — catches FE/BE disagreement |
+| **API journey test** | Multi-step HTTP test that chains multiple API calls to verify a complete user workflow (e.g., add word → enrich → quiz) |
+| **Flutter integration test** | UI-level E2E test that drives the real Flutter app in a browser (Chrome) or on a device |
 | **Fuzz test** | Auto-generates random inputs to find crashes and edge cases |
 | **Provider test** | Contract test on the backend — "does my API return what the spec says?" |
 | **Consumer test** | Contract test on the frontend — "can my client deserialize what the API sends?" |
