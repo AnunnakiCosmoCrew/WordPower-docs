@@ -111,6 +111,126 @@ WordPower uses PostgreSQL-specific features that H2 doesn't support:
 
 H2 would require separate migrations and give false confidence — tests pass on H2, app crashes on real PostgreSQL.
 
+### How Testcontainers actually works
+
+Testcontainers is a ==Java library==, not a CI plugin or Docker Compose setup. It's a dependency in `build.gradle`. Anywhere Gradle runs + Docker is available = Testcontainers works. The same `./gradlew check` runs identically on your laptop and in CI.
+
+#### The lifecycle
+
+```mermaid
+flowchart TB
+    Gradle["./gradlew test"] --> JUnit["JUnit finds<br/>@Testcontainers annotation"]
+    JUnit --> Start["Testcontainers starts<br/>postgres:16 container<br/>on random port"]
+    Start --> Flyway["Flyway runs<br/>V1__initial_schema.sql<br/>against the container"]
+    Flyway --> Tests["Tests execute<br/>real SQL against<br/>real PostgreSQL"]
+    Tests --> Destroy["Container stopped<br/>and removed"]
+```
+
+#### Local vs CI — zero difference
+
+| Aspect | Local (`./gradlew test`) | CI (GitHub Actions) |
+|---|---|---|
+| Docker source | Docker Desktop on your Mac | Pre-installed on runner |
+| Image cache | Persists across runs | Persists within workflow |
+| Container port | Random (avoids conflicts) | Random |
+| Flyway migrations | Run against container | Same |
+| Config needed | Docker Desktop running | Nothing — works out of the box |
+| Test code | ==Identical== | ==Identical== |
+
+No `services:` block in GitHub Actions. No `docker-compose.yml`. Testcontainers manages the container lifecycle inside the JVM process.
+
+#### What the test code looks like
+
+```java
+@SpringBootTest
+@Testcontainers
+class WordRepositoryIntegrationTest {
+
+    // Testcontainers manages this — starts before tests, stops after
+    @Container
+    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16")
+        .withDatabaseName("wordpower_test")
+        .withUsername("test")
+        .withPassword("test");
+
+    // Tell Spring to use the container's dynamic port
+    @DynamicPropertySource
+    static void configureProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", postgres::getJdbcUrl);
+        registry.add("spring.datasource.username", postgres::getUsername);
+        registry.add("spring.datasource.password", postgres::getPassword);
+    }
+
+    @Autowired
+    WordRepository wordRepository;
+
+    @Test
+    void savesAndRetrievesWord() {
+        var word = new UserWord("ubiquitous", "user-123");
+        wordRepository.save(word);
+
+        var found = wordRepository.findByWordAndUserId("ubiquitous", "user-123");
+        assertThat(found).isPresent();
+        assertThat(found.get().getWord()).isEqualTo("ubiquitous");
+    }
+}
+```
+
+**Step by step:**
+
+| Step | What happens | Who does it |
+|---|---|---|
+| 1 | JUnit finds `@Testcontainers` annotation | JUnit |
+| 2 | Finds `@Container` field → starts `postgres:16` Docker container | Testcontainers |
+| 3 | Container picks a random available port (e.g., 54321) | Docker |
+| 4 | `@DynamicPropertySource` injects `jdbc:postgresql://localhost:54321/wordpower_test` into Spring | Spring + Testcontainers |
+| 5 | Spring Boot starts with the test datasource | Spring |
+| 6 | Flyway runs migrations against the container | Flyway |
+| 7 | Test methods execute real SQL against real PostgreSQL | Your test code |
+| 8 | Test class finishes → container stopped and removed | Testcontainers |
+
+#### Performance: the cold start
+
+| Operation | Time | Happens when |
+|---|---|---|
+| Docker image pull (`postgres:16`) | 10–30 sec | First time only (cached after) |
+| Container start | 3–5 sec | Every test run |
+| Flyway migrations | 1–2 sec | Every test run |
+| Actual tests | 1–10 sec | Every test run |
+
+**First run:** ~40 sec. **Subsequent runs:** ~10 sec (image cached).
+
+#### Optimization: one container for the entire test suite
+
+Without optimization, each test class starts a new container. With a shared base class, ==one container serves all test classes==:
+
+```java
+public abstract class BaseIntegrationTest {
+
+    static final PostgreSQLContainer<?> postgres;
+
+    static {
+        postgres = new PostgreSQLContainer<>("postgres:16")
+            .withDatabaseName("wordpower_test");
+        postgres.start();  // starts ONCE, reused by all subclasses
+    }
+
+    @DynamicPropertySource
+    static void configure(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", postgres::getJdbcUrl);
+        registry.add("spring.datasource.username", postgres::getUsername);
+        registry.add("spring.datasource.password", postgres::getPassword);
+    }
+}
+
+// All integration tests extend this — one container for the entire suite
+class WordRepositoryTest extends BaseIntegrationTest { ... }
+class WordServiceTest extends BaseIntegrationTest { ... }
+class EnrichmentPipelineTest extends BaseIntegrationTest { ... }
+```
+
+One container start (~5 sec) serves 50+ test classes.
+
 ---
 
 ## 3. Frontend Testing
