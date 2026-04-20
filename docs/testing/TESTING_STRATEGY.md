@@ -446,11 +446,47 @@ At a high level, every static analysis tool follows the same loop:
 2. **Analyze** — walk the model and apply rules
 3. **Report** — emit findings (file, line number, rule violated, severity)
 
-The depth of the internal model determines what the tool can catch. There are four levels, from shallow to deep:
+The depth of the internal model determines what the tool can catch. The most common internal model is an **AST (Abstract Syntax Tree)** — understanding what it is makes the rest of this section click.
+
+#### What is an AST?
+
+An AST is a tree-shaped representation of your code's structure. The compiler (or analysis tool) parses your source text and converts it into a tree where each node represents a construct in the language — a class, a method, an if-statement, a variable, an operator.
+
+Consider this Java line:
+
+```java
+int total = price + tax;
+```
+
+The raw text is a flat string of characters. The AST turns it into a tree:
+
+```
+VariableDeclaration
+├── type: int
+├── name: total
+└── initializer: BinaryExpression
+    ├── operator: +
+    ├── left: Identifier("price")
+    └── right: Identifier("tax")
+```
+
+Now a tool can ask structural questions that would be impossible (or fragile) with text matching:
+
+- "Is `total` assigned but never read later?" → walk the tree, check if `total` appears in any subsequent expression node
+- "Is this `+` concatenating strings in a loop?" → check the types of `left` and `right`, look for an ancestor loop node
+- "Does this method have more than 10 if/else branches?" → count decision nodes under the method node (cyclomatic complexity)
+
+> [!tip] Key insight
+> Almost every static analysis tool builds an AST internally — even Checkstyle (via ANTLR). The **levels below** reflect how deeply each tool analyzes the tree, not whether the tree exists. 
+> * Checkstyle builds an AST but only checks surface patterns (indentation, naming). 
+> * PMD walks the same kind of tree but reasons about variable usage and code complexity. 
+> * SpotBugs skips the source tree entirely and works on compiled bytecode, which lets it trace execution paths the AST alone can't reveal.
+
+There are four levels of analysis depth, from shallow to deep:
 
 #### Level 1: Text / token matching
 
-The tool splits source code into tokens (keywords, identifiers, operators, whitespace) and checks structural patterns against them.
+The tool splits source code into tokens (keywords, identifiers, operators, whitespace) and checks structural patterns against them. It may build an AST internally but only uses it for shallow, surface-level checks.
 
 - **Can catch:** formatting violations, naming conventions, import ordering, brace placement
 - **Cannot catch:** logic bugs, null dereferences, unused variables across scopes
@@ -489,10 +525,10 @@ The tool instruments compiled bytecode to **record which lines and branches actu
 Each level catches different things. A tool at one level is blind to findings at another:
 
 ```
-Text/token     →  Checkstyle catches "wrong indent"      → PMD, SpotBugs don't care
-AST            →  PMD catches "empty catch block"         → Checkstyle can't see it
-Bytecode       →  SpotBugs catches "null deref path"      → PMD can't trace across methods
-Instrumentation → JaCoCo catches "untested code"          → none of the above check this
+Text/token →  Checkstyle catches "wrong indent"  → PMD, SpotBugs don't care
+AST        →  PMD catches "empty catch block"    → Checkstyle can't see it
+Bytecode.  →  SpotBugs catches "null deref path" → PMD can't trace across methods
+Instrumentation → JaCoCo catches "untested code" → none of the above check this
 ```
 
 The same principle applies to source-level vs bytecode-level security scanning. Semgrep (AST-level, reads source) and SpotBugs+FindSecBugs (bytecode-level, reads `.class` files) cover **disjoint vulnerability surfaces** — a finding that one misses, the other catches. This is why both exist in the pipeline rather than picking one.
@@ -722,21 +758,21 @@ Every quality tool must exclude generated code — otherwise findings are noise 
 │  ├── dart format --set-exit-if-changed  │
 │  ├── flutter test (unit + widget +      │
 │  │    consumer contract fixtures)       │
-│  └── coverage report                   │
+│  └── coverage report                    │
 ├─────────────────────────────────────────┤
 │ backend-ci            (~90 sec total)   │
-│  ├── checkstyle + spotbugs + pmd       │
-│  ├── unit tests                        │
+│  ├── checkstyle + spotbugs + pmd        │
+│  ├── unit tests                         │
 │  ├── integration tests (Testcontainers) │
 │  ├── provider contract tests (@WebMvc)  │
-│  └── jacoco coverage report            │
+│  └── jacoco coverage report             │
 ├─────────────────────────────────────────┤
 │ spec-validation       (~5 sec total)    │
-│  ├── spectral lint openapi.yaml        │
-│  └── oasdiff breaking change check     │
+│  ├── spectral lint openapi.yaml         │
+│  └── oasdiff breaking change check      │
 ├─────────────────────────────────────────┤
 │ semgrep               (~15 sec)         │
-│  └── security pattern scan             │
+│  └── security pattern scan              │
 └─────────────────────────────────────────┘
 
 All run in PARALLEL → wall clock ~90 seconds
