@@ -438,7 +438,7 @@ flowchart LR
 
 ### How static analysis works
 
-Static analysis tools read your code **without executing it** and check it against a set of configured rules. ==*"Static"* means the code is never run — the tool inspects the code as written (or as compiled) and reports violations.==
+Static analysis tools read your code **without executing it** and check it against a set of configured rules. <u> <i>"Static"</i> means the code is never run</u> — the tool inspects the code as written (or as compiled) and reports violations.
 
 At a high level, every static analysis tool follows the same loop:
 
