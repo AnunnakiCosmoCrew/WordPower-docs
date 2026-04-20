@@ -111,11 +111,11 @@ WordPower uses PostgreSQL-specific features that H2 doesn't support:
 
 H2 would require separate migrations and give false confidence — tests pass on H2, app crashes on real PostgreSQL.
 
-### How Testcontainers actually works
+#### How Testcontainers actually works
 
 Testcontainers is a ==Java library==, not a CI plugin or Docker Compose setup. It's a dependency in `build.gradle`. Anywhere Gradle runs + Docker is available = Testcontainers works. The same `./gradlew check` runs identically on your laptop and in CI.
 
-#### The lifecycle
+##### The lifecycle
 
 ```mermaid
 flowchart TB
@@ -126,7 +126,7 @@ flowchart TB
     Tests --> Destroy["Container stopped<br/>and removed"]
 ```
 
-#### Local vs CI — zero difference
+##### Local vs CI — zero difference
 
 | Aspect | Local (`./gradlew test`) | CI (GitHub Actions) |
 |---|---|---|
@@ -139,7 +139,7 @@ flowchart TB
 
 No `services:` block in GitHub Actions. No `docker-compose.yml`. Testcontainers manages the container lifecycle inside the JVM process.
 
-#### What the test code looks like
+##### What the test code looks like
 
 ```java
 @SpringBootTest
@@ -189,7 +189,7 @@ class WordRepositoryIntegrationTest {
 | 7 | Test methods execute real SQL against real PostgreSQL | Your test code |
 | 8 | Test class finishes → container stopped and removed | Testcontainers |
 
-#### Performance: the cold start
+##### Performance: the cold start
 
 | Operation | Time | Happens when |
 |---|---|---|
@@ -200,7 +200,7 @@ class WordRepositoryIntegrationTest {
 
 **First run:** ~40 sec. **Subsequent runs:** ~10 sec (image cached).
 
-#### Optimization: one container for the entire test suite
+##### Optimization: one container for the entire test suite
 
 Without optimization, each test class starts a new container. With a shared base class, ==one container serves all test classes==:
 
