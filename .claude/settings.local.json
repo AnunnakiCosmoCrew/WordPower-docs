@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:account.oxforddictionaries.com)",
+      "WebFetch(domain:dictionaryapi.com)",
+      "WebFetch(domain:www.oreateai.com)",
+      "WebFetch(domain:rapidapi.com)",
+      "WebFetch(domain:languages.oup.com)",
+      "WebFetch(domain:developer.oxforddictionaries.com)",
+      "WebFetch(domain:dictionaryapi.dev)",
+      "WebFetch(domain:www.datamuse.com)",
+      "WebFetch(domain:en.wiktionary.org)",
+      "WebFetch(domain:www.wordsapi.com)",
+      "WebFetch(domain:www.inkandswitch.com)"
+    ]
+  }
+}

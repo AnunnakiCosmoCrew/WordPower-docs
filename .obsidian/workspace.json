@@ -1,0 +1,208 @@
+{
+  "main": {
+    "id": "ba299ef6c1f84f8b",
+    "type": "split",
+    "children": [
+      {
+        "id": "fad116e4c4c6a378",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4beccba926c1cb72",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docs/testing/TESTING_STRATEGY.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "TESTING_STRATEGY"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "4cf8be17c1391b5b",
+    "type": "split",
+    "children": [
+      {
+        "id": "81bfe24098b3af54",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d6689b6a537cce3b",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "4f64a4c9c5788dcc",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "5dc29fd04435774f",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "right": {
+    "id": "e7f16788923e87b8",
+    "type": "split",
+    "children": [
+      {
+        "id": "8fe9adef722bdf0e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4604a492d7ea9e56",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "docs/PROJECT.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for PROJECT"
+            }
+          },
+          {
+            "id": "8805bdadd3a5e656",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "docs/PROJECT.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from PROJECT"
+            }
+          },
+          {
+            "id": "1acb0bfacd789a1e",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "567721c14b5c93ad",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "611a990f8a6bd576",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "docs/PROJECT.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of PROJECT"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "4beccba926c1cb72",
+  "lastOpenFiles": [
+    "docs/audit/PHASE_1_AUDIT.md",
+    "docs/testing/TESTING_STRATEGY.md",
+    "docs/testing",
+    "docs/product/PROJECT.md",
+    "docs/audit",
+    "docs/product/PHASE_1_AUDIT.md",
+    "docs/architecture/LOCAL_FIRST_ARCHITECTURE.md",
+    "docs/LOCAL_FIRST_ARCHITECTURE.md",
+    "docs/architecture/BROWSER_DATABASE_INTERNALS.md",
+    "docs/learning/SPACED_REPETITION.md",
+    "docs/product/COMPETITIVE_ANALYSIS.md",
+    "docs/learning",
+    "docs/architecture",
+    "docs/product",
+    "docs/BROWSER_DATABASE_INTERNALS.md",
+    "docs/PROJECT.md",
+    "docs/COMPETITIVE_ANALYSIS.md",
+    "docs/SPACED_REPETITION.md"
+  ]
+}
