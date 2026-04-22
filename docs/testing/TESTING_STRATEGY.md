@@ -353,7 +353,7 @@ Review the diff in the PR — the PNG changes will be visible in GitHub's image 
 
 **Runtime:** ~seconds per golden (negligible addition to the existing widget test suite).
 
-**Issue:** #147
+**Issue:** WordPower-app#147
 
 ---
 
@@ -378,7 +378,7 @@ Contract testing ensures the **OpenAPI spec**, the **backend implementation**, a
 
 **Runtime:** ~5 seconds
 
-**Issue:** #115
+**Issue:** WordPower-app#115
 
 ### Layer 2: Provider-side tests
 
@@ -421,7 +421,7 @@ class WordCrudContractTest {
 
 **Runtime:** ~5 seconds
 
-**Issue:** #113
+**Issue:** WordPower-app#113
 
 ### Layer 3: Consumer-side tests
 
@@ -456,7 +456,7 @@ test('handles missing optional fields', () {
 
 **Runtime:** ~5 seconds
 
-**Issue:** #114
+**Issue:** WordPower-app#114
 
 ### How the three layers work together
 
@@ -561,7 +561,7 @@ class WordLifecycleJourneyTest extends BaseIntegrationTest {
 
 **Runtime:** ~20 seconds (app startup is already amortized by the shared Testcontainers base class).
 
-**Issue:** #144
+**Issue:** WordPower-app#144
 
 ### Layer 2: Flutter integration tests (Chrome)
 
@@ -654,7 +654,7 @@ void main() {
 
 **Runtime:** ~3 minutes (app compile + browser startup + test execution).
 
-**Issue:** #145
+**Issue:** WordPower-app#145
 
 ### How the two E2E layers complement each other
 
@@ -786,7 +786,7 @@ The `tee` command writes Schemathesis output to both the terminal (visible in CI
 
 **Runtime:** ~3 minutes (needs running server + Testcontainers PostgreSQL)
 
-**Issue:** #133
+**Issue:** WordPower-app#133
 
 ---
 
@@ -946,7 +946,7 @@ flowchart LR
 
 **Runtime:** ~2 minutes (app startup + 1-minute test run + teardown)
 
-**Issue:** #146
+**Issue:** WordPower-app#146
 
 ---
 
@@ -1065,7 +1065,7 @@ All tools below are **hard-gated** in CI unless noted otherwise — a violation 
 | **Indent**      | 4 spaces (Google default is 2)                       |
 | **Line length** | 120 characters (Google default is 100)               |
 | **Policy**      | `maxWarnings = 0` — warnings are treated as failures |
-| **Issue**       | #21 ✅                                                |
+| **Issue**       | WordPower-app#21 ✅                                                |
 
 Key rules enforced:
 - Unused, wildcard, and redundant imports
@@ -1085,7 +1085,7 @@ Reports: `build/reports/checkstyle/` (HTML + XML).
 | **Rulesets** | `bestpractices`, `errorprone`, `codestyle` |
 | **Policy** | `isIgnoreFailures = false` — findings fail the build |
 | **Console output** | Enabled (violations visible in CI log) |
-| **Issue** | #22 ✅ |
+| **Issue** | WordPower-app#22 ✅ |
 
 Notable exclusions (with rationale):
 
@@ -1112,7 +1112,7 @@ Reports: `build/reports/pmd/` (HTML + XML).
 | **Report level** | `MEDIUM` confidence (LOW filtered out — too noisy) |
 | **Policy** | `ignoreFailures = false` — findings fail the build |
 | **Plugins** | FindSecBugs 1.14.0 (CWE-mapped security), sb-contrib 7.7.4 (performance + design) |
-| **Issue** | #22 ✅ |
+| **Issue** | WordPower-app#22 ✅ |
 
 **Defense-in-depth:** SpotBugs operates on compiled bytecode. Semgrep (below) operates on source code. Together they cover disjoint vulnerability surfaces — a finding that one misses, the other catches.
 
@@ -1131,7 +1131,7 @@ Reports: `build/reports/spotbugs/` (HTML + XML).
 | **Dependency** | `com.tngtech.archunit:archunit-junit5` (test only) |
 | **Test class** | `ArchitectureTest.java` |
 | **Policy** | **Hard** — violations fail `./gradlew check` |
-| **Issue** | #202 |
+| **Issue** | WordPower-app#202 |
 
 **What it does:** ArchUnit reads compiled `.class` files and analyzes structural dependencies between packages, classes, and annotations. It enforces architectural rules as JUnit tests — if a controller imports a repository directly, the build breaks.
 
@@ -1192,7 +1192,7 @@ Both operate on compiled `.class` files but answer completely different question
 | **Policy** | `--error` — any finding fails the job |
 | **Schedule** | PR + push to `main` + weekly Monday 06:30 UTC |
 | **Caching** | `~/.semgrep` cached per workflow file hash |
-| **Issue** | #23 ✅ |
+| **Issue** | WordPower-app#23 ✅ |
 
 Skips Dependabot PRs (no access to secrets context). The weekly cron scan catches new rules against `main` between PRs. SARIF report uploaded as workflow artifact (downloadable from the Actions tab).
 
@@ -1204,7 +1204,7 @@ Skips Dependabot PRs (no access to secrets context). The weekly cron scan catche
 | **Unit target** | 80% INSTRUCTION per package |
 | **Component target** | 70% INSTRUCTION per package |
 | **Mode** | **Report-only** (verification rules wired but disabled — one-line flip to enforce) |
-| **Issue** | #25 ✅ |
+| **Issue** | WordPower-app#25 ✅ |
 
 Two separate reports:
 - **Unit:** `build/reports/jacoco/unit/jacocoTestReport.xml` + HTML (covers `test` task)
@@ -1216,7 +1216,7 @@ Exclusions from coverage measurement:
 
 Aggregate convenience task: `./gradlew coverage` runs both report tasks.
 
-CI integration: a Python script (`.github/scripts/jacoco_summary.py`) parses JaCoCo XML and renders a coverage summary in the GitHub Step Summary. Both HTML reports are uploaded as artifacts (30-day retention).
+CI integration: a Python script (`WordPower-app/.github/scripts/jacoco_summary.py`) parses JaCoCo XML and renders a coverage summary in the GitHub Step Summary. Both HTML reports are uploaded as artifacts (30-day retention).
 
 **Ratcheting plan:** per-package enforcement tracked on WP-25 issue (open checklist). As feature modules accumulate tests, coverage verification is flipped to `enabled = true` package-by-package — never all-at-once.
 
@@ -1226,7 +1226,7 @@ CI integration: a Python script (`.github/scripts/jacoco_summary.py`) parses JaC
 |---|---|
 | **Config** | `.github/dependabot.yml` |
 | **Ecosystems** | Gradle (backend), pub (frontend), GitHub Actions |
-| **Issue** | #44 ✅ |
+| **Issue** | WordPower-app#44 ✅ |
 
 ### Frontend
 
@@ -1263,7 +1263,7 @@ CI runs `dart format --set-exit-if-changed .` — any formatting drift fails the
 | **CI command** | `flutter test --coverage` |
 | **Target** | 80% line coverage |
 | **Mode** | **Report-only** (`::warning::` on below-target, never fails CI) |
-| **Issue** | #28 ✅ |
+| **Issue** | WordPower-app#28 ✅ |
 
 Coverage processing pipeline:
 1. `flutter test --coverage` produces `coverage/lcov.info`
@@ -1408,9 +1408,9 @@ Both run in PARALLEL → wall clock ~3 minutes
 
 | Layer | Metric | Target | Mode | Issue |
 |---|---|---|---|---|
-| Backend unit | INSTRUCTION per package | 80% | Report-only | #25 |
-| Backend component | INSTRUCTION per package | 70% | Report-only | #25 |
-| Frontend | Line coverage | 80% | Report-only | #28 |
+| Backend unit | INSTRUCTION per package | 80% | Report-only | WordPower-app#25 |
+| Backend component | INSTRUCTION per package | 70% | Report-only | WordPower-app#25 |
+| Frontend | Line coverage | 80% | Report-only | WordPower-app#28 |
 
 > [!info] Why report-only, not enforced
 > Hard coverage gates incentivize writing meaningless tests to hit a number. Report-only shows the trend without blocking legitimate PRs that happen to touch uncovered code. If coverage drops significantly, it's visible in the PR and can be discussed.

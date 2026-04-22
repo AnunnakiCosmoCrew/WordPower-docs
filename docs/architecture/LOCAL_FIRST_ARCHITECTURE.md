@@ -378,7 +378,7 @@ The user data cold start above is only half the picture. WordPower doesn't just 
 | Category | Examples | Size | Who creates it | Changes |
 |---|---|---|---|---|
 | **User data** | Collected words, SRS state, personal notes, word lists | 1–10 MB per user | Each user | Constantly |
-| **Reference data** | WordNet, CEFR-J, Wordfreq, Roget's, root families | ~48 MB raw, ~13 MB compressed | Us (at build time) | Rarely (yearly) |
+| **Reference data** | WordNet, CEFR-J, Wordfreq, Roget's, root families | ~48 MB raw, ~13.3 MB compressed | Us (at build time) | Rarely (yearly) |
 
 #### What reference data powers
 
@@ -403,7 +403,7 @@ The user data cold start above is only half the picture. WordPower doesn't just 
 | Roget's (1,022 thematic categories) | ~5 MB | ~1.5 MB | Phase 3 |
 | Root families (200 curated roots) | ~1 MB | ~0.3 MB | Phase 4 |
 | WordNet (117K synsets + relationships) | ~30 MB | ~8 MB | Phase 4 |
-| **Total** | **~48 MB** | **~13 MB** | |
+| **Total** | **~48 MB** | **~13.3 MB** | |
 
 #### Options for shipping reference data
 

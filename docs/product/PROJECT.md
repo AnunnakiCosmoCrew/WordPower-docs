@@ -460,7 +460,7 @@ Multiple sources are combined to power word connections:
 | **Auth** | Firebase Auth (email/password, Google Sign-In, Apple Sign-In) |
 | **Database** | PostgreSQL via Neon (serverless) |
 | **Cloud** | Google Cloud Platform (Cloud Run) |
-| **Dictionary API** | Oxford Dictionaries API (API Lite plan) with aggressive server-side caching in PostgreSQL |
+| **Dictionary API** | Free Dictionary API (Phase 1–5); Oxford Dictionaries API Lite (Phase 6+) with aggressive server-side caching in PostgreSQL |
 | **Word Intelligence** | Open English WordNet 2025 (synonyms, hierarchy, domains) + Roget's 1911 (thematic clusters, quiz distractors) |
 | **CEFR Leveling** | CEFR-J Dataset + Wordfreq (frequency-to-level mapping) |
 | **Reference Material** | HTOED, David Crystal's *Words in Time and Place*, English Vocabulary Profile, Oxford Learner's Dictionaries — studied for taxonomy design and leveling methodology |
@@ -715,6 +715,7 @@ Richer quiz types and power-user features.
 | Semantic quizzes | Synonym/antonym match, odd one out |
 | Contextual quizzes | Collocation check, error correction, sentence scramble |
 | Gamified modes | Speed recall, definition reverse, word ladder |
+| FSRS migration | Replace SM-2 with FSRS for personalized scheduling — users have 100+ reviews by now (see [[SPACED_REPETITION#8. FSRS — The Modern Alternative]]) |
 | CSV/Excel import | Bulk import with field mapping |
 | Notifications | Review reminders, streak nudges |
 | Offline support | Local cache with sync-when-online |
@@ -742,7 +743,7 @@ timeline
                         : Free dictionary lookup
                         : Simple flashcard review
     Phase 2 — Cloud & Enrichment (Web + iOS) : Firebase auth + Spring Boot API
-                                              : Oxford API + caching
+                                              : Free Dictionary API + server-side caching
                                               : Auto-enrichment, word detail view
     Phase 3 — Quiz Engine & SRS : Core quiz types (6 types)
                                 : SM-2 spaced repetition

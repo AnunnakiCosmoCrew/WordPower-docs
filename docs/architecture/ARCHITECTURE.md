@@ -173,7 +173,7 @@ flowchart LR
     STORE --> RET
 ```
 
-After a few months, the cache covers nearly every word users will ever search. Oxford API costs stay flat regardless of user count.
+After a few months, the cache covers nearly every word users will ever search. Dictionary API costs stay flat regardless of user count (particularly important once Oxford API replaces Free Dictionary in Phase 6).
 
 ---
 

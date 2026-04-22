@@ -206,9 +206,9 @@ Instead of a fixed formula, FSRS uses a trained model that learns:
 ### Which should WordPower use?
 
 > [!tip] Recommendation: Hybrid approach
-> 1. **Start with SM-2** — simple to implement, well-understood, works from day one with no training data
-> 2. **Migrate to FSRS later** — once users have 100+ reviews, FSRS can train on their data for better scheduling
-> 3. SM-2 provides a solid experience from launch, and FSRS can be added as a ==Phase 5+ enhancement== without changing the user-facing quiz experience
+> 1. **Start with SM-2** (Phase 3) — simple to implement, well-understood, works from day one with no training data
+> 2. **Migrate to FSRS in Phase 5** — by Phase 5 ("Advanced Modes"), users will have accumulated 100+ reviews, giving FSRS enough data to train per-user models
+> 3. SM-2 provides a solid experience from launch, and FSRS replaces it as a ==Phase 5 deliverable== without changing the user-facing quiz experience
 
 ## 9. The Daily Review Queue
 
@@ -241,6 +241,65 @@ pie title "Daily Queue Breakdown (example: 500 words in notebook)"
 > - **Don't reset** intervals just because a review is late — the word might still be remembered
 >
 > Users who collect words casually shouldn't feel punished for missing a review day. This is the #1 reason people abandon apps like Anki (see [[COMPETITIVE_ANALYSIS#Why Users Abandon Vocabulary Apps]]).
+
+### Catch-up algorithm
+
+When the user returns after an absence, overdue words are handled by these rules:
+
+#### Daily review cap
+
+| Component | Cap | Purpose |
+|---|---|---|
+| **Total daily cap** | 30 reviews | Prevents overwhelming sessions |
+| **Overdue allocation** | Up to 50% of daily cap (15) | Leaves room for normally-due words |
+| **Normally-due allocation** | Remaining slots (15–30) | Ensures current learning isn't stalled by backlog |
+
+If fewer than 15 words are overdue, the remaining slots go to normally-due words — the cap is a ceiling, not a fixed split.
+
+#### Prioritization: most overdue first
+
+Overdue words are sorted by **overdue ratio** (days overdue / scheduled interval), not by absolute days overdue. A word 10 days overdue on a 14-day interval is less urgent than a word 5 days overdue on a 3-day interval.
+
+$$\text{overdue\_ratio} = \frac{\text{today} - \text{due\_date}}{\text{scheduled\_interval}}$$
+
+Higher ratio = more urgent = reviewed first.
+
+#### Interval handling: don't reset
+
+A word that's overdue but recalled correctly should not restart from a 1-day interval. Instead, the actual elapsed time counts as an extended interval:
+
+| Review outcome | Interval calculation |
+|---|---|
+| **Correct** | $interval_{next} = actual\_elapsed \times EF$ (the overdue wait itself served as a longer interval) |
+| **Again** | $interval_{next} = 1\ day$ (normal reset — the word was truly forgotten) |
+
+This rewards the user: if they remembered a word after 30 days despite a 15-day scheduled interval, the word is clearly well-learned.
+
+#### Worked example
+
+A user collects 200 words over 3 months, then takes a 2-week vacation. On return:
+
+| State | Count |
+|---|---|
+| Overdue (due during vacation) | 45 words |
+| Due today (normally scheduled) | 8 words |
+| Not yet due | 147 words |
+
+**Day 1 back:**
+
+| Slot | Words | Source |
+|---|---|---|
+| 1–15 | Top 15 overdue (highest overdue ratio) | Overdue allocation |
+| 16–23 | 8 normally-due words | Normal queue |
+| 24–30 | 7 more overdue words | Remaining capacity |
+| **Total** | **30** (22 overdue + 8 normal) | |
+
+**Day 2:** 23 overdue remain. Same logic — 15 overdue + normally-due words fill the cap. By **Day 3**, the backlog is cleared and the user is back to a normal review cadence.
+
+> [!tip] UX implications
+> - Show a friendly message: *"Welcome back! You have 45 words to catch up on — we'll spread them across a few days."*
+> - Show a progress bar: *"Catch-up: 22/45 reviewed"*
+> - Never show the raw overdue count as a guilt-inducing number on the dashboard
 
 ## 10. How Quiz Types Feed Into SRS — Rating Inference Model
 

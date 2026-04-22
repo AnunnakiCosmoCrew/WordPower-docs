@@ -386,7 +386,7 @@ Cross-Origin-Opener-Policy: same-origin
 Cross-Origin-Embedder-Policy: require-corp
 ```
 
-These enable `SharedArrayBuffer`, which OPFS sync access requires. **Firebase Hosting supports these; GitHub Pages does not.** Without them we still work — drift falls back to a slower backend automatically.
+These enable `SharedArrayBuffer`, which OPFS sync access requires. **Firebase Hosting supports custom response headers (including COOP/COEP); GitHub Pages does not** — GitHub Pages is a static hosting service that does not allow setting custom HTTP response headers (verified April 2026). Without these headers we still work — drift falls back to a slower backend automatically.
 
 ---
 
