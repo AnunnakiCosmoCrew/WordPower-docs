@@ -23,7 +23,9 @@ WordPower is a personal word notebook app built with Flutter (Web → iOS → An
 
 Documentation changes are committed and pushed directly to `main`. No branch or PR needed.
 
-### App repo (when created)
+### App repo (`AnunnakiCosmoCrew/WordPower-app`)
+
+> The `WordPower-app` monorepo was created at the start of Phase 2 (April 2026). The conventions below apply from Phase 2 onwards.
 
 **Never push directly to main** — always create a branch and PR, even for one-line changes.
 

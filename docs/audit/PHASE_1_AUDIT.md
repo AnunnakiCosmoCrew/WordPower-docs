@@ -108,7 +108,7 @@
 |---|---|
 | Backend scaffold done in Phase 1 (planned for Phase 2) | Agent already working on it; needed for CI pipeline anyway |
 | 17 additional CI/quality issues | Engineering foundation investment — pays off across all future phases |
-| Oxford API deferred from Phase 2 to Phase 6 | £600/yr cost during development; Free Dictionary API is adequate |
+| Oxford API deferred from Phase 2 to Phase 6 | ~$756/yr cost during development; Free Dictionary API is adequate |
 | #68 (rich enrichment) moved to Phase 2 | Depends on richer API response parsing; not blocking for MVP |
 
 ---
@@ -179,6 +179,34 @@
 > - **Feature issues take longer** — median 29.6h. Expected: they involve UI, state management, tests, and iteration.
 > - **Longer lead times on #5, #7, #8** reflect backlog wait (created Apr 15, closed Apr 17) not active work time. True cycle time is shorter.
 > - **Phase 2 baseline:** expect feature issues to average ~1-2 days lead time based on Phase 1 velocity.
+
+---
+
+## Lessons Learned
+
+### What went well
+
+| Observation | Evidence |
+|---|---|
+| **Infrastructure-first paid off** | 17 unplanned infra issues (CI, static analysis, coverage, security scanning) created a foundation that accelerated every feature issue. Checkstyle, PMD, SpotBugs, Semgrep, and Dependabot now gate every PR with zero per-issue setup cost. |
+| **Abstract interfaces from day one** | `DictionaryService` abstraction (WP-5) means Oxford API swap in Phase 6 is a single class change. This pattern costs ~10 minutes upfront and saves weeks later. |
+| **Fast infra velocity** | Infrastructure issues had a median lead time of 3.2 hours — focused, well-scoped PRs with clear success criteria. |
+| **CI smart-skipping** | `dorny/paths-filter` (WP-62) means frontend-only PRs skip backend CI entirely. Wall-clock CI time stays under 90 seconds regardless of repo growth. |
+
+### What didn't go well
+
+| Observation | Impact | Root cause |
+|---|---|---|
+| **Scope nearly tripled** | 27 issues delivered vs 10 planned (2.7×). While the extra work was valuable, it was unplanned — no conscious trade-off decision was made upfront. | Opportunistic infrastructure work during feature implementation — "while I'm here, let me also add..." |
+| **Feature lead times inflated by backlog wait** | #5 (Dictionary API) shows 42.5h lead time, but much of that was sitting in the backlog, not active work. Lead time ≠ cycle time here. | Issues were created early but worked sequentially. True cycle time metrics would be more useful. |
+| **No estimation for bonus issues** | #53 (max width centering) has no estimate. Infra issues were estimated after the fact, not before. | Rapid execution without pausing to estimate — acceptable in a 3-day sprint, but unsustainable. |
+
+### What to change for Phase 2
+
+1. **Time-box infrastructure work.** Dedicate explicit issues for infra before starting features — don't let infra emerge organically during feature work.
+2. **Track cycle time separately from lead time.** Add "In Progress" timestamps on the project board to distinguish wait time from active work time.
+3. **Estimate before starting.** Every issue gets a Fibonacci estimate before moving to "In Progress" — no exceptions, including bug fixes (which are estimate 0).
+4. **Scope control.** If unplanned work exceeds 50% of planned points mid-phase, pause and re-plan rather than absorbing it silently.
 
 ---
 

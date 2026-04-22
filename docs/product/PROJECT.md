@@ -292,7 +292,7 @@ Words are grouped by their morphological root — the core unit of meaning that 
 >
 > | Source | What it provides | Cost |
 > |---|---|---|
-> | **Oxford Dictionaries API** | Definitions, pronunciation audio, phonetics, examples, part of speech | ~£50/mo (cached) |
+> | **Oxford Dictionaries API** | Definitions, pronunciation audio, phonetics, examples, part of speech | ~$63/mo (£50, cached) |
 
 > [!info]- Dictionary API Comparison — Phase 1 vs Phase 2
 >
@@ -573,9 +573,9 @@ erDiagram
 > | Apple Developer Program | $8.25 |
 > | Google Play (amortized) | ~$2 |
 > | Firebase Auth | $0 |
-| Neon PostgreSQL | $0–19 |
-| GCP Cloud Run | $0–10 |
-> | **Total** | **~$73–78** |
+> | Neon PostgreSQL | $0–19 |
+> | GCP Cloud Run | $0–10 |
+> | **Total** | **~$73–102** |
 
 ### Dictionary Caching Architecture
 
@@ -679,7 +679,7 @@ Words get richer, data lives in the cloud. iOS enters as the natural mobile home
 |---|---|
 | Firebase Auth | Email/password, Google Sign-In, Apple Sign-In |
 | Cloud sync | Real-time sync across devices via Spring Boot API |
-| Auto-enrichment | Definition, pronunciation (audio + IPA), part of speech, example sentences via ==Free Dictionary API== (Oxford deferred to Phase 6 to avoid £600/yr during development) |
+| Auto-enrichment | Definition, pronunciation (audio + IPA), part of speech, example sentences via ==Free Dictionary API== (Oxford deferred to Phase 6 to avoid ~$756/yr during development) |
 | Word Detail View | Full word card with all enriched data + personal notes |
 | iOS deployment | App Store submission for iOS |
 
@@ -728,7 +728,7 @@ Polish and publish.
 
 | Deliverable | Details |
 |---|---|
-| Oxford API integration | Oxford Dictionaries API Lite (£50/mo) + server-side PostgreSQL caching (1 call per word ever). Replaces Free Dictionary API via the abstract `DictionaryService` interface — single class swap, no frontend changes |
+| Oxford API integration | Oxford Dictionaries API Lite (~$63/mo) + server-side PostgreSQL caching (1 call per word ever). Replaces Free Dictionary API via the abstract `DictionaryService` interface — single class swap, no frontend changes |
 | Onboarding flow | First-run experience explaining the collect → learn loop |
 | UI polish | Animations, transitions, edge cases, accessibility |
 | Beta testing | TestFlight (iOS) + web beta |

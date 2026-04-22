@@ -16,10 +16,11 @@ Related: [[PROJECT#6. Technical Stack]] | [[LOCAL_FIRST_ARCHITECTURE]]
 5. [[#5. End-to-End (E2E) Testing]]
 6. [[#6. Fuzz Testing (Schemathesis)]]
 7. [[#7. Performance Testing (k6)]]
-8. [[#8. Static Analysis, Code Quality & Coverage Toolchain]]
-9. [[#9. What Runs When]]
-10. [[#10. Coverage Targets & Ratcheting]]
-11. [[#11. Glossary]]
+8. [[#8. Mutation Testing (PIT)]]
+9. [[#9. Static Analysis, Code Quality & Coverage Toolchain]]
+10. [[#10. What Runs When]]
+11. [[#11. Coverage Targets & Ratcheting]]
+12. [[#12. Glossary]]
 
 ---
 
@@ -74,7 +75,25 @@ void sm2_goodRating_increasesInterval() {
 - CEFR level assignment logic
 - Domain keyword matching
 - DTO mapping / validation
+- Overdue word catch-up logic (see below)
 - Any pure function
+
+#### SRS overdue word handling tests
+
+The overdue word catch-up algorithm (see [[SPACED_REPETITION#Catch-up algorithm]]) is a critical retention feature — if overdue handling feels punishing, users abandon the app. These test cases must be covered:
+
+| Test case | Asserts |
+|---|---|
+| Words overdue by 1 day appear in review queue | Overdue words are included in `getReviewQueue()`, sorted by overdue ratio |
+| Overdue ratio prioritizes correctly | A word 5 days overdue on a 3-day interval (ratio 1.67) ranks above a word 10 days overdue on a 14-day interval (ratio 0.71) |
+| Daily cap limits total reviews | Queue returns at most 30 words regardless of how many are overdue |
+| Overdue allocation capped at 50% | At most 15 of the 30 daily slots are filled by overdue words |
+| Normal-due words aren't starved | If 100 words are overdue but 10 are normally due, at least 10 normal-due words appear in the queue |
+| Correct recall preserves extended interval | A word overdue by 20 days (scheduled 10-day interval) recalled correctly gets `interval_next = 20 × EF`, not `10 × EF` |
+| "Again" on overdue word resets normally | An overdue word rated "Again" resets to 1-day interval (same as any failed recall) |
+| Catch-up spread across days | 45 overdue words with daily cap 30 are fully cleared in 2–3 sessions, not dumped in one |
+| Zero overdue words | Queue returns only normally-due words; no errors when overdue count is 0 |
+| All words overdue after long absence | Queue respects daily cap (30), fills overdue allocation (15), remainder from most-overdue words |
 
 **What NOT to unit test (use integration tests instead):**
 - Controller request routing
@@ -950,7 +969,86 @@ flowchart LR
 
 ---
 
-## 8. Static Analysis, Code Quality & Coverage Toolchain
+## 8. Mutation Testing (PIT)
+
+Mutation testing answers the question coverage can't: **"Do my tests actually catch bugs, or do they just execute code?"**
+
+**Tool:** [PIT (pitest)](https://pitest.org/) — the standard mutation testing tool for Java/JVM projects.
+
+### How it works
+
+PIT makes small, deliberate changes (mutations) to your compiled bytecode — replacing `>` with `>=`, flipping `true` to `false`, removing method calls — and then runs your tests. If a test fails, the mutant is "killed" (good — the test caught the change). If all tests still pass, the mutant "survived" (bad — the test suite has a blind spot).
+
+```mermaid
+flowchart LR
+    Source["Compiled bytecode"] --> Mutate["PIT introduces<br/>mutation<br/>(e.g., > → >=)"]
+    Mutate --> Run["Run tests<br/>against mutant"]
+    Run -->|"Test fails"| Killed["✅ Mutant killed<br/>(test caught it)"]
+    Run -->|"All tests pass"| Survived["❌ Mutant survived<br/>(blind spot)"]
+```
+
+### Why coverage alone isn't enough
+
+| Scenario | Line coverage | Mutation score |
+|---|---|---|
+| Test calls method but doesn't assert the result | 100% | 0% — mutant survives |
+| Test asserts exact output for all branches | 100% | 100% — mutant killed |
+| Test checks `> 0` but not boundary (`>= 0` vs `> 0`) | 100% | ~50% — boundary mutant survives |
+
+**Coverage measures what code was executed. Mutation testing measures what code was verified.**
+
+### Scope: critical business logic only
+
+PIT is slow (minutes, not seconds) because it runs the test suite once per mutation. Running it on the entire backend would take too long. Instead, it targets the packages where correctness matters most:
+
+| Package | Why it matters | Example mutations PIT would catch |
+|---|---|---|
+| `com.wordpower.api.domain` | SRS algorithm, CEFR assignment | `interval * EF` mutated to `interval / EF` — tests still pass? |
+| `com.wordpower.api.application` | Enrichment pipeline, quiz logic | `if (cacheHit)` mutated to `if (!cacheHit)` — tests still pass? |
+
+### Configuration
+
+```groovy
+// build.gradle.kts
+pitest {
+    targetClasses.set(setOf(
+        "com.wordpower.api.domain.*",
+        "com.wordpower.api.application.*"
+    ))
+    threads.set(4)
+    mutationThreshold.set(70)  // build fails if mutation score < 70%
+    timestampedReports.set(false)
+}
+```
+
+### When it runs
+
+| Trigger | Why |
+|---|---|
+| **Nightly** (3 AM UTC) | Too slow for every PR (~3-5 min for targeted packages) |
+| **On demand** (`./gradlew pitest`) | Developer wants to check test quality before a PR |
+
+PIT runs alongside Schemathesis and k6 in the nightly schedule. On failure, it auto-creates a GitHub Issue (same pattern as fuzz and performance tests).
+
+### Mutation score targets
+
+| Package | Target | Rationale |
+|---|---|---|
+| `domain` (SRS, CEFR) | 70% | Core algorithms where correctness = user trust |
+| `application` (services) | 60% | Orchestration logic — some mutations are false positives (e.g., log message changes) |
+
+### What mutation testing catches that nothing else does
+
+| Problem | Unit test | Coverage | Mutation testing |
+|---|---|---|---|
+| Test calls SRS calculator but doesn't assert interval | ❌ | ✅ (line covered) | ✅ (mutant survives → caught) |
+| Off-by-one in CEFR boundary (`>` vs `>=`) | Maybe | ✅ (line covered) | ✅ (boundary mutant) |
+| Dead code in enrichment pipeline | ❌ | ❌ (not covered) | ❌ (PIT targets covered code) |
+| Missing assertion on error path | ❌ | ✅ (line covered) | ✅ (return value mutant) |
+
+---
+
+## 9. Static Analysis, Code Quality & Coverage Toolchain
 
 ### How static analysis works
 
@@ -1323,7 +1421,7 @@ Every quality tool must exclude generated code — otherwise findings are noise 
 
 ---
 
-## 9. What Runs When
+## 10. What Runs When
 
 ### Every PR
 
@@ -1375,9 +1473,15 @@ All run in PARALLEL → wall clock ~90 seconds
 │  │    spike + large vocabulary)         │
 │  ├── assert p95 latency thresholds     │
 │  └── on failure → create GitHub Issue  │
+├─────────────────────────────────────────┤
+│ pitest                (~3-5 min)        │
+│  ├── mutate domain + application pkgs  │
+│  ├── run tests against each mutant     │
+│  ├── assert mutation score ≥ 70%/60%   │
+│  └── on failure → create GitHub Issue  │
 └─────────────────────────────────────────┘
 
-Both run in PARALLEL → wall clock ~3 minutes
+All three run in PARALLEL → wall clock ~5 minutes
 ```
 
 ### Pre-deploy
@@ -1402,7 +1506,7 @@ Both run in PARALLEL → wall clock ~3 minutes
 
 ---
 
-## 10. Coverage Targets & Ratcheting
+## 11. Coverage Targets & Ratcheting
 
 ### Current targets
 
@@ -1451,7 +1555,7 @@ Both backends and frontend CI render coverage summaries in the **GitHub Step Sum
 
 ---
 
-## 11. Glossary
+## 12. Glossary
 
 | Term | Definition |
 |---|---|
@@ -1476,3 +1580,6 @@ Both backends and frontend CI render coverage summaries in the **GitHub Step Sum
 | **Golden test** | A visual regression test that compares a widget's rendered PNG against a stored reference image — catches unintended UI changes |
 | **k6** | Open-source load testing tool — scripts define virtual users, duration, and latency/error thresholds |
 | **Virtual user (VU)** | A simulated concurrent user in k6 — each VU runs the test script independently in a loop |
+| **PIT (pitest)** | Mutation testing tool for Java — introduces small code changes (mutations) and verifies tests catch them. Measures test quality, not coverage |
+| **Mutation score** | Percentage of mutations killed by the test suite — higher = tests are more effective at catching real bugs |
+| **Mutant** | A deliberate, small change to compiled bytecode (e.g., `>` → `>=`). If tests still pass, the mutant "survived" and the test suite has a blind spot |
