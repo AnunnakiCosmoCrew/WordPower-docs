@@ -155,6 +155,7 @@ Save a new word to the user's notebook. Triggers async enrichment.
   "interval": 0,
   "repetitions": 0,
   "nextReviewDate": null,
+  "deletedAt": null,
   "createdAt": "2026-04-20T14:30:00Z",
   "updatedAt": "2026-04-20T14:30:00Z"
 }
@@ -185,7 +186,7 @@ Retrieve the user's word collection, paginated.
 | `status` | string | Filter by status: `NEW`, `LEARNING`, `REVIEW`, `MASTERED` |
 | `cefrLevel` | string | Filter by CEFR level: `A1`, `A2`, `B1`, `B2`, `C1`, `C2` |
 | `search` | string | Case-insensitive prefix search on the word field |
-| `updatedSince` | ISO 8601 | Delta sync — return only records changed after this timestamp |
+| `updatedSince` | ISO 8601 | Delta sync — return only records changed after this timestamp. **Includes soft-deleted rows** (tombstones) so clients can detect deletions. See [[LOCAL_FIRST_ARCHITECTURE#Step 7 — Delete propagation (tombstones)]] |
 
 **Response:** `200 OK`
 
@@ -208,6 +209,7 @@ Retrieve the user's word collection, paginated.
       "easeFactor": 2.5,
       "interval": 15,
       "nextReviewDate": "2026-05-10",
+      "deletedAt": null,
       "createdAt": "2026-04-20T14:30:00Z",
       "updatedAt": "2026-04-22T09:00:00Z"
     }
@@ -260,7 +262,11 @@ Partial update using explicit-null semantics. Only send fields you want to chang
 
 #### `DELETE /api/v1/words/{id}` — Delete a word
 
-Soft-deletes the word (sets `deletedAt` timestamp). The word is excluded from all queries and garbage-collected after 30 days. Sync propagates the deletion to other devices via tombstone.
+Soft-deletes the word by setting a `deletedAt` timestamp. The word is excluded from normal list queries but included in delta sync responses (`?updatedSince=`) as a tombstone so other devices can detect the deletion. The shared `dictionary_cache` row (if any) is untouched.
+
+If the user later re-adds the same word via `POST /api/v1/words`, the tombstone is **revived** (`deletedAt` cleared) instead of returning 409 — so the word comes back with its original enrichment data intact.
+
+Tombstones are garbage-collected after a retention period (e.g., 90 days) via a scheduled job.
 
 **Response:** `204 No Content`
 
@@ -302,7 +308,10 @@ The Flutter app queues local writes in a `sync_outbox` table. When online, it dr
 GET /api/v1/words?updatedSince=2026-04-20T14:30:00Z
 ```
 
-Returns all words changed since the given timestamp — including enrichment updates, SRS state changes, and soft deletes. The client merges these into local drift.
+Returns all words changed since the given timestamp — including enrichment updates, SRS state changes, and **soft-deleted rows (tombstones)**. The client inspects each returned row:
+
+- `deletedAt == null` → upsert into local drift (create or update)
+- `deletedAt != null` → delete from local drift + clean up any related outbox entries
 
 ### Conflict resolution
 

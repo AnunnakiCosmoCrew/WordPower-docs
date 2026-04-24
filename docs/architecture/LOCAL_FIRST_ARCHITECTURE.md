@@ -188,13 +188,55 @@ sequenceDiagram
     Laptop->>Laptop: Merge into local SQLite
 ```
 
-### Three sync primitives
+### Step 7 — Delete propagation (tombstones)
+
+You delete "ubiquitous" on your phone. The app calls `DELETE /api/words/{id}`. The server ==does not hard-delete the row== — instead, it sets a `deleted_at` timestamp (a **soft delete**). The row becomes a **tombstone**: invisible in normal queries, but still returned by `GET /api/words?updatedSince=` so other devices discover the deletion.
+
+When your laptop does its next delta sync, the response includes the tombstoned row with `deletedAt` set. The laptop detects this, removes the word from its local drift database, and cleans up any related outbox entries.
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant Phone as Phone (drift)
+    participant Server as Spring Boot API
+    participant Postgres as PostgreSQL
+    participant Laptop as Laptop (drift)
+
+    Note over Phone: User deletes "ubiquitous"
+    User->>Phone: Delete word
+    Phone->>Phone: DELETE from local SQLite
+    Phone->>Server: DELETE /api/words/{id}
+    Server->>Postgres: SET deleted_at = now()
+    Note over Postgres: Row kept as tombstone
+    Server-->>Phone: 204 No Content
+
+    Note over Laptop: Laptop opens app
+    Laptop->>Server: GET /api/words?updatedSince=last_sync
+    Server-->>Laptop: [{word: "ubiquitous", deletedAt: "2026-04-24T..."}]
+    Laptop->>Laptop: Detect tombstone → DELETE local copy
+```
+
+#### Tombstone lifecycle
+
+| Stage | What happens |
+|---|---|
+| **Soft delete** | `DELETE /api/words/{id}` sets `deleted_at = now()` instead of removing the row |
+| **Hidden from queries** | `GET /api/words` (without `updatedSince`) excludes tombstoned rows — normal app usage never sees them |
+| **Visible in delta sync** | `GET /api/words?updatedSince=` includes tombstoned rows so other devices detect the deletion |
+| **Re-creation** | If the user re-adds a deleted word, the tombstone is revived (`deleted_at` cleared) instead of creating a duplicate |
+| **Garbage collection** | Tombstones are reaped after a retention period (e.g., 90 days) via a scheduled job — by then, all devices have synced |
+
+> [!warning] Why hard-delete doesn't work
+> If the server simply removes the row, `?updatedSince=` only returns rows that still exist. A deleted word would vanish from the server, and device B would never know it was removed — the word stays on device B forever.
+
+### Four sync primitives
 
 | Primitive | What it does |
 |---|---|
 | **Outbox** | Queue of local writes that haven't synced yet. Drained when online. Survives app restart. |
 | **Pull (delta sync)** | On app open / pull-to-refresh, fetch records changed since `last_sync_timestamp`. |
 | **Last-write-wins** | If the same record was edited on two devices, keep the one with the latest `updated_at`. |
+| **Tombstones** | Soft-deleted rows retained so delta sync can propagate deletions across devices. Garbage-collected after retention period. |
 
 > [!info] Why this is "instant"
 > Every UI read goes to drift. Every UI write goes to drift first, then to the outbox. The user **never waits for the network** to see their change. Sync is invisible background plumbing.

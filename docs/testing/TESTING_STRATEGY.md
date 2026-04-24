@@ -1,7 +1,7 @@
 # Testing Strategy — WordPower
 
 > [!abstract] Summary
-> WordPower uses a layered testing strategy: unit tests for logic, integration tests for the full stack, contract tests for API correctness, end-to-end tests for critical user journeys, fuzz tests for edge cases, golden tests for visual regression, and performance tests for latency and throughput. Each layer catches different bugs at different speeds. A comprehensive static analysis and code quality toolchain — Checkstyle, PMD, SpotBugs, ArchUnit, Semgrep, very_good_analysis, Spectral — enforces standards on every PR, with JaCoCo and lcov tracking coverage via a per-package ratcheting strategy.
+> WordPower uses a layered testing strategy: unit tests for logic, integration tests for the full stack, contract tests for API correctness, end-to-end tests for critical user journeys, sync robot tests for local-first data integrity, fuzz tests for edge cases, golden tests for visual regression, and performance tests for latency and throughput. Each layer catches different bugs at different speeds. A comprehensive static analysis and code quality toolchain — Checkstyle, PMD, SpotBugs, ArchUnit, Semgrep, very_good_analysis, Spectral — enforces standards on every PR, with JaCoCo and lcov tracking coverage via a per-package ratcheting strategy.
 
 Related: [[PROJECT#6. Technical Stack]] | [[LOCAL_FIRST_ARCHITECTURE]]
 
@@ -14,13 +14,14 @@ Related: [[PROJECT#6. Technical Stack]] | [[LOCAL_FIRST_ARCHITECTURE]]
 3. [[#3. Frontend Testing]]
 4. [[#4. Contract Testing]]
 5. [[#5. End-to-End (E2E) Testing]]
-6. [[#6. Fuzz Testing (Schemathesis)]]
-7. [[#7. Performance Testing (k6)]]
-8. [[#8. Mutation Testing (PIT)]]
-9. [[#9. Static Analysis, Code Quality & Coverage Toolchain]]
-10. [[#10. What Runs When]]
-11. [[#11. Coverage Targets & Ratcheting]]
-12. [[#12. Glossary]]
+6. [[#6. Sync Testing (Local-First Data Integrity)]]
+7. [[#7. Fuzz Testing (Schemathesis)]]
+8. [[#8. Performance Testing (k6)]]
+9. [[#9. Mutation Testing (PIT)]]
+10. [[#10. Static Analysis, Code Quality & Coverage Toolchain]]
+11. [[#11. What Runs When]]
+12. [[#12. Coverage Targets & Ratcheting]]
+13. [[#13. Glossary]]
 
 ---
 
@@ -32,6 +33,7 @@ flowchart TB
         direction TB
         Perf["🔝 Performance Tests<br/>(k6)<br/>Nightly"]
         Fuzz["Fuzz Tests<br/>(Schemathesis)<br/>Nightly"]
+        Sync["Sync Robot Tests<br/>(Dart + Docker, multi-device)<br/>PRs touching sync code"]
         E2EUI["Flutter Integration Tests<br/>(Chrome, real app UI)<br/>Pre-deploy"]
         E2EAPI["API Journey Tests<br/>(multi-step HTTP scenarios)<br/>Every PR"]
         Contract["Contract Tests<br/>(spec validation + provider + consumer)<br/>Every PR"]
@@ -40,7 +42,7 @@ flowchart TB
         Static["⬇ Static Analysis<br/>(Checkstyle, SpotBugs, PMD, ArchUnit, Semgrep, very_good_analysis)<br/>Every PR"]
     end
 
-    Static --> Unit --> Integration --> Contract --> E2EAPI --> E2EUI --> Fuzz --> Perf
+    Static --> Unit --> Integration --> Contract --> E2EAPI --> E2EUI --> Sync --> Fuzz --> Perf
 ```
 
 | Layer | Speed | Catches | Runs |
@@ -51,6 +53,7 @@ flowchart TB
 | **Contract tests** | ~10 sec | API spec drift (FE/BE disagreement) | Every PR |
 | **API journey tests** | ~20 sec | Multi-step workflow bugs across endpoints | Every PR |
 | **Flutter integration tests** | ~3 min | UI-level regressions on real app | Pre-deploy |
+| **Sync robot tests** | ~2 min | Multi-device sync bugs, data loss, tombstone propagation | PRs touching sync code |
 | **Fuzz tests** | ~3 min | Edge cases, crashes, weird input | Nightly |
 | **Performance tests** | ~2 min | Latency regressions, throughput bottlenecks | Nightly |
 
@@ -701,7 +704,103 @@ flowchart LR
 
 ---
 
-## 6. Fuzz Testing (Schemathesis)
+## 6. Sync Testing (Local-First Data Integrity)
+
+Local-first sync is the most subtle and bug-prone part of WordPower's architecture. A timestamp off by one, a missing tombstone, or a lost outbox entry can silently lose a user's word. No other test layer covers multi-device sync scenarios end-to-end. Sync testing has two sub-layers: **frontend sync unit tests** for edge cases in the Dart sync layer, and a **sync robot test suite** that drives the full stack with real HTTP, real Drift, and real PostgreSQL.
+
+### Layer 1: Frontend sync unit tests
+
+**Tool:** `flutter test` with mocked HTTP (no backend required)
+
+**What they cover:** edge cases in the outbox drain, conflict handling, and crash recovery — scenarios that are hard to trigger in production but catastrophic if broken.
+
+| # | Scenario | What it catches |
+|---|---|---|
+| 8 | Multiple drain failures → batch recovery | 3 words added offline, all drains fail (503). On reconnect, single `drainOutbox()` sends all three in FIFO order. Catches ordering violations where an UPDATE arrives before its CREATE. |
+| 12 | Edit while CREATE is still pending | Word added offline (no serverId), user edits notes. CREATE drain re-reads the row and carries the latest values. Catches stale-data bugs where the original (pre-edit) notes are sent. |
+| 13 | App killed mid-drain → outbox survives | Outbox entry seeded, Drift DB closed and reopened (simulating app kill). New repository instance drains the surviving entry. Catches persistence failures across sessions. |
+| 15 | Same word on two devices → 409 conflict | Device A adds "hello" and syncs. Device B adds "hello" offline, drain fires CREATE → backend returns 409. Drain handles 409 gracefully: retires the entry, recovers serverId via next sync. Catches infinite-retry loops on permanent conflicts. |
+
+**Runtime:** ~seconds (no backend, no Docker)
+
+**Issue:** WordPower-app#259
+
+### Layer 2: Sync robot test suite
+
+**Tool:** `docker-compose` (Postgres + backend) + Dart integration test using the real generated `WordsApi` client + real Drift DB. No mocks anywhere.
+
+**Architecture:**
+
+```mermaid
+flowchart LR
+    subgraph Docker["docker-compose.test.yml"]
+        PG[("PostgreSQL")]
+        BE["Spring Boot API<br/>(fuzz profile, no Firebase)"]
+        BE <--> PG
+    end
+
+    subgraph Dart["Dart test process"]
+        DA["Device A<br/>(Drift DB + WordRepository)"]
+        DB["Device B<br/>(Drift DB + WordRepository)"]
+    end
+
+    DA -->|"real HTTP"| BE
+    DB -->|"real HTTP"| BE
+```
+
+**"Device B" = a second Drift database instance** pointing at the same backend. This simulates two physical devices without needing a browser or emulator.
+
+**Scenarios covered:**
+
+| # | Scenario | Group |
+|---|---|---|
+| 1 | Add word → persist locally → drain → server has it | Happy path |
+| 2 | Edit word → PUT → server reflects edit | Happy path |
+| 3 | Delete word → DELETE → server removes (tombstone) | Happy path |
+| 4 | App restart (close + reopen Drift DB) → all words intact | Happy path |
+| 6 | Multiple words added offline → all drain in FIFO order | Recovery |
+| 9 | Add on device A → sync device B → word appears on B | Two devices |
+| 10 | Edit on device A → sync device B → edit visible on B | Two devices |
+| 12 | Same word on both devices → no duplicate, one serverId | Two devices |
+| 13 | Concurrent edits → LWW picks newer, other device sees winner | Two devices |
+| 14 | CREATE response lost → sync adopts serverId via surface-form match | Crash recovery |
+| 17 | Delta pull after full sync → only changed rows come down | Delta pull |
+
+**Data integrity assertion (runs after every scenario):**
+
+- Local word count == server word count
+- Every local word with serverId exists on the server
+- Every server word exists locally
+- Field values match (word, notes, status)
+
+**How to run locally:**
+
+```bash
+docker compose -f docker-compose.test.yml up -d --build
+cd frontend && dart test test/contract/sync_robot_test.dart
+docker compose -f docker-compose.test.yml down -v
+```
+
+**CI workflow:** `sync-robot.yml` — triggered on PRs touching `api/`, `backend/`, or frontend sync code (`frontend/lib/api/`, `frontend/test/contract/`). Boots docker-compose, runs the robot tests, tears down. Tagged `@contract` so `flutter test` skips them by default.
+
+**What sync tests catch that other layers don't:**
+
+| Problem | Unit test | Integration test | API journey | Sync robot |
+|---|---|---|---|---|
+| Delete doesn't propagate to second device | ❌ | ❌ | ❌ (single device) | ✅ |
+| Outbox entry lost after app kill | ❌ | ❌ | ❌ | ✅ |
+| LWW picks wrong winner on concurrent edit | ❌ | ❌ | ❌ (single device) | ✅ |
+| FIFO ordering violation in batch drain | ⚠️ (mocked) | ❌ | ❌ | ✅ (real HTTP) |
+| 409 conflict leaves entry stuck in outbox | ⚠️ (mocked) | ❌ | ❌ | ✅ (real 409) |
+| Delta sync returns stale data | ❌ | ❌ | ⚠️ (single step) | ✅ (multi-step) |
+
+**Runtime:** ~2 minutes (docker-compose startup + 11 scenarios + teardown)
+
+**Issues:** WordPower-app#259, WordPower-app#260
+
+---
+
+## 7. Fuzz Testing (Schemathesis)
 
 Fuzz testing throws hundreds of auto-generated, unexpected inputs at the API — apostrophes, 10,000-character strings, null combinations — to find crashes and edge cases that no developer would think to write a test for.
 
@@ -809,7 +908,7 @@ The `tee` command writes Schemathesis output to both the terminal (visible in CI
 
 ---
 
-## 7. Performance Testing (k6)
+## 8. Performance Testing (k6)
 
 Performance tests verify that the API responds within acceptable latency and throughput thresholds under realistic load. No lower test layer covers this — unit tests don't measure time, integration tests run one request at a time, and E2E tests care about correctness, not speed.
 
@@ -969,7 +1068,7 @@ flowchart LR
 
 ---
 
-## 8. Mutation Testing (PIT)
+## 9. Mutation Testing (PIT)
 
 Mutation testing answers the question coverage can't: **"Do my tests actually catch bugs, or do they just execute code?"**
 
@@ -1048,7 +1147,7 @@ PIT runs alongside Schemathesis and k6 in the nightly schedule. On failure, it a
 
 ---
 
-## 9. Static Analysis, Code Quality & Coverage Toolchain
+## 10. Static Analysis, Code Quality & Coverage Toolchain
 
 ### How static analysis works
 
@@ -1421,7 +1520,7 @@ Every quality tool must exclude generated code — otherwise findings are noise 
 
 ---
 
-## 10. What Runs When
+## 11. What Runs When
 
 ### Every PR
 
@@ -1456,6 +1555,20 @@ All run in PARALLEL → wall clock ~90 seconds
 
 > [!tip] Smart skipping (WP-62)
 > `dorny/paths-filter` skips irrelevant CI jobs. A PR that only changes frontend code won't run backend CI, and vice versa. Spec validation only runs when `api/` or `.spectral.yaml` changes.
+
+### PRs touching sync code
+
+```
+┌─────────────────────────────────────────┐
+│ sync-robot              (~2 min total)  │
+│  ├── docker-compose up (PG + backend)   │
+│  ├── dart test (sync robot scenarios)   │
+│  └── docker-compose down               │
+└─────────────────────────────────────────┘
+
+Triggered by changes to: api/, backend/, frontend/lib/api/,
+                          frontend/test/contract/
+```
 
 ### Nightly
 
@@ -1506,7 +1619,7 @@ All three run in PARALLEL → wall clock ~5 minutes
 
 ---
 
-## 11. Coverage Targets & Ratcheting
+## 12. Coverage Targets & Ratcheting
 
 ### Current targets
 
@@ -1555,7 +1668,7 @@ Both backends and frontend CI render coverage summaries in the **GitHub Step Sum
 
 ---
 
-## 12. Glossary
+## 13. Glossary
 
 | Term | Definition |
 |---|---|
@@ -1583,3 +1696,6 @@ Both backends and frontend CI render coverage summaries in the **GitHub Step Sum
 | **PIT (pitest)** | Mutation testing tool for Java — introduces small code changes (mutations) and verifies tests catch them. Measures test quality, not coverage |
 | **Mutation score** | Percentage of mutations killed by the test suite — higher = tests are more effective at catching real bugs |
 | **Mutant** | A deliberate, small change to compiled bytecode (e.g., `>` → `>=`). If tests still pass, the mutant "survived" and the test suite has a blind spot |
+| **Sync robot test** | An end-to-end test that drives the real Dart API client + real Drift DB against a real dockerized backend to verify local-first sync correctness across simulated devices |
+| **Tombstone** | A soft-deleted database row retained so delta sync can propagate the deletion to other devices. See [[LOCAL_FIRST_ARCHITECTURE#Step 7 — Delete propagation (tombstones)]] |
+| **Outbox drain** | The process of sending locally queued writes (from the `sync_outbox` table) to the server when connectivity is available |
