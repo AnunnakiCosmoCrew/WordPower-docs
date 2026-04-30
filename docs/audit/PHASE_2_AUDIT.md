@@ -72,11 +72,11 @@ Phase 2 was organized into 7 epics, each decomposed into sub-issues:
 
 ### Epic 7: Word Detail View (#77)
 
-| # | Issue | Lead time |
-|---|---|---|
-| #68 | Rich enrichment data — synonyms, definitions, antonyms | 11.3h |
-| #95 | FE: Word Detail View — enriched card with audio | 83.5h |
-| #96 | FE: Editable personal notes + native translation | 83.9h |
+| #   | Issue                                                  | Lead time |
+| --- | ------------------------------------------------------ | --------- |
+| #68 | Rich enrichment data — synonyms, definitions, antonyms | 11.3h     |
+| #95 | FE: Word Detail View — enriched card with audio        | 83.5h     |
+| #96 | FE: Editable personal notes + native translation       | 83.9h     |
 
 ---
 
