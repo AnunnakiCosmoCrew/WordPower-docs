@@ -703,9 +703,11 @@ The notebook becomes a real vocabulary system.
 | Word Lists / Folders | Custom collections (e.g., "IELTS Prep", "Words from Breaking Bad") |
 | Domain browsing & filtering | Filter by semantic domain, CEFR level, status |
 | Root families | Root → word family tree, prefix/suffix breakdowns |
-| Word discovery | "You know *transport* — try *export*, *import*, *portable*" |
+| Word discovery | "You know *transport* — try *export*, *import*, *portable*". Surface as both a standalone browse experience **and** as post-quiz prompts: after a session, suggest related words for the user to opt into adding. Words only enter the notebook on explicit tap — preserves the personal-notebook contract. See [[QUIZ_ENGINE#10. Deferred / Future Work]]. |
 | Dashboard | Stats, streaks, words collected/mastered, level progress |
-| Smart candidate ordering for ad-hoc quizzes | Replace random candidate-pool sampling (Phase 3 fix) with *least-recently-quizzed first* via a `UserWord.lastQuizzedAt` column. Pool cap then means "500 most-overdue words" instead of a random slice. Optionally fold in SRS-driven prioritisation (due-or-soon words first), merging the ad-hoc-quiz and review-queue flows where they overlap. See [[QUIZ_ENGINE#3. Candidate Pool]] and [[QUIZ_ENGINE#9. Open Questions for Discussion]]. |
+| Smart candidate ordering for ad-hoc quizzes | Replace random candidate-pool sampling (Phase 3 fix) with *least-recently-quizzed first* via a `UserWord.lastQuizzedAt` column. Pool cap then means "500 most-overdue words" instead of a random slice. Optionally fold in SRS-driven prioritisation (due-or-soon words first), merging the ad-hoc-quiz and review-queue flows where they overlap. See [[QUIZ_ENGINE#3. Candidate Pool]] and [[QUIZ_ENGINE#10. Deferred / Future Work]]. |
+| Mixed quiz-type sessions | Let one session mix question types — e.g. 3 MCQ + 3 flashcards + 3 spelling on the same word set. Helps with small-collection variety (same words, multiple framings) and is a richer practice mode in its own right. See [[QUIZ_ENGINE#10. Deferred / Future Work]]. |
+| Reduce capture friction | A user persistently stuck at a small notebook is an onboarding/UX failure, not a quiz-engine problem. Invest in low-friction collection paths — improved Quick Capture, browser extension, share-sheet on iOS, OCR-from-screenshot — so the notebook keeps growing organically. The deeper fix for "quizzes feel repetitive" lives upstream of the quiz engine. |
 
 ### Phase 5 — Advanced Modes: "Deep Practice"
 

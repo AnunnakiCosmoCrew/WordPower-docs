@@ -263,6 +263,24 @@ The current strategy only uses the user's own collection. Two richer sources are
 
 Both require bundled lexical-data files on-device — see [[LOCAL_FIRST_ARCHITECTURE#Reference Data]] for the rollout plan.
 
+### 5.5 Small-Collection Fallback (Phase 3)
+
+When the user's collection is too small to yield three quality distractors — e.g. fewer than three same-POS candidates remain after the synonym filter — the service supplements from the **dictionary cache**: `DictionaryEntry` rows the user hasn't collected.
+
+| Rule                | Detail                                                                                                                                                              |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Trigger**         | In-collection ranked pool yields fewer than `DISTRACTOR_COUNT` candidates after synonym filtering                                                                   |
+| **Source**          | `DictionaryEntry` where `isEnrichable = true`                                                                                                                       |
+| **Same-POS first**  | Same part-of-speech as the target, falling back to other POS only if the same-POS cache pool is also too small                                                      |
+| **CEFR proximity**  | Same band → ±1 → ±2, resolved via `LeveledLexicon.classify` (mirrors §5.2)                                                                                          |
+| **Exclusions**      | Words already in the user's collection (would otherwise be valid targets) and the target's synonyms                                                                 |
+| **Targets unchanged** | Only the **distractor** pool is augmented. The target word is still always one of the user's own collected words                                                  |
+
+> [!important] Why this preserves the personal-notebook contract
+> The user is never quizzed on a word they didn't add — only the wrong answers come from outside their collection. The notebook stays theirs; the quiz just gets less repetitive. This is the only acceptable form of pool augmentation: target words are sacred, distractors are flavour.
+
+This is also a natural early payoff from the §5.4 Phase B work — small-collection users get richer distractors immediately, while the full WordNet/Roget integration arrives later.
+
 ## 6. Storage Model
 
 Each generated question is one `QuizQuestion` row:
@@ -327,19 +345,33 @@ flowchart TD
 > [!question] Things worth deciding now or revisiting
 > - Should `MultipleChoiceQuestionGenerator` allow the user to choose `WORD_TO_DEFINITION` vs `DEFINITION_TO_WORD`, or stay opinionated? (Currently hard-wired to W→D.)
 > - Should FITB fall back to a **pre-blanked** sentence when the user's word has no cached examples? (Currently silent-skips.)
-> - **Phase 4:** upgrade candidate ordering from random sampling to *least-recently-quizzed first*. Requires a `lastQuizzedAt` column on `UserWord`, updated each time a question is generated. The pool cap (500) then means *"the 500 most-overdue words"* rather than a random slice — much closer to SRS semantics. Tracked in [[PROJECT#Phase 4 — Vocabulary System: "Organized Learning"]].
-> - Should distractor selection ever look outside the user's collection, or wait for the Phase B WordNet/Roget rollout?
 > - What's the right hint cap for spelling? Currently ⌈length / 2⌉, but a flat *"max 3 letters"* might feel more predictable. Worth A/B-testing once telemetry is in.
 
-> [!info] Deferred — sentence-audio dictation mode
-> Synthesised audio of the example sentence ("hear the sentence, spell the word") is strictly better pedagogy than blanked text but is its own epic — TTS provider, caching, object-storage layout, offline pre-download, voice/accent UX, billing model. Revisit once v1 spelling completion-rate data is in. Tracked under [issue #237](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/237).
+## 10. Deferred / Future Work
+
+Things we've decided to defer rather than re-litigate. Each entry has a short rationale, the phase it's queued for, and any follow-up tickets where applicable.
+
+> [!info] Phase 4 — Least-recently-quizzed candidate ordering
+> Upgrade candidate ordering from random sampling (Phase 3 fix, [issue #335](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/335)) to *least-recently-quizzed first*. Requires a `UserWord.lastQuizzedAt` column updated each time a question is generated. The 500-cap then means *"the 500 most-overdue words"* — much closer to SRS semantics. Optionally fold in SRS-driven prioritisation (due-or-soon words first), which would merge the ad-hoc-quiz and review-queue flows where they overlap. Tracked in [[PROJECT#Phase 4 — Vocabulary System: "Organized Learning"]].
+
+> [!info] Phase 4+ — Mixed quiz-type sessions
+> The engine currently produces single-type sessions. A future enhancement would let one session mix question types — e.g. 3 MCQ + 3 flashcards + 3 spelling on the same word set. Two motivations: (1) variety on small collections (same words, six framings feels much fresher than the same words drilled MCQ × 6); (2) a richer practice mode in its own right. Implementation would extend `QuizSessionService.create` to accept a list of types or a "mixed" flag. Tracked in [[PROJECT#Phase 4 — Vocabulary System: "Organized Learning"]].
+
+> [!info] Phase 4 — Post-quiz discovery prompts
+> After a quiz session, surface a soft prompt suggesting related words for the user to *opt into* adding (*"You're working on `transitory`. Words like `fleeting`, `ephemeral`, `momentary` might interest you — add to your notebook?"*). Critically, words only enter the candidate pool if the user explicitly taps to add — preserving the personal-notebook contract. Aligns with the existing Word Discovery deliverable in [[PROJECT#Phase 4 — Vocabulary System: "Organized Learning"]].
+
+> [!info] Phase 4+ — Reduce capture friction for retention
+> A user persistently stuck at a small notebook is an onboarding/UX failure, not a quiz-engine problem. Quick Capture, browser extension, share-sheet on iOS, OCR-from-screenshot — all the collection paths should make it trivial to keep the notebook growing. Quiz-side variety mechanisms (§5.5, the deferrals above) help around the edges, but the deeper fix is upstream. Tracked in [[PROJECT#Phase 4 — Vocabulary System: "Organized Learning"]].
+
+> [!info] Phase 5+ — Sentence-audio dictation mode for spelling
+> Synthesised audio of the example sentence ("hear the sentence, spell the word") is strictly better pedagogy than blanked text but is its own epic — TTS provider, caching, object-storage layout, offline pre-download, voice/accent UX, billing model. Revisit once v1 spelling completion-rate data is in. Originally noted under [issue #237](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/237).
 
 ## Glossary
 
 > [!abstract] Terms
 > | Term | Meaning |
 > |---|---|
-> | **Candidate pool** | The bounded list of `UserWord` rows the engine considers for a session (≤ 500, newest-first) |
+> | **Candidate pool** | The bounded list of `UserWord` rows the engine considers for a session (≤ 500, randomly sampled within the active set) |
 > | **Eligible** | A candidate that can form a valid question of the requested type (per §4 rules) |
 > | **Distractor** | A wrong answer presented alongside the correct one in a multi-option question |
 > | **Stem** | The prompt portion of a question (the word, the definition, or the sentence-with-blank) |
