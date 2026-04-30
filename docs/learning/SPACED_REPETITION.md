@@ -48,15 +48,16 @@ xychart-beta
 
 Here's a simplified example of how review intervals grow for a single word:
 
-| Review # | User recalls correctly? | Next review in... | Why |
-|---|---|---|---|
-| 1 | Yes | 1 day | First time — short interval to confirm |
-| 2 | Yes | 3 days | Starting to stick |
-| 3 | Yes | 7 days | Settling into memory |
-| 4 | Yes | 16 days | Getting solid |
-| 5 | Yes | 35 days | Well-learned |
-| 6 | Yes | 75 days | Nearly permanent |
-| — | No (forgot) | 1 day | Reset — needs relearning |
+| Review # | User recalls correctly? | Next review in... | Why                                    |
+| -------- | ----------------------- | ----------------- | -------------------------------------- |
+| 1        | Yes                     | 1 day             | First time — short interval to confirm |
+| 2        | Yes                     | 3 days            | Starting to stick                      |
+| 3        | Yes                     | 7 days            | Settling into memory                   |
+| 4        | Yes                     | 16 days           | Getting solid                          |
+| 5        | Yes                     | 35 days           | Well-learned                           |
+| 6        | Yes                     | 75 days           | Nearly permanent                       |
+| —        | No (forgot)             | 1 day             | Reset — needs relearning               |
+|          |                         |                   |                                        |
 
 > [!success] Result
 > After 6 successful reviews spread over ~4 months, a word is essentially in long-term memory. Without SRS, you'd need dozens of random reviews to achieve the same result.
@@ -315,23 +316,42 @@ WordPower classifies each quiz type by its ==cognitive demand==:
 
 | Cognitive Type | What it tests | Quiz Types |
 |---|---|---|
-| **Production** (harder) | User generates the answer from memory | Spelling, Fill-in-the-Blank, Sentence Scramble, Definition Reverse |
+| **Production** (hardest) | User generates the answer from memory with no semantic scaffolding | Sentence Scramble, Definition Reverse |
+| **Assisted Production** | User generates the answer from memory but with semantic context (definition, blanked example sentence) | Spelling, Fill-in-the-Blank |
 | **Recognition** (easier) | User identifies the answer from options | Multiple Choice, Matching, Synonym/Antonym Match, Odd One Out, Collocation Check, Listening |
 | **Self-assessed** | User judges their own recall | Flashcards |
 | **Gamified** | Tests fluency/speed, not core recall | Speed Recall, Word Ladder, Error Correction |
 
+> [!note] Why split production into two tiers
+> Spelling and FITB used to sit alongside Sentence Scramble in *pure* production. As of [[QUIZ_ENGINE#4.4 Spelling]] both now ship with semantic scaffolding — a definition and (when available) a blanked example sentence. Producing the word with that much context is genuinely easier than producing it cold, so it earns its own tier between production and recognition. Sentence Scramble and Definition Reverse stay in pure production.
+
 ### Rating Inference Rules
 
-#### Production quizzes (Spelling, Fill-in-the-Blank, Sentence Scramble, Definition Reverse)
+#### Production quizzes (Sentence Scramble, Definition Reverse)
 
 | Outcome | SM-2 Quality ($q$) | Logic |
 |---|---|---|
 | Correct | 4 (Good) | Active recall succeeded |
 | Correct but slow (> 15s) | 3 (Hard) | Knew it, but with significant effort |
-| Close misspelling (1 letter off) | 3 (Hard) | Partial recall — nearly there |
-| Used a hint, then correct | 3 (Hard) | Assisted recall — cap at Hard |
 | Wrong, then correct on retry | 3 (Hard) | Needed a second attempt |
 | Wrong | 1 (Again) | Failed to produce |
+
+#### Assisted Production quizzes (Spelling, Fill-in-the-Blank)
+
+> [!note] Why a separate tier
+> These quizzes show semantic scaffolding (definition, blanked example sentence) alongside the prompt. The user still has to produce the answer, but the scaffolding makes it materially easier than cold production. The hint count is the explicit cost mechanism — see [[QUIZ_ENGINE#4.4.1 Progressive Hints]] for the spelling-quiz hint UI.
+
+| Outcome | SM-2 Quality ($q$) | Logic |
+|---|---|---|
+| Correct, no hints | 4 (Good) | Produced with semantic context but no letter help |
+| Correct, no hints, slow (> 15s) | 3 (Hard) | Time downgrade applies as in pure production |
+| Close misspelling (1 letter off), no hints | 3 (Hard) | Partial recall — nearly there |
+| Correct, 1 hint | 3 (Hard) | Light scaffolding — capped at Hard |
+| Correct, 2+ hints | 1 (Again) | Heavy scaffolding indicates the word isn't actually retained — treat as relearning |
+| Wrong (any hint count) | 1 (Again) | Failed to produce despite help |
+
+> [!warning] Hints are write-only — never an upgrade signal
+> Pressing fewer hints than allowed does not earn Easy (5). Mirroring the time-threshold rule below: hint count can downgrade quality but not upgrade it. The default for unscaffolded correct stays at Good (4).
 
 #### Recognition quizzes (Multiple Choice, Matching, Synonym/Antonym, Odd One Out, Collocation, Listening)
 
@@ -386,10 +406,10 @@ WordPower classifies each quiz type by its ==cognitive demand==:
 |---|---|---|---|---|---|
 | **Flashcards** | 3 | Self-assessed | User chooses | User chooses | User chooses |
 | **Multiple Choice** | 3 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
-| **Spelling** | 3 | Production | 4 (Good) | 3 (Hard) | 1 (Again) |
+| **Spelling** | 3 | Assisted Production | 4 (Good) — no hints; downgraded by hint count (see Assisted Production rules) | 3 (Hard) | 1 (Again) |
 | **Listening** | 3 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
 | **Matching** | 3 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
-| **Fill-in-the-Blank** | 3 | Production | 4 (Good) | 3 (Hard) | 1 (Again) |
+| **Fill-in-the-Blank** | 3 | Assisted Production | 4 (Good) | 3 (Hard) | 1 (Again) |
 | **Synonym/Antonym Match** | 4 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
 | **Odd One Out** | 4 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
 | **Collocation Check** | 5 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
@@ -412,25 +432,28 @@ Every quiz interaction should log a raw telemetry event to Firestore:
   "userId": "user-123",
   "timestamp": "2026-05-15T14:30:00Z",
   "quizType": "SPELLING",
-  "cognitiveType": "PRODUCTION",
+  "cognitiveType": "ASSISTED_PRODUCTION",
   "phase": 3,
   "outcome": "CORRECT",
   "durationMs": 4200,
-  "hintUsed": false,
+  "hintsUsed": 0,
   "retryAttempt": false,
   "inferredQuality": 4,
   "spellingDistance": 0
 }
 ```
 
+Each individual hint press also emits its own event (`outcome: "HINT_USED"`) with the hint position and time-since-question-start, so the optimiser can later learn hint-timing patterns. Only the final count is stored on `QuizAnswer.hintsUsed`.
+
 > [!note] Fields explained
 >
 > | Field | Purpose |
 > |---|---|
 > | `quizType` | Which quiz generated this review |
-> | `cognitiveType` | `PRODUCTION`, `RECOGNITION`, `SELF_ASSESSED`, or `GAMIFIED` |
+> | `cognitiveType` | `PRODUCTION`, `ASSISTED_PRODUCTION`, `RECOGNITION`, `SELF_ASSESSED`, or `GAMIFIED` |
 > | `outcome` | `CORRECT`, `WRONG`, `CLOSE_MISSPELLING`, `HINT_USED`, `RETRY_CORRECT` |
 > | `durationMs` | Raw response time — FSRS can learn its own thresholds from this |
+> | `hintsUsed` | Integer count of letter-reveal hints pressed during the question (0 = none). Caps per [[QUIZ_ENGINE#4.4.1 Progressive Hints]] |
 > | `inferredQuality` | The SM-2 quality we calculated — useful for comparison when FSRS takes over |
 > | `spellingDistance` | Edit distance for spelling quizzes (0 = exact, 1 = one letter off) |
 
