@@ -705,6 +705,7 @@ The notebook becomes a real vocabulary system.
 | Root families | Root → word family tree, prefix/suffix breakdowns |
 | Word discovery | "You know *transport* — try *export*, *import*, *portable*" |
 | Dashboard | Stats, streaks, words collected/mastered, level progress |
+| Smart candidate ordering for ad-hoc quizzes | Replace random candidate-pool sampling (Phase 3 fix) with *least-recently-quizzed first* via a `UserWord.lastQuizzedAt` column. Pool cap then means "500 most-overdue words" instead of a random slice. Optionally fold in SRS-driven prioritisation (due-or-soon words first), merging the ad-hoc-quiz and review-queue flows where they overlap. See [[QUIZ_ENGINE#3. Candidate Pool]] and [[QUIZ_ENGINE#9. Open Questions for Discussion]]. |
 
 ### Phase 5 — Advanced Modes: "Deep Practice"
 

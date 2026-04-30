@@ -54,7 +54,7 @@ Before any generator runs, the service pulls a pool of the user's `UserWord` row
 | **Source** | The user's own collection only | All quiz types draw from the personal notebook |
 | **Active only** | Soft-deleted (tombstoned) words excluded | Tombstones exist for sync, not for review |
 | **Hard cap** | ==500 words== | Big enough for distractor headroom on a 50-question MCQ; small enough that the in-memory shuffle stays cheap |
-| **Order** | `createdAt` DESC (newest first) | Recently-added words are the ones the user most likely wants reps on |
+| **Order** | Random within the active set (`ORDER BY random() LIMIT 500`) | Guarantees every word can be selected regardless of collection size — a 1000-word user must not have their oldest 500 words permanently locked out of every quiz |
 | **Domain filter** | Optional, when `wordSourceType = DOMAIN_FILTER` | Lets the user quiz themselves on, e.g., just their "law" words |
 
 > [!note] Source type validation
@@ -327,7 +327,7 @@ flowchart TD
 > [!question] Things worth deciding now or revisiting
 > - Should `MultipleChoiceQuestionGenerator` allow the user to choose `WORD_TO_DEFINITION` vs `DEFINITION_TO_WORD`, or stay opinionated? (Currently hard-wired to W→D.)
 > - Should FITB fall back to a **pre-blanked** sentence when the user's word has no cached examples? (Currently silent-skips.)
-> - Is the 500-word candidate cap still right when a power user has 5,000 collected words? When does newest-first surfacing become a problem?
+> - **Phase 4:** upgrade candidate ordering from random sampling to *least-recently-quizzed first*. Requires a `lastQuizzedAt` column on `UserWord`, updated each time a question is generated. The pool cap (500) then means *"the 500 most-overdue words"* rather than a random slice — much closer to SRS semantics. Tracked in [[PROJECT#Phase 4 — Vocabulary System: "Organized Learning"]].
 > - Should distractor selection ever look outside the user's collection, or wait for the Phase B WordNet/Roget rollout?
 > - What's the right hint cap for spelling? Currently ⌈length / 2⌉, but a flat *"max 3 letters"* might feel more predictable. Worth A/B-testing once telemetry is in.
 
