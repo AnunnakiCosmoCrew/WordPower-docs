@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/testing/TESTING_STRATEGY.md",
+                "file": "docs/learning/QUIZ_ENGINE.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "TESTING_STRATEGY"
+              "title": "QUIZ_ENGINE"
             }
           }
         ]
@@ -78,8 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "e7f16788923e87b8",
@@ -186,16 +185,24 @@
   },
   "active": "4beccba926c1cb72",
   "lastOpenFiles": [
+    "docs/product/PROJECT.md",
+    "docs/learning/QUIZ_ENGINE.md",
+    "docs/learning/SPACED_REPETITION.md",
+    "docs/audit/PHASE_2_AUDIT.md",
+    "docs/operations/OPS.md",
     "docs/audit/PHASE_1_AUDIT.md",
+    "docs/compliance/PRIVACY.md",
+    "docs/architecture/ARCHITECTURE.md",
+    "docs/architecture/API.md",
+    "docs/operations",
+    "docs/compliance",
     "docs/testing/TESTING_STRATEGY.md",
     "docs/testing",
-    "docs/product/PROJECT.md",
     "docs/audit",
     "docs/product/PHASE_1_AUDIT.md",
     "docs/architecture/LOCAL_FIRST_ARCHITECTURE.md",
     "docs/LOCAL_FIRST_ARCHITECTURE.md",
     "docs/architecture/BROWSER_DATABASE_INTERNALS.md",
-    "docs/learning/SPACED_REPETITION.md",
     "docs/product/COMPETITIVE_ANALYSIS.md",
     "docs/learning",
     "docs/architecture",
