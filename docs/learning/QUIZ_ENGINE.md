@@ -462,11 +462,13 @@ flowchart TD
 
 > [!warning] `responseTimeMs` is INTEGER, not BIGINT
 >
-> **The problem:** when a user submits an answer, they send `responseTimeMs` in the request body. A malicious client could send an extremely large value (e.g. `9999999999999`). The DB column is `INTEGER` (32-bit, max ~2.1 billion), so a value larger than `Integer.MAX_VALUE` overflows, the DB rejects it, and the server throws a `DataIntegrityViolationException` — a **500** that looks like a server crash.
+> **The problem:** a malicious client could send a tampered value like `9999999999999`. The DB column is `INTEGER` (32-bit, max ~2.1 billion ms), so anything larger than `Integer.MAX_VALUE` overflows, the DB rejects it, and the server throws a `DataIntegrityViolationException` — a **500** that looks like a server crash.
 >
-> **The fix:** the service clamps the incoming value to `Integer.MAX_VALUE` before saving. A tampered value silently caps and saves cleanly, returning a **200** instead of crashing.
->
-> **Why the spec says `int64`:** JavaScript clients can't safely represent integers larger than 2^53 as plain JSON numbers. Declaring `format: int64, minimum: 0` in the OpenAPI spec tells clients to treat the field as a large number, preventing precision loss on the sending side. The server then clamps whatever it receives to fit the actual 32-bit DB column.
+> **The fix:** the service clamps before saving:
+> ```java
+> Math.min(responseTimeMs, Integer.MAX_VALUE)
+> ```
+> So `9999999999999` becomes `2,147,483,647` and saves cleanly. The server returns **200** instead of crashing with a **500**.
 >
 > **Known limitation:** the clamp is silent — a client sending a nonsensical value gets a 200 as if nothing happened. A cleaner design would reject values above a sane threshold (e.g. 1 hour = 3,600,000 ms) with a 400. Not yet tracked.
 
