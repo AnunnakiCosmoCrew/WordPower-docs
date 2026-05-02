@@ -408,12 +408,14 @@ Each generated question is one `QuizQuestion` row:
 
 | Column | Purpose |
 |---|---|
+| `id` | UUID primary key |
 | `sessionId` | FK to the session |
 | `userWordId` | The word this question is about — preserved even if the user later deletes the word |
 | `quizType` | Enum: `MULTIPLE_CHOICE`, `FILL_IN_THE_BLANK`, `FLASHCARD`, `SPELLING` |
 | `ordinal` | 0-indexed position within the session, used to render order |
 | `questionData` | JSONB payload — type-specific shape (see §4) |
 | `correctAnswer` | Canonical text for fast grading without re-parsing JSONB |
+| `createdAt` | Audit timestamp — when the question was generated |
 
 > [!info] Why both `correctAnswer` and `correctOptionId`?
 > For MCQ and FITB, the correct answer can be referenced two ways: by **option id** (`"B"`) or by **canonical text** (`"lasting a very short time"`). The FE is free to send either form. Storing both means grading is O(1) without parsing the JSONB on the hot path.
