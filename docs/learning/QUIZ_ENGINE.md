@@ -220,18 +220,83 @@ The hint count combines with the correct/incorrect outcome to produce the SRS ra
 
 ## 5. Distractor Selection
 
-For MCQ and FITB, distractor *quality* is what makes the engine feel intelligent versus random. The current implementation — `QualityRuleDistractorService` (Phase A: in-collection) — ranks the user's other words by three signals plus one hard exclusion.
+For MCQ and FITB, distractor *quality* is what makes the engine feel intelligent versus random. The live implementation is `LayeredDistractorService` (WP-282) — a three-layer chain that asks lexical-knowledge sources first and falls back to the user's own collection only when those run dry.
 
-### 5.1 The Hard Exclusion
+### 5.1 The Layered Chain
 
-> [!important] Synonyms are not distractors
-> Any candidate whose surface word appears in the target's cached `synonyms` list is excluded outright. A synonym would be a *legitimate alternative answer*, not a wrong one — using it as a distractor is a bug, not a difficulty knob.
+`LayeredDistractorService` walks three strategies in priority order, asking each for as many distractors as still need to be collected, and stops as soon as `count` unique options have been gathered:
 
-The synonym list comes from the dictionary cache, looked up case-insensitively. Cache misses (no row, no synonyms, blank target) degrade gracefully — the filter becomes a no-op and ranking still works.
+```mermaid
+flowchart TD
+    A[Need N distractors] --> B[Layer 1: WordNet siblings]
+    B -- got enough? --> Z[Done]
+    B -- need more --> C[Layer 2: Roget clusters]
+    C -- got enough? --> Z
+    C -- need more --> D[Layer 3: In-collection ranking]
+    D --> Z[Done]
+```
 
-### 5.2 The Ranking Keys
+| Layer | Source | Strength |
+|---|---|---|
+| 1 | **WordNet sibling synsets** | Tight conceptual neighbours under a shared hypernym (`cat ↔ dog ↔ horse` are all mammals). Genuinely confusable, never synonymous. |
+| 2 | **Roget's 1911 thematic clusters** | Loose thematic neighbours sharing a head category (`joy / delight / sorrow` all live under emotion-themed heads). Captures associations WordNet's IS-A hierarchy misses. |
+| 3 | **In-collection quality-rule ranking** | The user's other collected words, ranked by POS / CEFR / length. Used as the final fallback when both lexical sources come up short. |
 
-Within the surviving candidates, distractors are picked using three sort keys, in order:
+**Cross-cutting contracts**, applied at every layer:
+
+- **Synonym hard exclusion.** Any candidate whose surface word appears in the target's cached `synonyms` list (from `DictionaryEntry.synonyms`, looked up case-insensitively) is dropped outright. A synonym would be a *legitimate alternative answer*, not a wrong one. Cache misses degrade to a no-op — the filter is best-effort, not load-bearing.
+- **Cached definitions only.** Distractor option text comes from `dictionary_cache` (`DictionaryEntry.definitions`), never live API lookups. Candidates without a cached enrichable row are skipped at the layer level. The shipped option shape is `DistractorOption(word, definition)` — both fields non-null and non-blank by record-constructor invariant.
+- **Dedup by lower-cased word.** The composite seeds its dedup set with the target word (defensive — layers also exclude it), then keeps only the first surviving occurrence of each word across layers. Earlier layer's `(word, definition)` pair wins on collisions.
+
+> [!important] What this means for the personal-notebook contract
+> The user is still **only quizzed on words they collected** — targets always come from `UserWord`. But the *distractor* pool is no longer drawn from the notebook in the common case; it's drawn from WordNet/Roget. The notebook stays theirs; the wrong answers just got smarter.
+
+### 5.2 Layer 1 — WordNet Sibling Synsets
+
+`WordNetSiblingDistractorService` pulls candidates from the lemmas of synsets that share a hypernym with the target's synset. The bundle is **Open English WordNet** (~20k lemma/POS pairs after filtering through `cefr/word-frequency.tsv`), preprocessed into a gzipped TSV and loaded at startup the same way `LeveledLexicon` is.
+
+**Filters applied in order:**
+
+| Filter | Detail |
+|---|---|
+| **Same POS as target** | Enforced at lookup time by `WordNetSiblings.siblingsOf(word, pos)`. |
+| **Not the target itself** | Defensive — covers self-referential synsets. |
+| **Not a synonym** | Cross-cutting rule from §5.1. |
+| **CEFR within ±1 band** | Siblings further than one band away are dropped. CEFR resolved via `LeveledLexicon.classify` (same chain as enrichment). |
+| **Cached definition exists** | Single batched `findAllById` against `DictionaryEntry`; siblings without an enrichable cached row are skipped. No live API lookups. |
+
+**Definition picking** prefers a cached definition tagged with the target's POS, falling back to the first non-blank definition string when no POS-match exists.
+
+**Falls through** when the WordNet bundle has no row for the target — small lemma coverage outside the most common ~20k forms is expected, especially for technical or modern vocabulary.
+
+### 5.3 Layer 2 — Roget Thematic Clusters
+
+`RogetsClusterDistractorService` pulls candidates from the words sharing a Roget's 1911 head category with the target. The bundle is **Project Gutenberg #10681** (Roget's Thesaurus, 1911 edition) — 822 thematic clusters, ~17.5k words after frequency filtering.
+
+**Filters applied in order:**
+
+| Filter | Detail |
+|---|---|
+| **Not the target itself** | Defensive. |
+| **Not a synonym** | Cross-cutting rule from §5.1. |
+| **Cached definition exists** | Single batched `findAllById` against `DictionaryEntry`. |
+| **POS preference** (sort, not filter) | Same-POS cluster-mates rank ahead of mismatched POS. Roget's clusters are POS-agnostic, so mismatches still rank — just lower. Implemented as a stable sort on a POS-tier key (same shuffle-then-stable-sort pattern as Layer 3). |
+
+**Falls through** when the target isn't in any cluster. The 1911 corpus skews toward older common vocabulary; modern technical terms won't hit. When this happens the chain falls through to Layer 3.
+
+> [!note] Why two lexical sources, not one
+> WordNet and Roget capture different kinds of "near":
+>
+> - **WordNet** is a strict IS-A hierarchy. Siblings share a parent — perfect for taxonomic distractors (`oak / elm / maple`), but blind to non-hierarchical associations.
+> - **Roget** is thematic. Cluster-mates share a topic without being co-hyponyms (`anchor / harbor / voyage` all evoke sea travel even though they're not siblings under any single hypernym).
+>
+> Running them in series catches both shapes of plausibility.
+
+### 5.4 Layer 3 — In-Collection Quality-Rule Ranking
+
+`QualityRuleDistractorService` is the original Phase A strategy, now positioned as the final fallback. It picks distractors from the **user's own collected words** (`UserWord` rows) plus a small-collection cache supplement, ranked by three sort keys.
+
+#### The Ranking Keys
 
 ```mermaid
 flowchart TD
@@ -289,61 +354,35 @@ flowchart TD
 >
 > - **Tests** → seeded `Random` → deterministic, reproducible question order.
 > - **Production** → `ThreadLocalRandom` → varied across sessions.
-
-### 5.3 Decorate-Sort-Undecorate
-
-A performance pattern, not a behaviour change. The §5.2 ranking sorts candidates by three keys — and one of them, **CEFR distance**, is expensive to compute (it walks `LeveledLexicon.classify`, not a plain field read).
-
-**The problem with the obvious approach:**
-
-- Sorting `n` items calls the comparator about `n × log n` times.
-- A naive comparator recomputes the CEFR lookup *inside every comparison*.
-- Result: the same candidate's CEFR gets looked up over and over — `O(n log n)` lexicon hits for what should be a one-time-per-candidate cost.
-
-**The wrapper approach (decorate-sort-undecorate):**
-
-1. **Decorate** — for each candidate, compute its three sort keys *once* and stash them on a wrapper object.
-2. **Sort** — sort the wrappers. The comparator just reads the precomputed fields — no lexicon lookups.
-3. **Undecorate** — strip the wrapper, return the original candidates in their new order.
-
-**Result:** lexicon lookups happen exactly `n` times, not `n × log n`. Same output, much less work.
-
-> [!note] Also known as
-> This is the **Schwartzian transform**, a standard pattern in any language with stable sort. The doc calls it out explicitly because it's easy to regress — someone "simplifying" the comparator by inlining the CEFR call would silently restore the slow shape.
-
-> [!warning] Known redundancy — scheduled for Phase 3
-> The CEFR lookup itself is *redundant*: `DictionaryEntry.cefr_level` already holds the value as a stored column (set during enrichment). The distractor service re-derives it via `LeveledLexicon.classify` only because candidates arrive as `UserWord` objects, which don't carry CEFR — so the wrapper currently exists to amortize a lookup we shouldn't be doing in the first place.
 >
-> Phase 3 work: read CEFR from the joined `DictionaryEntry.cefr_level` instead of re-classifying. Once that lands, the wrapper's performance justification disappears (all three keys become cheap field reads) and this section can be deleted or reframed as "wrapper kept for comparator clarity, not performance."
+> Layer 2 (Roget) uses the same pattern for its POS-tier sort.
+
+#### Small-Collection Cache Supplement (WP-338)
+
+When the user's in-collection pool is too small to yield three same-POS distractors, the service supplements from the **dictionary cache** — `DictionaryEntry` rows the user hasn't collected.
+
+| Rule | Detail |
+|---|---|
+| **Trigger** | In-collection ranked pool yields fewer than `DISTRACTOR_COUNT` after synonym filtering. |
+| **Source** | `DictionaryEntry` where `isEnrichable = true`. |
+| **Same-POS first** | Falls back to other POS only when the same-POS cache pool is also too small. |
+| **CEFR proximity** | Same band → ±1 → ±2 (mirrors the in-collection ranking). |
+| **Exclusions** | Words already in the user's collection (would otherwise be valid targets) and the target's synonyms. |
+| **In-collection wins ties** | Cache hits land *behind* in-collection same-POS hits in the unified ranking. |
+
+> [!important] Targets are always the user's own words
+> The cache supplement augments only the **distractor** pool. Target words are still drawn exclusively from `UserWord`. Same contract applies to Layers 1 and 2 — only wrong answers come from outside the notebook.
+
+#### Implementation note: decorate-sort-undecorate
+
+The ranking keys are computed once per candidate and stashed on a `Ranked` wrapper before sorting (the **Schwartzian transform**), rather than recomputed inside every comparator call. The expensive key is **CEFR distance**, which calls `LeveledLexicon.classify` — at `n × log n` comparator calls per sort, doing the lookup inline scaled poorly. The wrapper pattern keeps lexicon hits at exactly `n` per call.
+
+> [!warning] Known redundancy — scheduled for cleanup
+> The CEFR lookup itself is *redundant*: `DictionaryEntry.cefr_level` already holds the value as a stored column (set during enrichment). The service re-derives it via `LeveledLexicon.classify` only because candidates arrive as `UserWord` objects, which don't carry CEFR.
+>
+> Once the joined-CEFR refactor lands, the wrapper's performance justification disappears (all three keys become cheap field reads) and this note can be deleted.
 >
 > Tracked in [WordPower-app#369](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/369).
-
-### 5.4 What's Deferred (Phase B)
-
-The current strategy only uses the user's own collection. Two richer sources are planned for later (issue [[#282]]):
-
-- ==WordNet sibling synsets== — sibling concepts under the same parent ("oak" → "elm", "maple"). Tighter semantic distractors than CEFR-banding alone.
-- ==Roget thematic clusters== — same thematic category, different concept. Useful when the user's collection is too small or too varied to yield good in-collection distractors.
-
-Both require bundled lexical-data files on-device — see [[LOCAL_FIRST_ARCHITECTURE#Reference Data]] for the rollout plan.
-
-### 5.5 Small-Collection Fallback (Phase 3)
-
-When the user's collection is too small to yield three quality distractors — e.g. fewer than three same-POS candidates remain after the synonym filter — the service supplements from the **dictionary cache**: `DictionaryEntry` rows the user hasn't collected.
-
-| Rule                | Detail                                                                                                                                                              |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Trigger**         | In-collection ranked pool yields fewer than `DISTRACTOR_COUNT` candidates after synonym filtering                                                                   |
-| **Source**          | `DictionaryEntry` where `isEnrichable = true`                                                                                                                       |
-| **Same-POS first**  | Same part-of-speech as the target, falling back to other POS only if the same-POS cache pool is also too small                                                      |
-| **CEFR proximity**  | Same band → ±1 → ±2, resolved via `LeveledLexicon.classify` (mirrors §5.2)                                                                                          |
-| **Exclusions**      | Words already in the user's collection (would otherwise be valid targets) and the target's synonyms                                                                 |
-| **Targets unchanged** | Only the **distractor** pool is augmented. The target word is still always one of the user's own collected words                                                  |
-
-> [!important] Why this preserves the personal-notebook contract
-> The user is never quizzed on a word they didn't add — only the wrong answers come from outside their collection. The notebook stays theirs; the quiz just gets less repetitive. This is the only acceptable form of pool augmentation: target words are sacred, distractors are flavour.
-
-This is also a natural early payoff from the §5.4 Phase B work — small-collection users get richer distractors immediately, while the full WordNet/Roget integration arrives later.
 
 ## 6. Storage Model
 
@@ -440,7 +479,7 @@ Things we've decided to defer rather than re-litigate. Each entry has a short ra
 > After a quiz session, surface a soft prompt suggesting related words for the user to *opt into* adding (*"You're working on `transitory`. Words like `fleeting`, `ephemeral`, `momentary` might interest you — add to your notebook?"*). Critically, words only enter the candidate pool if the user explicitly taps to add — preserving the personal-notebook contract. Aligns with the existing Word Discovery deliverable in [[PROJECT#Phase 4 — Vocabulary System: "Organized Learning"]].
 
 > [!info] Phase 4+ — Reduce capture friction for retention
-> A user persistently stuck at a small notebook is an onboarding/UX failure, not a quiz-engine problem. Quick Capture, browser extension, share-sheet on iOS, OCR-from-screenshot — all the collection paths should make it trivial to keep the notebook growing. Quiz-side variety mechanisms (§5.5, the deferrals above) help around the edges, but the deeper fix is upstream. Tracked in [[PROJECT#Phase 4 — Vocabulary System: "Organized Learning"]].
+> A user persistently stuck at a small notebook is an onboarding/UX failure, not a quiz-engine problem. Quick Capture, browser extension, share-sheet on iOS, OCR-from-screenshot — all the collection paths should make it trivial to keep the notebook growing. Quiz-side variety mechanisms (the layered chain in §5, the deferrals above) help around the edges, but the deeper fix is upstream. Tracked in [[PROJECT#Phase 4 — Vocabulary System: "Organized Learning"]].
 
 > [!info] Phase 5+ — Sentence-audio dictation mode for spelling
 > Synthesised audio of the example sentence ("hear the sentence, spell the word") is strictly better pedagogy than blanked text but is its own epic — TTS provider, caching, object-storage layout, offline pre-download, voice/accent UX, billing model. Revisit once v1 spelling completion-rate data is in. Originally noted under [issue #237](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/237).
