@@ -269,6 +269,24 @@ flowchart TD
 
 **Falls through** when the WordNet bundle has no row for the target — small lemma coverage outside the most common ~20k forms is expected, especially for technical or modern vocabulary.
 
+**In-memory structure (`WordNetSiblings`):**
+
+The bundle (`distractors/wordnet-siblings.tsv.gz`) is loaded once at startup into a two-level `HashMap`:
+
+```
+index: Map<word, Map<pos_code, List<sibling_lemmas>>>
+```
+
+- Outer key: lemma (`"cat"`)
+- Inner key: WordNet POS short code — `n` (noun), `v` (verb), `a` (adjective), `r` (adverb)
+- Value: pre-built `List<String>` of sibling lemmas
+
+The same word can have different sibling sets per POS (`"run"` as verb ≠ `"run"` as noun), which is why the inner key exists. Synonyms are stripped at **preprocessing time** (Python build script), so the lists contain only true siblings with no runtime filtering needed.
+
+A lookup (`siblingsOf("run", "verb")`) maps `"verb"` → `"v"`, then does two `HashMap.get()` calls. **O(1)**.
+
+The file is gzip-compressed to keep JAR size down; it's decompressed once during load and irrelevant to runtime performance after that. If the file is missing or fails to parse, the index is left empty and the strategy returns an empty list — the chain falls through to Roget with no crash.
+
 ### 5.3 Layer 2 — Roget Thematic Clusters
 
 `RogetsClusterDistractorService` pulls candidates from the words sharing a Roget's 1911 head category with the target. The bundle is **Project Gutenberg #10681** (Roget's Thesaurus, 1911 edition) — 822 thematic clusters, ~17.5k words after frequency filtering.
