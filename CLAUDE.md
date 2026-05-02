@@ -48,13 +48,14 @@ Examples:
 
 1. **Add issue to the project board** when creating via `gh issue create` (it does NOT auto-add). Use `gh project item-add <PROJECT_NUMBER> --owner AnunnakiCosmoCrew --url <issue-url>`. Then set board fields: estimate, status, priority, label.
 2. **Set an estimate** (Fibonacci: 0, 1, 2, 3, 5, 8, 13) on the project board. Bugs are `0`.
-3. **Move ticket to "In Progress"** on the project board before writing any code.
-4. **Create a feature branch** from latest `main`: `feature/wp-{N}-{slug}`.
-5. **Implement and verify**: For frontend: `flutter analyze --no-fatal-infos`, `dart format --set-exit-if-changed`, `flutter test`. For backend: `./gradlew check`. All must pass.
-6. **Commit** to the feature branch with a descriptive message referencing the issue number.
-7. **Push and open a PR** with `Closes #NNN` in the body so the issue auto-closes on merge.
+3. **Set Model & Effort** on the project board — choose the most appropriate Claude Code model and effort level for the task. Field ID: `PVTF_lADOB9neH84BUuiWzhRw27Q`.
+4. **Move ticket to "In Progress"** on the project board before writing any code.
+5. **Create a feature branch** from latest `main`: `feature/wp-{N}-{slug}`.
+6. **Implement and verify**: For frontend: `flutter analyze --no-fatal-infos`, `dart format --set-exit-if-changed`, `flutter test`. For backend: `./gradlew check`. All must pass.
+7. **Commit** to the feature branch with a descriptive message referencing the issue number.
+8. **Push and open a PR** with `Closes #NNN` in the body so the issue auto-closes on merge.
 
-> **Do NOT skip steps 1–3.** The project board must reflect the current state of work at all times.
+> **Do NOT skip steps 1–4.** The project board must reflect the current state of work at all times.
 
 #### Bug Fixes — Test-Driven Bug Fixing (TDBF)
 
