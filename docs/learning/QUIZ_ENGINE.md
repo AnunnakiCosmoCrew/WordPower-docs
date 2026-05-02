@@ -250,12 +250,73 @@ flowchart TD
 | 2 | **CEFR distance** | Candidates at the target's CEFR band beat ±1 band, beat ±2, etc. Resolved via the same `LeveledLexicon.classify` chain used by enrichment, so what the user sees as "level" matches what the engine reasons about. |
 | 3 | **Length distance** (tiebreak) | Closer character-length wins. Stops "horse / fence / table" from sitting next to "kaleidoscopically". |
 
+**What these signals mean:**
+
+- **POS (part of speech)** — the word's grammatical category: *noun, verb, adjective, adverb*, etc.
+    - **Source**: Free Dictionary API's `meanings[].partOfSpeech` field at enrichment time.
+    - **Storage**: stored verbatim as a string on `UserWord.part_of_speech`.
+    - **Multi-sense words** (e.g. "run" = verb + noun): only the *first* meaning's POS is persisted on the user's notebook entry. The full list is retained on the shared `DictionaryEntry` cache.
+    - **Why it matters**: mixing POS across options turns a vocabulary question into a grammar question — the user picks the odd-class word without knowing the meaning.
+- **CEFR level** — the Common European Framework reference band (A1 → C2) describing word difficulty.
+    - **Source**: `LeveledLexicon.classify`, resolved from bundled wordlists.
+    - **Why it matters**: distractors at the target's band force the user to discriminate on meaning, not on "that word looks too easy/hard."
+- **Length** — literal character count of the word string (`word.length()`).
+    - **Source**: computed on the fly, no storage.
+    - **Why it matters**: closer-length distractors prevent the visual outlier giveaway where a uniquely long or short option stands out before the user has read it.
+
+> [!note] Reference
+> The "match POS, match difficulty, avoid length cues" rubric is standard practice in multiple-choice item construction. The guidance comes from:
+>
+> - Haladyna, *Developing and Validating Multiple-Choice Test Items* (3rd ed., Routledge, 2004)
+> - Haladyna, Downing & Rodriguez, *A Review of Multiple-Choice Item-Writing Guidelines for Classroom Assessment* (Applied Measurement in Education, 2002)
+>
+> Both cover:
+>
+> - grammatical parallelism (the POS rule)
+> - homogeneity of difficulty (the CEFR rule)
+> - avoiding length as a discriminator (the length-distance rule)
+>
+> The CEFR-band metric is specific to this codebase; the rest of the rubric is decades-old psychometric guidance.
+
 > [!note] Why stable-sort + pre-shuffle
-> The list is shuffled with the supplied `Random`, then stable-sorted on the three keys. TimSort preserves order within equal-key groups, so the up-front shuffle becomes the random tiebreak inside each quality tier. Seeded `Random` in tests → deterministic. `ThreadLocalRandom` in prod → varied across sessions.
+> The flow:
+>
+> - Shuffle the candidate list with the supplied `Random`.
+> - Stable-sort on the three ranking keys.
+> - TimSort preserves order within equal-key groups, so the up-front shuffle becomes the random tiebreak *inside* each quality tier.
+>
+> The `Random` source decides the behaviour:
+>
+> - **Tests** → seeded `Random` → deterministic, reproducible question order.
+> - **Production** → `ThreadLocalRandom` → varied across sessions.
 
 ### 5.3 Decorate-Sort-Undecorate
 
-Each candidate's three sort keys are computed **once** when the wrapper is built, not per comparator call. The earlier shape recomputed `cefrRank` (a lexicon lookup) on every compare, scaling as O(n log n) lexicon lookups. The wrapper shape is O(n).
+A performance pattern, not a behaviour change. The §5.2 ranking sorts candidates by three keys — and one of them, **CEFR distance**, is expensive to compute (it walks `LeveledLexicon.classify`, not a plain field read).
+
+**The problem with the obvious approach:**
+
+- Sorting `n` items calls the comparator about `n × log n` times.
+- A naive comparator recomputes the CEFR lookup *inside every comparison*.
+- Result: the same candidate's CEFR gets looked up over and over — `O(n log n)` lexicon hits for what should be a one-time-per-candidate cost.
+
+**The wrapper approach (decorate-sort-undecorate):**
+
+1. **Decorate** — for each candidate, compute its three sort keys *once* and stash them on a wrapper object.
+2. **Sort** — sort the wrappers. The comparator just reads the precomputed fields — no lexicon lookups.
+3. **Undecorate** — strip the wrapper, return the original candidates in their new order.
+
+**Result:** lexicon lookups happen exactly `n` times, not `n × log n`. Same output, much less work.
+
+> [!note] Also known as
+> This is the **Schwartzian transform**, a standard pattern in any language with stable sort. The doc calls it out explicitly because it's easy to regress — someone "simplifying" the comparator by inlining the CEFR call would silently restore the slow shape.
+
+> [!warning] Known redundancy — scheduled for Phase 3
+> The CEFR lookup itself is *redundant*: `DictionaryEntry.cefr_level` already holds the value as a stored column (set during enrichment). The distractor service re-derives it via `LeveledLexicon.classify` only because candidates arrive as `UserWord` objects, which don't carry CEFR — so the wrapper currently exists to amortize a lookup we shouldn't be doing in the first place.
+>
+> Phase 3 work: read CEFR from the joined `DictionaryEntry.cefr_level` instead of re-classifying. Once that lands, the wrapper's performance justification disappears (all three keys become cheap field reads) and this section can be deleted or reframed as "wrapper kept for comparator clarity, not performance."
+>
+> Tracked in [WordPower-app#369](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/369).
 
 ### 5.4 What's Deferred (Phase B)
 
