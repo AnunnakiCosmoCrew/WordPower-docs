@@ -49,6 +49,10 @@ Examples:
 1. **Add issue to the project board** when creating via `gh issue create` (it does NOT auto-add). Use `gh project item-add <PROJECT_NUMBER> --owner AnunnakiCosmoCrew --url <issue-url>`. Then set board fields: estimate, status, priority, label.
 2. **Set an estimate** (Fibonacci: 0, 1, 2, 3, 5, 8, 13) on the project board. Bugs are `0`.
 3. **Set Model & Effort** on the project board — choose the most appropriate Claude Code model and effort level for the task. Field ID: `PVTF_lADOB9neH84BUuiWzhRw27Q`.
+   - **Models**: `Opus 4.7`, `Opus 4.7 (1M context)`, `Sonnet 4.6`, `Haiku 4.5`, `Opus 4.6 Legacy`
+   - **Effort**: `Low`, `Medium`, `High`, `Extra high`, `Max`
+   - Format: `<Model> / <Effort>` — e.g. `Sonnet 4.6 / High`, `Opus 4.7 / Max`, `Haiku 4.5 / Low`
+   - **Guidance**: Haiku for simple/mechanical tasks; Sonnet for standard features; Opus for complex reasoning, architecture, or large cross-cutting changes. Match effort to task complexity.
 4. **Move ticket to "In Progress"** on the project board before writing any code.
 5. **Create a feature branch** from latest `main`: `feature/wp-{N}-{slug}`.
 6. **Implement and verify**: For frontend: `flutter analyze --no-fatal-infos`, `dart format --set-exit-if-changed`, `flutter test`. For backend: `./gradlew check`. All must pass.
