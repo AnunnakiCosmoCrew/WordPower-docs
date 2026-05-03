@@ -700,13 +700,15 @@ The notebook becomes a real vocabulary system.
 
 | Deliverable | Details |
 |---|---|
+| **Cambridge Dictionary as primary source** | Multi-source `dictionary_cache` with Cambridge promoted to primary (lexicographer-curated, ESL-tuned, built-in CEFR tagging) and Free Dictionary kept as coverage fallback for words Cambridge doesn't have. Includes schema migration to a composite `(word, source)` key, a `DictionaryAggregator` with per-field source priority, two-pass async enrichment, and cache-miss instrumentation. Tracked in [epic #350](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/350) (~23 points across 6 sub-issues). See [[QUIZ_ENGINE#10. Deferred / Future Work]] for the full priority-chain spec. |
 | Word Lists / Folders | Custom collections (e.g., "IELTS Prep", "Words from Breaking Bad") |
 | Domain browsing & filtering | Filter by semantic domain, CEFR level, status |
 | Root families | Root → word family tree, prefix/suffix breakdowns. Requires a background download of the root-families bundle (~0.3 MB compressed) + WordNet (~8 MB compressed) on first use — see [[LOCAL_FIRST_ARCHITECTURE#Reference Data]]. |
 | Word discovery | "You know *transport* — try *export*, *import*, *portable*". Surface as both a standalone browse experience **and** as post-quiz prompts: after a session, suggest related words for the user to opt into adding. Words only enter the notebook on explicit tap — preserves the personal-notebook contract. See [[QUIZ_ENGINE#10. Deferred / Future Work]]. |
 | Dashboard | Stats, streaks, words collected/mastered, level progress |
-| Smart candidate ordering for ad-hoc quizzes | Replace random candidate-pool sampling (Phase 3 fix) with *least-recently-quizzed first* via a `UserWord.lastQuizzedAt` column. Pool cap then means "500 most-overdue words" instead of a random slice. Optionally fold in SRS-driven prioritisation (due-or-soon words first), merging the ad-hoc-quiz and review-queue flows where they overlap. See [[QUIZ_ENGINE#3. Candidate Pool]] and [[QUIZ_ENGINE#10. Deferred / Future Work]]. |
+| Least-recently-quizzed candidate ordering | Replace random candidate-pool sampling (Phase 3 fix) with *least-recently-quizzed first* via a `UserWord.lastQuizzedAt` column. Pool cap then means "500 most-overdue words" instead of a random slice. Optionally fold in SRS-driven prioritisation (due-or-soon words first), merging the ad-hoc-quiz and review-queue flows where they overlap. See [[QUIZ_ENGINE#3. Candidate Pool]] and [[QUIZ_ENGINE#10. Deferred / Future Work]]. |
 | Mixed quiz-type sessions | Let one session mix question types — e.g. 3 MCQ + 3 flashcards + 3 spelling on the same word set. Helps with small-collection variety (same words, multiple framings) and is a richer practice mode in its own right. See [[QUIZ_ENGINE#10. Deferred / Future Work]]. |
+| Quiz-content variety (anti-string-pairing) | Counter the *encoding-specificity* problem where users memorise (word ↔ definition) or (stem-fragment ↔ word) as string matches without internalising meaning. Two changes: **(a) Definition-sense rotation in MCQ** — rotate which sense becomes the correct option across attempts (Free Dictionary returns multiple senses per word); **(b) FITB stem rotation** — random pick from matching cached example sentences per question rather than always the first match. See [[QUIZ_ENGINE#10. Deferred / Future Work]]. |
 | Reduce capture friction | A user persistently stuck at a small notebook is an onboarding/UX failure, not a quiz-engine problem. Invest in low-friction collection paths — improved Quick Capture, browser extension, share-sheet on iOS, OCR-from-screenshot — so the notebook keeps growing organically. The deeper fix for "quizzes feel repetitive" lives upstream of the quiz engine. |
 
 ### Phase 5 — Advanced Modes: "Deep Practice"
@@ -751,9 +753,11 @@ timeline
     Phase 3 — Quiz Engine & SRS : Core quiz types (6 types)
                                 : SM-2 spaced repetition
                                 : Daily review queue
-    Phase 4 — Vocabulary System : Lists, folders, domain browsing
+    Phase 4 — Vocabulary System : Cambridge Dictionary as primary source
+                                : Lists, folders, domain browsing
                                 : Root families, word discovery
                                 : Dashboard, stats, streaks
+                                : Quiz-content variety, mixed sessions
     Phase 5 — Advanced Modes : Semantic, contextual, gamified quizzes
                               : CSV import, notifications, offline
     Phase 6 — Launch : Onboarding, polish, beta testing
