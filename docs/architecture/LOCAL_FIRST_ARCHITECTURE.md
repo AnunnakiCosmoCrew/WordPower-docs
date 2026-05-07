@@ -17,7 +17,7 @@ Related: [[PROJECT#6. Technical Stack]] | [[PROJECT#2.7 User Accounts & Cloud Sy
 6. [[#6. Conflict Resolution: Last-Write-Wins]]
 7. [[#7. Why "Many Users" Doesn't Break This]]
 8. [[#8. The Honest Risks]]
-9. [[#9. The Cold Start Problem: New Device, Lots of Data]]
+9. [[#9. Data Cold Start: New Device, Lots of Data]]
 10. [[#10. Future Graduation Path]]
 11. [[#11. Glossary]]
 
@@ -327,7 +327,10 @@ These aren't reasons to avoid local-first lite. They're reasons to **build the s
 
 ---
 
-## 9. The Cold Start Problem: New Device, Lots of Data
+## 9. Data Cold Start: New Device, Lots of Data
+
+> [!info] One of three "cold starts" in the system
+> This section covers the **data** cold start — an empty local database on a new device. For the **server** cold start (Cloud Run + Neon scale-to-zero latency on the API tier), see [[ARCHITECTURE#Server cold start (Phase 2+)]]. There is also a **WASM cold start** ([[BROWSER_DATABASE_INTERNALS]]) — the SQLite WebAssembly JIT warmup, measured in milliseconds.
 
 ### The problem
 

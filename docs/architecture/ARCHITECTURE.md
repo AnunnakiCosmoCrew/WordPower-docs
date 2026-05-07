@@ -394,6 +394,43 @@ flowchart TB
 
 **Cost at rest:** Cloud Run scales to zero when idle. Neon auto-suspends after inactivity. During development, the only fixed cost is the Apple Developer Program ($99/yr).
 
+### Server cold start (Phase 2+)
+
+The flip side of "scales to zero" is a real cold start on both sides. Cloud Run shuts down idle container instances; Neon auto-suspends compute. The first request after idle pays the cost of starting both — typically **~5–15s** for the Spring Boot JVM to come up on Cloud Run, plus **~0.5–3s** for Neon to wake the Postgres compute. They stack.
+
+#### When it triggers
+
+| Trigger | How often | Notes |
+|---|---|---|
+| Idle scale-to-zero | After ~15 min of no traffic on Cloud Run, immediately on Neon's autosuspend timer | The dominant case in early phases — low-traffic personal app |
+| New revision after deploy | Every deploy | First user to hit the new revision pays |
+| Traffic spike | Whenever concurrency exceeds a single warm instance | Each new container starts cold |
+| Cloud Run health check on new instance | Per new instance | Adds startup work before the instance can serve real traffic |
+
+#### Why it usually doesn't bite the user
+
+The local-first architecture means the cold start mostly hits the **sync path**, not the user's read/write loop. The Flutter app reads from drift/SQLite locally and queues writes in the outbox — the user can capture, edit, and review words while the backend warms in the background. The painful moments are the ones where the cold start *is* on the critical path: the very first sync after a long idle, the first request after a deploy, and any synchronous foreground call (most importantly: backend-mediated dictionary lookups, if Phase 2+ proxies enrichment through Spring Boot rather than calling Free Dictionary client-direct as Phase 1 does).
+
+#### Mitigations
+
+| Mitigation | Cost | When | Status |
+|---|---|---|---|
+| Async first-open UX (render local-first immediately, sync in background) | Free, architectural | Phase 2 design | Planned |
+| Spring Boot CDS (Class Data Sharing, built into 3.3+) | Free, ~5 lines in Dockerfile, no code change | Phase 2 launch | Planned |
+| Cloud Run `--cpu-boost` startup flag | Free, single config flag | Phase 2 launch | Planned |
+| Cloud Run concurrency tuning | Free, single config flag | Phase 2 launch | Planned |
+| `min-instances=1` on Cloud Run | ~$5–15/mo | When SLO breached (see [[OPS#6. Monitoring & Observability]]) | Deferred |
+| Neon always-on compute | Paid Neon tier | Only after Cloud Run cold start is fixed and DB wake is the dominant cost | Deferred |
+| GraalVM native image / Spring Boot AOT | High build complexity | Last resort if free mitigations are insufficient | Deferred |
+| Switch framework (Quarkus, Micronaut) | Migration cost | Not planned | Rejected |
+
+The progression is the same shape as the rest of the architecture: ==free architectural mitigations first → measured pain → paid mitigations second==. CDS + `--cpu-boost` typically cut JVM startup by 50–70% combined, which — together with async first-open UX — should keep the cold start invisible for the steady-state case without spending a dollar.
+
+> [!info] Don't confuse this with the data cold start
+> This is the **server** cold start: the API and DB scaling from zero. The **data cold start** ([[LOCAL_FIRST_ARCHITECTURE#9. Data Cold Start: New Device, Lots of Data]]) is a different problem — an empty local database on a freshly installed device that needs to download the user's words. The two are independent and can compound on the very first install. There is also a third, unrelated **WASM cold start** ([[BROWSER_DATABASE_INTERNALS]]) — the SQLite WebAssembly JIT warmup, measured in milliseconds, not a UX concern.
+
+The SLO and observability hook for tracking cold-start latency over time live in [[OPS#6. Monitoring & Observability]].
+
 ---
 
 ## 7. Security Model
@@ -578,7 +615,7 @@ The architecture is designed to handle WordPower's growth without requiring a re
 
 | Trigger | Current state | Graduates to | Documented in |
 |---|---|---|---|
-| **> 5,000 words per user** | Full sync on cold start | Progressive sync (paginated initial load) | [[LOCAL_FIRST_ARCHITECTURE#9. The Cold Start Problem: New Device, Lots of Data]] |
+| **> 5,000 words per user** | Full sync on cold start | Progressive sync (paginated initial load) | [[LOCAL_FIRST_ARCHITECTURE#9. Data Cold Start: New Device, Lots of Data]] |
 | **Collaborative features** | LWW (last-write-wins) | PowerSync or ElectricSQL (CRDT-based sync) | [[LOCAL_FIRST_ARCHITECTURE#10. Future Graduation Path]] |
 | **> 1,000 concurrent users** | Single Cloud Run instance | Cloud Run auto-scaling (already supported, just costs more) | — |
 | **Phase 6 launch** | Free Dictionary API | Oxford API behind server-side cache | [[PROJECT#Dictionary Caching Architecture]] |

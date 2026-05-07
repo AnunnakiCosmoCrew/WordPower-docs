@@ -326,6 +326,18 @@ Set `FIREBASE_AUTH_EMULATOR_HOST=localhost:9099` in the backend environment to u
 - GCP Cloud Monitoring alerts (Slack/email integration)
 - Uptime checks (external ping every 5 minutes)
 
+### Server cold-start SLO
+
+The "Cold start duration" entry in the metrics table above is the *raw* signal. The SLO below converts it into a tripwire that decides when paid mitigations stop being deferred. Background and the full mitigation list live in [[ARCHITECTURE#Server cold start (Phase 2+)]].
+
+**Metric.** Tag every Cloud Run request with `cold_start=true` on the first request a new instance serves. Implement via a Spring `ApplicationStartedEvent` listener that records the process boot timestamp; a request filter compares `now() - bootTimestamp` and adds the tag (and the cold-start duration) to the access log and request trace.
+
+**SLO.** ==p95 first-byte latency for sync requests after ≥1h idle should be under 3s.==
+
+**Tripwire.** If p95 exceeds **5s for 7 consecutive days**, enable `min-instances=1` on Cloud Run. This is a deliberately conservative threshold — Cloud Run cold start alone can blow past 5s on a cold JVM, so triggering this means CDS + `--cpu-boost` + async UX have not been enough and the user-perceived experience is genuinely degrading.
+
+**What this is not.** Not a full alerting spec. The Phase 6 GCP Monitoring rollout (above) is when this gets wired into Slack/email; for Phase 2–5, the SLO is a target you check during the weekly metrics review, not a pager.
+
 ---
 
 ## 7. Incident Response
