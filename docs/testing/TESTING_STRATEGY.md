@@ -377,6 +377,75 @@ Review the diff in the PR — the PNG changes will be visible in GitHub's image 
 
 **Issue:** WordPower-app#147
 
+### Reference-Data Real-Bundle Tests
+
+A specialised tier that loads the **actual backend resource files** (the gzip bundles under `backend/src/main/resources/distractors/`) into real production parsers and asserts on the result.  The goal is to catch **producer/consumer schema drift** — a class of bug that provider-level mocks always miss.
+
+#### Why provider-level mocks can hide production bugs
+
+A typical widget test overrides a feature-level provider with a hand-crafted fixture:
+
+```dart
+// DON'T — both sides of the contract belong to the test author.
+wordFamilyProvider.overrideWith((_) async => WordFamily(rootWord: 'port', ...))
+```
+
+The test author writes the fixture and the assertion.  They can never disagree with each other, so if the **production bundle** has a different JSON shape the test will keep passing.
+
+The spike that produced this convention found exactly this: eight widget tests in `word_family_section_test.dart` passed while `WordFamilyRepository.getFamily("transport")` returned `null` on the real bundle — because the JSON producer (`build_root_families.py`) wrote `[{root, examples, …}]` while the Dart consumer (`WordFamilyBundle.fromBytes`) expected `{families: [{root, byPos, …}]}`.
+
+#### The principle: override at the leaf, not at the feature boundary
+
+| Don't | Do |
+|-------|-----|
+| `wordFamilyProvider.overrideWith(fixture)` | Seed real bytes into a real `ReferenceDataStore` and let the provider chain run. |
+| Mock the repository in widget tests when the assertion is about a data contract | Mock the HTTP client / DB / file reader and let the real parser + repository run. |
+
+Provider-level overrides remain appropriate for **UI-state tests** where data shape is incidental (loading skeleton, error UI, empty state) — the bar is: *if the test asserts something about a contract the override crosses, use a leaf override instead*.
+
+#### File layout
+
+```
+frontend/test/
+└── data/
+    ├── word_families/
+    │   └── word_family_real_bundle_test.dart   ← seeds real Drift DB; calls real parser
+    └── distractors/
+        ├── wordnet_siblings_real_bundle_test.dart   ← format-validates wordnet-siblings.tsv.gz
+        └── rogets_clusters_real_bundle_test.dart    ← format-validates rogets-clusters.tsv.gz
+```
+
+Backend resource files are reachable from `frontend/` as `../backend/src/main/resources/distractors/<file>` — the `flutter test` working directory is `frontend/`.
+
+#### When to add a real-bundle test
+
+Add or update a `*_real_bundle_test.dart` whenever:
+
+- A **frontend parser** for a reference-data bundle is added or changed.
+- A **backend resource file** (under `distractors/`) is regenerated with a new script or schema.
+
+A format-validation test (no production Dart consumer needed) is still worthwhile for backend-only files: it documents the expected schema in executable form and catches drift before a frontend consumer is added.
+
+#### Example: seeding the Drift store directly
+
+```dart
+// Repository-level real-bundle test pattern (WP-472 / word_family_real_bundle_test.dart)
+final bytes = File(
+  '../backend/src/main/resources/distractors/root-families.json.gz',
+).readAsBytesSync();
+
+await store.saveComplete(
+  id: kRootFamiliesDatasetId,
+  version: 'test',
+  sha256: '',
+  sizeBytes: bytes.length,
+  bytes: Uint8List.fromList(bytes),
+);
+
+final family = await repo.getFamily('transport');
+expect(family, isNotNull);   // fails until the bundle format is corrected
+```
+
 ---
 
 ## 4. Contract Testing
