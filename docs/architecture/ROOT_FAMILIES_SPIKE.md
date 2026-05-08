@@ -179,6 +179,7 @@ The Phase-4 build script (#406) closes these gaps by walking [Open English WordN
 
 - [#406 — Build script for `root-families.tsv.gz` bundle](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/406) — now has a pinned source URL pattern, output schema, and budget headroom number.
 - Future sub-issues for: on-demand download/caching, derivation algorithm at lookup time, UI tree view.
+- [[ROOT_FAMILIES_ENGINE]] — follow-on plan for the per-word decomposition engine that consumes this catalog (covers MorphyNet / Skeat / LLM evaluation, layered architecture, 3-week spike + build schedule).
 
 ## 9. References
 
