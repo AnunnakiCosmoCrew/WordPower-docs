@@ -1,0 +1,63 @@
+{
+  "test_set_size": 51,
+  "common_words": 48,
+  "trap_words": 3,
+  "hit_rate": {
+    "hits": 9,
+    "common_total": 48,
+    "rate": 0.1875,
+    "threshold": 0.8,
+    "pass": false
+  },
+  "accuracy_correct_only": {
+    "correct": 9,
+    "hits": 9,
+    "rate": 1.0,
+    "threshold": 0.9,
+    "pass": true
+  },
+  "accuracy_weighted_informational": {
+    "weighted_score": 9.0,
+    "hits": 9,
+    "rate": 1.0
+  },
+  "false_positives_on_traps": {
+    "failures": 1,
+    "total": 3,
+    "threshold": 0,
+    "pass": false
+  },
+  "score_breakdown_common": {
+    "CORRECT": 9,
+    "PARTIAL": 0,
+    "WRONG": 0,
+    "NOT_FOUND": 39
+  },
+  "bundle_size": {
+    "smallest_runtime_format": "slim 4-col TSV (target source morpheme type)",
+    "smallest_runtime_gz_bytes": 2102099,
+    "smallest_runtime_gz_kb": 2052.83,
+    "threshold_kb": 200,
+    "pass": false,
+    "all_candidates": [
+      {
+        "format": "raw 6-col TSV (as-shipped)",
+        "raw_bytes": 8169109,
+        "gz_bytes": 2176942,
+        "notes": "as-downloaded from MorphyNet; includes both POS columns"
+      },
+      {
+        "format": "slim 4-col TSV (target source morpheme type)",
+        "raw_bytes": 7268584,
+        "gz_bytes": 2102099,
+        "notes": "drops POS columns; runtime decomposition needs only target -> (source, morpheme, type)"
+      },
+      {
+        "format": "JSON map (target -> {s,m,t})",
+        "raw_bytes": 11911568,
+        "gz_bytes": 2335878,
+        "notes": "first-parent only; runtime-friendly; loses multi-parent edges"
+      }
+    ]
+  }
+}

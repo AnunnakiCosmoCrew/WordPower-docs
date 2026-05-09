@@ -1,0 +1,810 @@
+[
+  {
+    "id": 1,
+    "word": "transport",
+    "category": "common",
+    "expected_roots": [
+      "port-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "transport",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 2,
+    "word": "export",
+    "category": "common",
+    "expected_roots": [
+      "port-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "export",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 3,
+    "word": "important",
+    "category": "common",
+    "expected_roots": [
+      "port-"
+    ],
+    "found": true,
+    "chain": [
+      {
+        "from": "important",
+        "to": "import",
+        "morpheme": "ant",
+        "type": "suffix"
+      }
+    ],
+    "base": "import",
+    "depth": 1,
+    "score": "CORRECT",
+    "scoring_notes": "all 1 expected roots matched in chain"
+  },
+  {
+    "id": 4,
+    "word": "portable",
+    "category": "common",
+    "expected_roots": [
+      "port-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "portable",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 5,
+    "word": "prognosis",
+    "category": "common",
+    "expected_roots": [
+      "gnos-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "prognosis",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 6,
+    "word": "diagnose",
+    "category": "common",
+    "expected_roots": [
+      "gnos-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "diagnose",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 7,
+    "word": "agnostic",
+    "category": "common",
+    "expected_roots": [
+      "gnos-"
+    ],
+    "found": true,
+    "chain": [
+      {
+        "from": "agnostic",
+        "to": "Gnostic",
+        "morpheme": "a",
+        "type": "prefix"
+      }
+    ],
+    "base": "Gnostic",
+    "depth": 1,
+    "score": "CORRECT",
+    "scoring_notes": "all 1 expected roots matched in chain"
+  },
+  {
+    "id": 8,
+    "word": "telephone",
+    "category": "common",
+    "expected_roots": [
+      "tele-",
+      "phon-"
+    ],
+    "found": true,
+    "chain": [
+      {
+        "from": "telephone",
+        "to": "phone",
+        "morpheme": "tele",
+        "type": "prefix"
+      }
+    ],
+    "base": "phone",
+    "depth": 1,
+    "score": "CORRECT",
+    "scoring_notes": "all 2 expected roots matched in chain"
+  },
+  {
+    "id": 9,
+    "word": "photograph",
+    "category": "common",
+    "expected_roots": [
+      "phot-",
+      "graph-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "photograph",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 10,
+    "word": "biology",
+    "category": "common",
+    "expected_roots": [
+      "bio-",
+      "log-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "biology",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 11,
+    "word": "biography",
+    "category": "common",
+    "expected_roots": [
+      "bio-",
+      "graph-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "biography",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 12,
+    "word": "antibiotic",
+    "category": "common",
+    "expected_roots": [
+      "anti-",
+      "bio-"
+    ],
+    "found": true,
+    "chain": [
+      {
+        "from": "antibiotic",
+        "to": "biotic",
+        "morpheme": "anti",
+        "type": "prefix"
+      }
+    ],
+    "base": "biotic",
+    "depth": 1,
+    "score": "CORRECT",
+    "scoring_notes": "all 2 expected roots matched in chain"
+  },
+  {
+    "id": 13,
+    "word": "geography",
+    "category": "common",
+    "expected_roots": [
+      "geo-",
+      "graph-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "geography",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 14,
+    "word": "geology",
+    "category": "common",
+    "expected_roots": [
+      "geo-",
+      "log-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "geology",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 15,
+    "word": "thermometer",
+    "category": "common",
+    "expected_roots": [
+      "therm-",
+      "metr-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "thermometer",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 16,
+    "word": "television",
+    "category": "common",
+    "expected_roots": [
+      "tele-",
+      "vis-"
+    ],
+    "found": true,
+    "chain": [
+      {
+        "from": "television",
+        "to": "vision",
+        "morpheme": "tele",
+        "type": "prefix"
+      }
+    ],
+    "base": "vision",
+    "depth": 1,
+    "score": "CORRECT",
+    "scoring_notes": "all 2 expected roots matched in chain"
+  },
+  {
+    "id": 17,
+    "word": "microscope",
+    "category": "common",
+    "expected_roots": [
+      "micr-",
+      "scop-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "microscope",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 18,
+    "word": "autograph",
+    "category": "common",
+    "expected_roots": [
+      "auto-",
+      "graph-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "autograph",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 19,
+    "word": "cardiology",
+    "category": "common",
+    "expected_roots": [
+      "cardi-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "cardiology",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 20,
+    "word": "dermatology",
+    "category": "common",
+    "expected_roots": [
+      "derm-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "dermatology",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 21,
+    "word": "pediatric",
+    "category": "common",
+    "expected_roots": [
+      "paed-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "pediatric",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 22,
+    "word": "democracy",
+    "category": "common",
+    "expected_roots": [
+      "dem-",
+      "crat-"
+    ],
+    "found": true,
+    "chain": [
+      {
+        "from": "democracy",
+        "to": "democrat",
+        "morpheme": "cy",
+        "type": "suffix"
+      }
+    ],
+    "base": "democrat",
+    "depth": 1,
+    "score": "CORRECT",
+    "scoring_notes": "all 2 expected roots matched in chain"
+  },
+  {
+    "id": 23,
+    "word": "philosophy",
+    "category": "common",
+    "expected_roots": [
+      "phil-",
+      "sophi-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "philosophy",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 24,
+    "word": "philanthropy",
+    "category": "common",
+    "expected_roots": [
+      "phil-",
+      "anthrop-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "philanthropy",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 25,
+    "word": "chronic",
+    "category": "common",
+    "expected_roots": [
+      "chron-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "chronic",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 26,
+    "word": "chronology",
+    "category": "common",
+    "expected_roots": [
+      "chron-",
+      "log-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "chronology",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 27,
+    "word": "synchronize",
+    "category": "common",
+    "expected_roots": [
+      "syn-",
+      "chron-"
+    ],
+    "found": true,
+    "chain": [
+      {
+        "from": "synchronize",
+        "to": "synchrony",
+        "morpheme": "ize",
+        "type": "suffix"
+      }
+    ],
+    "base": "synchrony",
+    "depth": 1,
+    "score": "CORRECT",
+    "scoring_notes": "all 2 expected roots matched in chain"
+  },
+  {
+    "id": 28,
+    "word": "hydrogen",
+    "category": "common",
+    "expected_roots": [
+      "hydr-",
+      "gen-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "hydrogen",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 29,
+    "word": "oxygen",
+    "category": "common",
+    "expected_roots": [
+      "ox-",
+      "gen-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "oxygen",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 30,
+    "word": "genesis",
+    "category": "common",
+    "expected_roots": [
+      "gen-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "genesis",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 31,
+    "word": "dictionary",
+    "category": "common",
+    "expected_roots": [
+      "dict-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "dictionary",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 32,
+    "word": "predict",
+    "category": "common",
+    "expected_roots": [
+      "dict-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "predict",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 33,
+    "word": "contradict",
+    "category": "common",
+    "expected_roots": [
+      "dict-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "contradict",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 34,
+    "word": "verdict",
+    "category": "common",
+    "expected_roots": [
+      "ver-",
+      "dict-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "verdict",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 35,
+    "word": "manuscript",
+    "category": "common",
+    "expected_roots": [
+      "manu-",
+      "scrip-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "manuscript",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 36,
+    "word": "description",
+    "category": "common",
+    "expected_roots": [
+      "scrib-",
+      "scrip-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "description",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 37,
+    "word": "inscription",
+    "category": "common",
+    "expected_roots": [
+      "scrib-",
+      "scrip-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "inscription",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 38,
+    "word": "psychology",
+    "category": "common",
+    "expected_roots": [
+      "psych-",
+      "log-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "psychology",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 39,
+    "word": "memorial",
+    "category": "common",
+    "expected_roots": [
+      "mem-"
+    ],
+    "found": true,
+    "chain": [
+      {
+        "from": "memorial",
+        "to": "memory",
+        "morpheme": "al",
+        "type": "suffix"
+      }
+    ],
+    "base": "memory",
+    "depth": 1,
+    "score": "CORRECT",
+    "scoring_notes": "all 1 expected roots matched in chain"
+  },
+  {
+    "id": 40,
+    "word": "memory",
+    "category": "common",
+    "expected_roots": [
+      "mem-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "memory",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 41,
+    "word": "uncle",
+    "category": "trap",
+    "expected_roots": [],
+    "found": false,
+    "chain": [],
+    "base": "uncle",
+    "depth": 0,
+    "trap_outcome": "PASS",
+    "scoring_notes": "no decomposition (clean refusal)"
+  },
+  {
+    "id": 42,
+    "word": "island",
+    "category": "trap",
+    "expected_roots": [],
+    "found": false,
+    "chain": [],
+    "base": "island",
+    "depth": 0,
+    "trap_outcome": "PASS",
+    "scoring_notes": "no decomposition (clean refusal)"
+  },
+  {
+    "id": 43,
+    "word": "butter",
+    "category": "trap",
+    "expected_roots": [],
+    "found": true,
+    "chain": [
+      {
+        "from": "butter",
+        "to": "butt",
+        "morpheme": "er",
+        "type": "suffix"
+      }
+    ],
+    "base": "butt",
+    "depth": 1,
+    "trap_outcome": "FAIL",
+    "scoring_notes": "MorphyNet decomposed trap: chain=[{'from': 'butter', 'to': 'butt', 'morpheme': 'er', 'type': 'suffix'}]"
+  },
+  {
+    "id": 44,
+    "word": "cryptography",
+    "category": "common",
+    "expected_roots": [
+      "crypt-",
+      "graph-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "cryptography",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 45,
+    "word": "xenophobia",
+    "category": "common",
+    "expected_roots": [
+      "xen-",
+      "phob-"
+    ],
+    "found": true,
+    "chain": [
+      {
+        "from": "xenophobia",
+        "to": "xenophobe",
+        "morpheme": "ia",
+        "type": "suffix"
+      }
+    ],
+    "base": "xenophobe",
+    "depth": 1,
+    "score": "CORRECT",
+    "scoring_notes": "all 2 expected roots matched in chain"
+  },
+  {
+    "id": 46,
+    "word": "omnivore",
+    "category": "common",
+    "expected_roots": [
+      "omni-",
+      "vor-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "omnivore",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 47,
+    "word": "herbivore",
+    "category": "common",
+    "expected_roots": [
+      "herb-",
+      "vor-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "herbivore",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 48,
+    "word": "carnivore",
+    "category": "common",
+    "expected_roots": [
+      "carn-",
+      "vor-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "carnivore",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 49,
+    "word": "benevolent",
+    "category": "common",
+    "expected_roots": [
+      "bene-",
+      "vol-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "benevolent",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 50,
+    "word": "malevolent",
+    "category": "common",
+    "expected_roots": [
+      "mal-",
+      "vol-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "malevolent",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  },
+  {
+    "id": 51,
+    "word": "renovate",
+    "category": "common",
+    "expected_roots": [
+      "nov-"
+    ],
+    "found": false,
+    "chain": [],
+    "base": "renovate",
+    "depth": 0,
+    "score": "NOT_FOUND",
+    "scoring_notes": "word absent from MorphyNet"
+  }
+]

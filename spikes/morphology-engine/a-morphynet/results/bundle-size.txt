@@ -1,0 +1,14 @@
+MorphyNet English derivational — candidate bundle sizes (gzip -9)
+
+format                                                 raw KB      gz KB
+------------------------------------------------------------------------
+raw 6-col TSV (as-shipped)                             7977.6     2125.9
+slim 4-col TSV (target source morpheme type)           7098.2     2052.8
+JSON map (target -> {s,m,t})                          11632.4     2281.1
+
+Notes:
+  - raw 6-col TSV (as-shipped): as-downloaded from MorphyNet; includes both POS columns
+  - slim 4-col TSV (target source morpheme type): drops POS columns; runtime decomposition needs only target -> (source, morpheme, type)
+  - JSON map (target -> {s,m,t}): first-parent only; runtime-friendly; loses multi-parent edges
+
+Acceptance threshold: ≤ 200 KB gzipped. Compare against the smallest viable runtime bundle (slim TSV or JSON map). The raw size is the floor from MorphyNet alone; shipping the §6 record schema (meaning, language, etymology) inflates it.

@@ -1,0 +1,7 @@
+MorphyNet English derivational — extraction stats
+source file: eng.derivational.v1.tsv
+rows parsed: 225131
+distinct targets: 219410
+distinct sources: 70485
+multi-parent edges (target appearing >1 time): 5721
+affix-type distribution: prefix=105639, suffix=119492

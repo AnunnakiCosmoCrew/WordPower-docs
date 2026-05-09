@@ -1,0 +1,6 @@
+# Override parent spikes/.gitignore exclusions for the load-bearing spike artifacts.
+# Raw MorphyNet TSV and the derived index stay ignored (they are reproducible).
+!data/test-set.json
+!data/extract-stats.txt
+!results/*.json
+!results/*.txt

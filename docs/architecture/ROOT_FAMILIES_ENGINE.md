@@ -337,12 +337,14 @@ A failure at any gate falls back to a known position rather than blocking:
 
 After Week 1 the architecture is one of:
 
+> **Spike A outcome (2026-05-09):** hit rate **18.75%** (9/48 common words), accuracy 100% on hits, **1/3 false positives** on traps (`butter → butt + -er`), bundle **2052.8 KB** gzipped. MorphyNet < 70% — landing in row 3 or row 4 below depending on Spike C. See [Spike A FINDINGS](../../spikes/morphology-engine/a-morphynet/FINDINGS.md).
+
 | Spike outcomes | Architecture |
 |---|---|
 | MorphyNet ≥ 90% accuracy + ≤ 200 KB | **MorphyNet primary**, Skeat etymology overlay, Wikipedia fallback. Skip the LLM cache (or only build for top 1k as a safety net). |
 | MorphyNet 70–90% + LLM ≥ 85% | **Layered (recommended baseline)**: MorphyNet primary, LLM gap-fill for misses, Skeat etymology overlay. As described in §5. |
-| MorphyNet < 70% + LLM ≥ 85% | **LLM cache primary**, Skeat etymology overlay, Wikipedia fallback. Skip MorphyNet entirely. |
-| MorphyNet < 70% + LLM < 85% | **Defer L2.** Ship L0 only. Re-evaluate in Phase 5 with stronger models or more curated data. |
+| MorphyNet < 70% + LLM ≥ 85% ← **gated by Spike C** | **LLM cache primary**, Skeat etymology overlay, Wikipedia fallback. Skip MorphyNet entirely. |
+| MorphyNet < 70% + LLM < 85% ← **gated by Spike C** | **Defer L2.** Ship L0 only. Re-evaluate in Phase 5 with stronger models or more curated data. |
 | Skeat coverage < 60% on classical | Drop the etymology overlay; use Wikipedia roots' etymology field instead. |
 
 ## 10. Risks
