@@ -33,13 +33,13 @@ Every credible option for sourcing per-word morphological decomposition. §3 eli
 
 ### 2.1 Per-word decomposition databases
 
-| Source | Coverage | Licence | Status |
-|---|---|---|---|
-| **CELEX2** | ~52k English lemmas, gold-standard | LDC commercial, restrictive | ❌ cost prohibitive |
-| **MorphoLEX-en** | 70k words, structured root + prefix + suffix | CC BY-NC-SA 4.0 | ❌ NC clause (already eliminated [[ROOT_FAMILIES_SPIKE#3]]) |
-| **MorphyNet** | ~200k forms, derivational + inflectional | CC BY-SA 4.0 | ⚠️ untested — primary spike candidate |
-| **UniMorph** | Mostly inflectional | CC BY-SA | ❌ wrong shape (we need derivational) |
-| **CatVar** | Categorical variation database | Free | ❌ dated, narrow coverage |
+| Source           | Coverage                                     | Licence                     | Status                                                     |
+| ---------------- | -------------------------------------------- | --------------------------- | ---------------------------------------------------------- |
+| **CELEX2**       | ~52k English lemmas, gold-standard           | LDC commercial, restrictive | ❌ cost prohibitive                                         |
+| **MorphoLEX-en** | 70k words, structured root + prefix + suffix | CC BY-NC-SA 4.0             | ❌ NC clause (already eliminated [[ROOT_FAMILIES_SPIKE#3]]) |
+| **MorphyNet**    | ~200k forms, derivational + inflectional     | CC BY-SA 4.0                | ⚠️ untested — primary spike candidate                      |
+| **UniMorph**     | Mostly inflectional                          | CC BY-SA                    | ❌ wrong shape (we need derivational)                       |
+| **CatVar**       | Categorical variation database               | Free                        | ❌ dated, narrow coverage                                   |
 
 ### 2.2 Public-domain dictionaries (out of copyright)
 
@@ -117,7 +117,20 @@ Three sources, three methods to combine them:
 
 ## 5. Recommended Architecture (provisional — pending spike data)
 
-A **layered fallback** rather than a single source. Each layer has different strengths; together they cover ~99% of what users will capture without any single source being load-bearing:
+### 5.1 The core idea
+
+When the user opens any word in the app, the engine asks each source in priority order: *"Can you decompose this word with confidence?"* The first source that says yes wins. If none can, the app shows nothing rather than a wrong guess.
+
+This is a **layered fallback**, not a single-source system. Each source is best at something different and weakest at something else, so stacking them lets each one's weakness be covered by the next layer's strength:
+
+| Source | Best at | Worst at |
+| --- | --- | --- |
+| MorphyNet | Common modern words, structured per-word data | Unknown coverage on classical roots until measured |
+| Skeat / Webster's | Classical Latin/Greek etymology depth | Anything coined after ~1900 |
+| LLM cache | Modern coinages, gap-filling | Hallucination if not validated |
+| Wikipedia roots | Root identification (already in the bundle) | Doesn't decompose words, only tags roots |
+
+### 5.2 The lookup pipeline
 
 ```
 Lookup(word) →
@@ -128,17 +141,71 @@ Lookup(word) →
   5. No morphology section        → if even (4) finds nothing
 ```
 
-**Key design choices:**
+### 5.3 Worked examples
+
+**`transportation`** — common Latin-derived word
+
+```
+1. MorphyNet                → returns: trans- + port + -ation. ✓ DONE.
+2. Skeat / Webster's        → adds: "from Latin portāre". Append as etymology note.
+3. LLM cache                → skipped (layer 1 already succeeded)
+4. Wikipedia root scan      → skipped
+5. No morphology section    → skipped
+```
+*User sees:* full breakdown + Latin etymology badge.
+
+**`cyberattack`** — modern coinage
+
+```
+1. MorphyNet                → not found
+2. Skeat / Webster's        → not found (Skeat is 1882, predates "cyber")
+3. LLM cache                → returns: cyber- + attack. From Greek kybernētēs (steersman). ✓ use this.
+4. Wikipedia root scan      → skipped
+5. No morphology section    → skipped
+```
+*User sees:* full breakdown, sourced from the LLM cache instead.
+
+**`flibbertigibbet`** — rare, opaque word
+
+```
+1. MorphyNet                → not found
+2. Skeat / Webster's        → not found
+3. LLM cache                → not built (we only cached top ~10k by frequency)
+4. Wikipedia root scan      → no Greek/Latin root matches inside the word
+5. No morphology section    → ✓ show nothing
+```
+*User sees:* definition + pronunciation only. We refuse to guess.
+
+### 5.4 Why "build-time" matters
+
+Layer 3 says *"LLM build-time cache"* — this is the load-bearing detail for offline support.
+
+- **Build-time** = we run an LLM once, ahead of shipping the app, over the top ~10k common English words. The decompositions go into a data file bundled with the app.
+- **Runtime** = what happens on the user's phone when they open a word.
+
+The phone **never** calls an LLM. It just looks up the precomputed answer in a local file. That keeps every layer 1–4 lookup **instant and offline** — works on a plane, in the subway, with no signal. This is why we can't use the simpler "call the LLM API at lookup time" pattern; it would break offline support, which is a core constraint per [[LOCAL_FIRST_ARCHITECTURE#Reference Data]].
+
+### 5.5 What "L0 degradation" means
+
+If the engine can't produce the full breakdown (`trans-` + `port` + `-ation`) but *can* still recognize a familiar root inside the word (`port-`), it shows the weaker but still useful version: "Contains the root *port-* (carry)." That's the L0 level from the ambition ladder in §1.1. **Layer 4 is what produces this fallback view** — it doesn't decompose, it just identifies the root.
+
+### 5.6 Key design choices
 
 - The bundle ships layers 1, 2, 3, 4 (offline-first; consistent with [[LOCAL_FIRST_ARCHITECTURE#Reference Data]]).
 - Layer 3 is generated build-time and bundled — *not* runtime API calls — to keep the app offline-capable.
-- Layer 5 is the failure mode, never a wrong parse.
+- Layer 5 is the deliberate failure mode. **Showing nothing > showing something wrong.**
 
-This architecture is **provisional**. Final shape depends on spike results:
+### 5.7 Why this is "provisional"
 
-- If MorphyNet covers ≥ 95% of captured words with high accuracy → layers 2 and 3 become small supplements.
-- If MorphyNet whiffs and LLM passes → LLM cache becomes the primary decomposition source.
-- If both whiff → ship L0 only and revisit in Phase 5 with stronger models.
+The diagram above is **what we'll build *if* the spikes show that all three sources are useful.** Final shape depends on what the spikes reveal:
+
+| Spike outcome | What changes in §5.2 |
+| --- | --- |
+| MorphyNet covers ≥ 95% of words at high accuracy | Layers 2 and 3 become small supplements; consider dropping layer 3 entirely |
+| MorphyNet whiffs but LLM passes | LLM cache promotes to layer 1; MorphyNet is dropped |
+| Both whiff | Ship L0 only (just layers 4 + 5); revisit L2 in Phase 5 with stronger models |
+
+§9 has the full decision matrix mapping spike outcomes to architectures.
 
 ## 6. Schema (provisional)
 
