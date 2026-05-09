@@ -1,0 +1,10 @@
+# Spike data — large input datasets are pulled fresh, not committed
+*/*/data/*.tsv
+*/*/data/*.csv
+*/*/data/*.xml
+*/*/data/*.txt
+*/*/data/*.json
+*/*/data/*.gz
+*/*/data/*.zip
+# But keep .gitkeep markers so the directory exists
+!*/*/data/.gitkeep
