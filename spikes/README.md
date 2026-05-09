@@ -23,11 +23,9 @@ When a spike's outcome promotes to production, the production code lands in `Wor
 
 | Topic | Path | Issue | Architecture doc |
 | --- | --- | --- | --- |
-| Morphology engine — MorphyNet quality | [`morphology-engine/a-morphynet/`](morphology-engine/a-morphynet/) | TBD (sub-issue of [#385](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/385)) | [`ROOT_FAMILIES_ENGINE.md` §7 Spike A](../docs/architecture/ROOT_FAMILIES_ENGINE.md#spike-a--morphynet-quality) |
-| Morphology engine — Skeat / Webster's extraction | [`morphology-engine/b-skeat-websters/`](morphology-engine/b-skeat-websters/) | TBD | [`ROOT_FAMILIES_ENGINE.md` §7 Spike B](../docs/architecture/ROOT_FAMILIES_ENGINE.md#spike-b--skeat--websters-1913-extraction) |
-| Morphology engine — LLM Haiku 4.5 decomposition | [`morphology-engine/c-llm-haiku/`](morphology-engine/c-llm-haiku/) | TBD | [`ROOT_FAMILIES_ENGINE.md` §7 Spike C](../docs/architecture/ROOT_FAMILIES_ENGINE.md#spike-c--llm-haiku-45-decomposition-quality) |
-
-(Issue numbers populated when sub-issues are filed.)
+| Morphology engine — MorphyNet quality | [`morphology-engine/a-morphynet/`](morphology-engine/a-morphynet/) | [#520](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/520) | [`ROOT_FAMILIES_ENGINE.md` §7 Spike A](../docs/architecture/ROOT_FAMILIES_ENGINE.md#spike-a--morphynet-quality) |
+| Morphology engine — Skeat / Webster's extraction | [`morphology-engine/b-skeat-websters/`](morphology-engine/b-skeat-websters/) | [#521](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/521) | [`ROOT_FAMILIES_ENGINE.md` §7 Spike B](../docs/architecture/ROOT_FAMILIES_ENGINE.md#spike-b--skeat--websters-1913-extraction) |
+| Morphology engine — LLM Haiku 4.5 decomposition | [`morphology-engine/c-llm-haiku/`](morphology-engine/c-llm-haiku/) | [#522](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/522) | [`ROOT_FAMILIES_ENGINE.md` §7 Spike C](../docs/architecture/ROOT_FAMILIES_ENGINE.md#spike-c--llm-haiku-45-decomposition-quality) |
 
 ## Per-spike directory layout
 
