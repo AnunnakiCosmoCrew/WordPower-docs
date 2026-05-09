@@ -1,0 +1,11 @@
+{
+  "model": "claude-haiku-4-5",
+  "num_calls": 81,
+  "successful": 81,
+  "failed": 0,
+  "total_input_tokens": 208561,
+  "total_output_tokens": 24018,
+  "total_cache_creation_tokens": 0,
+  "total_cache_read_tokens": 0,
+  "total_cost_usd": 0.328651
+}

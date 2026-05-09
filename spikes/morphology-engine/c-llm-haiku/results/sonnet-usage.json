@@ -1,0 +1,11 @@
+{
+  "model": "claude-sonnet-4-6",
+  "num_calls": 81,
+  "successful": 81,
+  "failed": 0,
+  "total_input_tokens": 33049,
+  "total_output_tokens": 22634,
+  "total_cache_creation_tokens": 3353,
+  "total_cache_read_tokens": 172240,
+  "total_cost_usd": 0.502903
+}

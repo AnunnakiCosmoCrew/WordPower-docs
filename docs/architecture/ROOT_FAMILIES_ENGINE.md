@@ -340,13 +340,15 @@ After Week 1 the architecture is one of:
 > **Spike A outcome (2026-05-09):** hit rate **18.75%** (9/48 common words), accuracy 100% on hits, **1/3 false positives** on traps (`butter → butt + -er`), bundle **2052.8 KB** gzipped. MorphyNet < 70% — landing in row 3 or row 4 below depending on Spike C. See [Spike A FINDINGS](../../spikes/morphology-engine/a-morphynet/FINDINGS.md).
 >
 > **Spike B outcome (2026-05-09):** GCIDE (Webster's 1913 + supplements) coverage **92.2%** (47/51) strict, **98.0%** with stem-match; **10/10** modern coinages cleanly unknown to 1913; etymology richness **93.6%** (44/47) vs Wikipedia roots baseline. All three acceptance criteria pass — row 5's "drop the etymology overlay" condition is **not triggered**. The etymology-overlay layer stays. (Skeat 1882 was investigated but skipped — only digital sources are noisy archive.org OCR scans; pivoted to GCIDE.) See [Spike B FINDINGS](../../spikes/morphology-engine/b-skeat-websters/FINDINGS.md).
+>
+> **Spike C outcome (2026-05-09):** Haiku 4.5 strict accuracy **89.6%** (43/48 common, weighted 93.8%) on the test set; **9/10** false-root traps refused; Haiku↔Sonnet agreement **97.9%** on clean cases; top-30k cost projection **$121.72** (Haiku alone, $186.26 for Sonnet). All four acceptance criteria pass. **Combined with Spike A (MorphyNet < 70%), this lands in row 3 below — LLM cache primary, GCIDE etymology overlay, Wikipedia fallback.** See [Spike C FINDINGS](../../spikes/morphology-engine/c-llm-haiku/FINDINGS.md).
 
 | Spike outcomes | Architecture |
 |---|---|
 | MorphyNet ≥ 90% accuracy + ≤ 200 KB | **MorphyNet primary**, Skeat etymology overlay, Wikipedia fallback. Skip the LLM cache (or only build for top 1k as a safety net). |
 | MorphyNet 70–90% + LLM ≥ 85% | **Layered (recommended baseline)**: MorphyNet primary, LLM gap-fill for misses, Skeat etymology overlay. As described in §5. |
-| MorphyNet < 70% + LLM ≥ 85% ← **gated by Spike C** | **LLM cache primary**, Skeat etymology overlay, Wikipedia fallback. Skip MorphyNet entirely. |
-| MorphyNet < 70% + LLM < 85% ← **gated by Spike C** | **Defer L2.** Ship L0 only. Re-evaluate in Phase 5 with stronger models or more curated data. |
+| MorphyNet < 70% + LLM ≥ 85% ← **🎯 ARCHITECTURE LANDED HERE (Spikes A + C)** | **LLM cache primary**, Skeat etymology overlay, Wikipedia fallback. Skip MorphyNet entirely. |
+| MorphyNet < 70% + LLM < 85% | **Defer L2.** Ship L0 only. Re-evaluate in Phase 5 with stronger models or more curated data. |
 | Skeat coverage < 60% on classical ← **not triggered (Spike B)** | Drop the etymology overlay; use Wikipedia roots' etymology field instead. |
 
 ## 10. Risks

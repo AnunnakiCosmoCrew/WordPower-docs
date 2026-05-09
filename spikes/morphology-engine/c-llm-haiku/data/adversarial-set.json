@@ -1,0 +1,38 @@
+{
+  "false_root_traps": [
+    {"word": "uncle", "expected_behavior": "refuse", "notes": "NOT un- + cle; from Latin avunculus (mother's brother), diminutive of avus"},
+    {"word": "island", "expected_behavior": "refuse", "notes": "NOT is- + land; from Old English iegland; the 's' is a 16th-c folk-etymology insertion influenced by 'isle' (which IS Latin-derived)"},
+    {"word": "butter", "expected_behavior": "refuse", "notes": "NOT butt + -er (agent suffix); from Greek boutyron (cow + cheese) via Latin butyrum"},
+    {"word": "understand", "expected_behavior": "refuse", "notes": "NOT under + stand; Old English understandan, etymology disputed; should be treated as opaque"},
+    {"word": "breakfast", "expected_behavior": "compound_ok_or_refuse", "notes": "Technically break + fast (the meal that breaks the overnight fast). Model can reasonably decompose OR refuse — but should not produce false roots like 'breakf-' + '-ast'"},
+    {"word": "noted", "expected_behavior": "refuse_or_inflection", "notes": "Inflected form of 'note', not morphologically interesting at root level. confidence:low or simple note + -ed inflection both acceptable"},
+    {"word": "nothing", "expected_behavior": "refuse_or_compound", "notes": "Historically no + thing (compound). Acceptable to identify as compound, but should NOT decompose as 'noth-' + '-ing' or pretend a 'noth' root exists"},
+    {"word": "forget", "expected_behavior": "refuse", "notes": "Old English forgietan; 'for-' here is an obsolete prefix meaning 'away/utterly', 'get' is unrelated to modern get. Synchronically opaque"},
+    {"word": "forty", "expected_behavior": "refuse", "notes": "NOT for + ty; from Old English feowertig (four-tig); 'forty' is the only English number that drops the 'u' from 'four'. Synchronically opaque"},
+    {"word": "office", "expected_behavior": "refuse", "notes": "NOT off + ice; from Latin officium (duty/service), from opus + facere. Synchronically opaque to English speakers"}
+  ],
+  "multi_layer": [
+    {"word": "unimportant", "expected_morphemes": ["un-", "important"], "expected_depth": 2, "notes": "un- (not) + important (Latin port- carry)"},
+    {"word": "internationalization", "expected_morphemes": ["inter-", "nation", "-al", "-ize", "-ation"], "expected_depth": 5, "notes": "Classic 5-morpheme example (i18n)"},
+    {"word": "denationalization", "expected_morphemes": ["de-", "nation", "-al", "-ize", "-ation"], "expected_depth": 5, "notes": "Reverses nationalization"},
+    {"word": "counterintuitive", "expected_morphemes": ["counter-", "intuit", "-ive"], "expected_depth": 3, "notes": "counter- + intuit (Latin in- + tueri) + -ive"},
+    {"word": "predetermination", "expected_morphemes": ["pre-", "de-", "termin", "-ation"], "expected_depth": 4, "notes": "Multiple Latin prefixes on Latin root termin-"},
+    {"word": "antidisestablishmentarian", "expected_morphemes": ["anti-", "dis-", "establish", "-ment", "-arian"], "expected_depth": 5, "notes": "Famous edge case; multi-prefix + nominalization + agent suffix"},
+    {"word": "reorganization", "expected_morphemes": ["re-", "organ", "-ize", "-ation"], "expected_depth": 4, "notes": "re- + organ (Greek organon) + -ize + -ation"},
+    {"word": "misinterpretation", "expected_morphemes": ["mis-", "inter-", "pret", "-ation"], "expected_depth": 4, "notes": "mis- + inter- + Latin pret- (price/value, from interpres) + -ation"},
+    {"word": "incomprehensibility", "expected_morphemes": ["in-", "com-", "prehens", "-ible", "-ity"], "expected_depth": 5, "notes": "Negation + Latin compound + adjectival + nominal"},
+    {"word": "unpredictability", "expected_morphemes": ["un-", "pre-", "dict", "-able", "-ity"], "expected_depth": 5, "notes": "un- + pre- + Latin dict- (say/speak) + -able + -ity"}
+  ],
+  "ambiguous": [
+    {"word": "unlockable", "readings": ["un-(lock-able): cannot be locked", "(unlock)-able: can be unlocked"], "notes": "Classic ambiguity; both readings valid. Model should pick one and note ambiguity, or flag confidence:medium"},
+    {"word": "unmade", "readings": ["un-(made): not made / never created", "(unmake)-d: past tense of unmake (to undo)"], "notes": "Both readings are real English; context-dependent"},
+    {"word": "unionized", "readings": ["union-ized: organized into a union (labor)", "un-ionized: not ionized (chemistry)"], "notes": "Famous garden-path word; identical orthography, different morphology"},
+    {"word": "discover", "readings": ["dis-cover: remove the cover (etymological)", "discover: find out (modern, opaque)"], "notes": "Synchronically opaque; etymologically dis- + cover. Model could decompose or treat as opaque"},
+    {"word": "recover", "readings": ["re-cover: cover again (literal)", "recover: regain (modern, opaque)"], "notes": "Same pattern as discover; two living senses"},
+    {"word": "inflammable", "readings": ["in-flammable: not flammable (folk reading)", "inflam(e)-able: capable of being inflamed (correct)"], "notes": "Famous false-prefix trap; in- here is Latin intensifier, not negation. Model should ideally choose the correct reading or flag ambiguity"},
+    {"word": "cleave", "readings": ["cleave (split): one root", "cleave (cling to): different OE root"], "notes": "Auto-antonym from two homonymous Old English verbs. Not really decomposable; flag or refuse"},
+    {"word": "oversight", "readings": ["over-sight: supervision (positive)", "over-sight: failure to notice (negative)"], "notes": "Same morphology, opposite meanings. Decomposition is unambiguous (over + sight); meaning is not"},
+    {"word": "sanction", "readings": ["sanction: official approval", "sanction: penalty"], "notes": "Auto-antonym; same single morpheme with two meanings. Not decomposable"},
+    {"word": "dust", "readings": ["dust (verb, remove dust)", "dust (verb, apply dust as in baking)"], "notes": "Auto-antonym verb; same single morpheme with opposite meanings. Not decomposable"}
+  ]
+}

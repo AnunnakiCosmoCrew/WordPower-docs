@@ -1,0 +1,15 @@
+# Override parent spikes/.gitignore so the spike's load-bearing artifacts are committed.
+# API responses live under results/ and are committed for reproducibility / archaeology.
+!data/test-set.json
+!data/adversarial-set.json
+!results/*.json
+!results/*.md
+!results/*.txt
+
+# Local API key — never commit
+.env.local
+.env
+
+# Python build artifacts
+scripts/__pycache__/
+*.pyc
