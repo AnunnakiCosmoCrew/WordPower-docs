@@ -1,0 +1,35 @@
+{
+  "test_set": {
+    "total": 51,
+    "strict_hits": 47,
+    "stem_hits": 3,
+    "miss": 1,
+    "coverage_strict_rate": 0.9216,
+    "coverage_inclusive_rate": 0.9804,
+    "richer_than_wikipedia": 44,
+    "not_richer_than_wikipedia": 3,
+    "richness_overlap": 47,
+    "richness_rate": 0.9362,
+    "coverage_threshold": 0.9,
+    "coverage_strict_pass": true,
+    "coverage_inclusive_pass": true,
+    "richness_threshold": 0.7,
+    "richness_pass": true
+  },
+  "modern_probe": {
+    "total": 10,
+    "clean_fail": 9,
+    "found_in_post_1913_supplement": 1,
+    "found_in_1913_proper": 0,
+    "cleanly_unknown": 10,
+    "cleanly_unknown_rate": 1.0,
+    "threshold": 0.8,
+    "pass": true
+  },
+  "verdict": {
+    "coverage": true,
+    "modern_clean_fail": true,
+    "richness": true,
+    "all_three": true
+  }
+}

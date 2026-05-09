@@ -1,0 +1,1569 @@
+[
+  {
+    "id": 1,
+    "word": "transport",
+    "category": "common",
+    "expected_roots": [
+      "port-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "F. transporter , L. transportare ; trans across + portare to carry. See Port bearing, demeanor.",
+      "ets_tokens": [
+        "transporter",
+        "transportare",
+        "trans",
+        "portare"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F.",
+        "L."
+      ],
+      "cross_refs": [
+        "Port"
+      ]
+    },
+    "headword_used": "Transport",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=4+compound+prose=95c langs=[F.,L.]"
+  },
+  {
+    "id": 2,
+    "word": "export",
+    "category": "common",
+    "expected_roots": [
+      "port-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "L. exportare , exportatum ; ex out+ portare to carry : cf. F. exporter . See Port demeanor.",
+      "ets_tokens": [
+        "exportare",
+        "exportatum",
+        "ex",
+        "portare",
+        "exporter"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F.",
+        "L."
+      ],
+      "cross_refs": [
+        "Port"
+      ]
+    },
+    "headword_used": "Export",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=5+prose=91c langs=[F.,L.]"
+  },
+  {
+    "id": 3,
+    "word": "important",
+    "category": "common",
+    "expected_roots": [
+      "port-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "F. important . See Import , v. t.",
+      "ets_tokens": [
+        "important"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F."
+      ],
+      "cross_refs": [
+        "Import"
+      ]
+    },
+    "headword_used": "Important",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=1+prose=33c langs=[F.]"
+  },
+  {
+    "id": 4,
+    "word": "portable",
+    "category": "common",
+    "expected_roots": [
+      "port-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "L. portabilis , fr. portare to carry: cf. F. portable . See Port demeanor.",
+      "ets_tokens": [
+        "portabilis",
+        "portare",
+        "portable"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F.",
+        "L."
+      ],
+      "cross_refs": [
+        "Port"
+      ]
+    },
+    "headword_used": "Portable",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=3+prose=74c langs=[F.,L.]"
+  },
+  {
+    "id": 5,
+    "word": "prognosis",
+    "category": "common",
+    "expected_roots": [
+      "gnos-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "L., fr. Gr. pro`gnosis , fr. progignw`skein to know beforehand; pro` before + gignw`skein to know. See Know .",
+      "ets_tokens": [],
+      "grk_tokens": [
+        "pro`gnosis",
+        "progignw`skein",
+        "pro`",
+        "gignw`skein"
+      ],
+      "languages": [
+        "Gr.",
+        "L."
+      ],
+      "cross_refs": [
+        "Know"
+      ]
+    },
+    "headword_used": "Prognosis",
+    "richer_than_wikipedia": true,
+    "richer_reason": "grk=4+compound+prose=109c langs=[Gr.,L.]"
+  },
+  {
+    "id": 6,
+    "word": "diagnose",
+    "category": "common",
+    "expected_roots": [
+      "gnos-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": false
+    },
+    "headword_used": "Diagnose",
+    "richer_than_wikipedia": false,
+    "richer_reason": "no etymology block"
+  },
+  {
+    "id": 7,
+    "word": "agnostic",
+    "category": "common",
+    "expected_roots": [
+      "gnos-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "Gr. 'a priv. + <?/ knowing, <?/ to know.",
+      "ets_tokens": [],
+      "grk_tokens": [
+        "'a"
+      ],
+      "languages": [
+        "Gr."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Agnostic",
+    "richer_than_wikipedia": true,
+    "richer_reason": "grk=1+compound+prose=40c langs=[Gr.]"
+  },
+  {
+    "id": 8,
+    "word": "telephone",
+    "category": "common",
+    "expected_roots": [
+      "tele-",
+      "phon-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "Gr. <?/ far off + <?/ sound.",
+      "ets_tokens": [],
+      "grk_tokens": [],
+      "languages": [
+        "Gr."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Telephone",
+    "richer_than_wikipedia": true,
+    "richer_reason": "compound langs=[Gr.]"
+  },
+  {
+    "id": 9,
+    "word": "photograph",
+    "category": "common",
+    "expected_roots": [
+      "phot-",
+      "graph-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "Photo- + -graph .",
+      "ets_tokens": [
+        "Photo-",
+        "-graph"
+      ],
+      "grk_tokens": [],
+      "languages": [],
+      "cross_refs": []
+    },
+    "headword_used": "Photograph",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=2+compound langs=[no-lang]"
+  },
+  {
+    "id": 10,
+    "word": "biology",
+    "category": "common",
+    "expected_roots": [
+      "bio-",
+      "log-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "Gr. bi`os life + -logy : cf. F. biologie .",
+      "ets_tokens": [
+        "-logy",
+        "biologie"
+      ],
+      "grk_tokens": [
+        "bi`os"
+      ],
+      "languages": [
+        "F.",
+        "Gr."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Biology",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=2+grk=1+compound+prose=42c langs=[F.,Gr.]"
+  },
+  {
+    "id": 11,
+    "word": "biography",
+    "category": "common",
+    "expected_roots": [
+      "bio-",
+      "graph-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "Gr. ; bi`os life + to write: cf. F. biographie . See Graphic .",
+      "ets_tokens": [
+        "<?/",
+        "<?/",
+        "biographie"
+      ],
+      "grk_tokens": [
+        "bi`os"
+      ],
+      "languages": [
+        "F.",
+        "Gr."
+      ],
+      "cross_refs": [
+        "Graphic"
+      ]
+    },
+    "headword_used": "Biography",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=3+grk=1+compound+prose=62c langs=[F.,Gr.]"
+  },
+  {
+    "id": 12,
+    "word": "antibiotic",
+    "category": "common",
+    "expected_roots": [
+      "anti-",
+      "bio-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": false
+    },
+    "headword_used": "antibiotic",
+    "richer_than_wikipedia": false,
+    "richer_reason": "no etymology block"
+  },
+  {
+    "id": 13,
+    "word": "geography",
+    "category": "common",
+    "expected_roots": [
+      "geo-",
+      "graph-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "F. g , l. geographia , fr. Gr. ge`a , gh^ , the earth + Graphic .",
+      "ets_tokens": [
+        "g<eacute/ographie",
+        "geographia"
+      ],
+      "grk_tokens": [
+        "ge`a",
+        "gh^"
+      ],
+      "languages": [
+        "F.",
+        "Gr."
+      ],
+      "cross_refs": [
+        "Graphic"
+      ]
+    },
+    "headword_used": "geography",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=2+grk=2+compound+prose=65c langs=[F.,Gr.]"
+  },
+  {
+    "id": 14,
+    "word": "geology",
+    "category": "common",
+    "expected_roots": [
+      "geo-",
+      "log-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "Gr. ge`a , gh^ , the earth + -logy : cf. F. g .",
+      "ets_tokens": [
+        "-logy",
+        "g<eacute/ologie"
+      ],
+      "grk_tokens": [
+        "ge`a",
+        "gh^"
+      ],
+      "languages": [
+        "F.",
+        "Gr."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Geology",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=2+grk=2+compound+prose=47c langs=[F.,Gr.]"
+  },
+  {
+    "id": 15,
+    "word": "thermometer",
+    "category": "common",
+    "expected_roots": [
+      "therm-",
+      "metr-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "Thermo- + -meter : cf. F. thermom Thermal .",
+      "ets_tokens": [
+        "Thermo-",
+        "-meter"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F."
+      ],
+      "cross_refs": [
+        "Thermal"
+      ]
+    },
+    "headword_used": "Thermometer",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=2+compound+prose=43c langs=[F.]"
+  },
+  {
+    "id": 16,
+    "word": "television",
+    "category": "common",
+    "expected_roots": [
+      "tele-",
+      "vis-"
+    ],
+    "coverage": "MISS",
+    "strict_match": false,
+    "stem_match_keys": [],
+    "etymology": null,
+    "headword_used": null,
+    "richer_than_wikipedia": false,
+    "richer_reason": "no entry"
+  },
+  {
+    "id": 17,
+    "word": "microscope",
+    "category": "common",
+    "expected_roots": [
+      "micr-",
+      "scop-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "Micro- + -scope .",
+      "ets_tokens": [
+        "Micro-",
+        "-scope"
+      ],
+      "grk_tokens": [],
+      "languages": [],
+      "cross_refs": []
+    },
+    "headword_used": "Microscope",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=2+compound langs=[no-lang]"
+  },
+  {
+    "id": 18,
+    "word": "autograph",
+    "category": "common",
+    "expected_roots": [
+      "auto-",
+      "graph-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "F. autographe , fr. Gr. <?/ autographic; <?/ self + <?/ to write.",
+      "ets_tokens": [
+        "autographe"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F.",
+        "Gr."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Autograph",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=1+compound+prose=65c langs=[F.,Gr.]"
+  },
+  {
+    "id": 19,
+    "word": "cardiology",
+    "category": "common",
+    "expected_roots": [
+      "cardi-"
+    ],
+    "coverage": "STEM",
+    "strict_match": false,
+    "stem_match_keys": [
+      "cardia",
+      "cardiac",
+      "cardiacal",
+      "cardiacle",
+      "cardiagraph"
+    ],
+    "etymology": {
+      "present": true,
+      "raw": "NL., fr. Gr. <?/ heart, or upper orifice of the stomach.",
+      "ets_tokens": [],
+      "grk_tokens": [],
+      "languages": [
+        "Gr.",
+        "NL."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Cardia",
+    "richer_than_wikipedia": true,
+    "richer_reason": "prose=56c langs=[Gr.,NL.]"
+  },
+  {
+    "id": 20,
+    "word": "dermatology",
+    "category": "common",
+    "expected_roots": [
+      "derm-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "Gr. de`rma , -atos , skin + -logy : cf. F. dermatologie .",
+      "ets_tokens": [
+        "-logy",
+        "dermatologie"
+      ],
+      "grk_tokens": [
+        "de`rma",
+        "-atos"
+      ],
+      "languages": [
+        "F.",
+        "Gr."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Dermatology",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=2+grk=2+compound+prose=57c langs=[F.,Gr.]"
+  },
+  {
+    "id": 21,
+    "word": "pediatric",
+    "category": "common",
+    "expected_roots": [
+      "paed-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "Gr. pai^s , paido`s , child + 'iatrei`a healing.",
+      "ets_tokens": [],
+      "grk_tokens": [
+        "pai^s",
+        "paido`s",
+        "'iatrei`a"
+      ],
+      "languages": [
+        "Gr."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Pediatric",
+    "richer_than_wikipedia": true,
+    "richer_reason": "grk=3+compound+prose=48c langs=[Gr.]"
+  },
+  {
+    "id": 22,
+    "word": "democracy",
+    "category": "common",
+    "expected_roots": [
+      "dem-",
+      "crat-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "F. d , fr. Gr. dhmokrati`a ; dh^mos the people + kratei^n to be strong, to rule, kra`tos strength.",
+      "ets_tokens": [
+        "d<eacute/mocratie"
+      ],
+      "grk_tokens": [
+        "dhmokrati`a",
+        "dh^mos",
+        "kratei^n",
+        "kra`tos"
+      ],
+      "languages": [
+        "F.",
+        "Gr."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Democracy",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=1+grk=4+compound+prose=98c langs=[F.,Gr.]"
+  },
+  {
+    "id": 23,
+    "word": "philosophy",
+    "category": "common",
+    "expected_roots": [
+      "phil-",
+      "sophi-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "OE. philosophie , F. philosophie , L. philosophia , from Gr. filosofi`a . See Philosopher .",
+      "ets_tokens": [
+        "philosophie",
+        "philosophie",
+        "philosophia"
+      ],
+      "grk_tokens": [
+        "filosofi`a"
+      ],
+      "languages": [
+        "F.",
+        "Gr.",
+        "L.",
+        "OE."
+      ],
+      "cross_refs": [
+        "Philosopher"
+      ]
+    },
+    "headword_used": "Philosophy",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=3+grk=1+prose=91c langs=[F.,Gr.,L.,OE.]"
+  },
+  {
+    "id": 24,
+    "word": "philanthropy",
+    "category": "common",
+    "expected_roots": [
+      "phil-",
+      "anthrop-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "L. philanthropia , Gr. filanqrwpi`a : cf. F. philanthropie .",
+      "ets_tokens": [
+        "philanthropia",
+        "philanthropie"
+      ],
+      "grk_tokens": [
+        "filanqrwpi`a"
+      ],
+      "languages": [
+        "F.",
+        "Gr.",
+        "L."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Philanthropy",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=2+grk=1+prose=60c langs=[F.,Gr.,L.]"
+  },
+  {
+    "id": 25,
+    "word": "chronic",
+    "category": "common",
+    "expected_roots": [
+      "chron-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "L. chronicus , Gr. chronique .",
+      "ets_tokens": [
+        "chronicus",
+        "chronique"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F.",
+        "Gr.",
+        "L."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Chronic",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=2+prose=30c langs=[F.,Gr.,L.]"
+  },
+  {
+    "id": 26,
+    "word": "chronology",
+    "category": "common",
+    "expected_roots": [
+      "chron-",
+      "log-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "Gr. chronologie .",
+      "ets_tokens": [
+        "chronologie"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F.",
+        "Gr."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Chronology",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=1 langs=[F.,Gr.]"
+  },
+  {
+    "id": 27,
+    "word": "synchronize",
+    "category": "common",
+    "expected_roots": [
+      "syn-",
+      "chron-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "Gr. <?/.",
+      "ets_tokens": [],
+      "grk_tokens": [],
+      "languages": [
+        "Gr."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Synchronize",
+    "richer_than_wikipedia": false,
+    "richer_reason": "empty etymology (raw=8c, langs=['Gr.'])"
+  },
+  {
+    "id": 28,
+    "word": "hydrogen",
+    "category": "common",
+    "expected_roots": [
+      "hydr-",
+      "gen-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "Hydro- , 1 + -gen : cf. F. hydrog . So called because water is generated by its combustion. See Hydra .",
+      "ets_tokens": [
+        "Hydro-",
+        "-gen",
+        "hydrog<egrave/ne"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F."
+      ],
+      "cross_refs": [
+        "Hydra"
+      ]
+    },
+    "headword_used": "Hydrogen",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=3+compound+prose=103c langs=[F.]"
+  },
+  {
+    "id": 29,
+    "word": "oxygen",
+    "category": "common",
+    "expected_roots": [
+      "ox-",
+      "gen-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "F. oxyg , from Gr. 'oxy`s sharp, acid + root of gi`gnesqai to be born. So called because originally supposed to be an essential part of every acid .",
+      "ets_tokens": [
+        "oxyg<egrave/ne",
+        "acid"
+      ],
+      "grk_tokens": [
+        "'oxy`s",
+        "gi`gnesqai"
+      ],
+      "languages": [
+        "F.",
+        "Gr."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Oxygen",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=2+grk=2+compound+prose=148c langs=[F.,Gr.]"
+  },
+  {
+    "id": 30,
+    "word": "genesis",
+    "category": "common",
+    "expected_roots": [
+      "gen-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "L., from Gr. ge`nesis , fr. the root of gi`gnesqai to beget, be born; akin to L. genus birth, race. See Gender .",
+      "ets_tokens": [
+        "genus"
+      ],
+      "grk_tokens": [
+        "ge`nesis",
+        "gi`gnesqai"
+      ],
+      "languages": [
+        "Gr.",
+        "L."
+      ],
+      "cross_refs": [
+        "Gender"
+      ]
+    },
+    "headword_used": "Genesis",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=1+grk=2+prose=112c langs=[Gr.,L.]"
+  },
+  {
+    "id": 31,
+    "word": "dictionary",
+    "category": "common",
+    "expected_roots": [
+      "dict-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "Cf. F. dictionnaire . See Diction .",
+      "ets_tokens": [
+        "dictionnaire"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F."
+      ],
+      "cross_refs": [
+        "Diction"
+      ]
+    },
+    "headword_used": "Dictionary",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=1+prose=35c langs=[F.]"
+  },
+  {
+    "id": 32,
+    "word": "predict",
+    "category": "common",
+    "expected_roots": [
+      "dict-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "L. praedictus , p. p. of praedicere to predict; prae before + dicere to say, tell. See Diction , and cf. Preach .",
+      "ets_tokens": [
+        "praedictus",
+        "praedicere",
+        "prae",
+        "dicere"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "L."
+      ],
+      "cross_refs": [
+        "Diction",
+        "Preach"
+      ]
+    },
+    "headword_used": "Predict",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=4+compound+prose=113c langs=[L.]"
+  },
+  {
+    "id": 33,
+    "word": "contradict",
+    "category": "common",
+    "expected_roots": [
+      "dict-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "L. contradictus , p. p. of contradicere to speak against; contra + dicere to speak. See Diction .",
+      "ets_tokens": [
+        "contradictus",
+        "contradicere",
+        "contra",
+        "dicere"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "L."
+      ],
+      "cross_refs": [
+        "Diction"
+      ]
+    },
+    "headword_used": "Contradict",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=4+compound+prose=97c langs=[L.]"
+  },
+  {
+    "id": 34,
+    "word": "verdict",
+    "category": "common",
+    "expected_roots": [
+      "ver-",
+      "dict-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "OE. verdit , OF. verdit , veirdit , LL. verdictum , veredictum ; L. vere truly (fr. verus true) + dictum a saying, a word, fr. dicere , dictum, to say. See Very , and Dictum .",
+      "ets_tokens": [
+        "verdit",
+        "verdit",
+        "veirdit",
+        "verdictum",
+        "veredictum",
+        "vere",
+        "verus",
+        "dictum",
+        "dicere"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "L.",
+        "LL.",
+        "OE.",
+        "OF."
+      ],
+      "cross_refs": [
+        "Very",
+        "Dictum"
+      ]
+    },
+    "headword_used": "Verdict",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=9+compound+prose=175c langs=[L.,LL.,OE.,OF.]"
+  },
+  {
+    "id": 35,
+    "word": "manuscript",
+    "category": "common",
+    "expected_roots": [
+      "manu-",
+      "scrip-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "LL. manuscriptum , lit., something written with the hand. See Manuscript , a.",
+      "ets_tokens": [
+        "manuscriptum"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "LL."
+      ],
+      "cross_refs": [
+        "Manuscript"
+      ]
+    },
+    "headword_used": "Manuscript",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=1+prose=77c langs=[LL.]"
+  },
+  {
+    "id": 36,
+    "word": "description",
+    "category": "common",
+    "expected_roots": [
+      "scrib-",
+      "scrip-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "F. description , L. descriptio . See Describe .",
+      "ets_tokens": [
+        "description",
+        "descriptio"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F.",
+        "L."
+      ],
+      "cross_refs": [
+        "Describe"
+      ]
+    },
+    "headword_used": "Description",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=2+prose=47c langs=[F.,L.]"
+  },
+  {
+    "id": 37,
+    "word": "inscription",
+    "category": "common",
+    "expected_roots": [
+      "scrib-",
+      "scrip-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "L. inscriptio , fr. inscribere , inscriptum , to inscribe: cf. F. inscription . See Inscribe .",
+      "ets_tokens": [
+        "inscriptio",
+        "inscribere",
+        "inscriptum",
+        "inscription"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F.",
+        "L."
+      ],
+      "cross_refs": [
+        "Inscribe"
+      ]
+    },
+    "headword_used": "Inscription",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=4+prose=94c langs=[F.,L.]"
+  },
+  {
+    "id": 38,
+    "word": "psychology",
+    "category": "common",
+    "expected_roots": [
+      "psych-",
+      "log-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "Psycho- + -logy : cf. F. psychologie . See Psychical .",
+      "ets_tokens": [
+        "Psycho-",
+        "-logy",
+        "psychologie"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F."
+      ],
+      "cross_refs": [
+        "Psychical"
+      ]
+    },
+    "headword_used": "Psychology",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=3+compound+prose=54c langs=[F.]"
+  },
+  {
+    "id": 39,
+    "word": "memorial",
+    "category": "common",
+    "expected_roots": [
+      "mem-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "F. m , L. memorialis , fr. memoria . See Memory .",
+      "ets_tokens": [
+        "m<eacute/morial",
+        "memorialis",
+        "memoria"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F.",
+        "L."
+      ],
+      "cross_refs": [
+        "Memory"
+      ]
+    },
+    "headword_used": "Memorial",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=3+prose=49c langs=[F.,L.]"
+  },
+  {
+    "id": 40,
+    "word": "memory",
+    "category": "common",
+    "expected_roots": [
+      "mem-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "OE. memorie , OF. memoire , memorie , F. m , L. memoria , fr. memor mindful; cf. mora delay. Cf. Demur , Martyr , Memoir , Remember .",
+      "ets_tokens": [
+        "memorie",
+        "memoire",
+        "memorie",
+        "m<eacute/moire",
+        "memoria",
+        "memor",
+        "mora"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F.",
+        "L.",
+        "OE.",
+        "OF."
+      ],
+      "cross_refs": [
+        "Demur",
+        "Martyr",
+        "Memoir",
+        "Remember"
+      ]
+    },
+    "headword_used": "Memory",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=7+prose=133c langs=[F.,L.,OE.,OF.]"
+  },
+  {
+    "id": 41,
+    "word": "uncle",
+    "category": "trap",
+    "expected_roots": [],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "OE. uncle , OF. oncle , uncle , F. oncle , fr. L. avunculus a maternal uncle, dim. of avus a grandfather; akin to Lith. avynas uncle, Goth. aw grandmother, Icel. great grandfather.",
+      "ets_tokens": [
+        "uncle",
+        "oncle",
+        "uncle",
+        "oncle",
+        "avunculus",
+        "avus",
+        "avynas",
+        "aw<?/",
+        "<amac/i"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F.",
+        "Goth.",
+        "Icel.",
+        "L.",
+        "OE.",
+        "OF."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Uncle",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=7+prose=133c langs=[F.,L.,OE.,OF.]"
+  },
+  {
+    "id": 42,
+    "word": "island",
+    "category": "trap",
+    "expected_roots": [],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "OE. iland , yland , AS. , , ; , , island + land , lond , land. AS. , , is akin to AS. e water, river, OHG. , G. au meadow, Icel. ey island, Dan. & Sw. , Goth. ahwa a stream, water, L. aqua water. The s is due to confusion with isle . Cf. Ait , Eyot , Ewer , Aquatic .",
+      "ets_tokens": [
+        "iland",
+        "yland",
+        "<imac/gland",
+        "<?/gland",
+        "<?/glond",
+        "<imac/g",
+        "<?/g",
+        "land",
+        "lond",
+        "<imac/g",
+        "<?/g",
+        "e<aacute/",
+        "<?/uwa",
+        "au",
+        "ey",
+        "<oum/",
+        "ahwa",
+        "aqua",
+        "isle"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "AS.",
+        "Dan.",
+        "Goth.",
+        "Icel.",
+        "L.",
+        "OE.",
+        "OHG.",
+        "Sw."
+      ],
+      "cross_refs": [
+        "Ait",
+        "Eyot",
+        "Ewer",
+        "Aquatic"
+      ]
+    },
+    "headword_used": "Island",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=7+prose=133c langs=[F.,L.,OE.,OF.]"
+  },
+  {
+    "id": 43,
+    "word": "butter",
+    "category": "trap",
+    "expected_roots": [],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "OE. botere , butter , AS. butere , fr. L. butyrum , Gr. boy`turon ; either fr. boy`s ox, cow + turo`s cheese; or, perhaps, of Scythian origin. Cf. Cow .",
+      "ets_tokens": [
+        "botere",
+        "butter",
+        "butere",
+        "butyrum"
+      ],
+      "grk_tokens": [
+        "boy`turon",
+        "boy`s",
+        "turo`s"
+      ],
+      "languages": [
+        "AS.",
+        "Gr.",
+        "L.",
+        "OE."
+      ],
+      "cross_refs": [
+        "Cow"
+      ]
+    },
+    "headword_used": "Butter",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=7+prose=133c langs=[F.,L.,OE.,OF.]"
+  },
+  {
+    "id": 44,
+    "word": "cryptography",
+    "category": "common",
+    "expected_roots": [
+      "crypt-",
+      "graph-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "Cf. F. cryptographie .",
+      "ets_tokens": [
+        "cryptographie"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Cryptography",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=1 langs=[F.]"
+  },
+  {
+    "id": 45,
+    "word": "xenophobia",
+    "category": "common",
+    "expected_roots": [
+      "xen-",
+      "phob-"
+    ],
+    "coverage": "STEM",
+    "strict_match": false,
+    "stem_match_keys": [
+      "xenopterygii"
+    ],
+    "etymology": {
+      "present": true,
+      "raw": "NL., from Gr. xe`nos strange + <?/, dim. of <?/ a wing.",
+      "ets_tokens": [],
+      "grk_tokens": [
+        "xe`nos"
+      ],
+      "languages": [
+        "Gr.",
+        "NL."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Xenopterygii",
+    "richer_than_wikipedia": true,
+    "richer_reason": "grk=1+compound+prose=55c langs=[Gr.,NL.]"
+  },
+  {
+    "id": 46,
+    "word": "omnivore",
+    "category": "common",
+    "expected_roots": [
+      "omni-",
+      "vor-"
+    ],
+    "coverage": "STEM",
+    "strict_match": false,
+    "stem_match_keys": [
+      "omnivagant",
+      "omnivora",
+      "omnivorous"
+    ],
+    "etymology": {
+      "present": true,
+      "raw": "Omni + L. vagans , p. pr. of vagari to wander.",
+      "ets_tokens": [
+        "Omni",
+        "vagans",
+        "vagari"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "L."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Omnivagant",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=3+compound+prose=46c langs=[L.]"
+  },
+  {
+    "id": 47,
+    "word": "herbivore",
+    "category": "common",
+    "expected_roots": [
+      "herb-",
+      "vor-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "Cf. F. herbivore .",
+      "ets_tokens": [
+        "herbivore"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Herbivore",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=1 langs=[F.]"
+  },
+  {
+    "id": 48,
+    "word": "carnivore",
+    "category": "common",
+    "expected_roots": [
+      "carn-",
+      "vor-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "Cf. F. carnivore .",
+      "ets_tokens": [
+        "carnivore"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "F."
+      ],
+      "cross_refs": []
+    },
+    "headword_used": "Carnivore",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=1 langs=[F.]"
+  },
+  {
+    "id": 49,
+    "word": "benevolent",
+    "category": "common",
+    "expected_roots": [
+      "bene-",
+      "vol-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "L. benevolens , -entis ; bene well (adv. of bonus good) + volens , p. pr. of volo I will, I wish. See Bounty , and Voluntary .",
+      "ets_tokens": [
+        "benevolens",
+        "-entis",
+        "bene",
+        "bonus",
+        "volens",
+        "volo"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "L."
+      ],
+      "cross_refs": [
+        "Bounty",
+        "Voluntary"
+      ]
+    },
+    "headword_used": "Benevolent",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=6+compound+prose=126c langs=[L.]"
+  },
+  {
+    "id": 50,
+    "word": "malevolent",
+    "category": "common",
+    "expected_roots": [
+      "mal-",
+      "vol-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "L. malevolens , -entis ; male ill + volens , p. pr. of velle to be willing or disposed, to wish. See Malice , and Voluntary .",
+      "ets_tokens": [
+        "malevolens",
+        "-entis",
+        "male",
+        "volens",
+        "velle"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "L."
+      ],
+      "cross_refs": [
+        "Malice",
+        "Voluntary"
+      ]
+    },
+    "headword_used": "Malevolent",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=5+compound+prose=125c langs=[L.]"
+  },
+  {
+    "id": 51,
+    "word": "renovate",
+    "category": "common",
+    "expected_roots": [
+      "nov-"
+    ],
+    "coverage": "STRICT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "etymology": {
+      "present": true,
+      "raw": "L. renovatus , p. p. of renovare ;pref. re- re- + novare to make new, fr. novus new. See New , and Renew .",
+      "ets_tokens": [
+        "renovatus",
+        "renovare",
+        "re-",
+        "novare",
+        "novus"
+      ],
+      "grk_tokens": [],
+      "languages": [
+        "L."
+      ],
+      "cross_refs": [
+        "New",
+        "Renew"
+      ]
+    },
+    "headword_used": "Renovate",
+    "richer_than_wikipedia": true,
+    "richer_reason": "chain=5+compound+prose=106c langs=[L.]"
+  }
+]

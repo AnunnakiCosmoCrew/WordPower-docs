@@ -1,0 +1,110 @@
+[
+  {
+    "word": "cyber",
+    "expected": "not_found",
+    "coined": "1948 (Wiener)",
+    "outcome": "CLEAN_FAIL",
+    "strict_match": false,
+    "stem_match_keys": [],
+    "headword_used": null,
+    "source": null
+  },
+  {
+    "word": "internet",
+    "expected": "not_found",
+    "coined": "1974",
+    "outcome": "FOUND_IN_SUPPLEMENT",
+    "strict_match": true,
+    "stem_match_keys": [],
+    "headword_used": "internet",
+    "source": "PJC"
+  },
+  {
+    "word": "nanotech",
+    "expected": "not_found",
+    "coined": "1986",
+    "outcome": "CLEAN_FAIL",
+    "strict_match": false,
+    "stem_match_keys": [
+      "nanotechnology"
+    ],
+    "headword_used": null,
+    "source": null
+  },
+  {
+    "word": "bitcoin",
+    "expected": "not_found",
+    "coined": "2008",
+    "outcome": "CLEAN_FAIL",
+    "strict_match": false,
+    "stem_match_keys": [],
+    "headword_used": null,
+    "source": null
+  },
+  {
+    "word": "email",
+    "expected": "not_found",
+    "coined": "1979",
+    "outcome": "CLEAN_FAIL",
+    "strict_match": false,
+    "stem_match_keys": [],
+    "headword_used": null,
+    "source": null
+  },
+  {
+    "word": "selfie",
+    "expected": "not_found",
+    "coined": "2002",
+    "outcome": "CLEAN_FAIL",
+    "strict_match": false,
+    "stem_match_keys": [
+      "selfish",
+      "selfishly",
+      "selfishness",
+      "selfism",
+      "selfist"
+    ],
+    "headword_used": null,
+    "source": null
+  },
+  {
+    "word": "podcast",
+    "expected": "not_found",
+    "coined": "2004",
+    "outcome": "CLEAN_FAIL",
+    "strict_match": false,
+    "stem_match_keys": [],
+    "headword_used": null,
+    "source": null
+  },
+  {
+    "word": "webinar",
+    "expected": "not_found",
+    "coined": "1998",
+    "outcome": "CLEAN_FAIL",
+    "strict_match": false,
+    "stem_match_keys": [],
+    "headword_used": null,
+    "source": null
+  },
+  {
+    "word": "hashtag",
+    "expected": "not_found",
+    "coined": "2007",
+    "outcome": "CLEAN_FAIL",
+    "strict_match": false,
+    "stem_match_keys": [],
+    "headword_used": null,
+    "source": null
+  },
+  {
+    "word": "meme",
+    "expected": "not_found",
+    "coined": "1976 (Dawkins)",
+    "outcome": "CLEAN_FAIL",
+    "strict_match": false,
+    "stem_match_keys": [],
+    "headword_used": null,
+    "source": null
+  }
+]

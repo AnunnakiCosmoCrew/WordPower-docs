@@ -1,0 +1,45 @@
+GCIDE 0.54 — extraction stats
+source dir: gcide-0.54
+total entries parsed: 124155
+distinct lowercase headwords: 108152
+entries with <ety> block: 55266 (44.5%)
+
+entries per letter:
+  A: 8926
+  B: 6967
+  C: 11918
+  D: 7407
+  E: 5354
+  F: 4984
+  G: 3944
+  H: 4766
+  I: 5554
+  J: 1023
+  K: 1090
+  L: 4240
+  M: 7294
+  N: 2568
+  O: 3510
+  P: 10698
+  Q: 692
+  R: 5387
+  S: 13318
+  T: 6229
+  U: 2593
+  V: 1932
+  W: 2787
+  X: 173
+  Y: 412
+  Z: 389
+
+source-tag distribution (top 10):
+  1913 Webster                   108940
+  WordNet 1.5                    7949
+  Webster 1913 Suppl.            3796
+  PJC                            2224
+  WordNet 1.6                    17
+  AS                             13
+  Century Dict. 1906             11
+  PJC.                           10
+  RDH                            6
+  RP                             4

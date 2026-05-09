@@ -1,0 +1,10 @@
+# Override parent spikes/.gitignore exclusions for the load-bearing spike artifacts.
+# Raw GCIDE tarball + extracted CIDE.* files stay ignored (reproducible from download.sh).
+data/*.tar.xz
+data/gcide-0.54/
+!data/test-set.json
+!data/modern-probe.json
+!data/extract-stats.txt
+!results/*.json
+!results/*.md
+!results/*.txt
