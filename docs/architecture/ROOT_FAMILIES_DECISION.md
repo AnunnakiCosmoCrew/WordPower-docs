@@ -269,23 +269,23 @@ Tasks:
 
 ---
 
-## Open decisions
+## Locked decisions
 
-These are real choices that need to be made before or during the build phases. None block starting Phase 1.
+The decisions surfaced during synthesis review (2026-05-09) are locked in below. The remaining items are operational and resolved at their phase boundary.
 
-1. **Frequency list source.** Default: SUBTLEX-US for a vocabulary-app match. Alternative: COCA top-10k for broader academic-leaning coverage. **Recommendation: SUBTLEX-US.** Confirm during Phase 3 Day 4.
+1. **Frequency list source: SUBTLEX-US.** Subtitle-derived US English frequency list — best match for the vocabulary-app domain (reflects words people actually encounter in everyday spoken/screen English). Free, ~74k words, easy to slice top-10k. Source: [`crr.ugent.be/papers/SUBTLEX-US.zip`](https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexus). Pin the version in `pipeline/download_frequency_list.sh`.
 
-2. **Sonnet validation strategy.** Run on every word ($186 extra) or only on Haiku medium/low confidence outputs (~$10-30)? **Recommendation: medium/low only**, plus a 10% random sample of high-confidence outputs as an audit. Confirm during Phase 3.
+2. **Sonnet validation strategy: medium/low confidence + 10% high-confidence audit.** Sonnet runs on Haiku's medium/low outputs (~5-10% of records) plus a random 10% sample of high-confidence outputs as an audit. Estimated cost: ~$10-30 on top of Haiku's ~$15. Disagreements: prefer Sonnet's verdict.
 
-3. **Top-N target for v1.** §8 originally said top-10k; Spike C measured at top-30k. **Recommendation: ship top-10k v1**, file follow-on for top-30k expansion in Phase 5. Top-10k covers ~95% of typical learner-vocabulary lookups by frequency.
+3. **Top-N target for v1: top-10k.** Covers ~95% of typical learner-vocabulary lookups by frequency. Bundle size target ~1.5 MB. Build cost ~$25. Top-30k expansion is filed as a follow-on under #385 once v1 ships and we have user-facing analytics.
 
-4. **Bundle versioning.** Per-record schema version, or only top-level? **Recommendation: top-level only for v1**, add per-record version in v2 if §6 schema evolves.
+4. **Confidence rendering at runtime: lock the §5 mapping.** `high` → full morpheme breakdown shown; `medium` → root-only display (L0-style fallback rendering); `low` → engine declines, app shows definition only. Surfaced in the Phase 2 schema spec and referenced from the Phase 6 UI handoff to #406.
 
-5. **Confidence rendering at runtime.** §5 says high → full breakdown, medium → root only (L0), low → nothing. **Confirm with the Phase 4 UI work in #406** before committing.
+5. **Bundle versioning: top-level only for v1.** `{schema_version, source, build_date, model, prompt_hash, records: {...}}` at the top; per-record version added in v2 only if the §6 schema evolves materially.
 
-6. **Re-build cadence.** When prompt-v2 ships (after some user feedback), do we rebuild from scratch or incrementally? **Recommendation: full rebuild every time** — it's $25 and 10 minutes; not worth the complexity of incremental.
+6. **Re-build cadence: full rebuild every time.** When prompt-v2 ships, full top-10k rebuild. It's $25 and 10 minutes; the complexity of incremental rebuild isn't worth saving.
 
-7. **What happens if Phase 3 hand-validation fails the gate.** Fallback ladder is: tighten prompt → re-run pilot → tighten prompt again → reduce coverage target → defer L2 to Phase 5 (ship L0 only). Document as we hit each rung.
+7. **Phase 3 hand-validation fallback ladder.** If the top-1k pilot fails the ≥ 85% gate: (1) tighten prompt and re-run pilot; (2) if still failing, drop coverage to top-5k for v1; (3) if still failing, defer L2 to Phase 5 and ship L0-only (Wikipedia root-catalog highlighting). Document the rung we land on.
 
 ---
 
