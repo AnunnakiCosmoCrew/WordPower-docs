@@ -1,48 +1,60 @@
 # Root-Families Engine — Decision & Build Plan
 
-**Date:** 2026-05-09 (revised 2026-05-11 after Spike D)
-**Status:** Architecture locked, build pipeline planned, ready to execute Week 2.
+**Date:** 2026-05-09 (revised 2026-05-11 after Spike D; revised again 2026-05-11 after top-1k production validation)
+**Status:** Architecture locked, build pipeline in progress (#527 / PR #539), ready to execute remaining phases.
 **Supersedes:** `ROOT_FAMILIES_ENGINE.md` §8 schedule (which was the *plan to discover*); this is the *plan to build*.
 
 ## TL;DR
 
-The Week 1 spike programme is complete. Four spikes were run; the locked architecture is below.
+The Week 1 spike programme + a follow-on top-1k production validation are complete.
 
 | Spike | Verdict | Used for |
 |---|---|---|
 | **A — MorphyNet** | DROP entirely | (none) |
 | **B — Webster's 1913 / GCIDE** | SHIP | L2 etymology overlay |
-| **C — Haiku 4.5 LLM cache** | Validated as candidate; **superseded by Spike D** | (cross-validation fallback) |
-| **D — Gemini 2.5 Flash comparison** | **SHIP** as L1 primary | L1 primary (build-time cache) |
+| **C — Haiku 4.5 LLM cache** | **SHIP** as L1 primary | L1 primary (build-time cache) |
+| **D — Gemini 2.5 Flash comparison** | Validated as candidate; cost advantage didn't hold at production scale | (cross-validation only) |
 
 Combined with previously validated Wikipedia roots data (L3) and root-catalog highlighting (L0):
 
 ```
 L0 fallback         : Wikipedia root catalog highlighting (always available, no bundle dependency)
-L1 primary          : LLM cache — Gemini 2.5 Flash, build-time, top-10k words  ← Spike D
-L1 cross-validation : Claude Sonnet 4.6 on Gemini medium/low confidence outputs
-L1 fallback         : Claude Haiku 4.5 (if Gemini quota/availability problem)
+L1 primary          : LLM cache — Claude Haiku 4.5, build-time, top-10k words  ← per top-1k production validation
+L1 cross-validation : Claude Sonnet 4.6 on Haiku medium/low confidence outputs
+L1 secondary        : Gemini 2.5 Flash — equivalent quality, available as alternate provider if Anthropic quota/availability problem
 L2 etym overlay     : GCIDE — slim per-word etymology slice, top-10k words
 L3 fallback         : Wikipedia roots data — already shipped
 ```
 
-**Estimated build cost:** ~$35 per rebuild (Gemini top-10k + Sonnet validation). **Estimated effort:** 8-12 days part-time, including mobile-bundle validation.
+**Estimated build cost:** ~$30 per rebuild (Haiku top-10k ~$17 + Sonnet validation ~$13). **Estimated effort:** 8-12 days part-time, including mobile-bundle validation.
 
 The action plan in [§ Next-step actions](#next-step-actions) is sequenced and ready to execute.
 
-## Why Gemini 2.5 Flash (and not Haiku 4.5)
+## Why Haiku 4.5 (the journey to here)
 
-Spike D measured both models on the same 81-word test set with the same prompt (prompt-v1, locked by #525) and scoring rubric:
+This decision changed twice. Honest history:
 
-| Metric | Haiku 4.5 | **Gemini 2.5 Flash** | Delta |
-|---|---|---|---|
-| Accuracy strict | 95.83% | **97.92%** | +2.1pp |
-| Trap refusal | 10/10 | 10/10 | tied |
-| Top-30k cost | $87.09 | **$61.09** | **-30%** |
+**1. Initial choice (2026-05-09, Spike C):** Claude Haiku 4.5 as L1 primary. Spike C measured Haiku at 89.6% strict accuracy on a 51-word test set; all four acceptance criteria passed.
 
-The decision rule locked before the spike: "some non-Anthropic model exceeds Haiku's quality at ≤ Haiku's cost → switch." Triggered. The accuracy margin is one word (47/48 vs 46/48), inside the noise floor of single-run measurement — but the cost gap is real and structural. Full evidence in [Spike D FINDINGS](../../spikes/morphology-engine/d-model-survey/FINDINGS.md); caveats (small sample, observed run-to-run variance equal to the margin, vendor risk, Gemini caching less consistent) honestly documented there.
+**2. Pivot to Gemini (2026-05-11 morning, Spike D):** Comparative survey on the same 51-word test set with the locked prompt-v1 measured Gemini 2.5 Flash at +2.1pp accuracy and -30% projected top-30k cost. The locked decision rule fired ("exceeds quality at ≤ same cost → switch"). Architecture was updated to Gemini as L1 primary.
 
-The load-bearing claim from this spike is: *"Gemini matches Haiku at materially lower cost,"* not *"Gemini is meaningfully better than Haiku."* Either claim alone is enough to trigger the switch under the locked decision rule.
+**3. Revert to Haiku (2026-05-11 evening, top-1k production validation):** A Gemini run on the same 1000 SUBTLEX-US production words used by PR #539's Haiku pilot showed the Spike D cost projection didn't hold at production scale. Headline:
+
+| Metric | Spike D (51 words) projection | Top-1k actual measurement |
+|---|---|---|
+| Gemini accuracy vs Haiku | +2.1pp better | equivalent (90.1% agreement) |
+| Gemini cost vs Haiku | -30% cheaper | **+11% MORE expensive** ($1.90 vs $1.71) |
+| Gemini wall-clock vs Haiku | not measured | **6× slower** (42 min vs 7.5 min) |
+
+The most plausible cause: Haiku's explicit `cache_control` (Anthropic) hits cache on ~100% of calls after the first; Gemini's implicit caching is sporadic. At 51 words the dynamics are dominated by per-call output costs (where Gemini is cheaper). At 1000 words and beyond, prompt caching dominates total cost, and Anthropic's explicit caching wins decisively.
+
+At top-1k production scale: neither switch condition fires (Gemini doesn't exceed Haiku quality, and Gemini is more expensive, not cheaper). Per the same locked decision rule that originally triggered the switch: **confirm Haiku**.
+
+This is the right behavior of a decision rule. Locking it in advance prevents post-hoc rationalization. The Spike D evidence said switch; new top-1k evidence says don't. We follow the data.
+
+**The load-bearing claim now:** Haiku 4.5 validates at production scale (100/100 hand-validation on top-1k, $1.71 cost, fast wall-clock with caching). Gemini 2.5 Flash is equivalent quality at slightly higher cost and slower wall-clock at production scale; it earns a place in the architecture as a secondary provider (drop-in replacement if Anthropic has a quota/availability problem) but not as primary.
+
+See [Spike D FINDINGS](../../spikes/morphology-engine/d-model-survey/FINDINGS.md) and [`pipeline/validation/top1k-comparison.md`](../../pipeline/validation/top1k-comparison.md) for full evidence.
 
 Haiku 4.5 remains in the architecture as the fallback when Gemini has quota/availability issues — we already know it works, the integration is already built (`c-llm-haiku/scripts/run_haiku.py`), and the cost difference at fallback frequency is negligible.
 

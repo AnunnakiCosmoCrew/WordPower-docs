@@ -1,0 +1,644 @@
+{
+  "total_words": 1000,
+  "agreements": 901,
+  "agreement_rate": 0.901,
+  "shape_diffs": 7,
+  "only_haiku_decomposed": 66,
+  "only_gemini_decomposed": 26,
+  "haiku_cost_usd": 1.7058,
+  "gemini_cost_usd": 1.899774,
+  "haiku_confidence_distribution": {
+    "high": 186,
+    "medium": 14,
+    "low": 800
+  },
+  "gemini_confidence_distribution": {
+    "low": 840,
+    "high": 157,
+    "medium": 3
+  },
+  "decision_threshold": 0.9,
+  "decision_pass": true,
+  "shape_diff_details": [
+    {
+      "word": "different",
+      "haiku_conf": "medium",
+      "gemini_conf": "high",
+      "haiku_morphemes": 2,
+      "gemini_morphemes": 3,
+      "haiku_decomp": [
+        "differ",
+        "-ent"
+      ],
+      "gemini_decomp": [
+        "dif-",
+        "fer",
+        "-ent"
+      ]
+    },
+    {
+      "word": "lawyer",
+      "haiku_conf": "high",
+      "gemini_conf": "medium",
+      "haiku_morphemes": 2,
+      "gemini_morphemes": 2,
+      "haiku_decomp": [
+        "law",
+        "-yer"
+      ],
+      "gemini_decomp": [
+        "law",
+        "-yer"
+      ]
+    },
+    {
+      "word": "remember",
+      "haiku_conf": "medium",
+      "gemini_conf": "high",
+      "haiku_morphemes": 3,
+      "gemini_morphemes": 2,
+      "haiku_decomp": [
+        "re-",
+        "member",
+        "-er"
+      ],
+      "gemini_decomp": [
+        "re-",
+        "member"
+      ]
+    },
+    {
+      "word": "sometimes",
+      "haiku_conf": "medium",
+      "gemini_conf": "high",
+      "haiku_morphemes": 2,
+      "gemini_morphemes": 3,
+      "haiku_decomp": [
+        "some",
+        "-times"
+      ],
+      "gemini_decomp": [
+        "some",
+        "time",
+        "-s"
+      ]
+    },
+    {
+      "word": "supposed",
+      "haiku_conf": "high",
+      "gemini_conf": "medium",
+      "haiku_morphemes": 3,
+      "gemini_morphemes": 3,
+      "haiku_decomp": [
+        "sup-",
+        "pos",
+        "-ed"
+      ],
+      "gemini_decomp": [
+        "sup-",
+        "pos",
+        "-ed"
+      ]
+    },
+    {
+      "word": "surprise",
+      "haiku_conf": "high",
+      "gemini_conf": "medium",
+      "haiku_morphemes": 2,
+      "gemini_morphemes": 2,
+      "haiku_decomp": [
+        "sur-",
+        "prise"
+      ],
+      "gemini_decomp": [
+        "sur-",
+        "prise"
+      ]
+    },
+    {
+      "word": "terrible",
+      "haiku_conf": "medium",
+      "gemini_conf": "high",
+      "haiku_morphemes": 2,
+      "gemini_morphemes": 2,
+      "haiku_decomp": [
+        "terr",
+        "-ible"
+      ],
+      "gemini_decomp": [
+        "terr",
+        "-ible"
+      ]
+    }
+  ],
+  "only_haiku_decomposed_details": [
+    {
+      "word": "Alright",
+      "haiku_conf": "medium",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "all",
+        "right"
+      ]
+    },
+    {
+      "word": "American",
+      "haiku_conf": "medium",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "America",
+        "-n"
+      ]
+    },
+    {
+      "word": "Captain",
+      "haiku_conf": "medium",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "capit",
+        "-ain"
+      ]
+    },
+    {
+      "word": "Congratulations",
+      "haiku_conf": "high",
+      "haiku_morphemes": 3,
+      "haiku_decomp": [
+        "con-",
+        "gratulat",
+        "-ion"
+      ]
+    },
+    {
+      "word": "English",
+      "haiku_conf": "high",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "Angle",
+        "-ish"
+      ]
+    },
+    {
+      "word": "Goodbye",
+      "haiku_conf": "high",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "good",
+        "bye"
+      ]
+    },
+    {
+      "word": "Lieutenant",
+      "haiku_conf": "high",
+      "haiku_morphemes": 3,
+      "haiku_decomp": [
+        "lieu-",
+        "-ten-",
+        "-ant"
+      ]
+    },
+    {
+      "word": "Major",
+      "haiku_conf": "medium",
+      "haiku_morphemes": 1,
+      "haiku_decomp": [
+        "maj"
+      ]
+    },
+    {
+      "word": "across",
+      "haiku_conf": "high",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "a-",
+        "cross"
+      ]
+    },
+    {
+      "word": "ahead",
+      "haiku_conf": "high",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "a-",
+        "head"
+      ]
+    },
+    {
+      "word": "already",
+      "haiku_conf": "high",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "all",
+        "ready"
+      ]
+    },
+    {
+      "word": "amazing",
+      "haiku_conf": "high",
+      "haiku_morphemes": 3,
+      "haiku_decomp": [
+        "a-",
+        "maze",
+        "-ing"
+      ]
+    },
+    {
+      "word": "around",
+      "haiku_conf": "high",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "a-",
+        "round"
+      ]
+    },
+    {
+      "word": "attack",
+      "haiku_conf": "high",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "at-",
+        "tack"
+      ]
+    },
+    {
+      "word": "beautiful",
+      "haiku_conf": "high",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "beauty",
+        "-ful"
+      ]
+    },
+    {
+      "word": "before",
+      "haiku_conf": "high",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "be-",
+        "fore"
+      ]
+    },
+    {
+      "word": "behind",
+      "haiku_conf": "medium",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "be-",
+        "hind"
+      ]
+    },
+    {
+      "word": "believe",
+      "haiku_conf": "medium",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "be-",
+        "lieve"
+      ]
+    },
+    {
+      "word": "between",
+      "haiku_conf": "high",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "be-",
+        "tween"
+      ]
+    },
+    {
+      "word": "called",
+      "haiku_conf": "high",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "call",
+        "-ed"
+      ]
+    },
+    {
+      "word": "cannot",
+      "haiku_conf": "high",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "can",
+        "not"
+      ]
+    },
+    {
+      "word": "certain",
+      "haiku_conf": "high",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "cert",
+        "-ain"
+      ]
+    },
+    {
+      "word": "college",
+      "haiku_conf": "high",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "col-",
+        "leg"
+      ]
+    },
+    {
+      "word": "control",
+      "haiku_conf": "medium",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "con-",
+        "trol"
+      ]
+    },
+    {
+      "word": "course",
+      "haiku_conf": "medium",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "cour",
+        "-e"
+      ]
+    },
+    {
+      "word": "crime",
+      "haiku_conf": "high",
+      "haiku_morphemes": 1,
+      "haiku_decomp": [
+        "crime"
+      ]
+    },
+    {
+      "word": "everyone",
+      "haiku_conf": "high",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "every",
+        "one"
+      ]
+    },
+    {
+      "word": "finish",
+      "haiku_conf": "high",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "fin",
+        "-ish"
+      ]
+    },
+    {
+      "word": "fucking",
+      "haiku_conf": "high",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "fuck",
+        "-ing"
+      ]
+    },
+    {
+      "word": "future",
+      "haiku_conf": "high",
+      "haiku_morphemes": 2,
+      "haiku_decomp": [
+        "fut",
+        "-ure"
+      ]
+    }
+  ],
+  "only_gemini_decomposed_details": [
+    {
+      "word": "accident",
+      "gemini_conf": "high",
+      "gemini_morphemes": 3,
+      "gemini_decomp": [
+        "ac-",
+        "cid",
+        "-ent"
+      ]
+    },
+    {
+      "word": "being",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "be",
+        "-ing"
+      ]
+    },
+    {
+      "word": "broken",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "brok",
+        "-en"
+      ]
+    },
+    {
+      "word": "business",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "busi",
+        "-ness"
+      ]
+    },
+    {
+      "word": "enjoy",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "en-",
+        "joy"
+      ]
+    },
+    {
+      "word": "eyes",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "eye",
+        "-s"
+      ]
+    },
+    {
+      "word": "forever",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "for",
+        "ever"
+      ]
+    },
+    {
+      "word": "funny",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "fun",
+        "-y"
+      ]
+    },
+    {
+      "word": "girls",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "girl",
+        "-s"
+      ]
+    },
+    {
+      "word": "given",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "give",
+        "-en"
+      ]
+    },
+    {
+      "word": "going",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "go",
+        "-ing"
+      ]
+    },
+    {
+      "word": "hands",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "hand",
+        "-s"
+      ]
+    },
+    {
+      "word": "happened",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "happen",
+        "-ed"
+      ]
+    },
+    {
+      "word": "himself",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "him",
+        "self"
+      ]
+    },
+    {
+      "word": "kids",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "kid",
+        "-s"
+      ]
+    },
+    {
+      "word": "likes",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "like",
+        "-s"
+      ]
+    },
+    {
+      "word": "lucky",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "luck",
+        "-y"
+      ]
+    },
+    {
+      "word": "needs",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "need",
+        "-s"
+      ]
+    },
+    {
+      "word": "ones",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "one",
+        "-s"
+      ]
+    },
+    {
+      "word": "shoes",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "shoe",
+        "-s"
+      ]
+    },
+    {
+      "word": "somewhere",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "some",
+        "where"
+      ]
+    },
+    {
+      "word": "things",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "thing",
+        "-s"
+      ]
+    },
+    {
+      "word": "thinks",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "think",
+        "-s"
+      ]
+    },
+    {
+      "word": "wedding",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "wed",
+        "-ing"
+      ]
+    },
+    {
+      "word": "whatever",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "what",
+        "ever"
+      ]
+    },
+    {
+      "word": "years",
+      "gemini_conf": "high",
+      "gemini_morphemes": 2,
+      "gemini_decomp": [
+        "year",
+        "-s"
+      ]
+    }
+  ]
+}
