@@ -1,0 +1,9 @@
+# JetBrains / IntelliJ / WebStorm / PyCharm
+.idea/
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
