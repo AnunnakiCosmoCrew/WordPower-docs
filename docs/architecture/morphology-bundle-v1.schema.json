@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "morphology-bundle-v1.schema.json",
+  "title": "WordPower Morphology Bundle v1",
+  "description": "Schema for the WordPower morphology bundle. Defines the bundle-level wrapper and per-word record format. See MORPHOLOGY_RECORD_SCHEMA.md for the full specification including merge semantics and confidence rendering rules.",
+  "type": "object",
+  "required": ["schema_version", "build_date", "model", "prompt_hash", "records"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1",
+      "description": "Bundle schema version. The Flutter app rejects bundles with an unrecognised version and re-downloads."
+    },
+    "build_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "ISO 8601 date (YYYY-MM-DD) when this bundle was generated."
+    },
+    "model": {
+      "type": "string",
+      "description": "Primary L1 model identifier used for this build (e.g. 'gemini-2.5-flash', 'claude-haiku-4.5')."
+    },
+    "prompt_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "SHA-256 hex digest of the prompt file used for generation. Changing the prompt invalidates the cache."
+    },
+    "records": {
+      "type": "object",
+      "description": "Map from lowercase headword to per-word record. Contains all words for which an L1 call was made, including refused (confidence: 'low') words.",
+      "additionalProperties": {
+        "$ref": "#/$defs/WordRecord"
+      }
+    }
+  },
+  "$defs": {
+    "WordRecord": {
+      "type": "object",
+      "title": "WordRecord",
+      "description": "Merged per-word record combining L1 LLM decomposition and optional L2 GCIDE etymology.",
+      "required": ["word", "confidence", "decomposition", "reasoning", "sources"],
+      "additionalProperties": false,
+      "properties": {
+        "word": {
+          "type": "string",
+          "description": "Lowercase headword. Must match the key in the parent 'records' map."
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "LLM-assigned confidence gate. Drives UI rendering: 'high' = full breakdown, 'medium' = root-only, 'low' = no morphology section."
+        },
+        "decomposition": {
+          "type": "array",
+          "description": "Ordered list of morphemes left-to-right. Empty array when confidence is 'low'.",
+          "items": {
+            "$ref": "#/$defs/Morpheme"
+          }
+        },
+        "etymology_note": {
+          "type": "string",
+          "description": "Raw GCIDE etymology prose. Present only when L2 matched and confidence is not 'low'."
+        },
+        "etymology_languages": {
+          "type": "array",
+          "description": "Source-language abbreviations extracted from GCIDE (e.g. ['F.', 'L.', 'Gr.']). Present when etymology_note is present.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "etymology_source": {
+          "type": "string",
+          "const": "gcide",
+          "description": "Always 'gcide' when present. Reserved for future additional etymology layers."
+        },
+        "reasoning": {
+          "type": "string",
+          "description": "LLM chain-of-thought explaining the confidence and morpheme choices. Internal audit field; not displayed to the user."
+        },
+        "sources": {
+          "type": "array",
+          "description": "Ordered list of layers that contributed to this record.",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": ["llm-gemini-2.5-flash", "llm-claude-haiku-4.5", "gcide"]
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "confidence": { "const": "low" }
+        }
+      },
+      "then": {
+        "properties": {
+          "decomposition": {
+            "maxItems": 0,
+            "description": "Must be empty when confidence is 'low'."
+          }
+        }
+      },
+      "dependentRequired": {
+        "etymology_note": ["etymology_languages", "etymology_source"],
+        "etymology_languages": ["etymology_note", "etymology_source"],
+        "etymology_source": ["etymology_note", "etymology_languages"]
+      }
+    },
+    "Morpheme": {
+      "type": "object",
+      "title": "Morpheme",
+      "description": "A single morpheme in the word's decomposition.",
+      "required": ["morpheme", "type", "meaning", "language", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "morpheme": {
+          "type": "string",
+          "description": "Surface form as it appears in the word, including any attached hyphen for prefixes/suffixes (e.g. 'trans-', '-ation')."
+        },
+        "type": {
+          "type": "string",
+          "enum": ["prefix", "root", "suffix", "connective_vowel"],
+          "description": "Morpheme category. 'connective_vowel' is used for interfix vowels (e.g. the '-o-' in 'democracy')."
+        },
+        "meaning": {
+          "type": "string",
+          "description": "Plain-English gloss of this morpheme's contribution."
+        },
+        "language": {
+          "type": "string",
+          "description": "Language of origin for this morpheme (e.g. 'Latin', 'Greek', 'Old English')."
+        },
+        "canonical_root": {
+          "type": "string",
+          "description": "Normalised root entry used for family-browse linking (e.g. 'port-'). Present on root-type morphemes when the LLM can identify the family root."
+        },
+        "etymology": {
+          "type": "string",
+          "description": "Original source-language form (e.g. 'portāre', 'philos'). Present on root-type morphemes when the LLM provides it."
+        },
+        "source": {
+          "type": "string",
+          "enum": ["llm-gemini-2.5-flash", "llm-claude-haiku-4.5", "gcide"],
+          "description": "Which layer produced this morpheme entry. Matches one of the values in the top-level sources array."
+        }
+      }
+    }
+  }
+}
