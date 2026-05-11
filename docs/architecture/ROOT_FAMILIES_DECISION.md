@@ -217,16 +217,17 @@ Tasks:
 
 **Deliverable:** `docs/architecture/MORPHOLOGY_RECORD_SCHEMA.md` with JSON Schema spec.
 
-### Phase 3 — L1 cache build pipeline (Days 4-7, ~$15-25)
+### Phase 3 — L1 cache build pipeline (Days 4-7, ~$20-35)
 
-**Goal:** build the per-word LLM decomposition cache for the top-10k frequency list.
+**Goal:** build the per-word LLM decomposition cache for the top-10k frequency list, using Gemini 2.5 Flash as primary with Sonnet validation and Haiku fallback.
 
 Tasks:
 1. **Pick a frequency list.** Candidates: SUBTLEX-US (subtitle frequency, learner-friendly), COCA top-N (broader corpus), Google Web Trillion Word Corpus (web-skewed). Default: SUBTLEX-US — best match for vocabulary-app domain. Source from [`crr.ugent.be/papers/SUBTLEX-US.zip`](https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexus) and pin the version.
-2. **Top-1k pilot run** ($1.50, ~30 min). Run Haiku 4.5 with prompt-v1 on words 1-1000 of the frequency list. Output: `pipeline/output/top1k-llm-cache.json`.
+2. **Top-1k pilot run** (~$2, ~30 min). Run Gemini 2.5 Flash with prompt-v1 on words 1-1000 of the frequency list. Output: `pipeline/output/top1k-llm-cache.json`.
 3. **Hand-validate the top-1k.** Sample 100 random records, eyeball score. Gate on ≥ 85% acceptable. Surface any systematic prompt-iteration issues.
-4. **Top-10k production run** ($15, ~5-10 min). If the top-1k passes the gate, run on words 1-10000. Output: `pipeline/output/top10k-llm-cache-v1.json`.
-5. **Sonnet validation pass** ($5-10). For records with `confidence ∈ {medium, low}` (~5-10% of records, est. 500-1000 words), run Sonnet 4.6 on the same words. Compare outputs. For disagreements, prefer Sonnet's verdict. Output: `pipeline/output/top10k-llm-cache-v1-validated.json`.
+4. **Top-10k production run** (~$20, ~5-10 min). If the top-1k passes the gate, run on words 1-10000. Output: `pipeline/output/top10k-llm-cache-v1.json`.
+5. **Sonnet validation pass** (~$10-15). For records with `confidence ∈ {medium, low}` (~5-10% of records, est. 500-1000 words), run Sonnet 4.6 on the same words. Compare outputs. For disagreements, prefer Sonnet's verdict. Output: `pipeline/output/top10k-llm-cache-v1-validated.json`.
+6. **Provider-fallback smoke test** (~$2). Run Haiku 4.5 on a 100-word sample to verify the fallback path works end-to-end. We don't ship the Haiku build, just confirm the runner exists and produces a schema-valid output if/when we ever need to swap providers.
 
 **Gate 3:** Top-1k hand-validation ≥ 85%. If below, iterate the prompt and re-run the pilot. Don't proceed to top-10k until the pilot passes.
 
@@ -322,7 +323,7 @@ The decisions surfaced during synthesis review (2026-05-09) are locked in below.
 
 6. **Frequency list mismatch with actual user lookups.** Top-10k by SUBTLEX may miss the words our actual users encounter. *Mitigation: ship analytics on which words get looked up and don't have a cache hit; backfill in v2.*
 
-7. **Haiku 4.5 deprecated mid-build.** Anthropic's model lifecycle is real — Haiku 4.5 will eventually be replaced by 5.x. *Mitigation: pin model identifier in build script + bundle metadata. Migration when needed is a re-run, not a re-architecture.*
+7. **L1 model deprecation mid-lifecycle.** Both Gemini 2.5 Flash and Haiku 4.5 will eventually be replaced by successors. *Mitigation: pin model identifier in build script + bundle metadata. Migration when needed is a re-run, not a re-architecture. The multi-provider integration (Gemini primary + Haiku fallback + Sonnet validation) means we're not dependent on any single vendor's release schedule.*
 
 ---
 
