@@ -180,7 +180,58 @@ Each API response includes a `usage` block. The build scripts log token counts t
 # Haiku 4.5 pricing (as of 2026-05): $0.25/M input, $1.25/M output
 # Sonnet 4.6 pricing (as of 2026-05): $3/M input, $15/M output
 # Cached input tokens are billed at 10% of the base input rate
-grep "usage" pipeline/logs/build-*.log | python3 pipeline/compute_cost.py
+grep "usage" pipeline/logs/build-*.log | python3 -c '
+import json, re, sys
+
+totals = {"input_tokens": 0, "output_tokens": 0, "cache_read_input_tokens": 0}
+
+def add_usage(d):
+    usage = d.get("usage", d) if isinstance(d, dict) else {}
+    for key in totals:
+        value = usage.get(key, 0)
+        if isinstance(value, (int, float)):
+            totals[key] += int(value)
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+
+    parsed = False
+    for match in re.finditer(r"\{.*?\}", line):
+        try:
+            add_usage(json.loads(match.group(0)))
+            parsed = True
+        except Exception:
+            pass
+
+    if parsed:
+        continue
+
+    for key in totals:
+        m = re.search(rf"{key}[\"'=: ]+(\d+)", line)
+        if m:
+            totals[key] += int(m.group(1))
+
+input_tokens = totals["input_tokens"]
+output_tokens = totals["output_tokens"]
+cached_tokens = totals["cache_read_input_tokens"]
+billable_input_tokens = max(input_tokens - cached_tokens, 0)
+
+def price(base_input_per_million, output_per_million):
+    return (
+        (billable_input_tokens / 1_000_000.0) * base_input_per_million +
+        (cached_tokens / 1_000_000.0) * (base_input_per_million * 0.10) +
+        (output_tokens / 1_000_000.0) * output_per_million
+    )
+
+print(f"input_tokens={input_tokens}")
+print(f"cache_read_input_tokens={cached_tokens}")
+print(f"billable_input_tokens={billable_input_tokens}")
+print(f"output_tokens={output_tokens}")
+print(f"estimated_haiku_cost=${price(0.25, 1.25):.2f}")
+print(f"estimated_sonnet_cost=${price(3.00, 15.00):.2f}")
+'
 ```
 
 **Cost alert:** If a single rebuild exceeds $50, stop and investigate before continuing. Common causes: caching not activating on Haiku (verify `cache_read_input_tokens > 0`), accidental re-run of the full pipeline, or running Sonnet on all records instead of only medium/low.
