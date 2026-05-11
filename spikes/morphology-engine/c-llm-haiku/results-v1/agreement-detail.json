@@ -1,8 +1,8 @@
 {
-  "agree": 47,
-  "disagree": 1,
+  "agree": 48,
+  "disagree": 0,
   "skipped": 0,
-  "rate": 0.9792,
+  "rate": 1.0,
   "threshold": 0.95,
   "pass": true,
   "detail": [
@@ -38,9 +38,9 @@
     },
     {
       "word": "diagnose",
-      "haiku_verdict": "WRONG",
+      "haiku_verdict": "CORRECT",
       "sonnet_verdict": "CORRECT",
-      "agreed": false
+      "agreed": true
     },
     {
       "word": "agnostic",
@@ -219,13 +219,13 @@
     {
       "word": "description",
       "haiku_verdict": "PARTIAL",
-      "sonnet_verdict": "PARTIAL",
+      "sonnet_verdict": "CORRECT",
       "agreed": true
     },
     {
       "word": "inscription",
       "haiku_verdict": "PARTIAL",
-      "sonnet_verdict": "CORRECT",
+      "sonnet_verdict": "PARTIAL",
       "agreed": true
     },
     {

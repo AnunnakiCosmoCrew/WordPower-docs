@@ -12,7 +12,10 @@
       "WebFetch(domain:www.datamuse.com)",
       "WebFetch(domain:en.wiktionary.org)",
       "WebFetch(domain:www.wordsapi.com)",
-      "WebFetch(domain:www.inkandswitch.com)"
+      "WebFetch(domain:www.inkandswitch.com)",
+      "mcp__ba81ca1e-c679-4027-852c-fa74f6bbebe7__get_issue",
+      "mcp__ba81ca1e-c679-4027-852c-fa74f6bbebe7__list_issues",
+      "mcp__ba81ca1e-c679-4027-852c-fa74f6bbebe7__list_teams"
     ]
   }
 }

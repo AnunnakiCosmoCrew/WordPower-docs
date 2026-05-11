@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "fad116e4c4c6a378",
+        "id": "85b42c14bd2b6987",
         "type": "tabs",
         "children": [
           {
-            "id": "4beccba926c1cb72",
+            "id": "7e1bb95fbf4c63bf",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/learning/QUIZ_ENGINE.md",
+                "file": "pipeline/prompt-v1.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "QUIZ_ENGINE"
+              "title": "prompt-v1"
             }
           }
         ]
@@ -183,33 +183,46 @@
       "bases:Create new base": false
     }
   },
-  "active": "4beccba926c1cb72",
+  "active": "7e1bb95fbf4c63bf",
   "lastOpenFiles": [
-    "docs/product/PROJECT.md",
-    "docs/learning/QUIZ_ENGINE.md",
-    "docs/learning/SPACED_REPETITION.md",
-    "docs/audit/PHASE_2_AUDIT.md",
-    "docs/operations/OPS.md",
-    "docs/audit/PHASE_1_AUDIT.md",
-    "docs/compliance/PRIVACY.md",
-    "docs/architecture/ARCHITECTURE.md",
-    "docs/architecture/API.md",
-    "docs/operations",
-    "docs/compliance",
-    "docs/testing/TESTING_STRATEGY.md",
-    "docs/testing",
-    "docs/audit",
-    "docs/product/PHASE_1_AUDIT.md",
+    "spikes/morphology-engine/d-model-survey/FINDINGS.md",
+    "spikes/morphology-engine/d-model-survey/results/comparison.md",
+    "spikes/morphology-engine/d-model-survey/results/comparison.json",
+    "spikes/morphology-engine/c-llm-haiku/scripts/__pycache__/measure.cpython-311.pyc",
+    "spikes/morphology-engine/d-model-survey/results/gemini-usage.json",
+    "spikes/morphology-engine/d-model-survey/results/gemini-adversarial.json",
+    "spikes/morphology-engine/d-model-survey/results/gemini-test-set.json",
+    "spikes/morphology-engine/d-model-survey/scripts/__pycache__/run_gemini.cpython-311.pyc",
+    "spikes/morphology-engine/d-model-survey/scripts/__pycache__",
+    "spikes/morphology-engine/d-model-survey/scripts/compare.py",
+    "spikes/morphology-engine/d-model-survey/scripts/run_gemini.py",
+    "docs/architecture/ROOT_FAMILIES_DECISION.md",
+    "spikes/morphology-engine/d-model-survey/README.md",
+    "spikes/morphology-engine/d-model-survey/scripts",
+    "pipeline/prompt-v1.md",
+    "spikes/morphology-engine/c-llm-haiku/results-v1/cost-projection.md",
+    "docs/architecture/ROOT_FAMILIES_ENGINE.md",
+    "spikes/morphology-engine/c-llm-haiku/FINDINGS.md",
     "docs/architecture/LOCAL_FIRST_ARCHITECTURE.md",
-    "docs/LOCAL_FIRST_ARCHITECTURE.md",
-    "docs/architecture/BROWSER_DATABASE_INTERNALS.md",
-    "docs/product/COMPETITIVE_ANALYSIS.md",
-    "docs/learning",
-    "docs/architecture",
-    "docs/product",
-    "docs/BROWSER_DATABASE_INTERNALS.md",
-    "docs/PROJECT.md",
-    "docs/COMPETITIVE_ANALYSIS.md",
-    "docs/SPACED_REPETITION.md"
+    "spikes/morphology-engine/c-llm-haiku/results/cost-projection.md",
+    "spikes/morphology-engine/c-llm-haiku/scripts/prompt.md",
+    "spikes/morphology-engine/b-skeat-websters/FINDINGS.md",
+    "spikes/morphology-engine/b-skeat-websters/results/etymology-comparison.md",
+    "spikes/morphology-engine/b-skeat-websters/data/gcide-0.54/pronunc.png",
+    "spikes/morphology-engine/b-skeat-websters/data/gcide-0.54/titlepage.png",
+    "spikes/morphology-engine/b-skeat-websters/data/gcide-0.54/symbols.png",
+    "spikes/morphology-engine/a-morphynet/FINDINGS.md",
+    "docs/architecture/EXTENSION_STACK_SPIKE.md",
+    "spikes/morphology-engine/c-llm-haiku/README.md",
+    "spikes/morphology-engine/b-skeat-websters/README.md",
+    "spikes/morphology-engine/a-morphynet/README.md",
+    "spikes/morphology-engine/README.md",
+    "spikes/README.md",
+    "docs/architecture/ARCHITECTURE.md",
+    "docs/architecture/ROOT_FAMILIES_SPIKE.md",
+    "docs/architecture/OXFORD_API_SPIKE.md",
+    "docs/learning/SPACED_REPETITION.md",
+    "docs/learning/QUIZ_ENGINE.md",
+    "docs/audit/PHASE_3_AUDIT.md"
   ]
 }

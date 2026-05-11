@@ -8,15 +8,17 @@
 
 **Gemini 2.5 Flash wins. Switching L1 primary from Claude Haiku 4.5 to Gemini 2.5 Flash.**
 
-Gemini exceeds Haiku's quality (97.9% vs 93.8% strict accuracy) at 29% lower cost ($61.09 vs $86.61 projected top-30k). Decision rule from [§ Acceptance criteria](README.md#acceptance-criteria) fires unambiguously: *"some non-Anthropic model exceeds Haiku 4.5's quality at ≤ Haiku's cost → switch."*
+Gemini exceeds Haiku's quality (97.92% vs 95.83% strict accuracy) at 30% lower cost ($61.09 vs $87.09 projected top-30k). Decision rule from [§ Acceptance criteria](README.md#acceptance-criteria) fires: *"some non-Anthropic model exceeds Haiku 4.5's quality at ≤ Haiku's cost → switch."*
 
 | Metric | Haiku 4.5 | Sonnet 4.6 | **Gemini 2.5 Flash** |
 |---|---|---|---|
-| Accuracy strict | 93.75% | 97.92% | **97.92%** |
-| Accuracy weighted | 95.83% | 98.96% | 97.92% |
+| Accuracy strict | 95.83% | 97.92% | **97.92%** |
+| Accuracy weighted | 97.92% | 98.96% | 97.92% |
 | Trap refusal | 10/10 | 10/10 | 10/10 |
-| Multi-layer rate | 90% | 80% | 90% |
-| Top-30k projected cost | $86.61 | $259.46 | **$61.09** |
+| Multi-layer rate | 80% | 90% | 90% |
+| Top-30k projected cost | $87.09 | $259.68 | **$61.09** |
+
+Baselines for Haiku and Sonnet come from the prompt-v1 measurement committed by @Mertugrul under [#525](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/525) (`results-v1/`); they're the same prompt the Gemini run was measured against.
 
 ## Method
 
@@ -32,12 +34,11 @@ Gemini exceeds Haiku's quality (97.9% vs 93.8% strict accuracy) at 29% lower cos
 
 | Word | Haiku | Sonnet | Gemini |
 |---|---|---|---|
-| `diagnose` | WRONG | CORRECT | **CORRECT** |
-| `description` | PARTIAL | PARTIAL | **CORRECT** |
-| `inscription` | PARTIAL | CORRECT | **CORRECT** |
+| `description` | PARTIAL | CORRECT | **CORRECT** |
+| `inscription` | PARTIAL | PARTIAL | **CORRECT** |
 | `memory` | CORRECT | CORRECT | NOT_FOUND |
 
-Gemini got **3 right that Haiku missed** (diagnose, description, inscription) and **missed 1 that Haiku got** (memory). Net **+2 correct over Haiku**.
+Gemini got **2 right that Haiku missed** (description, inscription) and **missed 1 that Haiku got** (memory). Net **+1 correct over Haiku** (47 vs 46 out of 48 common words).
 
 The `memory` miss is Gemini refusing (`confidence: low`) where Haiku and Sonnet both produced a correct `mem-` decomposition. This is the kind of one-off refusal that prompt iteration can probably fix; we'll watch for it during the Phase 3 hand-validation.
 
@@ -74,9 +75,9 @@ Net: Gemini's records are slightly less rich on the `etymology` field but pass t
 
 Honest about what this measurement doesn't prove:
 
-1. **Sample size is small.** 51 common test words. A 4-percentage-point accuracy delta corresponds to 2 fewer errors. With ~95% confidence intervals on a binomial proportion, both Haiku and Gemini land in overlapping ranges. The decision rule is met but the margin isn't crushing.
+1. **Sample size is small.** 48 common test words. A 2-percentage-point accuracy delta (the Gemini-vs-Haiku gap) corresponds to a single-word difference. With ~95% confidence intervals on a binomial proportion, Haiku and Gemini land in overlapping ranges. The decision rule is met but the margin is *not* crushing — Gemini is plausibly equal-quality to Haiku, with the cost gap doing most of the decision-rule work.
 
-2. **One run per model.** No retest for variance. The Spike C `memory` issue for Haiku and the Gemini `memory` miss here both look like single-instance variability, not systematic. Production builds should re-run each word at least once and reconcile.
+2. **One run per model + observed run-to-run variance.** No retest within a single model. We accidentally observed variance directly: an inadvertent second Haiku run on the same prompt produced 45/48 CORRECT vs the committed 46/48 — exactly the 1-word margin Gemini wins by. So the conclusion *"Gemini exceeds Haiku quality"* is fragile at this sample size. The conclusion *"Gemini matches Haiku quality at materially lower cost"* is the load-bearing one.
 
 3. **Test set bias.** The 51 words skew toward classical Greek/Latin compounds where both models excel. Real-world top-10k vocabulary includes more inflectional / Germanic / opaque-Latin words where the accuracy ranking might differ.
 

@@ -2,17 +2,17 @@
   "haiku": {
     "test_set": {
       "counts": {
-        "CORRECT": 45,
+        "CORRECT": 46,
         "PARTIAL": 2,
-        "WRONG": 1,
+        "WRONG": 0,
         "NOT_FOUND": 0,
         "TRAP_PASS": 3,
         "TRAP_FAIL": 0
       },
       "common_total": 48,
       "trap_total": 3,
-      "accuracy_strict": 0.9375,
-      "accuracy_weighted": 0.9583,
+      "accuracy_strict": 0.9583,
+      "accuracy_weighted": 0.9792,
       "per_word": [
         {
           "id": 1,
@@ -63,8 +63,8 @@
           "id": 6,
           "word": "diagnose",
           "category": "common",
-          "verdict": "WRONG",
-          "reason": "none of ['gnos-'] matched in ['dia-', 'gn', '-ose']",
+          "verdict": "CORRECT",
+          "reason": "all roots ['gnos-'] matched",
           "confidence": "high",
           "morpheme_count": 3
         },
@@ -156,7 +156,7 @@
           "verdict": "CORRECT",
           "reason": "all roots ['tele-', 'vis-'] matched",
           "confidence": "high",
-          "morpheme_count": 3
+          "morpheme_count": 2
         },
         {
           "id": 17,
@@ -174,7 +174,7 @@
           "verdict": "CORRECT",
           "reason": "all roots ['auto-', 'graph-'] matched",
           "confidence": "high",
-          "morpheme_count": 2
+          "morpheme_count": 3
         },
         {
           "id": 19,
@@ -282,7 +282,7 @@
           "verdict": "CORRECT",
           "reason": "all roots ['gen-'] matched",
           "confidence": "high",
-          "morpheme_count": 1
+          "morpheme_count": 2
         },
         {
           "id": 31,
@@ -582,8 +582,8 @@
           },
           {
             "word": "predetermination",
-            "verdict": "PARTIAL",
-            "reason": "matched ['pre-', 'de-', '-ation'], missed ['termin']",
+            "verdict": "WRONG",
+            "reason": "matched only ['pre-', 'de-'] of ['pre-', 'de-', 'termin', '-ation']",
             "expected": [
               "pre-",
               "de-",
@@ -650,9 +650,9 @@
             ]
           }
         ],
-        "correct_or_partial": 9,
+        "correct_or_partial": 8,
         "total": 10,
-        "rate": 0.9
+        "rate": 0.8
       },
       "ambiguous": {
         "results": [
@@ -716,12 +716,12 @@
       "successful": 81,
       "failed": 0,
       "total_input_tokens": 34249,
-      "total_output_tokens": 25866,
+      "total_output_tokens": 26126,
       "total_cache_creation_tokens": 7597,
       "total_cache_read_tokens": 607760,
-      "total_cost_usd": 0.233851
+      "total_cost_usd": 0.235151
     },
-    "cost_projection_top_30k_usd": 86.61
+    "cost_projection_top_30k_usd": 87.09
   },
   "sonnet": {
     "test_set": {
@@ -826,7 +826,7 @@
           "verdict": "CORRECT",
           "reason": "all roots ['bio-', 'log-'] matched",
           "confidence": "high",
-          "morpheme_count": 3
+          "morpheme_count": 4
         },
         {
           "id": 11,
@@ -1057,8 +1057,8 @@
           "id": 36,
           "word": "description",
           "category": "common",
-          "verdict": "PARTIAL",
-          "reason": "matched ['scrib-'], missed ['scrip-']",
+          "verdict": "CORRECT",
+          "reason": "all roots ['scrib-', 'scrip-'] matched",
           "confidence": "high",
           "morpheme_count": 3
         },
@@ -1066,8 +1066,8 @@
           "id": 37,
           "word": "inscription",
           "category": "common",
-          "verdict": "CORRECT",
-          "reason": "all roots ['scrib-', 'scrip-'] matched",
+          "verdict": "PARTIAL",
+          "reason": "matched ['scrib-'], missed ['scrip-']",
           "confidence": "high",
           "morpheme_count": 3
         },
@@ -1306,8 +1306,8 @@
           },
           {
             "word": "predetermination",
-            "verdict": "WRONG",
-            "reason": "matched only ['pre-', 'de-'] of ['pre-', 'de-', 'termin', '-ation']",
+            "verdict": "PARTIAL",
+            "reason": "matched ['pre-', 'de-', 'termin'], missed ['-ation']",
             "expected": [
               "pre-",
               "de-",
@@ -1374,9 +1374,9 @@
             ]
           }
         ],
-        "correct_or_partial": 8,
+        "correct_or_partial": 9,
         "total": 10,
-        "rate": 0.8
+        "rate": 0.9
       },
       "ambiguous": {
         "results": [
@@ -1392,18 +1392,18 @@
           },
           {
             "word": "unionized",
-            "verdict": "ACCEPTABLE_HIGH_CONFIDENCE",
-            "reason": "high confidence on ambiguous; chose one reading (['uni-', 'on', '-ize', '-ed'])"
-          },
-          {
-            "word": "discover",
             "verdict": "ACCEPTABLE",
             "reason": "flagged as medium confidence"
           },
           {
-            "word": "recover",
+            "word": "discover",
             "verdict": "ACCEPTABLE",
             "reason": "flagged as low confidence"
+          },
+          {
+            "word": "recover",
+            "verdict": "ACCEPTABLE",
+            "reason": "flagged as medium confidence"
           },
           {
             "word": "inflammable",
@@ -1440,18 +1440,18 @@
       "successful": 81,
       "failed": 0,
       "total_input_tokens": 33049,
-      "total_output_tokens": 25737,
+      "total_output_tokens": 25777,
       "total_cache_creation_tokens": 8798,
       "total_cache_read_tokens": 607840,
-      "total_cost_usd": 0.700547
+      "total_cost_usd": 0.701146
     },
-    "cost_projection_top_30k_usd": 259.46
+    "cost_projection_top_30k_usd": 259.68
   },
   "cross_validation": {
-    "agree": 47,
-    "disagree": 1,
+    "agree": 48,
+    "disagree": 0,
     "skipped": 0,
-    "rate": 0.9792,
+    "rate": 1.0,
     "threshold": 0.95,
     "pass": true,
     "detail": [
@@ -1487,9 +1487,9 @@
       },
       {
         "word": "diagnose",
-        "haiku_verdict": "WRONG",
+        "haiku_verdict": "CORRECT",
         "sonnet_verdict": "CORRECT",
-        "agreed": false
+        "agreed": true
       },
       {
         "word": "agnostic",
@@ -1668,13 +1668,13 @@
       {
         "word": "description",
         "haiku_verdict": "PARTIAL",
-        "sonnet_verdict": "PARTIAL",
+        "sonnet_verdict": "CORRECT",
         "agreed": true
       },
       {
         "word": "inscription",
         "haiku_verdict": "PARTIAL",
-        "sonnet_verdict": "CORRECT",
+        "sonnet_verdict": "PARTIAL",
         "agreed": true
       },
       {

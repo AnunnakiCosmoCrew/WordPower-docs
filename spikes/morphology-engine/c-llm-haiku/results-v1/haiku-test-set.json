@@ -8,29 +8,28 @@
         {
           "morpheme": "trans-",
           "type": "prefix",
-          "meaning": "across",
-          "language": "Latin",
-          "etymology": "trans"
+          "meaning": "across, beyond",
+          "language": "Latin"
         },
         {
           "morpheme": "port",
           "type": "root",
-          "meaning": "carry",
+          "meaning": "carry, bear",
           "language": "Latin",
           "canonical_root": "port-",
           "etymology": "portāre"
         }
       ],
       "confidence": "high",
-      "reasoning": "Standard Latin compound. Both trans- (across) and port- (carry) are productive in modern English. trans- appears in transform, transcend, transmit; port- appears in export, import, portable, porter. The decomposition is uncontroversial and helps learners see the common root across a family of words (transport, export, import, deport, report, support)."
+      "reasoning": "Classic Latin compound. Both trans- (across) and port- (carry) are highly productive in modern English. The learner can immediately connect port- to export, import, portable, reporter, deport, and trans- to transform, transcend, transatlantic, transgender. The morphology is transparent and the etymological decomposition matches the surface form directly."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 276,
+      "output_tokens": 264,
       "cache_creation_input_tokens": 7597,
       "cache_read_input_tokens": 0
     },
-    "cost_usd": 0.01129825,
+    "cost_usd": 0.01123825,
     "category": "common",
     "expected_roots": [
       "port-"
@@ -59,15 +58,15 @@
         }
       ],
       "confidence": "high",
-      "reasoning": "Classic Latin compound: ex- (out, from) + port- (carry) = carry out. The root port- is highly productive in English (transport, import, portable, portage, porter, sport, airport, seaport, deportation, etc.), and the prefix ex- is productive (exclude, extend, extract, etc.). Both morphemes are immediately recognizable to modern English speakers and learners can readily see them in other words. This is the kind of decomposition that unlocks learner insight."
+      "reasoning": "Standard Latin compound. Both ex- (meaning \"out\") and port- (meaning \"carry\") are productive in modern English. The learner can recognize ex- in exclude, exempt, exhaust, and port- in transport, import, portable, deport. The morphemes are synchronically transparent and etymologically straightforward."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 294,
+      "output_tokens": 254,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0026517,
+    "cost_usd": 0.0024517000000000002,
     "category": "common",
     "expected_roots": [
       "port-"
@@ -83,7 +82,7 @@
         {
           "morpheme": "im-",
           "type": "prefix",
-          "meaning": "in / into",
+          "meaning": "into, in",
           "language": "Latin"
         },
         {
@@ -97,20 +96,20 @@
         {
           "morpheme": "-ant",
           "type": "suffix",
-          "meaning": "causing / one who",
+          "meaning": "one who / thing that, causing",
           "language": "Latin"
         }
       ],
       "confidence": "high",
-      "reasoning": "Standard Latin compound. \"Important\" = im- (in/into) + port- (carry) + -ant (causing). The underlying sense is \"carrying weight/significance into [a matter]\", i.e., \"mattering greatly\". The port- root is highly productive in English (transport, export, import, portable, report, deport, support, airport) and -ant is a productive agent/causative suffix (brilliant, dominant, important, consultant, inhabitant). The im- prefix (in/into form before labial consonants) is productive (import, impale, implant, impose). All three morphemes are recognizable to modern English speakers and appear in many cognate words. This decomposition will help learners see the connection between \"important\", \"transport\", \"portable\", and other port- words."
+      "reasoning": "Classic Latin compound. \"Important\" = \"im- + port- + -ant\", literally \"carrying in\" or \"that which carries weight/significance\". The im- prefix (Latin in-) means \"into/in\"; port- is the productive Latin root meaning \"carry\" (found in transport, export, portable, porter, portfolio, etc.); -ant is the productive Latin agentive/causative suffix (found in servant, dominant, pleasant, etc.). The morphemes are all productive in modern English and the etymology is transparent and well-established. High confidence."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 403,
+      "output_tokens": 352,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0031967000000000002,
+    "cost_usd": 0.0029417000000000002,
     "category": "common",
     "expected_roots": [
       "port-"
@@ -139,15 +138,15 @@
         }
       ],
       "confidence": "high",
-      "reasoning": "Clear Latin decomposition. \"port-\" (carry) is highly productive in English (transport, import, export, report, porter, portfolio). The suffix \"-able\" (capable of being) is one of the most productive in English. A modern speaker immediately recognizes \"portable\" = \"capable of being carried\". This is the textbook example of a learnable morphological compound."
+      "reasoning": "Classic Latin root-plus-suffix formation. \"port-\" (carry) is highly productive in English, appearing in transport, import, export, reporter, important, deportation. The suffix \"-able\" is a standard productive English suffix meaning \"capable of being\". The decomposition is transparently etymologically grounded and both morphemes are recognizable to modern speakers. A learner seeing \"portable\" as \"port- + -able\" can directly connect it to other \"port-\" words and understand the meaning as \"capable of being carried\"."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 265,
+      "output_tokens": 299,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0025067,
+    "cost_usd": 0.0026767,
     "category": "common",
     "expected_roots": [
       "port-"
@@ -163,28 +162,28 @@
         {
           "morpheme": "pro-",
           "type": "prefix",
-          "meaning": "before, forward, in advance",
-          "language": "Latin"
+          "meaning": "before, beforehand",
+          "language": "Greek"
         },
         {
           "morpheme": "gnosis",
           "type": "root",
-          "meaning": "knowledge, knowing",
+          "meaning": "knowledge",
           "language": "Greek",
-          "canonical_root": "gno-",
-          "etymology": "gnosis (knowledge)"
+          "canonical_root": "gnosis",
+          "etymology": "gnōsis"
         }
       ],
       "confidence": "high",
-      "reasoning": "The word is a well-established Greek-Latin hybrid meaning \"knowing beforehand\" or \"foreknowledge\", specifically used in medicine to mean an advance assessment of disease course. The prefix pro- (Latin \"before/forward\") is highly productive in English (progress, propose, prologue). The root gno- (Greek \"know\") is also productive and appears in gnome, agnostic, diagnosis, and prognosticate. The morphemes remain semantically transparent and learner-recognizable. High confidence."
+      "reasoning": "Prognosis is composed of the productive Greek prefix pro- (meaning \"before\") and the Greek root gnosis (meaning \"knowledge\"). The word literally means \"foreknowledge\" or \"knowing beforehand\"—a medical prediction about a patient's future condition. Both morphemes are readily recognizable in English: pro- appears in prologue, prognosis, prophecy; gnosis appears in diagnosis, agnostic, gnostic. This is a classical Greek compound that remains transparent to modern speakers."
     },
     "usage": {
       "input_tokens": 424,
-      "output_tokens": 304,
+      "output_tokens": 297,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0027037000000000003,
+    "cost_usd": 0.0026687000000000004,
     "category": "common",
     "expected_roots": [
       "gnos-"
@@ -200,34 +199,34 @@
         {
           "morpheme": "dia-",
           "type": "prefix",
-          "meaning": "through, across, between",
+          "meaning": "through, across",
           "language": "Greek"
         },
         {
-          "morpheme": "gn",
+          "morpheme": "gnos",
           "type": "root",
-          "meaning": "know",
+          "meaning": "know, recognize",
           "language": "Greek",
-          "canonical_root": "gn-",
+          "canonical_root": "gnos-",
           "etymology": "gignōskein"
         },
         {
-          "morpheme": "-ose",
+          "morpheme": "-e",
           "type": "suffix",
-          "meaning": "full of, characterized by",
-          "language": "Latin"
+          "meaning": "(verbal infinitive ending)",
+          "language": "Greek"
         }
       ],
       "confidence": "high",
-      "reasoning": "Greek dia- (through/across) + Greek root gn- (know, as in gnosis, prognosis, agnostic) + Latin suffix -ose (full of, as in verbose, grandiose, morose). The word originally meant \"to know thoroughly\" or \"to distinguish by examining,\" which aligns perfectly with the morphological composition. Both dia- and gn- are productive in English (diagnosis, prognosis, cognition, recognize), making this a high-confidence decomposition."
+      "reasoning": "Greek compound: dia- (through/across) + gnos- (know/recognize) + -e (infinitive). The literal sense is \"to know through\" or \"to distinguish by knowing\". The gnos- root is productive in English (cognize, recognize, agnostic, gnostic). The dia- prefix is productive (dialog, diameter, diagnosis). High confidence because both morphemes are well-established productive elements that appear in many related English words."
     },
     "usage": {
       "input_tokens": 423,
-      "output_tokens": 347,
+      "output_tokens": 334,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0029177,
+    "cost_usd": 0.0028527,
     "category": "common",
     "expected_roots": [
       "gnos-"
@@ -252,25 +251,25 @@
           "meaning": "know",
           "language": "Greek",
           "canonical_root": "gnost-",
-          "etymology": "gnōsis"
+          "etymology": "gignōskein"
         },
         {
           "morpheme": "-ic",
           "type": "suffix",
           "meaning": "relating to",
-          "language": "Latin"
+          "language": "Greek"
         }
       ],
       "confidence": "high",
-      "reasoning": "Agnostic is a well-established English word formed from Greek a- (not/without) + gnost- (know) + -ic (adjective-forming). The decomposition is transparent and educationally valuable: the learner can connect \"gnost-\" to other English words like \"agnosticism\", \"gnostic\", and \"diagnosis\" (dia- + gnost- + -is). The Greek gnost- root meaning \"know\" is productive in English technical and philosophical vocabulary. High confidence."
+      "reasoning": "The word is a transparent Greek compound: a- (not) + gnost- (know) + -ic (relating to). The root gnost- is productive in English (cognate, gnostic, diagnosis, prognosis). The decomposition aligns with the historical etymology and matches the modern meaning: \"one who holds that knowledge (of certain things, especially of God) is impossible or unknowable.\" All three morphemes are recognizable to English speakers familiar with Greek-derived vocabulary."
     },
     "usage": {
       "input_tokens": 424,
-      "output_tokens": 341,
+      "output_tokens": 337,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0028887,
+    "cost_usd": 0.0028687,
     "category": "common",
     "expected_roots": [
       "gnos-"
@@ -288,7 +287,7 @@
           "type": "prefix",
           "meaning": "far, distant",
           "language": "Greek",
-          "etymology": "tēle (far)"
+          "etymology": "tēle"
         },
         {
           "morpheme": "phon",
@@ -296,25 +295,25 @@
           "meaning": "sound",
           "language": "Greek",
           "canonical_root": "phon-",
-          "etymology": "phōnē (sound, voice)"
+          "etymology": "phōnē"
         },
         {
           "morpheme": "-e",
           "type": "suffix",
-          "meaning": "(noun-forming)",
-          "language": "Greek"
+          "meaning": "(noun-forming, borrowed from French)",
+          "language": "French"
         }
       ],
       "confidence": "high",
-      "reasoning": "Standard Greek compound: tele- (far, distant) + phon- (sound/voice) + -e (a common Greek noun-forming suffix). Both tele- and phon- are highly productive in modern English: tele- appears in television, telepathy, telescope, telegram; phon- appears in microphone, phonetics, symphony, telephone. A learner can readily see \"telephone\" as \"distant sound\" and recognize the morphemes in other words. No false-root trap, no opaque metaphor. High confidence."
+      "reasoning": "Standard Greek compound formed from tele- (far, distant) and phon- (sound), both highly productive Greek roots in English. The word appears in many related forms: telepathy (tele- + path-), telecast, television. The phon- root appears in microphone, phonetics, phonology, megaphone. The French nominal suffix -e is straightforward. A learner seeing this decomposition would recognize these morpheme pieces in many other English words."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 363,
+      "output_tokens": 346,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0029967,
+    "cost_usd": 0.0029117,
     "category": "common",
     "expected_roots": [
       "tele-",
@@ -333,7 +332,8 @@
           "type": "prefix",
           "meaning": "light",
           "language": "Greek",
-          "etymology": "phos, photos"
+          "canonical_root": "photo-",
+          "etymology": "phōtos (light)"
         },
         {
           "morpheme": "graph",
@@ -341,19 +341,19 @@
           "meaning": "write, record",
           "language": "Greek",
           "canonical_root": "graph-",
-          "etymology": "graphia"
+          "etymology": "graphein (to write)"
         }
       ],
       "confidence": "high",
-      "reasoning": "Two productive Greek roots joined together: photo- (light) + graph- (write/record), literally \"light-writing\" or \"recording by light\". Both roots are highly productive in modern English (photo appears in photosynthesis, photon, photoelectric; graph appears in paragraph, biography, grammar, telegram). This is a classic transparent Greek compound that a learner can immediately understand and apply to recognizing related words."
+      "reasoning": "Two highly productive Greek roots combined to form a modern English word meaning \"light-writing\" (recording with light). Both photo- and graph- appear in many other English words (photosynthesis, photograph, photon; paragraph, graphics, biography), making this decomposition immediately useful for vocabulary learning. The morphemes remain semantically transparent: a photograph is literally a graphic/writing made with light."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 285,
+      "output_tokens": 294,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0026067,
+    "cost_usd": 0.0026517,
     "category": "common",
     "expected_roots": [
       "phot-",
@@ -386,20 +386,20 @@
         {
           "morpheme": "-y",
           "type": "suffix",
-          "meaning": "study of, practice of",
+          "meaning": "study of, system of",
           "language": "Greek"
         }
       ],
       "confidence": "high",
-      "reasoning": "Biology is a straightforward Greek compound: bio- (life, as in biography, biosphere, antibiotic) + log- (word/reason/study, as in psychology, geology, logic) + -y (nominalizing suffix forming abstract nouns). Both roots are highly productive in English, and the meaning \"study of life\" directly reflects the etymological composition. No false-root traps or opacity issues."
+      "reasoning": "Standard Greek compound with two productive roots. bio- appears in biography, biosphere, antibiotic; -log- appears in psychology, geology, logic; -y is the productive Greek nominalizing suffix seen in chemistry, history, geography. Modern English speakers easily recognize \"bio-\" (life) and \"-logy\" (study of) as meaningful parts."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 338,
+      "output_tokens": 325,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0028717000000000005,
+    "cost_usd": 0.0028067,
     "category": "common",
     "expected_roots": [
       "bio-",
@@ -412,7 +412,6 @@
     "ok": true,
     "decomposition": {
       "word": "biography",
-      "confidence": "high",
       "decomposition": [
         {
           "morpheme": "bio",
@@ -428,24 +427,25 @@
           "meaning": "write, record",
           "language": "Greek",
           "canonical_root": "graph-",
-          "etymology": "graphia"
+          "etymology": "graphein"
         },
         {
           "morpheme": "-y",
           "type": "suffix",
-          "meaning": "study of, state of",
+          "meaning": "(noun-forming / field of study)",
           "language": "Greek"
         }
       ],
-      "reasoning": "Two productive Greek roots combined with a standard Greek nominalising suffix. bio- appears in biology, biosphere, antibiotic; graph- appears in photograph, paragraph, graphite. The -y suffix converts the compound into a noun meaning \"account of someone's life\". No connective vowel needed as \"bio\" already ends in -o. High confidence: all three components are productive in modern English."
+      "confidence": "high",
+      "reasoning": "Two productive Greek roots joined by their standard pattern. \"bio-\" appears in biology, biosphere, antibiotic; \"graph-\" appears in photograph, paragraph, telegram. The suffix -y nominalizes the compound. Both roots are immediately recognizable to modern English speakers and the meaning \"life-writing / written account of a life\" is transparent and productive."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 332,
+      "output_tokens": 326,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0028417,
+    "cost_usd": 0.0028117000000000003,
     "category": "common",
     "expected_roots": [
       "bio-",
@@ -477,19 +477,19 @@
         {
           "morpheme": "-tic",
           "type": "suffix",
-          "meaning": "relating to",
+          "meaning": "relating to, characterized by",
           "language": "Greek"
         }
       ],
-      "reasoning": "Standard Greek compound. \"anti-\" (against) is a productive prefix appearing in hundreds of English words (antifreeze, antisocial, antiwar, antitoxin). \"bio-\" (life) is highly productive (biology, biography, biosphere, microbe). \"-tic\" is a productive Greek suffix forming adjectives (democratic, sympathetic, problematic). The word literally means \"against life\" — referring to substances that kill or inhibit bacteria. All three morphemes are transparent and productive in modern English."
+      "reasoning": "Antibiotic is a high-confidence decomposition. anti- is a productive Greek prefix meaning \"against\" (found in antisocial, antifreeze, antithesis). bio- is a highly productive Greek root meaning \"life\" (found in biology, biography, biosphere). The suffix -tic is a Greek adjective-forming suffix (found in democratic, systematic, artistic). The compound makes semantic sense: \"against life\" → \"a substance that kills or inhibits living organisms\" (especially bacteria). All three morphemes are recognizable and productive in modern English."
     },
     "usage": {
       "input_tokens": 424,
-      "output_tokens": 338,
+      "output_tokens": 351,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0028737000000000003,
+    "cost_usd": 0.0029387000000000003,
     "category": "common",
     "expected_roots": [
       "anti-",
@@ -502,7 +502,6 @@
     "ok": true,
     "decomposition": {
       "word": "geography",
-      "confidence": "high",
       "decomposition": [
         {
           "morpheme": "geo",
@@ -523,19 +522,20 @@
         {
           "morpheme": "-y",
           "type": "suffix",
-          "meaning": "study of, practice of, system of",
+          "meaning": "study of, practice of",
           "language": "Greek"
         }
       ],
-      "reasoning": "Two productive Greek roots (geo- appears in geology, geopolitics; graph- appears in photograph, paragraph, biography) combined with the productive suffix -y (as in biology, psychology, history). The compound literally means \"writing about the earth\" or \"description of the earth\". Both roots are individually recognizable to modern English speakers, making this an ideal decomposition for vocabulary learning."
+      "confidence": "high",
+      "reasoning": "Standard Greek compound with two highly productive roots. geo- appears in geology, geopolitics, geometry; graph- appears in photograph, paragraph, telegram. The -y suffix is the standard Greek nominalization forming abstract nouns. All three morphemes are immediately recognizable to modern English speakers and appear in many other English words. Learner can readily see how \"geo-\" + \"graph-\" + \"-y\" yields \"description/study of the earth\"."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 332,
+      "output_tokens": 346,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0028417,
+    "cost_usd": 0.0029117,
     "category": "common",
     "expected_roots": [
       "geo-",
@@ -560,7 +560,7 @@
         {
           "morpheme": "log",
           "type": "root",
-          "meaning": "word, study, science",
+          "meaning": "word, reason, study of",
           "language": "Greek",
           "canonical_root": "log-",
           "etymology": "logos"
@@ -568,20 +568,20 @@
         {
           "morpheme": "-y",
           "type": "suffix",
-          "meaning": "study of, science of",
+          "meaning": "(noun-forming suffix; state or study of)",
           "language": "Greek"
         }
       ],
       "confidence": "high",
-      "reasoning": "Straightforward Greek compound. Both geo- (earth, as in geography, geopolitics) and log- (study/word, as in biology, psychology, logic) are highly productive Greek roots in English. The -y suffix is a standard nominalizer forming nouns meaning \"study of\" or \"science of\". All three morphemes are transparent and appear in many other English words. No historical opacity; the modern meaning aligns perfectly with the morphological composition."
+      "reasoning": "Both geo- and log- are highly productive Greek roots in modern English. \"Geo-\" appears in geography, geometry, geopolitics; \"log-\" appears in biology, psychology, logic, etc. The -y suffix converts the root compound into a noun meaning \"the study of\". This is a straightforward Greek compound with clear, learnable parts that will help a learner recognize these roots in other words."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 346,
+      "output_tokens": 341,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0029117,
+    "cost_usd": 0.0028867,
     "category": "common",
     "expected_roots": [
       "geo-",
@@ -594,7 +594,6 @@
     "ok": true,
     "decomposition": {
       "word": "thermometer",
-      "confidence": "high",
       "decomposition": [
         {
           "morpheme": "therm",
@@ -602,7 +601,7 @@
           "meaning": "heat",
           "language": "Greek",
           "canonical_root": "therm-",
-          "etymology": "thermē"
+          "etymology": "therme (warmth)"
         },
         {
           "morpheme": "o",
@@ -616,18 +615,19 @@
           "meaning": "measure",
           "language": "Greek",
           "canonical_root": "metr-",
-          "etymology": "metron"
+          "etymology": "metron (measure)"
         }
       ],
-      "reasoning": "Two productive Greek roots: therm- (heat, as in thermal, thermostat) and meter- (measure, as in barometer, speedometer, geometry) joined by the standard Greek connective vowel -o-. The compound literally means \"heat-measurer\". Both roots are immediately recognizable to learners from other common English words."
+      "confidence": "high",
+      "reasoning": "Classic Greek compound from two highly productive roots: therm- (heat) appears in thermal, thermostat, thermodynamics; meter- (measure) appears in barometer, speedometer, kilometer. Both roots are immediately recognizable to English speakers. The -o- is the standard Greek connective vowel joining the two roots. This is a textbook example of a decomposable Greek technical term that helps learners recognize the \"measure heat\" logic underlying the word."
     },
     "usage": {
       "input_tokens": 423,
-      "output_tokens": 322,
+      "output_tokens": 352,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0027927000000000004,
+    "cost_usd": 0.0029427000000000004,
     "category": "common",
     "expected_roots": [
       "therm-",
@@ -640,38 +640,33 @@
     "ok": true,
     "decomposition": {
       "word": "television",
-      "confidence": "high",
       "decomposition": [
         {
           "morpheme": "tele-",
           "type": "prefix",
           "meaning": "far, distant",
-          "language": "Greek"
+          "language": "Greek",
+          "etymology": "tele"
         },
         {
-          "morpheme": "vis-",
+          "morpheme": "vision",
           "type": "root",
-          "meaning": "see",
+          "meaning": "sight, seeing",
           "language": "Latin",
           "canonical_root": "vis-",
-          "etymology": "vidēre"
-        },
-        {
-          "morpheme": "-ion",
-          "type": "suffix",
-          "meaning": "act, process, result of",
-          "language": "Latin"
+          "etymology": "visio"
         }
       ],
-      "reasoning": "Television is a transparent modern compound formed from the productive Greek prefix tele- (far/distant, as in telephone, telepath, telescope) + the productive Latin root vis- (see, as in vision, visible, evidence) + the productive Latin suffix -ion (result of an action, as in creation, nation, action). The word was coined in the early 20th century and all three components are readily recognizable to modern English speakers as meaningful units. High confidence."
+      "confidence": "high",
+      "reasoning": "Television is a straightforward compound of the Greek prefix tele- (far, distant) and the Latin root vis- (see, sight), which combines with the Latin suffix -ion to form \"vision\" (the act of seeing). Both tele- and vis- are productive in modern English: tele- appears in telephone, telepathy, telescope; vis- appears in video, visible, visual, revision. The morphemes are semantically transparent (far + seeing = seeing from a distance) and would be recognizable to modern English speakers. High confidence."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 331,
+      "output_tokens": 313,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0028367,
+    "cost_usd": 0.0027467000000000004,
     "category": "common",
     "expected_roots": [
       "tele-",
@@ -690,28 +685,27 @@
           "type": "prefix",
           "meaning": "small",
           "language": "Greek",
-          "canonical_root": "micro-",
           "etymology": "mikros"
         },
         {
           "morpheme": "scope",
           "type": "root",
-          "meaning": "look, examine, view",
+          "meaning": "look, examine, observe",
           "language": "Greek",
           "canonical_root": "scop-",
           "etymology": "skopein"
         }
       ],
       "confidence": "high",
-      "reasoning": "Productive Greek compound. micro- is a well-known prefix appearing in microphone, microbe, microfilm, etc. The root scop- (meaning \"look/examine\") appears in telescope, periscope, stethoscope. Both morphemes are recognizable and productive in modern English, making this an ideal teaching example of how Greek morphemes combine to build scientific vocabulary."
+      "reasoning": "Both morphemes are productive in modern English. \"micro-\" is a very common prefix (microphone, microbe, microwave), and \"scope\" (from Greek skopein, \"to look/examine\") appears in many compound words (telescope, periscope, stethoscope, horoscope). The compound literally means \"small-looker\" or \"an instrument for looking at small things\". The decomposition is transparent to English speakers and learners can readily find other words with both morphemes."
     },
     "usage": {
       "input_tokens": 423,
-      "output_tokens": 291,
+      "output_tokens": 307,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0026376999999999998,
+    "cost_usd": 0.0027177,
     "category": "common",
     "expected_roots": [
       "micr-",
@@ -739,18 +733,24 @@
           "language": "Greek",
           "canonical_root": "graph-",
           "etymology": "graphein"
+        },
+        {
+          "morpheme": "-y",
+          "type": "suffix",
+          "meaning": "(noun-forming)",
+          "language": "Greek"
         }
       ],
       "confidence": "high",
-      "reasoning": "Both \"auto-\" (self) and \"graph-\" (write) are highly productive Greek roots in modern English. Auto- appears in automobile, autonomous, autocrat; graph- appears in photograph, biography, paragraph. The compound \"auto-graph\" is transparent and etymologically sound—a signature written by oneself. This decomposition will help learners recognize these roots in other words."
+      "reasoning": "autograph is a straightforward Greek compound: auto- (self, productive in automobile, autonomous, autocrat) + graph- (write/record, productive in photograph, paragraph, telegram) + -y (noun-forming suffix). Both roots are highly productive in modern English, and the compound meaning \"one's own signature/handwriting\" directly reflects the morpheme combination. No false etymologies or opaque metaphors."
     },
     "usage": {
       "input_tokens": 423,
-      "output_tokens": 277,
+      "output_tokens": 324,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0025677,
+    "cost_usd": 0.0028027,
     "category": "common",
     "expected_roots": [
       "auto-",
@@ -781,7 +781,7 @@
         {
           "morpheme": "log",
           "type": "root",
-          "meaning": "study, discourse",
+          "meaning": "study of / word / reason",
           "language": "Greek",
           "canonical_root": "log-",
           "etymology": "logos"
@@ -789,20 +789,20 @@
         {
           "morpheme": "-y",
           "type": "suffix",
-          "meaning": "study of, practice of",
+          "meaning": "state of / study of",
           "language": "Greek"
         }
       ],
       "confidence": "high",
-      "reasoning": "Cardiology is a standard Greek compound meaning \"study of the heart\". The cardi- root (heart) is productive in English (cardiology, cardiac, cardiologist, cardiovascular). The log- root (study) is highly productive (-logy appears in biology, psychology, geology, etc.). The connective vowel -o- is standard in Greek compounds, and the nominalizing suffix -y is productive. This is a clear, learnable decomposition that helps a student recognize both the cardio- family of words (heart-related) and the -logy family (study of) in other contexts."
+      "reasoning": "Standard Greek compound. Cardi- (heart) is productive in English (cardiac, cardiograph, cardiologist) and log- (study of) is highly productive (-logy appears in biology, psychology, geology, etc.). The connective vowel -o- is the standard Greek pattern between roots. The -y suffix nominalizes the compound. A learner can recognize these morphemes in many other words, making this a classic high-confidence decomposition."
     },
     "usage": {
       "input_tokens": 423,
-      "output_tokens": 421,
+      "output_tokens": 393,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0032877,
+    "cost_usd": 0.0031477000000000002,
     "category": "common",
     "expected_roots": [
       "cardi-"
@@ -814,6 +814,7 @@
     "ok": true,
     "decomposition": {
       "word": "dermatology",
+      "confidence": "high",
       "decomposition": [
         {
           "morpheme": "derm",
@@ -824,7 +825,7 @@
           "etymology": "derma"
         },
         {
-          "morpheme": "o",
+          "morpheme": "a",
           "type": "root",
           "meaning": "(connective vowel)",
           "language": "Greek"
@@ -832,7 +833,7 @@
         {
           "morpheme": "log",
           "type": "root",
-          "meaning": "study of / word / reason",
+          "meaning": "word, reason, study of",
           "language": "Greek",
           "canonical_root": "log-",
           "etymology": "logos"
@@ -840,20 +841,19 @@
         {
           "morpheme": "-y",
           "type": "suffix",
-          "meaning": "study of / state of",
+          "meaning": "study of, science of",
           "language": "Greek"
         }
       ],
-      "confidence": "high",
-      "reasoning": "Two productive Greek roots (derm- meaning \"skin\" appears in epidermis, hypodermic; log- meaning \"study\" is ubiquitous in -ology words like biology, psychology) joined by the standard Greek connective vowel -o-, plus the nominalizing suffix -y. This is a standard Greek compound that a modern English speaker can easily recognize: the word means \"study of skin\", and all three morphemes (derm-, log-, -y) are productive in English."
+      "reasoning": "Classic Greek medical compound. \"derm-\" (skin) is a highly productive root appearing in epidermis, hypodermic, dermatitis, etc. \"log-\" (study of) is equally productive, appearing in biology, psychology, geology, etc. The connective vowel \"-a-\" is standard in Greek compounds. The -y suffix nominalizes the root compound to mean \"the study of skin.\" All four morphemes are recognizable and productive in modern English, making this straightforward to teach and learn."
     },
     "usage": {
       "input_tokens": 424,
-      "output_tokens": 403,
+      "output_tokens": 408,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0031987,
+    "cost_usd": 0.0032237000000000003,
     "category": "common",
     "expected_roots": [
       "derm-"
@@ -880,7 +880,7 @@
           "meaning": "physician, heal",
           "language": "Greek",
           "canonical_root": "iatr-",
-          "etymology": "iatreia"
+          "etymology": "iatros"
         },
         {
           "morpheme": "-ic",
@@ -890,15 +890,15 @@
         }
       ],
       "confidence": "high",
-      "reasoning": "Straightforward Greek compound: paed- (child, as in pedagogy) + iatr- (physician/heal, as in psychiatry, geriatrics) + -ic (adjectival suffix, as in democratic, economic). Both roots are productive in modern English medical terminology, and the -ic suffix is highly productive. The meaning \"relating to the medical treatment of children\" is transparent from the component parts. No etymological opacity or false-root traps."
+      "reasoning": "Pediatric is a straightforward Greek compound: paed- (child) + iatr- (physician/heal) + -ic (adjective suffix \"relating to\"). Both roots are highly productive in English (paed- appears in pedagogy, pedantic; iatr- appears in psychiatry, geriatrics). The word is transparently decomposable and learning this morphology helps the student recognize these roots in related medical and educational terminology."
     },
     "usage": {
       "input_tokens": 423,
-      "output_tokens": 349,
+      "output_tokens": 344,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0029277,
+    "cost_usd": 0.0029027000000000002,
     "category": "common",
     "expected_roots": [
       "paed-"
@@ -910,7 +910,6 @@
     "ok": true,
     "decomposition": {
       "word": "democracy",
-      "confidence": "high",
       "decomposition": [
         {
           "morpheme": "dem",
@@ -941,15 +940,16 @@
           "language": "Greek"
         }
       ],
-      "reasoning": "Two productive Greek roots (dem- appears in epidemic, endemic; crat- appears in aristocrat, autocrat, bureaucrat) joined by the standard Greek connective vowel -o-. The -y suffix nominalizes the compound to form a noun meaning \"rule by the people\". This is a classic, well-known decomposition where all three morphemes are productive and recognizable in modern English."
+      "confidence": "high",
+      "reasoning": "Two highly productive Greek roots (dem- appears in epidemic, endemic, demography; crat- appears in aristocrat, autocrat, bureaucrat) joined by the standard Greek connective vowel -o-. The -y suffix nominalizes the compound to mean \"system/state of rule by the people\". Both roots are immediately recognizable to English speakers and appear in many other common words."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 377,
+      "output_tokens": 375,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0030667000000000003,
+    "cost_usd": 0.0030567,
     "category": "common",
     "expected_roots": [
       "dem-",
@@ -962,7 +962,6 @@
     "ok": true,
     "decomposition": {
       "word": "philosophy",
-      "confidence": "high",
       "decomposition": [
         {
           "morpheme": "phil",
@@ -993,15 +992,16 @@
           "language": "Greek"
         }
       ],
-      "reasoning": "Classic Greek compound from two productive roots: phil- (love, found in philanthropy, bibliophile, philanderer) and soph- (wisdom, found in sophomore, sophisticated). The -o- is the standard Greek connective vowel joining them, and -y is a standard Greek noun-forming suffix. The meaning \"love of wisdom\" is transparent and pedagogically valuable — a learner immediately sees how phil- + soph- = philosophy, and can recognize these roots in other words."
+      "confidence": "high",
+      "reasoning": "Two productive Greek roots joined by the standard connective vowel -o-. Both phil- (love) and soph- (wisdom) appear in many other English words: phil- in philanthropist, bibliophile; soph- in sophomore, sophisticated. The -y suffix nominalizes the compound. Emit -o- as a separate morpheme so both roots remain individually visible to the learner."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 391,
+      "output_tokens": 372,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0031367,
+    "cost_usd": 0.0030417000000000005,
     "category": "common",
     "expected_roots": [
       "phil-",
@@ -1025,7 +1025,7 @@
           "etymology": "philos"
         },
         {
-          "morpheme": "anthrop",
+          "morpheme": "-anthrop",
           "type": "root",
           "meaning": "human, mankind",
           "language": "Greek",
@@ -1035,19 +1035,19 @@
         {
           "morpheme": "-y",
           "type": "suffix",
-          "meaning": "(noun-forming; state, quality, or practice of)",
+          "meaning": "state of, practice of, quality of",
           "language": "Greek"
         }
       ],
-      "reasoning": "Two productive Greek roots joined directly without a connective vowel (phil- + anthrop- = philanthrop-). Phil- appears in philosophy, philophile, philodendron; anthropo- appears in anthropology, anthropomorphic, misanthrope. The -y suffix nominalizes the compound. High confidence: standard Greek formation, both roots are recognizable to modern English speakers, and the morpheme boundaries align with productive patterns."
+      "reasoning": "Philanthropy is a well-established Greek compound meaning \"love of humankind\". Both phil- (love, appearing in philosophy, bibliophile) and anthrop- (human, appearing in anthropology, anthropomorphic, misanthropy) are productive roots in modern English. The -y suffix nominalizes the compound. This is a classic, transparent Greek formation that a learner can immediately connect to other words containing these same roots."
     },
     "usage": {
       "input_tokens": 423,
-      "output_tokens": 350,
+      "output_tokens": 346,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0029327,
+    "cost_usd": 0.0029127,
     "category": "common",
     "expected_roots": [
       "phil-",
@@ -1060,6 +1060,7 @@
     "ok": true,
     "decomposition": {
       "word": "chronic",
+      "confidence": "high",
       "decomposition": [
         {
           "morpheme": "chron",
@@ -1073,19 +1074,18 @@
           "morpheme": "-ic",
           "type": "suffix",
           "meaning": "relating to",
-          "language": "Latin"
+          "language": "Greek"
         }
       ],
-      "confidence": "high",
-      "reasoning": "The word decomposes into the productive Greek root \"chron-\" (time) and the productive Latin suffix \"-ic\" (relating to). The root \"chron-\" appears in many familiar English words: chronology, synchronize, anachronism. The \"-ic\" suffix is extremely productive (democratic, historic, economic). The meaning \"chronic\" = \"relating to time\" is transparent: a chronic illness is one that persists over time. No false-root traps or dead morphemes involved."
+      "reasoning": "The word breaks into the productive Greek root chron- (meaning \"time\") and the common adjectival suffix -ic (meaning \"relating to\"). This yields the sense \"relating to time\" or more specifically \"lasting a long time / occurring over a long period\". The chron- root is highly productive in modern English (chronology, synchronize, anachronism) and -ic is one of the most common Greek-derived adjective suffixes in English. This is a straightforward, learnable decomposition."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 292,
+      "output_tokens": 293,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0026417000000000003,
+    "cost_usd": 0.0026467,
     "category": "common",
     "expected_roots": [
       "chron-"
@@ -1115,7 +1115,7 @@
         {
           "morpheme": "log",
           "type": "root",
-          "meaning": "word, study, reason",
+          "meaning": "word, study of",
           "language": "Greek",
           "canonical_root": "log-",
           "etymology": "logos"
@@ -1123,20 +1123,20 @@
         {
           "morpheme": "-y",
           "type": "suffix",
-          "meaning": "study of, system of",
+          "meaning": "study of, field of knowledge",
           "language": "Greek"
         }
       ],
       "confidence": "high",
-      "reasoning": "Classical Greek compound. \"Chron-\" (time) is a productive root appearing in chronometer, synchronize, anachronism, chronic. \"Log-\" (study of / word) is highly productive, appearing in biology, psychology, logic, etc. Both roots are connected by the standard Greek connective vowel \"-o-\". The \"-y\" suffix nominalizes the compound to mean \"the study of time\" or \"the arrangement of events in time order\". All morphemes are recognizable to modern English speakers and learners can find them in many related words."
+      "reasoning": "Standard Greek compound noun. Both chron- (appearing in chronology, synchronize, anachronism, chronic) and log- (appearing in biology, psychology, geology, logic) are productive Greek roots in English. The connective vowel -o- is typical in Greek compounds. The -y suffix forms an abstract noun meaning \"study of\" or \"the ordering/record of\", as in biology, geology, psychology. This is a classic and helpful decomposition for English vocabulary learners."
     },
     "usage": {
       "input_tokens": 423,
-      "output_tokens": 414,
+      "output_tokens": 396,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0032527,
+    "cost_usd": 0.0031627,
     "category": "common",
     "expected_roots": [
       "chron-",
@@ -1149,13 +1149,14 @@
     "ok": true,
     "decomposition": {
       "word": "synchronize",
+      "confidence": "high",
       "decomposition": [
         {
           "morpheme": "syn-",
           "type": "prefix",
           "meaning": "together, with",
           "language": "Greek",
-          "etymology": "syn"
+          "etymology": "syn (together)"
         },
         {
           "morpheme": "chron",
@@ -1163,7 +1164,7 @@
           "meaning": "time",
           "language": "Greek",
           "canonical_root": "chron-",
-          "etymology": "chronos"
+          "etymology": "chronos (time)"
         },
         {
           "morpheme": "-ize",
@@ -1172,16 +1173,15 @@
           "language": "Greek"
         }
       ],
-      "confidence": "high",
-      "reasoning": "Straightforward Greek compound. syn- (together/with) + chron- (time, as in chronology, chronic, anachronism) + -ize (make/cause to become, productive in English: modernize, capitalize, nationalize). The word means \"cause to happen at the same time\" — \"make together-time\". All three morphemes are productive and recognizable in modern English, making this an excellent vocabulary-learning decomposition."
+      "reasoning": "Synchronize is a productive Greek-derived word. The prefix syn- (together, with) is common in English (synthesis, symphony, synchronize). The root chron- (time) is highly productive and appears in chronology, chronic, anachronism. The suffix -ize (make/cause to become) is extremely productive. Together they form \"make [things happen] together in time\" = synchronize. All three components are recognizable to modern English speakers and appear in many other words."
     },
     "usage": {
       "input_tokens": 423,
-      "output_tokens": 337,
+      "output_tokens": 350,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0028677,
+    "cost_usd": 0.0029327,
     "category": "common",
     "expected_roots": [
       "syn-",
@@ -1197,7 +1197,7 @@
       "decomposition": [
         {
           "morpheme": "hydro",
-          "type": "root",
+          "type": "prefix",
           "meaning": "water",
           "language": "Greek",
           "canonical_root": "hydro-",
@@ -1206,22 +1206,22 @@
         {
           "morpheme": "gen",
           "type": "root",
-          "meaning": "birth, origin, cause to be",
+          "meaning": "birth, origin, produce",
           "language": "Greek",
           "canonical_root": "gen-",
           "etymology": "genos"
         }
       ],
       "confidence": "high",
-      "reasoning": "Two productive Greek roots combined in a standard Greek compound. \"Hydro-\" (water) appears in hydrology, dehydrate, hydroelectric; \"gen-\" (birth/origin) appears in genesis, genetics, pathogen, hydrogen. The element hydrogen was named for its property of generating water when burned. Both morphemes are transparent and productive in modern English."
+      "reasoning": "Hydrogen is a straightforward Greek compound: hydro- (water, from hydōr) + -gen (birth/origin, from genos). The root gen- is highly productive in English (genesis, genetics, pathogen, hydrogen, oxygen, nitrogen). The etymology is transparent: hydrogen literally means \"water-producer\" or \"water-former,\" reflecting its discovery as the substance that forms water when burned. Both morphemes are productive and recognizable in modern English."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 289,
+      "output_tokens": 308,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0026267,
+    "cost_usd": 0.0027217,
     "category": "common",
     "expected_roots": [
       "hydr-",
@@ -1236,32 +1236,32 @@
       "word": "oxygen",
       "decomposition": [
         {
-          "morpheme": "oxy-",
+          "morpheme": "oxy",
           "type": "root",
-          "meaning": "sharp, acid",
+          "meaning": "sharp, acidic; oxygen",
           "language": "Greek",
           "canonical_root": "oxy-",
-          "etymology": "oxys"
+          "etymology": "oxys (sharp, keen, acidic)"
         },
         {
           "morpheme": "-gen",
-          "type": "root",
-          "meaning": "birth, origin, produce",
+          "type": "suffix",
+          "meaning": "producer, producer of, that which generates",
           "language": "Greek",
           "canonical_root": "gen-",
-          "etymology": "genos"
+          "etymology": "gignesthai (to be born, produce)"
         }
       ],
       "confidence": "high",
-      "reasoning": "Standard Greek compound coined in the late 18th century (by Lavoisier) meaning \"sharp-producer\" or \"acid-former\", from oxy- (sharp/acid) + gen (produce/birth). Both roots are highly productive in modern English: oxy- appears in oxymoron, oxyacetylene; gen- appears in genesis, genetics, hydrogen, nitrogen, and countless scientific terms. The morphemes would be readily recognizable to a learner and the decomposition accurately reflects the historical coining of the term."
+      "reasoning": "Oxygen is a productive Greek compound (oxy- + -gen). The oxy- root meaning \"sharp/acidic\" was chosen by Lavoisier because he believed oxygen was the principle of acidity; -gen is a highly productive suffix meaning \"producer\" or \"that which generates\" (seen in hydrogen, nitrogen, pathogen, allergen, etc.). Both morphemes are synchronically transparent and productive in modern English scientific terminology."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 326,
+      "output_tokens": 324,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0028117000000000003,
+    "cost_usd": 0.0028017,
     "category": "common",
     "expected_roots": [
       "ox-",
@@ -1278,22 +1278,28 @@
         {
           "morpheme": "gen",
           "type": "root",
-          "meaning": "birth, origin, creation",
+          "meaning": "birth, origin",
           "language": "Greek",
           "canonical_root": "gen-",
           "etymology": "genesis (γένεσις)"
+        },
+        {
+          "morpheme": "-esis",
+          "type": "suffix",
+          "meaning": "(noun-forming, process of)",
+          "language": "Greek"
         }
       ],
       "confidence": "high",
-      "reasoning": "Genesis is a single Greek root morpheme meaning \"origin\" or \"coming into being\". It is a productive root in English, appearing in many derived words (generate, genetic, generator, oxygen, pathogen, hydrogen). The word itself is now fully naturalized into English and comes directly from Greek genesis (γένεσις), meaning \"origin\" or \"creation\". This is a clear, learnable single root that helps users understand its presence in compounds like \"photogenesis\" or \"ontogenesis\"."
+      "reasoning": "Genesis is a well-known Greek word meaning \"origin\" or \"coming into being.\" The root gen- (birth, origin) appears productively in many English words: genetics, pathogen, hydrogen, genesis. The suffix -esis is a Greek nominalization suffix forming abstract nouns from verb roots, seen in words like nemesis, catharsis, synthesis. The decomposition is transparent and historically sound."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 241,
+      "output_tokens": 281,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0023867000000000003,
+    "cost_usd": 0.0025867,
     "category": "common",
     "expected_roots": [
       "gen-"
@@ -1317,20 +1323,20 @@
         {
           "morpheme": "-ary",
           "type": "suffix",
-          "meaning": "relating to, place for",
+          "meaning": "relating to, collection of",
           "language": "Latin"
         }
       ],
       "confidence": "high",
-      "reasoning": "Straightforward Latin compound: dict- (say/tell, as in dictate, predict, verdict) + -ary (relating to / place for, as in library, January, secondary). The root is productive in modern English, and the -ary suffix is a common adjective/noun suffix. A learner can easily recognize dict- in other words and understand \"dictionary\" as \"place relating to words/sayings\"."
+      "reasoning": "Decomposable as Latin dict- (say/tell, as in dictate, predict, diction, verdict) + -ary (relating to / collection of, as in library, vocabulary, military). The -ary suffix here means \"collection of\" (words with their definitions). Both morphemes are productive in modern English and the metaphor is transparent: a dictionary is a collection of words (things that are \"said\"). High confidence."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 281,
+      "output_tokens": 283,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0025867,
+    "cost_usd": 0.0025967000000000004,
     "category": "common",
     "expected_roots": [
       "dict-"
@@ -1342,7 +1348,6 @@
     "ok": true,
     "decomposition": {
       "word": "predict",
-      "confidence": "high",
       "decomposition": [
         {
           "morpheme": "pre-",
@@ -1359,15 +1364,16 @@
           "etymology": "dicere"
         }
       ],
-      "reasoning": "Standard Latin compound: pre- (before) + dict- (say/tell) = \"to say beforehand\". Both morphemes are productive in English (pre- appears in prepare, predict, prefix; dict- appears in dictate, diction, verdict, dictionary). The meaning is transparent and synchronically decomposable. High confidence."
+      "confidence": "high",
+      "reasoning": "Standard Latin compound. pre- is a productive prefix (predict, prepare, prefix, predict) and dict- is a productive root in English (dictate, diction, prediction, verdict, dictionary). The word transparently means \"say beforehand\" and both morphemes are immediately recognizable to modern English speakers. This decomposition would help a learner see predict in the same family as dictate, diction, and words with the pre- prefix like prepare and predict."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 256,
+      "output_tokens": 283,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0024617000000000003,
+    "cost_usd": 0.0025967000000000004,
     "category": "common",
     "expected_roots": [
       "dict-"
@@ -1379,32 +1385,32 @@
     "ok": true,
     "decomposition": {
       "word": "contradict",
-      "confidence": "high",
       "decomposition": [
         {
           "morpheme": "contra-",
           "type": "prefix",
-          "meaning": "against",
+          "meaning": "against, opposite",
           "language": "Latin"
         },
         {
           "morpheme": "dict",
           "type": "root",
-          "meaning": "say, tell",
+          "meaning": "say, speak, tell",
           "language": "Latin",
           "canonical_root": "dict-",
           "etymology": "dicere"
         }
       ],
-      "reasoning": "Standard Latin compound. The prefix contra- (against) is productive in modern English (contradict, contrary, contraception, contrast). The root dict- (say/tell) is highly productive and appears in many English words: dictate, predict, diction, verdict, edict. The compound literally means \"say against\", and the morpheme segmentation is transparent to modern speakers. Both parts are recognizable across many other words."
+      "confidence": "high",
+      "reasoning": "Straightforward Latin compound: contra- (against) + dict- (say/speak). Both morphemes are highly productive in modern English. The prefix appears in contradict, contrary, contract, contraception. The root dict- appears in dictate, predict, verdict, diction, dictionary. A learner can immediately recognize these parts in other words."
     },
     "usage": {
       "input_tokens": 423,
-      "output_tokens": 276,
+      "output_tokens": 264,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0025627000000000002,
+    "cost_usd": 0.0025027,
     "category": "common",
     "expected_roots": [
       "dict-"
@@ -1423,7 +1429,7 @@
           "meaning": "truth",
           "language": "Latin",
           "canonical_root": "ver-",
-          "etymology": "verus"
+          "etymology": "verum"
         },
         {
           "morpheme": "dict",
@@ -1431,19 +1437,19 @@
           "meaning": "say, tell",
           "language": "Latin",
           "canonical_root": "dict-",
-          "etymology": "dicere"
+          "etymology": "dictum"
         }
       ],
       "confidence": "high",
-      "reasoning": "Verdict is a productive Latin compound: ver- (truth, as in verify, verity) + dict- (say/tell, as in dictate, diction, predict). The word literally means \"something said truly\" or \"a spoken judgment.\" Both morphemes are highly productive in modern English, appearing in many other words a learner would recognize. This is a classic example of Latin root combination."
+      "reasoning": "Verdict is a Latin compound meaning \"a spoken truth\" (ver- + dict-), from Latin vēre dictum. Both roots are productive in modern English: ver- appears in \"verify\", \"verity\", \"aver\"; dict- appears in \"dictate\", \"predict\", \"diction\", \"verdict\", \"dictionary\". The compound is historically transparent and the individual morphemes are immediately recognizable to English learners as meaningful units. This is a classic example of a learnable decomposition that reveals etymology."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 289,
+      "output_tokens": 313,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0026267,
+    "cost_usd": 0.0027467000000000004,
     "category": "common",
     "expected_roots": [
       "ver-",
@@ -1456,7 +1462,6 @@
     "ok": true,
     "decomposition": {
       "word": "manuscript",
-      "confidence": "high",
       "decomposition": [
         {
           "morpheme": "manu",
@@ -1472,18 +1477,19 @@
           "meaning": "write",
           "language": "Latin",
           "canonical_root": "script-",
-          "etymology": "scriptus"
+          "etymology": "scriptus, past participle of scribere"
         }
       ],
-      "reasoning": "Manuscript is composed of two productive Latin roots: manu- (hand, appearing in manual, manufacture, manicure) and script- (write, appearing in prescribe, describe, transcript). The word literally means \"written by hand\" and the morpheme boundaries are clear and recognized by modern English speakers. Both roots are productive and appear in many related English words, making this an excellent vocabulary-learning decomposition."
+      "confidence": "high",
+      "reasoning": "Manuscript is a straightforward Latin compound: manu- (hand) + script- (write). Both roots are productive in modern English (manu- appears in manual, manufacture, manicure; script- appears in describe, prescribe, manuscript). The word literally means \"written by hand\" and the decomposition is transparent and useful for vocabulary learning."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 291,
+      "output_tokens": 287,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0026367,
+    "cost_usd": 0.0026167000000000004,
     "category": "common",
     "expected_roots": [
       "manu-",
@@ -1500,7 +1506,7 @@
         {
           "morpheme": "de-",
           "type": "prefix",
-          "meaning": "down, away, concerning",
+          "meaning": "down, away",
           "language": "Latin"
         },
         {
@@ -1514,20 +1520,20 @@
         {
           "morpheme": "-tion",
           "type": "suffix",
-          "meaning": "act, process, result of",
+          "meaning": "process, result of",
           "language": "Latin"
         }
       ],
       "confidence": "high",
-      "reasoning": "Standard Latin compound: de- (a productive Latin prefix meaning \"down\" or \"concerning\") + scrib- (the productive Latin root appearing in prescribe, subscribe, inscribe, manuscript, describe) + -tion (the highly productive Latin suffix nominalizing verbs). All three morphemes are well-known and productive in modern English. The semantic composition is transparent: \"description\" literally means \"the act of writing down/recording\" and learners will recognize all three parts in other words (descend, define; scribble, script; nation, creation, action)."
+      "reasoning": "Standard Latin compound: de- (a productive prefix meaning \"down/away\") + scrib- (a productive Latin root meaning \"write\", found in prescribe, subscribe, manuscript, ascribe, etc.) + -tion (a productive suffix forming nouns from verbs, meaning \"the process or result of\"). The decomposition is transparent and all three morphemes are productive in modern English. A learner can recognize these parts in many other words."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 358,
+      "output_tokens": 326,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0029717,
+    "cost_usd": 0.0028117000000000003,
     "category": "common",
     "expected_roots": [
       "scrib-",
@@ -1558,20 +1564,20 @@
         {
           "morpheme": "-tion",
           "type": "suffix",
-          "meaning": "act, process, result of",
+          "meaning": "process, act, or result of",
           "language": "Latin"
         }
       ],
       "confidence": "high",
-      "reasoning": "Standard Latin compound: in- (productive prefix meaning \"in/into\") + scrib- (productive root meaning \"write\", found in describe, prescribe, manuscript, subscribe) + -tion (productive suffix nominalizing verbs into nouns denoting acts/processes/results). The word literally means \"the act of writing in/on something\". All three morphemes are highly productive in English and recognizable to modern speakers."
+      "reasoning": "Straightforward Latin compound: in- (productive prefix meaning \"in/into\") + scrib- (productive Latin root appearing in describe, prescribe, manuscript, scribe) + -tion (productive suffix for nominalization). The word means \"the act of writing in/on (something)\", and all three morphemes are readily recognizable in modern English (compare inscribe, inscribed, subscribe, description, etc.). High confidence."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 324,
+      "output_tokens": 326,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0028017,
+    "cost_usd": 0.0028117000000000003,
     "category": "common",
     "expected_roots": [
       "scrib-",
@@ -1588,7 +1594,7 @@
         {
           "morpheme": "psych",
           "type": "root",
-          "meaning": "mind, soul",
+          "meaning": "mind, soul, spirit",
           "language": "Greek",
           "canonical_root": "psych-",
           "etymology": "psyche"
@@ -1602,7 +1608,7 @@
         {
           "morpheme": "log",
           "type": "root",
-          "meaning": "word, reason, study",
+          "meaning": "word, reason, study of",
           "language": "Greek",
           "canonical_root": "log-",
           "etymology": "logos"
@@ -1610,20 +1616,20 @@
         {
           "morpheme": "-y",
           "type": "suffix",
-          "meaning": "study of, doctrine of",
+          "meaning": "study of, state of",
           "language": "Greek"
         }
       ],
       "confidence": "high",
-      "reasoning": "Psychology is a standard Greek compound. Both psych- (mind/soul) and log- (study/word) are highly productive roots in English (psychology, psychiatry, psychosis; biology, geology, logic). The -o- connective vowel is the standard link between Greek roots. The -y suffix nominalizes the compound. This decomposition is uncontroversial and helps learners recognize these roots in related words like psychiatry, psychosis, biology, neurology, etc."
+      "reasoning": "Psychology is a transparent Greek compound: psych- (mind) + -o- (connective vowel) + log- (study/discourse) + -y (nominalizing suffix). Both psych- and log- are highly productive in modern English: psych- appears in psychiatry, psychosis, psychotherapy; log- appears in biology, geology, logic, catalogue. The meaning \"study of the mind\" is clear and the morphemes can be found in many other English words. This is a textbook high-confidence decomposition."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 399,
+      "output_tokens": 412,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0031767,
+    "cost_usd": 0.0032417,
     "category": "common",
     "expected_roots": [
       "psych-",
@@ -1636,6 +1642,7 @@
     "ok": true,
     "decomposition": {
       "word": "memorial",
+      "confidence": "high",
       "decomposition": [
         {
           "morpheme": "mem",
@@ -1652,16 +1659,15 @@
           "language": "Latin"
         }
       ],
-      "confidence": "high",
-      "reasoning": "Clear Latin decomposition. The root mem- (memory/mind) appears in other productive English words like \"remember\", \"memory\", \"memorable\", \"commemorate\". The suffix -ial is a standard Latin adjective-forming suffix appearing in \"commercial\", \"residential\", \"testimonial\", \"material\". Both morphemes are recognizable to modern English speakers and the meaning is transparent: \"relating to memory\"."
+      "reasoning": "Standard Latin root + adjectival suffix. The root mem- (memory) is productive in English and appears in other words like \"remember\", \"memory\", \"memorable\", \"commemorate\", \"memento\". The suffix -ial is a productive Latin adjective-forming suffix (see material, celestial, essential). The decomposition would help a learner recognize this family of related words and understand that \"memorial\" literally means \"relating to memory\"."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 277,
+      "output_tokens": 286,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0025667,
+    "cost_usd": 0.0026117000000000002,
     "category": "common",
     "expected_roots": [
       "mem-"
@@ -1680,7 +1686,7 @@
           "meaning": "memory, mind",
           "language": "Latin",
           "canonical_root": "mem-",
-          "etymology": "memoria"
+          "etymology": "memor (mindful, remembering)"
         },
         {
           "morpheme": "-ory",
@@ -1690,15 +1696,15 @@
         }
       ],
       "confidence": "high",
-      "reasoning": "Standard Latin decomposition. The root mem- is productive in English (memorial, memorable, remember, commemorate). The suffix -ory is a common Latin-derived suffix meaning \"relating to\" or \"place for\" (as in laboratory, dormitory, sensory). A modern learner can readily recognize both parts and connect them to other English words."
+      "reasoning": "Standard Latin root mem- (mindful, remembering) + suffix -ory (relating to / place for). The root mem- is productive in English, appearing in remember, memorial, commemorate, memento. The suffix -ory is also productive (laboratory, dormitory, directory). A learner can immediately recognize mem- in other words and understand the morphological pattern."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 262,
+      "output_tokens": 275,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0024917000000000003,
+    "cost_usd": 0.0025567000000000003,
     "category": "common",
     "expected_roots": [
       "mem-"
@@ -1712,15 +1718,15 @@
       "word": "uncle",
       "decomposition": [],
       "confidence": "low",
-      "reasoning": "False-root trap. The word superficially looks decomposable as \"un-\" + \"cle\", but this is misleading. \"Uncle\" derives from Latin avunculus (mother's brother), which is itself a double diminutive formation from avus (grandfather). The \"-cle\" is not an English suffix; it is part of the Latin diminutive morphology now fully fossilized in English. A learner taught \"un- + cle\" would be misled into a false morphological pattern that does not reflect the word's actual etymology or structure. REFUSE."
+      "reasoning": "False-root trap. The word looks like it might decompose as \"un-\" + \"cle\", but this is misleading. \"Uncle\" is borrowed from Old French oncle, which comes from Latin avunculus (mother's brother), itself a diminutive of avus (grandfather). The \"-cle\" suffix in \"uncle\" is NOT the English diminutive \"-cle\" (as in article, particle, ridicule); it is part of the Latin etymon. A modern learner would be falsely led to think \"un-\" is a productive prefix here, which would be incorrect. Refuse."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 208,
+      "output_tokens": 215,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0022217,
+    "cost_usd": 0.0022567000000000004,
     "category": "trap",
     "expected_roots": [],
     "id": 41
@@ -1732,15 +1738,15 @@
       "word": "island",
       "decomposition": [],
       "confidence": "low",
-      "reasoning": "False-root trap. \"Island\" looks like it could decompose as \"is-\" + \"land\", but this is a false analysis. The word comes from Old English \"iegland\" (ieg = island + land = land). In the 16th century, the \"s\" was inserted by folk etymology when the word was assimilated to \"isle\" (from Old French \"isle\"). The modern form \"island\" with its irregular \"s\" is the result of this historical confusion, not a productive prefix + root composition. Teaching a learner \"is- + land\" would be misleading."
+      "reasoning": "False-root trap. Although \"island\" looks like it might decompose as \"is-\" + \"land\", the etymology is Old English \"iegland\" (from ieg = island + land = land). The \"s\" was inserted in the 16th century by folk etymology when the word was reanalyzed under the influence of the Old Norse borrowing \"isle\". The \"-s-\" is not a productive English morpheme; it's an artifact of erroneous historical reanalysis. Teaching a learner to decompose this word would be misleading, as there is no \"is-\" prefix or morpheme at play."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 211,
+      "output_tokens": 218,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0022367000000000003,
+    "cost_usd": 0.0022717,
     "category": "trap",
     "expected_roots": [],
     "id": 42
@@ -1752,15 +1758,15 @@
       "word": "butter",
       "decomposition": [],
       "confidence": "low",
-      "reasoning": "False-root trap. \"Butter\" looks like it could decompose as \"butt\" + \"-er\" (agent suffix, \"one who butts\"), but this is etymologically false. The word comes from Greek \"boutyron\" via Latin \"butyrum\". The \"-er\" is part of the inherited Greek-Latin stem, not an English agent suffix. Decomposing it as \"butt + -er\" would teach the learner a false analogy and is therefore refused."
+      "reasoning": "False-root trap. The word looks like it could decompose as \"butt\" + \"-er\" (agent suffix, \"one who butts\"), but this is etymologically incorrect. \"Butter\" comes from Greek \"boutyron\" via Latin \"butyrum\", referring to the dairy product. The \"-er\" ending is part of the inherited stem from Latin, not an English agent suffix. Decomposing it as \"butt + -er\" would teach a learner a false morphological pattern."
     },
     "usage": {
       "input_tokens": 422,
-      "output_tokens": 188,
+      "output_tokens": 191,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0021217000000000002,
+    "cost_usd": 0.0021367,
     "category": "trap",
     "expected_roots": [],
     "id": 43
@@ -1791,25 +1797,25 @@
           "meaning": "write, record",
           "language": "Greek",
           "canonical_root": "graph-",
-          "etymology": "graphein"
+          "etymology": "graphia"
         },
         {
           "morpheme": "-y",
           "type": "suffix",
-          "meaning": "study of, practice of",
+          "meaning": "practice of, study of",
           "language": "Greek"
         }
       ],
       "confidence": "high",
-      "reasoning": "Two productive Greek roots joined by the standard connective vowel -o-, with the noun-forming suffix -y. Both crypt- (as in crypt, encrypted, cryptic) and graph- (as in photograph, paragraph, grammar) are highly productive in modern English. The meaning \"secret writing\" is transparently derivable from the parts. This is a classic Greek compound that a learner would recognize the roots in related words."
+      "reasoning": "Cryptography is a standard Greek compound: crypt- (hidden/secret) + -o- (connective vowel) + graph- (write/record) + -y (nominalize). Both roots are productive in English (crypt- appears in encrypt, decrypt, cryptic; graph- appears in photograph, biography, telegram). The meaning \"hidden writing\" is transparent and etymologically sound. This is a paradigm case of a well-formed Greek technical term that a learner can productively understand and apply to related words."
     },
     "usage": {
       "input_tokens": 423,
-      "output_tokens": 387,
+      "output_tokens": 408,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0031177,
+    "cost_usd": 0.0032227000000000002,
     "category": "common",
     "expected_roots": [
       "crypt-",
@@ -1822,7 +1828,6 @@
     "ok": true,
     "decomposition": {
       "word": "xenophobia",
-      "confidence": "high",
       "decomposition": [
         {
           "morpheme": "xeno-",
@@ -1830,7 +1835,7 @@
           "meaning": "foreign, strange",
           "language": "Greek",
           "canonical_root": "xeno-",
-          "etymology": "xenos"
+          "etymology": "xenos (foreign, hostile)"
         },
         {
           "morpheme": "phob",
@@ -1838,24 +1843,25 @@
           "meaning": "fear",
           "language": "Greek",
           "canonical_root": "phob-",
-          "etymology": "phobos"
+          "etymology": "phobos (fear)"
         },
         {
           "morpheme": "-ia",
           "type": "suffix",
-          "meaning": "condition, state of",
+          "meaning": "state of, condition of",
           "language": "Greek"
         }
       ],
-      "reasoning": "Two productive Greek morphemes. Xeno- appears in xenophobic, xenogeneic. Phob- is highly productive (phobia, claustrophobia, agoraphobia, etc.). The -ia suffix creates abstract nouns from Greek roots (as in phobia itself, dystonia, myopia). High confidence: learner can immediately recognize both roots in other words and understand the productive formation."
+      "confidence": "high",
+      "reasoning": "Clear Greek composition: xeno- (foreign) + phob- (fear) + -ia (state/condition). Both xeno- and phob- are highly productive Greek roots in English (xenophobic, phobia, claustrophobia, agoraphobia). The -ia suffix is a standard Greek nominaliser. A learner can immediately connect xeno- to \"xenophobe\" and \"xenophobic\", and phob- to numerous phobia words. This is a textbook productive Greek compound."
     },
     "usage": {
       "input_tokens": 424,
-      "output_tokens": 342,
+      "output_tokens": 372,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0028937,
+    "cost_usd": 0.0030437000000000003,
     "category": "common",
     "expected_roots": [
       "xen-",
@@ -1868,6 +1874,7 @@
     "ok": true,
     "decomposition": {
       "word": "omnivore",
+      "confidence": "high",
       "decomposition": [
         {
           "morpheme": "omni-",
@@ -1886,20 +1893,19 @@
         {
           "morpheme": "-e",
           "type": "suffix",
-          "meaning": "(noun-forming connective)",
+          "meaning": "(nominalizing agent suffix)",
           "language": "Latin"
         }
       ],
-      "confidence": "high",
-      "reasoning": "Omnivore is a standard Latin compound. The prefix omni- (all) is highly productive in English (omnivore, omnipotent, omnibus), and the root vor- (to devour/eat) appears in related words like voracious, carnivore, and herbivore. The final -e is a connective vowel/suffix common in Latinate noun formations. All three components are recognizable and productive in English morphology."
+      "reasoning": "Classic Latin compound. The prefix omni- (\"all\") is highly productive in English (omnipotent, omniscient, omnibus). The root vor- (\"eat/devour\") is productive in words like voracious, carnivore, herbivore. The -e suffix is a Latin nominalizing ending that converts the stem into an agent noun. A learner can easily see omnivore shares omni- with omnipotent and vor- with carnivore/herbivore, making this a valuable decomposition."
     },
     "usage": {
       "input_tokens": 424,
-      "output_tokens": 333,
+      "output_tokens": 348,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0028487,
+    "cost_usd": 0.0029237000000000004,
     "category": "common",
     "expected_roots": [
       "omni-",
@@ -1912,13 +1918,14 @@
     "ok": true,
     "decomposition": {
       "word": "herbivore",
+      "confidence": "high",
       "decomposition": [
         {
-          "morpheme": "herbi-",
+          "morpheme": "herb",
           "type": "root",
-          "meaning": "grass, herb, plant",
+          "meaning": "plant, grass",
           "language": "Latin",
-          "canonical_root": "herbi-",
+          "canonical_root": "herb-",
           "etymology": "herba"
         },
         {
@@ -1926,20 +1933,18 @@
           "type": "suffix",
           "meaning": "eater of",
           "language": "Latin",
-          "canonical_root": "vor-",
           "etymology": "vorāre (to devour)"
         }
       ],
-      "confidence": "high",
-      "reasoning": "Clear Latin compound: herbi- (grass/herb) + -vore (eater of). Both morphemes are productive in English: herbi- appears in herbicide, herbarium; -vore appears in carnivore, omnivore, frugivore, insectivore. The meaning is transparent and the learner can immediately recognize these parts in many other animal-eating words. High confidence."
+      "reasoning": "Standard Latin compound. \"Herb-\" (plant/grass) is a productive root appearing in herbaceous, herbal, herbicide. \"-vore\" (eater of) is a productive suffix appearing in carnivore, omnivore, insectivore. The word decomposes transparently and the parts are meaningful to modern English speakers."
     },
     "usage": {
       "input_tokens": 424,
-      "output_tokens": 306,
+      "output_tokens": 278,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0027137000000000003,
+    "cost_usd": 0.0025737,
     "category": "common",
     "expected_roots": [
       "herb-",
@@ -1957,10 +1962,10 @@
         {
           "morpheme": "carn",
           "type": "root",
-          "meaning": "meat, flesh",
+          "meaning": "flesh, meat",
           "language": "Latin",
           "canonical_root": "carn-",
-          "etymology": "caro, carnis"
+          "etymology": "caro"
         },
         {
           "morpheme": "-i-",
@@ -1979,19 +1984,19 @@
         {
           "morpheme": "-e",
           "type": "suffix",
-          "meaning": "(noun-forming agent)",
+          "meaning": "(agent noun ending)",
           "language": "Latin"
         }
       ],
-      "reasoning": "Standard Latin compound: carn- (flesh/meat) + -i- (connective vowel) + vor- (eat/devour) + -e (agent suffix forming a noun). Both \"carn-\" and \"vor-\" are productive in modern English: carn- appears in carnival, carnage; vor- appears in omnivore, herbivore, insectivore. The learner can immediately connect these roots to other words. High confidence."
+      "reasoning": "Carnivore is a transparent Latin compound: carn- (flesh) + vor- (eat/devour) + -e (agent noun). Both roots are productive in modern English: carn- appears in carnage, carnal; vor- appears in voracious, omnivore, herbivore. The -i- connective is typical in Latin compounds and should be marked separately so both roots remain clearly visible. This is a standard, uncontroversial decomposition with high confidence."
     },
     "usage": {
       "input_tokens": 424,
-      "output_tokens": 400,
+      "output_tokens": 402,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0031837000000000002,
+    "cost_usd": 0.0031937000000000003,
     "category": "common",
     "expected_roots": [
       "carn-",
@@ -2004,14 +2009,13 @@
     "ok": true,
     "decomposition": {
       "word": "benevolent",
-      "confidence": "high",
       "decomposition": [
         {
           "morpheme": "bene-",
           "type": "prefix",
           "meaning": "good, well",
           "language": "Latin",
-          "etymology": "bene"
+          "etymology": "bene (well)"
         },
         {
           "morpheme": "vol",
@@ -2019,24 +2023,25 @@
           "meaning": "wish, will",
           "language": "Latin",
           "canonical_root": "vol-",
-          "etymology": "velle"
+          "etymology": "velle (to wish, want)"
         },
         {
           "morpheme": "-ent",
           "type": "suffix",
-          "meaning": "one who, tending to",
+          "meaning": "having quality of, one who",
           "language": "Latin"
         }
       ],
-      "reasoning": "Benevolent is a productive Latin compound: bene- (good, well) is a common prefix appearing in benefit, benefactor, benign; vol- (wish, will) is the root seen in volition, voluntary; -ent is the standard agent/quality suffix seen in different, apparent, patient. The meaning \"good-willing\" or \"wishing well\" is transparent and the morphemes are all productive in modern English. High confidence."
+      "confidence": "high",
+      "reasoning": "Classical Latin compound: bene- (good, well) + vol- (wish, will) + -ent (having quality of). The root vol- is productive in English (volunteer, volition, involuntary). The prefix bene- is productive (benefit, benefactor, benign). The suffix -ent is productive (student, dependent, apparent). The decomposition directly yields the meaning: \"well-wishing\" → \"kind, charitable\". This is a standard, transparent morphological formation that would help learners recognize the pattern in related words like \"malevolent\" (mal- + vol- + -ent) and \"benign\" (bene- + root)."
     },
     "usage": {
       "input_tokens": 424,
-      "output_tokens": 341,
+      "output_tokens": 399,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0028887,
+    "cost_usd": 0.0031787,
     "category": "common",
     "expected_roots": [
       "bene-",
@@ -2053,34 +2058,35 @@
         {
           "morpheme": "mal-",
           "type": "prefix",
-          "meaning": "bad, ill, evil",
-          "language": "Latin"
+          "meaning": "bad, ill",
+          "language": "Latin",
+          "etymology": "malus"
         },
         {
-          "morpheme": "volent",
+          "morpheme": "evol",
           "type": "root",
-          "meaning": "wishing, willing",
+          "meaning": "wish, will",
           "language": "Latin",
           "canonical_root": "vol-",
-          "etymology": "velle (to wish, to want)"
+          "etymology": "velle"
         },
         {
           "morpheme": "-ent",
           "type": "suffix",
-          "meaning": "one who, tending to",
+          "meaning": "having quality of, tending to",
           "language": "Latin"
         }
       ],
       "confidence": "high",
-      "reasoning": "Standard Latin compound: mal- (bad) + vol- (wish/will) + -ent (agent/quality suffix). Both mal- and -ent are productive in English (malfunction, malice, current, patient, student). The root vol- appears in English words like \"volition\" and \"voluntary\", making the decomposition learnable and useful. The meaning \"ill-willing\" or \"wishing harm\" aligns transparently with the surface morphology."
+      "reasoning": "Malevolent is a classical Latin compound: mal- (bad) + vol- (wish/will) + -ent (having quality of). Both the prefix mal- and the root vol- are productive in English: mal- appears in malfunction, malice, malformed; vol- (in the sense of willing/wishing) appears in volunteer, involuntary. The -ent suffix is a standard Latin nominative/adjectival ending used productively in English for forming adjectives (present, student, dependent, etc.). The meaning \"having bad wishes\" or \"wishing ill\" aligns directly with the morpheme composition. High confidence."
     },
     "usage": {
       "input_tokens": 424,
-      "output_tokens": 345,
+      "output_tokens": 385,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0029087,
+    "cost_usd": 0.0031087000000000003,
     "category": "common",
     "expected_roots": [
       "mal-",
@@ -2116,15 +2122,15 @@
         }
       ],
       "confidence": "high",
-      "reasoning": "Straightforward Latin compound. re- (again) + nov- (new) + -ate (causative suffix). The root nov- is productive in English (novel, innovation, novice), and all three morphemes are standard productive affixes in modern English. The meaning is transparent: \"make new again\"."
+      "reasoning": "Straightforward Latin compound: re- (prefix meaning \"again\") + nov- (root meaning \"new\", as in novel, innovate, novice) + -ate (verb-forming suffix). All three morphemes are productive in modern English. The meaning \"make new again\" is transparent and helps learners connect to other nov- words (innovation, novelty) and other -ate verbs (create, activate, educate)."
     },
     "usage": {
       "input_tokens": 423,
-      "output_tokens": 296,
+      "output_tokens": 322,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 7597
     },
-    "cost_usd": 0.0026627,
+    "cost_usd": 0.0027927000000000004,
     "category": "common",
     "expected_roots": [
       "nov-"

@@ -8,14 +8,14 @@ to 30,000 words. Linear extrapolation slightly OVERestimates because cache hits
 amortize better at scale than at 81 calls.
 
 ## Haiku 4.5
-- Measured: 81 calls = $0.2339
-- Avg per word: $0.00289
-- Projected for top-30k: **$86.61** (PASS ≤ $200)
+- Measured: 81 calls = $0.2352
+- Avg per word: $0.00290
+- Projected for top-30k: **$87.09** (PASS ≤ $200)
 
 ## Sonnet 4.6 (cross-validation, optional in production)
-- Measured: 81 calls = $0.7005
-- Avg per word: $0.00865
-- Projected for top-30k: **$259.46** (FAIL ≤ $200)
+- Measured: 81 calls = $0.7011
+- Avg per word: $0.00866
+- Projected for top-30k: **$259.68** (FAIL ≤ $200)
 
 ## Notes
 - Production builds on Haiku alone meet the budget at 30k.

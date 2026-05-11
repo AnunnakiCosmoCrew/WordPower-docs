@@ -32,15 +32,17 @@ The action plan in [§ Next-step actions](#next-step-actions) is sequenced and r
 
 ## Why Gemini 2.5 Flash (and not Haiku 4.5)
 
-Spike D measured both models on the same 81-word test set with the same prompt and scoring rubric. Gemini won on every dimension:
+Spike D measured both models on the same 81-word test set with the same prompt (prompt-v1, locked by #525) and scoring rubric:
 
 | Metric | Haiku 4.5 | **Gemini 2.5 Flash** | Delta |
 |---|---|---|---|
-| Accuracy strict | 93.75% | **97.92%** | +4.2pp |
+| Accuracy strict | 95.83% | **97.92%** | +2.1pp |
 | Trap refusal | 10/10 | 10/10 | tied |
-| Top-30k cost | $86.61 | **$61.09** | **-29%** |
+| Top-30k cost | $87.09 | **$61.09** | **-30%** |
 
-The decision rule locked before the spike: "some non-Anthropic model exceeds Haiku's quality at ≤ Haiku's cost → switch." Triggered unambiguously. Full evidence in [Spike D FINDINGS](../../spikes/morphology-engine/d-model-survey/FINDINGS.md); caveats (small sample, vendor risk, Gemini caching variance) honestly documented there.
+The decision rule locked before the spike: "some non-Anthropic model exceeds Haiku's quality at ≤ Haiku's cost → switch." Triggered. The accuracy margin is one word (47/48 vs 46/48), inside the noise floor of single-run measurement — but the cost gap is real and structural. Full evidence in [Spike D FINDINGS](../../spikes/morphology-engine/d-model-survey/FINDINGS.md); caveats (small sample, observed run-to-run variance equal to the margin, vendor risk, Gemini caching less consistent) honestly documented there.
+
+The load-bearing claim from this spike is: *"Gemini matches Haiku at materially lower cost,"* not *"Gemini is meaningfully better than Haiku."* Either claim alone is enough to trigger the switch under the locked decision rule.
 
 Haiku 4.5 remains in the architecture as the fallback when Gemini has quota/availability issues — we already know it works, the integration is already built (`c-llm-haiku/scripts/run_haiku.py`), and the cost difference at fallback frequency is negligible.
 
