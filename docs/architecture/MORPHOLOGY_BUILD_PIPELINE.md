@@ -127,8 +127,8 @@ Step 5 — Bundle merge (L1 + L2)
   → pipeline/output/morphology-bundle-v1.json
 
 Step 6 — Mobile validation (manual)
-  See docs/operations/MORPHOLOGY_BUNDLE_BENCHMARK.md for the
-  Flutter test app and benchmark procedure.
+  See docs/operations/OPS.md for the Flutter test app and
+  benchmark procedure.
 ```
 
 ### 4.1 Quick rebuild checklist
