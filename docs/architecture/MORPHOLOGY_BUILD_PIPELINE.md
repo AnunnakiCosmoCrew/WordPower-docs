@@ -242,15 +242,24 @@ print(f"estimated_sonnet_cost=${price(3.00, 15.00):.2f}")
 
 ### 7.1 Immediate rollback (revert to prior bundle)
 
-```bash
-# Find the previous good bundle
-ls -lt pipeline/output/morphology-bundle-v*.json
-# Or find it in git history
-git log --oneline -- pipeline/output/morphology-bundle-v1.json
+Bundles are **not** versioned in git. `pipeline/output/` is only local build output created during a run. The rollback source of truth must be the **versioned deployment artifact store** that the Flutter app is served from (for example a release-assets directory, object storage bucket mount, or CDN origin checkout). Set `BUNDLE_ARTIFACT_DIR` to that location before running the commands below.
 
-# Revert the deployed bundle to the prior version
-cp pipeline/output/morphology-bundle-v{N-1}.json pipeline/output/morphology-bundle-v1.json
-# Then re-deploy to wherever the Flutter app loads the bundle from
+```bash
+# Point this at the versioned artifact store used for deploys.
+# Example: /srv/wordpower/releases/morphology-bundles
+export BUNDLE_ARTIFACT_DIR=/absolute/path/to/versioned/morphology-bundles
+
+# Inspect the available published bundles and choose the prior good version.
+ls -lt "$BUNDLE_ARTIFACT_DIR"/morphology-bundle-v*.json
+
+# Restore the previous published bundle as the active v1 bundle.
+cp "$BUNDLE_ARTIFACT_DIR"/morphology-bundle-v{N-1}.json \
+  "$BUNDLE_ARTIFACT_DIR"/morphology-bundle-v1.json
+
+# Optional: also copy it into local build output for validation/diffing.
+mkdir -p pipeline/output
+cp "$BUNDLE_ARTIFACT_DIR"/morphology-bundle-v{N-1}.json \
+  pipeline/output/morphology-bundle-v1.json
 ```
 
 ### 7.2 Root cause diagnosis
