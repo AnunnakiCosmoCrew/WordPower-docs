@@ -3,9 +3,9 @@
 Four spikes that decided the per-word decomposition engine architecture for the root-families feature.
 
 **Status:** ✅ Complete (2026-05-11).
-**Build phase:** ✅ Complete. Bundle at `pipeline/output/morphology-bundle-v1.json`.
+**Build phase:** ✅ Complete. The bundle is generated locally at `pipeline/output/morphology-bundle-v1.json` during the build pipeline and is not checked into this repository.
 **Build pipeline doc:** [`docs/architecture/MORPHOLOGY_BUILD_PIPELINE.md`](../../docs/architecture/MORPHOLOGY_BUILD_PIPELINE.md)
-**Mobile benchmark:** [`docs/operations/MORPHOLOGY_BUNDLE_BENCHMARK.md`](../../docs/operations/MORPHOLOGY_BUNDLE_BENCHMARK.md)
+**Mobile benchmark:** Benchmark notes for the generated bundle are not checked into this repository; see [`docs/architecture/ROOT_FAMILIES_DECISION.md`](../../docs/architecture/ROOT_FAMILIES_DECISION.md) for the checked-in architecture decision and build-plan context.
 **Architecture decision + Week 2–3 build plan:** [`docs/architecture/ROOT_FAMILIES_DECISION.md`](../../docs/architecture/ROOT_FAMILIES_DECISION.md)
 **Architecture plan:** [`docs/architecture/ROOT_FAMILIES_ENGINE.md`](../../docs/architecture/ROOT_FAMILIES_ENGINE.md)
 **Epic:** [#385 — Root families](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/385)
