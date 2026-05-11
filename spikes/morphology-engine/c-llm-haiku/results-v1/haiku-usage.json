@@ -4,8 +4,8 @@
   "successful": 81,
   "failed": 0,
   "total_input_tokens": 34249,
-  "total_output_tokens": 26126,
+  "total_output_tokens": 25866,
   "total_cache_creation_tokens": 7597,
   "total_cache_read_tokens": 607760,
-  "total_cost_usd": 0.235151
+  "total_cost_usd": 0.233851
 }

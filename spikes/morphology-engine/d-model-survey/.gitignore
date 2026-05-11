@@ -1,0 +1,13 @@
+# Override parent spikes/.gitignore for the load-bearing artifacts.
+!data/.gitkeep
+!results/*.json
+!results/*.md
+!results/*.txt
+
+# Local API keys — never commit
+.env.local
+.env
+
+# Python build artifacts
+scripts/__pycache__/
+*.pyc
