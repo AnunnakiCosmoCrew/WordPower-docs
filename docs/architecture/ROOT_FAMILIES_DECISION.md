@@ -1,31 +1,48 @@
 # Root-Families Engine — Decision & Build Plan
 
-**Date:** 2026-05-09
+**Date:** 2026-05-09 (revised 2026-05-11 after Spike D)
 **Status:** Architecture locked, build pipeline planned, ready to execute Week 2.
 **Supersedes:** `ROOT_FAMILIES_ENGINE.md` §8 schedule (which was the *plan to discover*); this is the *plan to build*.
 
 ## TL;DR
 
-The Week 1 spike programme is complete. All three engine candidates were measured against the same 51-word test set:
+The Week 1 spike programme is complete. Four spikes were run; the locked architecture is below.
 
 | Spike | Verdict | Used for |
 |---|---|---|
 | **A — MorphyNet** | DROP entirely | (none) |
 | **B — Webster's 1913 / GCIDE** | SHIP | L2 etymology overlay |
-| **C — Haiku 4.5 LLM cache** | SHIP | L1 primary (build-time cache) |
+| **C — Haiku 4.5 LLM cache** | Validated as candidate; **superseded by Spike D** | (cross-validation fallback) |
+| **D — Gemini 2.5 Flash comparison** | **SHIP** as L1 primary | L1 primary (build-time cache) |
 
-Combined with previously validated Wikipedia roots data (L3) and root-catalog highlighting (L0), the architecture is:
+Combined with previously validated Wikipedia roots data (L3) and root-catalog highlighting (L0):
 
 ```
-L0 fallback       : Wikipedia root catalog highlighting (always available, no bundle dependency)
-L1 primary        : LLM cache  — Claude Haiku 4.5, build-time, top-10k words
-L2 etym overlay   : GCIDE      — slim per-word etymology slice, top-10k words
-L3 fallback       : Wikipedia roots data — already shipped
+L0 fallback         : Wikipedia root catalog highlighting (always available, no bundle dependency)
+L1 primary          : LLM cache — Gemini 2.5 Flash, build-time, top-10k words  ← Spike D
+L1 cross-validation : Claude Sonnet 4.6 on Gemini medium/low confidence outputs
+L1 fallback         : Claude Haiku 4.5 (if Gemini quota/availability problem)
+L2 etym overlay     : GCIDE — slim per-word etymology slice, top-10k words
+L3 fallback         : Wikipedia roots data — already shipped
 ```
 
-**Estimated build cost:** ~$25 in API spend (Haiku top-10k + Sonnet validation pass). **Estimated effort:** 8-12 days part-time, including mobile-bundle validation and prompt iteration.
+**Estimated build cost:** ~$35 per rebuild (Gemini top-10k + Sonnet validation). **Estimated effort:** 8-12 days part-time, including mobile-bundle validation.
 
 The action plan in [§ Next-step actions](#next-step-actions) is sequenced and ready to execute.
+
+## Why Gemini 2.5 Flash (and not Haiku 4.5)
+
+Spike D measured both models on the same 81-word test set with the same prompt and scoring rubric. Gemini won on every dimension:
+
+| Metric | Haiku 4.5 | **Gemini 2.5 Flash** | Delta |
+|---|---|---|---|
+| Accuracy strict | 93.75% | **97.92%** | +4.2pp |
+| Trap refusal | 10/10 | 10/10 | tied |
+| Top-30k cost | $86.61 | **$61.09** | **-29%** |
+
+The decision rule locked before the spike: "some non-Anthropic model exceeds Haiku's quality at ≤ Haiku's cost → switch." Triggered unambiguously. Full evidence in [Spike D FINDINGS](../../spikes/morphology-engine/d-model-survey/FINDINGS.md); caveats (small sample, vendor risk, Gemini caching variance) honestly documented there.
+
+Haiku 4.5 remains in the architecture as the fallback when Gemini has quota/availability issues — we already know it works, the integration is already built (`c-llm-haiku/scripts/run_haiku.py`), and the cost difference at fallback frequency is negligible.
 
 ---
 

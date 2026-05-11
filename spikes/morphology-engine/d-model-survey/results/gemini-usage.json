@@ -1,0 +1,11 @@
+{
+  "model": "gemini-2.5-flash",
+  "num_calls": 81,
+  "successful": 81,
+  "failed": 0,
+  "total_input_tokens": 424440,
+  "total_output_tokens": 11103,
+  "total_cache_creation_tokens": 0,
+  "total_cache_read_tokens": 131362,
+  "total_cost_usd": 0.164942
+}

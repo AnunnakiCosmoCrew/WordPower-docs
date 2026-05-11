@@ -19,7 +19,12 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 SPIKE_C_SCRIPTS = HERE.parent.parent / "c-llm-haiku" / "scripts"
-SPIKE_C_RESULTS = HERE.parent.parent / "c-llm-haiku" / "results"
+# Use results-v1 (re-baselined on the extended prompt) so the 3-way comparison
+# is apples-to-apples on the prompt we'd actually ship. Override with
+# BASELINE_DIR=results to compare against the original Spike C numbers.
+import os as _os  # noqa: E402
+_baseline = _os.environ.get("BASELINE_DIR", "results-v1")
+SPIKE_C_RESULTS = HERE.parent.parent / "c-llm-haiku" / _baseline
 RESULTS = HERE.parent / "results"
 
 # Pull Spike C's scoring functions verbatim.

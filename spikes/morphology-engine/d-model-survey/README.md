@@ -1,7 +1,8 @@
 # Spike D — Comparative Model Survey
 
-**Status:** Planned, not started.
+**Status:** ✅ Complete (2026-05-11). **Outcome: switch L1 primary to Gemini 2.5 Flash.** See [FINDINGS.md](FINDINGS.md).
 **Filed:** 2026-05-09, in response to the question "are we sure Haiku 4.5 is the right choice?"
+**Scope as executed:** narrowed to Gemini 2.5 Flash only (vs the planned Gemini + GPT + Llama survey) per user request to test the specific data point.
 
 **Question:** Is Claude Haiku 4.5 the best available model for the L1 build-time decomposition cache, or could another commercial / open-weights model deliver equivalent quality at materially lower cost — or higher quality at acceptable cost?
 

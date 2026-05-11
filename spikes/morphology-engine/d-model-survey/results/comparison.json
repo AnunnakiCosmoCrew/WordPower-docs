@@ -1,0 +1,2202 @@
+{
+  "models": {
+    "haiku-4-5": {
+      "accuracy_strict": 0.9375,
+      "accuracy_weighted": 0.9583,
+      "trap_refusal": "10/10",
+      "trap_refusal_pass": true,
+      "multi_layer_rate": 0.9,
+      "spike_cost_usd": 0.233851,
+      "projected_top_30k_usd": 86.61
+    },
+    "sonnet-4-6": {
+      "accuracy_strict": 0.9792,
+      "accuracy_weighted": 0.9896,
+      "trap_refusal": "10/10",
+      "trap_refusal_pass": true,
+      "multi_layer_rate": 0.8,
+      "spike_cost_usd": 0.700547,
+      "projected_top_30k_usd": 259.46
+    },
+    "gemini-2-5-flash": {
+      "accuracy_strict": 0.9792,
+      "accuracy_weighted": 0.9792,
+      "trap_refusal": "10/10",
+      "trap_refusal_pass": true,
+      "multi_layer_rate": 0.9,
+      "spike_cost_usd": 0.164942,
+      "projected_top_30k_usd": 61.09
+    }
+  },
+  "detail": {
+    "haiku-4-5": {
+      "test_set": {
+        "counts": {
+          "CORRECT": 45,
+          "PARTIAL": 2,
+          "WRONG": 1,
+          "NOT_FOUND": 0,
+          "TRAP_PASS": 3,
+          "TRAP_FAIL": 0
+        },
+        "common_total": 48,
+        "trap_total": 3,
+        "accuracy_strict": 0.9375,
+        "accuracy_weighted": 0.9583,
+        "per_word": [
+          {
+            "id": 1,
+            "word": "transport",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['port-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 2,
+            "word": "export",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['port-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 3,
+            "word": "important",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['port-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 4,
+            "word": "portable",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['port-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 5,
+            "word": "prognosis",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['gnos-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 6,
+            "word": "diagnose",
+            "category": "common",
+            "verdict": "WRONG",
+            "reason": "none of ['gnos-'] matched in ['dia-', 'gn', '-ose']",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 7,
+            "word": "agnostic",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['gnos-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 8,
+            "word": "telephone",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['tele-', 'phon-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 9,
+            "word": "photograph",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['phot-', 'graph-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 10,
+            "word": "biology",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['bio-', 'log-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 11,
+            "word": "biography",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['bio-', 'graph-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 12,
+            "word": "antibiotic",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['anti-', 'bio-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 13,
+            "word": "geography",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['geo-', 'graph-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 14,
+            "word": "geology",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['geo-', 'log-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 15,
+            "word": "thermometer",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['therm-', 'metr-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 16,
+            "word": "television",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['tele-', 'vis-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 17,
+            "word": "microscope",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['micr-', 'scop-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 18,
+            "word": "autograph",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['auto-', 'graph-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 19,
+            "word": "cardiology",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['cardi-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 20,
+            "word": "dermatology",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['derm-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 21,
+            "word": "pediatric",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['paed-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 22,
+            "word": "democracy",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['dem-', 'crat-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 23,
+            "word": "philosophy",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['phil-', 'sophi-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 24,
+            "word": "philanthropy",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['phil-', 'anthrop-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 25,
+            "word": "chronic",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['chron-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 26,
+            "word": "chronology",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['chron-', 'log-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 27,
+            "word": "synchronize",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['syn-', 'chron-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 28,
+            "word": "hydrogen",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['hydr-', 'gen-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 29,
+            "word": "oxygen",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['ox-', 'gen-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 30,
+            "word": "genesis",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['gen-'] matched",
+            "confidence": "high",
+            "morpheme_count": 1
+          },
+          {
+            "id": 31,
+            "word": "dictionary",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['dict-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 32,
+            "word": "predict",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['dict-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 33,
+            "word": "contradict",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['dict-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 34,
+            "word": "verdict",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['ver-', 'dict-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 35,
+            "word": "manuscript",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['manu-', 'scrip-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 36,
+            "word": "description",
+            "category": "common",
+            "verdict": "PARTIAL",
+            "reason": "matched ['scrib-'], missed ['scrip-']",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 37,
+            "word": "inscription",
+            "category": "common",
+            "verdict": "PARTIAL",
+            "reason": "matched ['scrib-'], missed ['scrip-']",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 38,
+            "word": "psychology",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['psych-', 'log-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 39,
+            "word": "memorial",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['mem-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 40,
+            "word": "memory",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['mem-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 41,
+            "word": "uncle",
+            "category": "trap",
+            "verdict": "TRAP_PASS",
+            "reason": "refused",
+            "confidence": "low",
+            "morpheme_count": 0
+          },
+          {
+            "id": 42,
+            "word": "island",
+            "category": "trap",
+            "verdict": "TRAP_PASS",
+            "reason": "refused",
+            "confidence": "low",
+            "morpheme_count": 0
+          },
+          {
+            "id": 43,
+            "word": "butter",
+            "category": "trap",
+            "verdict": "TRAP_PASS",
+            "reason": "refused",
+            "confidence": "low",
+            "morpheme_count": 0
+          },
+          {
+            "id": 44,
+            "word": "cryptography",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['crypt-', 'graph-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 45,
+            "word": "xenophobia",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['xen-', 'phob-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 46,
+            "word": "omnivore",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['omni-', 'vor-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 47,
+            "word": "herbivore",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['herb-', 'vor-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 48,
+            "word": "carnivore",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['carn-', 'vor-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 49,
+            "word": "benevolent",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['bene-', 'vol-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 50,
+            "word": "malevolent",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['mal-', 'vol-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 51,
+            "word": "renovate",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['nov-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          }
+        ]
+      },
+      "adversarial": {
+        "traps": {
+          "results": [
+            {
+              "word": "uncle",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "island",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "butter",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "understand",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "breakfast",
+              "verdict": "ACCEPTABLE",
+              "reason": "shallow decomposition (2 morphemes)"
+            },
+            {
+              "word": "noted",
+              "verdict": "ACCEPTABLE",
+              "reason": "shallow decomposition (2 morphemes)"
+            },
+            {
+              "word": "nothing",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "forget",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "forty",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "office",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            }
+          ],
+          "refused_count": 10,
+          "total": 10,
+          "rate": 1.0,
+          "threshold": 0.8,
+          "pass": true
+        },
+        "multi_layer": {
+          "results": [
+            {
+              "word": "unimportant",
+              "verdict": "WRONG",
+              "reason": "matched only ['un-'] of ['un-', 'important']",
+              "expected": [
+                "un-",
+                "important"
+              ]
+            },
+            {
+              "word": "internationalization",
+              "verdict": "CORRECT",
+              "reason": "all ['inter-', 'nation', '-al', '-ize', '-ation'] present",
+              "expected": [
+                "inter-",
+                "nation",
+                "-al",
+                "-ize",
+                "-ation"
+              ]
+            },
+            {
+              "word": "denationalization",
+              "verdict": "CORRECT",
+              "reason": "all ['de-', 'nation', '-al', '-ize', '-ation'] present",
+              "expected": [
+                "de-",
+                "nation",
+                "-al",
+                "-ize",
+                "-ation"
+              ]
+            },
+            {
+              "word": "counterintuitive",
+              "verdict": "CORRECT",
+              "reason": "all ['counter-', 'intuit', '-ive'] present",
+              "expected": [
+                "counter-",
+                "intuit",
+                "-ive"
+              ]
+            },
+            {
+              "word": "predetermination",
+              "verdict": "PARTIAL",
+              "reason": "matched ['pre-', 'de-', '-ation'], missed ['termin']",
+              "expected": [
+                "pre-",
+                "de-",
+                "termin",
+                "-ation"
+              ]
+            },
+            {
+              "word": "antidisestablishmentarian",
+              "verdict": "CORRECT",
+              "reason": "all ['anti-', 'dis-', 'establish', '-ment', '-arian'] present",
+              "expected": [
+                "anti-",
+                "dis-",
+                "establish",
+                "-ment",
+                "-arian"
+              ]
+            },
+            {
+              "word": "reorganization",
+              "verdict": "CORRECT",
+              "reason": "all ['re-', 'organ', '-ize', '-ation'] present",
+              "expected": [
+                "re-",
+                "organ",
+                "-ize",
+                "-ation"
+              ]
+            },
+            {
+              "word": "misinterpretation",
+              "verdict": "CORRECT",
+              "reason": "all ['mis-', 'inter-', 'pret', '-ation'] present",
+              "expected": [
+                "mis-",
+                "inter-",
+                "pret",
+                "-ation"
+              ]
+            },
+            {
+              "word": "incomprehensibility",
+              "verdict": "PARTIAL",
+              "reason": "matched ['in-', 'com-', '-ible', '-ity'], missed ['prehens']",
+              "expected": [
+                "in-",
+                "com-",
+                "prehens",
+                "-ible",
+                "-ity"
+              ]
+            },
+            {
+              "word": "unpredictability",
+              "verdict": "CORRECT",
+              "reason": "all ['un-', 'pre-', 'dict', '-able', '-ity'] present",
+              "expected": [
+                "un-",
+                "pre-",
+                "dict",
+                "-able",
+                "-ity"
+              ]
+            }
+          ],
+          "correct_or_partial": 9,
+          "total": 10,
+          "rate": 0.9
+        },
+        "ambiguous": {
+          "results": [
+            {
+              "word": "unlockable",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as medium confidence"
+            },
+            {
+              "word": "unmade",
+              "verdict": "ACCEPTABLE_HIGH_CONFIDENCE",
+              "reason": "high confidence on ambiguous; chose one reading (['un-', 'made'])"
+            },
+            {
+              "word": "unionized",
+              "verdict": "ACCEPTABLE_HIGH_CONFIDENCE",
+              "reason": "high confidence on ambiguous; chose one reading (['un-', 'ion', '-ize', '-ed'])"
+            },
+            {
+              "word": "discover",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as low confidence"
+            },
+            {
+              "word": "recover",
+              "verdict": "ACCEPTABLE_HIGH_CONFIDENCE",
+              "reason": "high confidence on ambiguous; chose one reading (['re-', 'cover'])"
+            },
+            {
+              "word": "inflammable",
+              "verdict": "ACCEPTABLE_HIGH_CONFIDENCE",
+              "reason": "high confidence on ambiguous; chose one reading (['in-', 'flamm', '-able'])"
+            },
+            {
+              "word": "cleave",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as low confidence"
+            },
+            {
+              "word": "oversight",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as medium confidence"
+            },
+            {
+              "word": "sanction",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as low confidence"
+            },
+            {
+              "word": "dust",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as low confidence"
+            }
+          ],
+          "total": 10
+        }
+      },
+      "usage": {
+        "model": "claude-haiku-4-5",
+        "num_calls": 81,
+        "successful": 81,
+        "failed": 0,
+        "total_input_tokens": 34249,
+        "total_output_tokens": 25866,
+        "total_cache_creation_tokens": 7597,
+        "total_cache_read_tokens": 607760,
+        "total_cost_usd": 0.233851
+      }
+    },
+    "sonnet-4-6": {
+      "test_set": {
+        "counts": {
+          "CORRECT": 47,
+          "PARTIAL": 1,
+          "WRONG": 0,
+          "NOT_FOUND": 0,
+          "TRAP_PASS": 3,
+          "TRAP_FAIL": 0
+        },
+        "common_total": 48,
+        "trap_total": 3,
+        "accuracy_strict": 0.9792,
+        "accuracy_weighted": 0.9896,
+        "per_word": [
+          {
+            "id": 1,
+            "word": "transport",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['port-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 2,
+            "word": "export",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['port-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 3,
+            "word": "important",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['port-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 4,
+            "word": "portable",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['port-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 5,
+            "word": "prognosis",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['gnos-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 6,
+            "word": "diagnose",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['gnos-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 7,
+            "word": "agnostic",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['gnos-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 8,
+            "word": "telephone",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['tele-', 'phon-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 9,
+            "word": "photograph",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['phot-', 'graph-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 10,
+            "word": "biology",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['bio-', 'log-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 11,
+            "word": "biography",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['bio-', 'graph-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 12,
+            "word": "antibiotic",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['anti-', 'bio-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 13,
+            "word": "geography",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['geo-', 'graph-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 14,
+            "word": "geology",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['geo-', 'log-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 15,
+            "word": "thermometer",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['therm-', 'metr-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 16,
+            "word": "television",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['tele-', 'vis-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 17,
+            "word": "microscope",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['micr-', 'scop-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 18,
+            "word": "autograph",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['auto-', 'graph-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 19,
+            "word": "cardiology",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['cardi-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 20,
+            "word": "dermatology",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['derm-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 21,
+            "word": "pediatric",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['paed-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 22,
+            "word": "democracy",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['dem-', 'crat-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 23,
+            "word": "philosophy",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['phil-', 'sophi-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 24,
+            "word": "philanthropy",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['phil-', 'anthrop-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 25,
+            "word": "chronic",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['chron-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 26,
+            "word": "chronology",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['chron-', 'log-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 27,
+            "word": "synchronize",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['syn-', 'chron-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 28,
+            "word": "hydrogen",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['hydr-', 'gen-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 29,
+            "word": "oxygen",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['ox-', 'gen-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 30,
+            "word": "genesis",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['gen-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 31,
+            "word": "dictionary",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['dict-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 32,
+            "word": "predict",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['dict-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 33,
+            "word": "contradict",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['dict-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 34,
+            "word": "verdict",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['ver-', 'dict-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 35,
+            "word": "manuscript",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['manu-', 'scrip-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 36,
+            "word": "description",
+            "category": "common",
+            "verdict": "PARTIAL",
+            "reason": "matched ['scrib-'], missed ['scrip-']",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 37,
+            "word": "inscription",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['scrib-', 'scrip-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 38,
+            "word": "psychology",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['psych-', 'log-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 39,
+            "word": "memorial",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['mem-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 40,
+            "word": "memory",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['mem-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 41,
+            "word": "uncle",
+            "category": "trap",
+            "verdict": "TRAP_PASS",
+            "reason": "refused",
+            "confidence": "low",
+            "morpheme_count": 0
+          },
+          {
+            "id": 42,
+            "word": "island",
+            "category": "trap",
+            "verdict": "TRAP_PASS",
+            "reason": "refused",
+            "confidence": "low",
+            "morpheme_count": 0
+          },
+          {
+            "id": 43,
+            "word": "butter",
+            "category": "trap",
+            "verdict": "TRAP_PASS",
+            "reason": "refused",
+            "confidence": "low",
+            "morpheme_count": 0
+          },
+          {
+            "id": 44,
+            "word": "cryptography",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['crypt-', 'graph-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 45,
+            "word": "xenophobia",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['xen-', 'phob-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 46,
+            "word": "omnivore",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['omni-', 'vor-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 47,
+            "word": "herbivore",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['herb-', 'vor-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 48,
+            "word": "carnivore",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['carn-', 'vor-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 49,
+            "word": "benevolent",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['bene-', 'vol-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 50,
+            "word": "malevolent",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['mal-', 'vol-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 51,
+            "word": "renovate",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['nov-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          }
+        ]
+      },
+      "adversarial": {
+        "traps": {
+          "results": [
+            {
+              "word": "uncle",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "island",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "butter",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "understand",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "breakfast",
+              "verdict": "ACCEPTABLE",
+              "reason": "shallow decomposition (2 morphemes)"
+            },
+            {
+              "word": "noted",
+              "verdict": "ACCEPTABLE",
+              "reason": "shallow decomposition (2 morphemes)"
+            },
+            {
+              "word": "nothing",
+              "verdict": "ACCEPTABLE",
+              "reason": "shallow decomposition (2 morphemes)"
+            },
+            {
+              "word": "forget",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "forty",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "office",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            }
+          ],
+          "refused_count": 10,
+          "total": 10,
+          "rate": 1.0,
+          "threshold": 0.8,
+          "pass": true
+        },
+        "multi_layer": {
+          "results": [
+            {
+              "word": "unimportant",
+              "verdict": "WRONG",
+              "reason": "matched only ['un-'] of ['un-', 'important']",
+              "expected": [
+                "un-",
+                "important"
+              ]
+            },
+            {
+              "word": "internationalization",
+              "verdict": "CORRECT",
+              "reason": "all ['inter-', 'nation', '-al', '-ize', '-ation'] present",
+              "expected": [
+                "inter-",
+                "nation",
+                "-al",
+                "-ize",
+                "-ation"
+              ]
+            },
+            {
+              "word": "denationalization",
+              "verdict": "CORRECT",
+              "reason": "all ['de-', 'nation', '-al', '-ize', '-ation'] present",
+              "expected": [
+                "de-",
+                "nation",
+                "-al",
+                "-ize",
+                "-ation"
+              ]
+            },
+            {
+              "word": "counterintuitive",
+              "verdict": "PARTIAL",
+              "reason": "matched ['counter-', '-ive'], missed ['intuit']",
+              "expected": [
+                "counter-",
+                "intuit",
+                "-ive"
+              ]
+            },
+            {
+              "word": "predetermination",
+              "verdict": "WRONG",
+              "reason": "matched only ['pre-', 'de-'] of ['pre-', 'de-', 'termin', '-ation']",
+              "expected": [
+                "pre-",
+                "de-",
+                "termin",
+                "-ation"
+              ]
+            },
+            {
+              "word": "antidisestablishmentarian",
+              "verdict": "CORRECT",
+              "reason": "all ['anti-', 'dis-', 'establish', '-ment', '-arian'] present",
+              "expected": [
+                "anti-",
+                "dis-",
+                "establish",
+                "-ment",
+                "-arian"
+              ]
+            },
+            {
+              "word": "reorganization",
+              "verdict": "CORRECT",
+              "reason": "all ['re-', 'organ', '-ize', '-ation'] present",
+              "expected": [
+                "re-",
+                "organ",
+                "-ize",
+                "-ation"
+              ]
+            },
+            {
+              "word": "misinterpretation",
+              "verdict": "CORRECT",
+              "reason": "all ['mis-', 'inter-', 'pret', '-ation'] present",
+              "expected": [
+                "mis-",
+                "inter-",
+                "pret",
+                "-ation"
+              ]
+            },
+            {
+              "word": "incomprehensibility",
+              "verdict": "CORRECT",
+              "reason": "all ['in-', 'com-', 'prehens', '-ible', '-ity'] present",
+              "expected": [
+                "in-",
+                "com-",
+                "prehens",
+                "-ible",
+                "-ity"
+              ]
+            },
+            {
+              "word": "unpredictability",
+              "verdict": "CORRECT",
+              "reason": "all ['un-', 'pre-', 'dict', '-able', '-ity'] present",
+              "expected": [
+                "un-",
+                "pre-",
+                "dict",
+                "-able",
+                "-ity"
+              ]
+            }
+          ],
+          "correct_or_partial": 8,
+          "total": 10,
+          "rate": 0.8
+        },
+        "ambiguous": {
+          "results": [
+            {
+              "word": "unlockable",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as medium confidence"
+            },
+            {
+              "word": "unmade",
+              "verdict": "ACCEPTABLE_HIGH_CONFIDENCE",
+              "reason": "high confidence on ambiguous; chose one reading (['un-', 'made'])"
+            },
+            {
+              "word": "unionized",
+              "verdict": "ACCEPTABLE_HIGH_CONFIDENCE",
+              "reason": "high confidence on ambiguous; chose one reading (['uni-', 'on', '-ize', '-ed'])"
+            },
+            {
+              "word": "discover",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as medium confidence"
+            },
+            {
+              "word": "recover",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as low confidence"
+            },
+            {
+              "word": "inflammable",
+              "verdict": "ACCEPTABLE_HIGH_CONFIDENCE",
+              "reason": "high confidence on ambiguous; chose one reading (['in-', 'flamm', '-able'])"
+            },
+            {
+              "word": "cleave",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as low confidence"
+            },
+            {
+              "word": "oversight",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as medium confidence"
+            },
+            {
+              "word": "sanction",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as low confidence"
+            },
+            {
+              "word": "dust",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as low confidence"
+            }
+          ],
+          "total": 10
+        }
+      },
+      "usage": {
+        "model": "claude-sonnet-4-6",
+        "num_calls": 81,
+        "successful": 81,
+        "failed": 0,
+        "total_input_tokens": 33049,
+        "total_output_tokens": 25737,
+        "total_cache_creation_tokens": 8798,
+        "total_cache_read_tokens": 607840,
+        "total_cost_usd": 0.700547
+      }
+    },
+    "gemini-2-5-flash": {
+      "test_set": {
+        "counts": {
+          "CORRECT": 47,
+          "PARTIAL": 0,
+          "WRONG": 0,
+          "NOT_FOUND": 1,
+          "TRAP_PASS": 3,
+          "TRAP_FAIL": 0
+        },
+        "common_total": 48,
+        "trap_total": 3,
+        "accuracy_strict": 0.9792,
+        "accuracy_weighted": 0.9792,
+        "per_word": [
+          {
+            "id": 1,
+            "word": "transport",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['port-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 2,
+            "word": "export",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['port-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 3,
+            "word": "important",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['port-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 4,
+            "word": "portable",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['port-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 5,
+            "word": "prognosis",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['gnos-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 6,
+            "word": "diagnose",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['gnos-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 7,
+            "word": "agnostic",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['gnos-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 8,
+            "word": "telephone",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['tele-', 'phon-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 9,
+            "word": "photograph",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['phot-', 'graph-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 10,
+            "word": "biology",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['bio-', 'log-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 11,
+            "word": "biography",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['bio-', 'graph-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 12,
+            "word": "antibiotic",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['anti-', 'bio-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 13,
+            "word": "geography",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['geo-', 'graph-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 14,
+            "word": "geology",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['geo-', 'log-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 15,
+            "word": "thermometer",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['therm-', 'metr-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 16,
+            "word": "television",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['tele-', 'vis-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 17,
+            "word": "microscope",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['micr-', 'scop-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 18,
+            "word": "autograph",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['auto-', 'graph-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 19,
+            "word": "cardiology",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['cardi-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 20,
+            "word": "dermatology",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['derm-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 21,
+            "word": "pediatric",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['paed-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 22,
+            "word": "democracy",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['dem-', 'crat-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 23,
+            "word": "philosophy",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['phil-', 'sophi-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 24,
+            "word": "philanthropy",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['phil-', 'anthrop-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 25,
+            "word": "chronic",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['chron-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 26,
+            "word": "chronology",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['chron-', 'log-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 27,
+            "word": "synchronize",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['syn-', 'chron-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 28,
+            "word": "hydrogen",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['hydr-', 'gen-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 29,
+            "word": "oxygen",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['ox-', 'gen-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 30,
+            "word": "genesis",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['gen-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 31,
+            "word": "dictionary",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['dict-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 32,
+            "word": "predict",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['dict-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 33,
+            "word": "contradict",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['dict-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 34,
+            "word": "verdict",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['ver-', 'dict-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 35,
+            "word": "manuscript",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['manu-', 'scrip-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 36,
+            "word": "description",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['scrib-', 'scrip-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 37,
+            "word": "inscription",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['scrib-', 'scrip-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 38,
+            "word": "psychology",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['psych-', 'log-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 39,
+            "word": "memorial",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['mem-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 40,
+            "word": "memory",
+            "category": "common",
+            "verdict": "NOT_FOUND",
+            "reason": "model refused / empty decomposition",
+            "confidence": "low",
+            "morpheme_count": 0
+          },
+          {
+            "id": 41,
+            "word": "uncle",
+            "category": "trap",
+            "verdict": "TRAP_PASS",
+            "reason": "refused",
+            "confidence": "low",
+            "morpheme_count": 0
+          },
+          {
+            "id": 42,
+            "word": "island",
+            "category": "trap",
+            "verdict": "TRAP_PASS",
+            "reason": "refused",
+            "confidence": "low",
+            "morpheme_count": 0
+          },
+          {
+            "id": 43,
+            "word": "butter",
+            "category": "trap",
+            "verdict": "TRAP_PASS",
+            "reason": "refused",
+            "confidence": "low",
+            "morpheme_count": 0
+          },
+          {
+            "id": 44,
+            "word": "cryptography",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['crypt-', 'graph-'] matched",
+            "confidence": "high",
+            "morpheme_count": 4
+          },
+          {
+            "id": 45,
+            "word": "xenophobia",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['xen-', 'phob-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 46,
+            "word": "omnivore",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['omni-', 'vor-'] matched",
+            "confidence": "high",
+            "morpheme_count": 2
+          },
+          {
+            "id": 47,
+            "word": "herbivore",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['herb-', 'vor-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 48,
+            "word": "carnivore",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['carn-', 'vor-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 49,
+            "word": "benevolent",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['bene-', 'vol-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 50,
+            "word": "malevolent",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['mal-', 'vol-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          },
+          {
+            "id": 51,
+            "word": "renovate",
+            "category": "common",
+            "verdict": "CORRECT",
+            "reason": "all roots ['nov-'] matched",
+            "confidence": "high",
+            "morpheme_count": 3
+          }
+        ]
+      },
+      "adversarial": {
+        "traps": {
+          "results": [
+            {
+              "word": "uncle",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "island",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "butter",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "understand",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "breakfast",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "noted",
+              "verdict": "ACCEPTABLE",
+              "reason": "shallow decomposition (2 morphemes)"
+            },
+            {
+              "word": "nothing",
+              "verdict": "ACCEPTABLE",
+              "reason": "shallow decomposition (2 morphemes)"
+            },
+            {
+              "word": "forget",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "forty",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            },
+            {
+              "word": "office",
+              "verdict": "REFUSED",
+              "reason": "confidence:low or empty decomposition"
+            }
+          ],
+          "refused_count": 10,
+          "total": 10,
+          "rate": 1.0,
+          "threshold": 0.8,
+          "pass": true
+        },
+        "multi_layer": {
+          "results": [
+            {
+              "word": "unimportant",
+              "verdict": "WRONG",
+              "reason": "matched only ['un-'] of ['un-', 'important']",
+              "expected": [
+                "un-",
+                "important"
+              ]
+            },
+            {
+              "word": "internationalization",
+              "verdict": "CORRECT",
+              "reason": "all ['inter-', 'nation', '-al', '-ize', '-ation'] present",
+              "expected": [
+                "inter-",
+                "nation",
+                "-al",
+                "-ize",
+                "-ation"
+              ]
+            },
+            {
+              "word": "denationalization",
+              "verdict": "CORRECT",
+              "reason": "all ['de-', 'nation', '-al', '-ize', '-ation'] present",
+              "expected": [
+                "de-",
+                "nation",
+                "-al",
+                "-ize",
+                "-ation"
+              ]
+            },
+            {
+              "word": "counterintuitive",
+              "verdict": "CORRECT",
+              "reason": "all ['counter-', 'intuit', '-ive'] present",
+              "expected": [
+                "counter-",
+                "intuit",
+                "-ive"
+              ]
+            },
+            {
+              "word": "predetermination",
+              "verdict": "CORRECT",
+              "reason": "all ['pre-', 'de-', 'termin', '-ation'] present",
+              "expected": [
+                "pre-",
+                "de-",
+                "termin",
+                "-ation"
+              ]
+            },
+            {
+              "word": "antidisestablishmentarian",
+              "verdict": "CORRECT",
+              "reason": "all ['anti-', 'dis-', 'establish', '-ment', '-arian'] present",
+              "expected": [
+                "anti-",
+                "dis-",
+                "establish",
+                "-ment",
+                "-arian"
+              ]
+            },
+            {
+              "word": "reorganization",
+              "verdict": "PARTIAL",
+              "reason": "matched ['re-', 'organ', '-ation'], missed ['-ize']",
+              "expected": [
+                "re-",
+                "organ",
+                "-ize",
+                "-ation"
+              ]
+            },
+            {
+              "word": "misinterpretation",
+              "verdict": "CORRECT",
+              "reason": "all ['mis-', 'inter-', 'pret', '-ation'] present",
+              "expected": [
+                "mis-",
+                "inter-",
+                "pret",
+                "-ation"
+              ]
+            },
+            {
+              "word": "incomprehensibility",
+              "verdict": "PARTIAL",
+              "reason": "matched ['in-', 'com-', 'prehens', '-ity'], missed ['-ible']",
+              "expected": [
+                "in-",
+                "com-",
+                "prehens",
+                "-ible",
+                "-ity"
+              ]
+            },
+            {
+              "word": "unpredictability",
+              "verdict": "PARTIAL",
+              "reason": "matched ['un-', 'pre-', 'dict', '-ity'], missed ['-able']",
+              "expected": [
+                "un-",
+                "pre-",
+                "dict",
+                "-able",
+                "-ity"
+              ]
+            }
+          ],
+          "correct_or_partial": 9,
+          "total": 10,
+          "rate": 0.9
+        },
+        "ambiguous": {
+          "results": [
+            {
+              "word": "unlockable",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as medium confidence"
+            },
+            {
+              "word": "unmade",
+              "verdict": "ACCEPTABLE_HIGH_CONFIDENCE",
+              "reason": "high confidence on ambiguous; chose one reading (['un-', 'made'])"
+            },
+            {
+              "word": "unionized",
+              "verdict": "ACCEPTABLE_HIGH_CONFIDENCE",
+              "reason": "high confidence on ambiguous; chose one reading (['un-', 'union', '-ize', '-d'])"
+            },
+            {
+              "word": "discover",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as low confidence"
+            },
+            {
+              "word": "recover",
+              "verdict": "ACCEPTABLE_HIGH_CONFIDENCE",
+              "reason": "high confidence on ambiguous; chose one reading (['re-', 'cover'])"
+            },
+            {
+              "word": "inflammable",
+              "verdict": "ACCEPTABLE_HIGH_CONFIDENCE",
+              "reason": "high confidence on ambiguous; chose one reading (['in-', 'flamm', '-able'])"
+            },
+            {
+              "word": "cleave",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as low confidence"
+            },
+            {
+              "word": "oversight",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as medium confidence"
+            },
+            {
+              "word": "sanction",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as low confidence"
+            },
+            {
+              "word": "dust",
+              "verdict": "ACCEPTABLE",
+              "reason": "flagged as low confidence"
+            }
+          ],
+          "total": 10
+        }
+      },
+      "usage": {
+        "model": "gemini-2.5-flash",
+        "num_calls": 81,
+        "successful": 81,
+        "failed": 0,
+        "total_input_tokens": 424440,
+        "total_output_tokens": 11103,
+        "total_cache_creation_tokens": 0,
+        "total_cache_read_tokens": 131362,
+        "total_cost_usd": 0.164942
+      }
+    }
+  }
+}
