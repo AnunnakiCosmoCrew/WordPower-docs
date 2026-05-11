@@ -13,19 +13,32 @@ This is the canonical operational runbook for rebuilding the morphology bundle (
 
 | Source | Repo path | Version / pin | Role |
 |---|---|---|---|
-| **SUBTLEX-US frequency list** | `pipeline/data/subtlex-us.csv` | Downloaded via `pipeline/download_frequency_list.sh`; SHA-256 pinned in that script | Top-10k word list; determines which words get an L1 LLM call |
-| **GCIDE corpus** | `spikes/morphology-engine/b-skeat-websters/gcide-0.54/` | GCIDE 0.54 (downloaded in Spike B, [#521](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/521)) | L2 etymology overlay source; GPL 3.0+ |
-| **Prompt-v1** | `pipeline/prompt-v1.md` | SHA-256 hash locked in bundle metadata (`prompt_hash` field) | L1 LLM instruction set; changing this file triggers a full rebuild |
+| **SUBTLEX-US frequency list** | Not committed in this repository; provide as a local build input in your working directory | Use the exact SUBTLEX-US release used for the target rebuild and record/pin its SHA-256 alongside the build notes | Top-10k word list; determines which words get an L1 LLM call |
+| **GCIDE corpus** | Not committed in this repository; restore from the Spike B artifact/history referenced in [#521](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/521) or from the upstream GCIDE 0.54 distribution | GCIDE 0.54; record the source archive/checksum used for the rebuild | L2 etymology overlay source; GPL 3.0+ |
+| **Prompt-v1** | Not present in this repository snapshot; use the exact prompt file from the build environment that produced the bundle | SHA-256 hash locked in bundle metadata (`prompt_hash` field); if the prompt changes, the hash changes and a full rebuild is required | L1 LLM instruction set; changing this file triggers a full rebuild |
 
 ### 1.1 Re-downloading source data
 
 ```bash
-# SUBTLEX-US — fetch and pin
-pipeline/download_frequency_list.sh
-
-# GCIDE — already present in the repo from Spike B
-# If missing, re-extract from the spike tarball or re-run Spike B
-ls spikes/morphology-engine/b-skeat-websters/gcide-0.54/
+# This repository snapshot does not include the raw SUBTLEX-US CSV, a download helper,
+# or the GCIDE extraction directory. Obtain them before running a rebuild:
+#
+# 1) SUBTLEX-US:
+#    - Download the approved source file from the upstream distribution used by the team.
+#    - Save it into your local build workspace.
+#    - Record the file SHA-256 in the rebuild notes so the run is reproducible.
+#
+# 2) GCIDE:
+#    - Restore the GCIDE 0.54 corpus from the Spike B artifact/history in issue #521,
+#      or download the matching upstream GCIDE 0.54 release.
+#    - Extract it into your local build workspace.
+#    - Record the archive source and checksum used for the rebuild.
+#
+# 3) Prompt-v1:
+#    - Use the exact prompt file from the build environment used for the previous bundle,
+#      or create the new prompt intentionally and capture its SHA-256 as `prompt_hash`.
+#
+# Before starting the pipeline, verify that all three inputs exist in your local workspace.
 ```
 
 ---
