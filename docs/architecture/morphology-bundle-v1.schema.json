@@ -29,6 +29,10 @@
     "records": {
       "type": "object",
       "description": "Map from lowercase headword to per-word record. Contains all words for which an L1 call was made, including refused (confidence: 'low') words.",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9 '\\-]*$",
+        "description": "Keys must be lowercase headwords (letters, digits, spaces, hyphens, apostrophes)."
+      },
       "additionalProperties": {
         "$ref": "#/$defs/WordRecord"
       }
@@ -39,7 +43,7 @@
       "type": "object",
       "title": "WordRecord",
       "description": "Merged per-word record combining L1 LLM decomposition and optional L2 GCIDE etymology.",
-      "required": ["word", "confidence", "decomposition", "reasoning", "sources"],
+      "required": ["word", "confidence", "decomposition", "sources"],
       "additionalProperties": false,
       "properties": {
         "word": {
@@ -76,22 +80,25 @@
         },
         "reasoning": {
           "type": "string",
-          "description": "LLM chain-of-thought explaining the confidence and morpheme choices. Internal audit field; not displayed to the user."
+          "description": "LLM chain-of-thought explaining the confidence and morpheme choices. Internal audit field — not displayed to the user and should be stripped from production bundles to reduce size."
         },
         "sources": {
           "type": "array",
-          "description": "Ordered list of layers that contributed to this record.",
+          "description": "Ordered list of layers that contributed to this record. L1 model values follow the pattern 'llm-{model-id}'; the non-LLM layer is 'gcide'.",
           "minItems": 1,
+          "uniqueItems": true,
           "items": {
             "type": "string",
-            "enum": ["llm-gemini-2.5-flash", "llm-claude-haiku-4.5", "gcide"]
+            "pattern": "^(gcide|llm-.+)$",
+            "description": "Layer identifier: 'gcide' or any 'llm-{model-id}' string (e.g. 'llm-gemini-2.5-flash', 'llm-claude-haiku-4.5')."
           }
         }
       },
       "if": {
         "properties": {
           "confidence": { "const": "low" }
-        }
+        },
+        "required": ["confidence"]
       },
       "then": {
         "properties": {
@@ -99,7 +106,12 @@
             "maxItems": 0,
             "description": "Must be empty when confidence is 'low'."
           }
-        }
+        },
+        "allOf": [
+          { "not": { "required": ["etymology_note"] } },
+          { "not": { "required": ["etymology_languages"] } },
+          { "not": { "required": ["etymology_source"] } }
+        ]
       },
       "dependentRequired": {
         "etymology_note": ["etymology_languages", "etymology_source"],
@@ -141,8 +153,8 @@
         },
         "source": {
           "type": "string",
-          "enum": ["llm-gemini-2.5-flash", "llm-claude-haiku-4.5", "gcide"],
-          "description": "Which layer produced this morpheme entry. Matches one of the values in the top-level sources array."
+          "pattern": "^(gcide|llm-.+)$",
+          "description": "Which layer produced this morpheme entry: 'gcide' or any 'llm-{model-id}' string. Matches one of the values in the top-level sources array."
         }
       }
     }
