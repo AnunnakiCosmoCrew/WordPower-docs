@@ -1,0 +1,298 @@
+{
+  "agree": 48,
+  "disagree": 0,
+  "skipped": 0,
+  "rate": 1.0,
+  "threshold": 0.95,
+  "pass": true,
+  "detail": [
+    {
+      "word": "transport",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "export",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "important",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "portable",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "prognosis",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "diagnose",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "agnostic",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "telephone",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "photograph",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "biology",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "biography",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "antibiotic",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "geography",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "geology",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "thermometer",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "television",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "microscope",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "autograph",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "cardiology",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "dermatology",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "pediatric",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "democracy",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "philosophy",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "philanthropy",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "chronic",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "chronology",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "synchronize",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "hydrogen",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "oxygen",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "genesis",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "dictionary",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "predict",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "contradict",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "verdict",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "manuscript",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "description",
+      "haiku_verdict": "PARTIAL",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "inscription",
+      "haiku_verdict": "PARTIAL",
+      "sonnet_verdict": "PARTIAL",
+      "agreed": true
+    },
+    {
+      "word": "psychology",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "memorial",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "memory",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "cryptography",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "xenophobia",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "omnivore",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "herbivore",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "carnivore",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "benevolent",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "malevolent",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    },
+    {
+      "word": "renovate",
+      "haiku_verdict": "CORRECT",
+      "sonnet_verdict": "CORRECT",
+      "agreed": true
+    }
+  ]
+}

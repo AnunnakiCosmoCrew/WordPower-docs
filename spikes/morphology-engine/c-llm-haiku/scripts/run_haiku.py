@@ -28,7 +28,8 @@ from _shared import call_decompose, estimate_cost_per_call, load_system_prompt
 MODEL = "claude-haiku-4-5"
 HERE = Path(__file__).resolve().parent
 DATA = HERE.parent / "data"
-RESULTS = HERE.parent / "results"
+_results_dir = os.environ.get("RESULTS_DIR", "results")
+RESULTS = HERE.parent / _results_dir
 
 
 def run_word(client, model, word, system_prompt) -> dict:

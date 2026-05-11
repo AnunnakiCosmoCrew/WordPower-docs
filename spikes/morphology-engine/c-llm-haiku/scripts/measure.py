@@ -25,11 +25,13 @@ with Spike A's MorphyNet result.
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-RESULTS = HERE.parent / "results"
+_results_dir = os.environ.get("RESULTS_DIR", "results")
+RESULTS = HERE.parent / _results_dir
 
 # ---- Scoring helpers -----------------------------------------------------
 

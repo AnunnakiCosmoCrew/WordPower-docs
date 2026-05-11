@@ -1,0 +1,1212 @@
+{
+  "false_root_traps": [
+    {
+      "word": "uncle",
+      "ok": true,
+      "decomposition": {
+        "word": "uncle",
+        "decomposition": [],
+        "confidence": "low",
+        "reasoning": "False-root trap. \"Uncle\" looks as though it might contain the prefix \"un-\" plus some stem \"-cle\", but this is entirely illusory. The word derives from Latin avunculus (mother's brother), itself a diminutive of avus (grandfather). It entered English via Old French oncle. The surface letters \"un-\" and \"-cle\" are simply parts of the borrowed stem — not productive morphemes. Decomposing it would teach a falsehood. REFUSE."
+      },
+      "usage": {
+        "input_tokens": 22,
+        "output_tokens": 191,
+        "cache_creation_input_tokens": 400,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0067104,
+      "category": "false_root_traps",
+      "expected_behavior": "refuse",
+      "expected_morphemes": null,
+      "readings": null,
+      "notes": "NOT un- + cle; from Latin avunculus (mother's brother), diminutive of avus"
+    },
+    {
+      "word": "island",
+      "ok": true,
+      "decomposition": {
+        "word": "island",
+        "decomposition": [],
+        "confidence": "low",
+        "reasoning": "False-root trap. \"Island\" looks like it could be decomposed as \"is-\" + \"land\", but the \"s\" was inserted in the 16th century by folk etymology influence from the unrelated word \"isle\" (from Latin insula). The actual origin is Old English \"iegland\" (īeg = island/water-meadow + land), making the surface \"s\" historically spurious. Teaching \"is- + land\" would convey a false morphological analysis. REFUSE."
+      },
+      "usage": {
+        "input_tokens": 22,
+        "output_tokens": 191,
+        "cache_creation_input_tokens": 400,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0067104,
+      "category": "false_root_traps",
+      "expected_behavior": "refuse",
+      "expected_morphemes": null,
+      "readings": null,
+      "notes": "NOT is- + land; from Old English iegland; the 's' is a 16th-c folk-etymology insertion influenced by 'isle' (which IS Latin-derived)"
+    },
+    {
+      "word": "butter",
+      "ok": true,
+      "decomposition": {
+        "word": "butter",
+        "decomposition": [],
+        "confidence": "low",
+        "reasoning": "False-root trap. \"Butter\" looks like it could be \"butt\" + \"-er\" (agent suffix, \"one who butts\"), but it is actually borrowed from Greek \"boutyron\" via Latin \"butyrum\". The \"-er\" ending is part of the borrowed stem, not a productive English agent suffix. No reliable decomposition is possible."
+      },
+      "usage": {
+        "input_tokens": 22,
+        "output_tokens": 160,
+        "cache_creation_input_tokens": 400,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0062454,
+      "category": "false_root_traps",
+      "expected_behavior": "refuse",
+      "expected_morphemes": null,
+      "readings": null,
+      "notes": "NOT butt + -er (agent suffix); from Greek boutyron (cow + cheese) via Latin butyrum"
+    },
+    {
+      "word": "understand",
+      "ok": true,
+      "decomposition": {
+        "word": "understand",
+        "decomposition": [],
+        "confidence": "low",
+        "reasoning": "Synchronically-decomposable-but-etymologically-opaque trap. \"understand\" comes from Old English \"understandan\", a fixed compound meaning roughly \"stand among/before\" — a spatial metaphor now completely dead. The \"under-\" here is NOT the productive modern prefix meaning \"below\" (as in undermine, underestimate, underdog). Teaching a learner \"under- = below\" applied to \"understand\" would create a false analogy. The word must be treated as a single opaque unit. REFUSE."
+      },
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 197,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0065004,
+      "category": "false_root_traps",
+      "expected_behavior": "refuse",
+      "expected_morphemes": null,
+      "readings": null,
+      "notes": "NOT under + stand; Old English understandan, etymology disputed; should be treated as opaque"
+    },
+    {
+      "word": "breakfast",
+      "ok": true,
+      "decomposition": {
+        "word": "breakfast",
+        "decomposition": [
+          {
+            "morpheme": "break",
+            "type": "root",
+            "meaning": "to break / interrupt",
+            "language": "Germanic"
+          },
+          {
+            "morpheme": "fast",
+            "type": "root",
+            "meaning": "abstinence from food",
+            "language": "Germanic"
+          }
+        ],
+        "confidence": "high",
+        "reasoning": "Breakfast is a straightforward Germanic compound: \"break\" (to interrupt/stop) + \"fast\" (a period of abstinence from eating). The compound is historically transparent and remains synchronically meaningful — breakfast is literally the meal that breaks the overnight fast. Both roots are still fully productive and recognizable in modern English (e.g., \"fast\" → fasting, \"break\" → break). No false-root trap here; the etymology directly supports the surface analysis."
+      },
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 245,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0072204,
+      "category": "false_root_traps",
+      "expected_behavior": "compound_ok_or_refuse",
+      "expected_morphemes": null,
+      "readings": null,
+      "notes": "Technically break + fast (the meal that breaks the overnight fast). Model can reasonably decompose OR refuse — but should not produce false roots like 'breakf-' + '-ast'"
+    },
+    {
+      "word": "noted",
+      "ok": true,
+      "decomposition": {
+        "word": "noted",
+        "decomposition": [
+          {
+            "morpheme": "note",
+            "type": "root",
+            "meaning": "mark, sign, observe",
+            "language": "Latin",
+            "canonical_root": "not-",
+            "etymology": "nota"
+          },
+          {
+            "morpheme": "-ed",
+            "type": "suffix",
+            "meaning": "past tense / past participle",
+            "language": "Germanic"
+          }
+        ],
+        "confidence": "high",
+        "reasoning": "The word \"noted\" clearly decomposes into the Latin root \"note\" (from Latin nota, meaning a mark or sign) plus the Germanic past-tense/past-participle suffix \"-ed\". The root \"note\" is highly productive in English: notable, notation, annotate, denote, connote. The \"-ed\" suffix is one of the most productive suffixes in English. Both morphemes are transparent and learnable."
+      },
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 256,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0073854,
+      "category": "false_root_traps",
+      "expected_behavior": "refuse_or_inflection",
+      "expected_morphemes": null,
+      "readings": null,
+      "notes": "Inflected form of 'note', not morphologically interesting at root level. confidence:low or simple note + -ed inflection both acceptable"
+    },
+    {
+      "word": "nothing",
+      "ok": true,
+      "decomposition": {
+        "word": "nothing",
+        "decomposition": [
+          {
+            "morpheme": "no",
+            "type": "prefix",
+            "meaning": "not, zero, none",
+            "language": "Germanic"
+          },
+          {
+            "morpheme": "thing",
+            "type": "root",
+            "meaning": "object, entity, matter",
+            "language": "Germanic"
+          }
+        ],
+        "confidence": "high",
+        "reasoning": "The word \"nothing\" is a transparent Germanic compound: \"no\" (not/none) + \"thing\" (object/entity), from Old English \"naþing\" / \"nan þing\" (literally \"no thing\"). Both parts are fully productive and recognizable in modern English — learners immediately connect \"no\" to negation and \"thing\" to the modern word \"thing\". This decomposition teaches a real, live pattern."
+      },
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 234,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0070554,
+      "category": "false_root_traps",
+      "expected_behavior": "refuse_or_compound",
+      "expected_morphemes": null,
+      "readings": null,
+      "notes": "Historically no + thing (compound). Acceptable to identify as compound, but should NOT decompose as 'noth-' + '-ing' or pretend a 'noth' root exists"
+    },
+    {
+      "word": "forget",
+      "ok": true,
+      "decomposition": {
+        "word": "forget",
+        "decomposition": [],
+        "confidence": "low",
+        "reasoning": "False-root / synchronically opaque trap. \"Forget\" comes from Old English forgietan. The \"for-\" is an obsolete Germanic intensifier/completive prefix entirely unrelated to the modern preposition or conjunction \"for\". The \"-get\" is equally unrelated to the modern verb \"get\" (Old Norse geta). The compound is historically fixed and both parts are etymologically opaque to modern English speakers. Teaching a learner \"for- + get\" would imply a live productive pattern that simply does not exist. REFUSE."
+      },
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 199,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0065304,
+      "category": "false_root_traps",
+      "expected_behavior": "refuse",
+      "expected_morphemes": null,
+      "readings": null,
+      "notes": "Old English forgietan; 'for-' here is an obsolete prefix meaning 'away/utterly', 'get' is unrelated to modern get. Synchronically opaque"
+    },
+    {
+      "word": "forty",
+      "ok": true,
+      "decomposition": {
+        "word": "forty",
+        "decomposition": [],
+        "confidence": "low",
+        "reasoning": "False-root trap. \"Forty\" looks like it could be \"for-\" + \"-ty\", but it is an irregular survival from Old English \"feowertig\" (four + a group of ten). The surface form \"for-\" bears no relation to the modern preposition \"for\", and the \"-ty\" is a reduced form of \"-tig\" (a Germanic group-of-ten suffix) that is not the same productive suffix visible in, say, \"sixty\" or \"seventy\" in a way that teaches a useful morphological pattern. The word is historically opaque at the surface level — notably, \"four\" became \"for-\" through an irregular sound change unique to this word (compare \"fourteen\" which retained the \"four-\"). Teaching \"for- + ty\" would mislead the learner. REFUSE."
+      },
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 259,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0074304,
+      "category": "false_root_traps",
+      "expected_behavior": "refuse",
+      "expected_morphemes": null,
+      "readings": null,
+      "notes": "NOT for + ty; from Old English feowertig (four-tig); 'forty' is the only English number that drops the 'u' from 'four'. Synchronically opaque"
+    },
+    {
+      "word": "office",
+      "ok": true,
+      "decomposition": {
+        "word": "office",
+        "decomposition": [],
+        "confidence": "low",
+        "reasoning": "False-root trap. \"Office\" looks like it could be segmented as \"off-\" + \"-ice\", but it is actually from Latin \"officium\" (duty, service), itself a contraction of \"opificium\" (from \"opus\" = work + \"facere\" = do/make). The surface form in English gives no reliable access to these Latin roots — \"off-\" is not the preposition, and \"-ice\" is not a suffix. Teaching any segmentation here would mislead the learner. REFUSE."
+      },
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 197,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0065004,
+      "category": "false_root_traps",
+      "expected_behavior": "refuse",
+      "expected_morphemes": null,
+      "readings": null,
+      "notes": "NOT off + ice; from Latin officium (duty/service), from opus + facere. Synchronically opaque to English speakers"
+    }
+  ],
+  "multi_layer": [
+    {
+      "word": "unimportant",
+      "ok": true,
+      "decomposition": {
+        "word": "unimportant",
+        "decomposition": [
+          {
+            "morpheme": "un-",
+            "type": "prefix",
+            "meaning": "not",
+            "language": "Germanic"
+          },
+          {
+            "morpheme": "im-",
+            "type": "prefix",
+            "meaning": "in, into / not",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "port",
+            "type": "root",
+            "meaning": "carry",
+            "language": "Latin",
+            "canonical_root": "port-",
+            "etymology": "portāre"
+          },
+          {
+            "morpheme": "-ant",
+            "type": "suffix",
+            "meaning": "causing, having quality of",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "-t",
+            "type": "suffix",
+            "meaning": "(part of adjectival ending, see -ant)",
+            "language": "Latin"
+          }
+        ],
+        "confidence": "high",
+        "reasoning": "The word \"unimportant\" is a clean, productive stack: un- (Germanic \"not\") + important (from Latin importare = im- \"in/into\" + port- \"carry\"). The suffix -ant forms an adjective from the verb import. The full chain is transparent to a modern English learner and each morpheme is productive: un- appears in unhappy/unclear, im- in impossible/impractical, port- in transport/export/portable, and -ant in relevant/significant. High confidence."
+      },
+      "usage": {
+        "input_tokens": 425,
+        "output_tokens": 371,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0091194,
+      "category": "multi_layer",
+      "expected_behavior": null,
+      "expected_morphemes": [
+        "un-",
+        "important"
+      ],
+      "readings": null,
+      "notes": "un- (not) + important (Latin port- carry)"
+    },
+    {
+      "word": "internationalization",
+      "ok": true,
+      "decomposition": {
+        "word": "internationalization",
+        "decomposition": [
+          {
+            "morpheme": "inter-",
+            "type": "prefix",
+            "meaning": "between / among",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "nation",
+            "type": "root",
+            "meaning": "nation / birth",
+            "language": "Latin",
+            "canonical_root": "nation-",
+            "etymology": "natio"
+          },
+          {
+            "morpheme": "-al",
+            "type": "suffix",
+            "meaning": "relating to",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "-ize",
+            "type": "suffix",
+            "meaning": "make / cause to become",
+            "language": "Greek"
+          },
+          {
+            "morpheme": "-ation",
+            "type": "suffix",
+            "meaning": "process / result of",
+            "language": "Latin"
+          }
+        ],
+        "confidence": "high",
+        "reasoning": "Classic multi-layer Latin/Greek stack. inter- + nation + -al builds \"international\" (adjective meaning \"between nations\"); adding -ize converts it to a verb \"internationalize\" (to make international); adding -ation nominalises the verb into the final noun. All five morphemes are highly productive in modern English. -ize and -ation are emitted as SEPARATE suffixes — never merged into \"-ization\" — so the learner can connect each to other words independently."
+      },
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 423,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0098934,
+      "category": "multi_layer",
+      "expected_behavior": null,
+      "expected_morphemes": [
+        "inter-",
+        "nation",
+        "-al",
+        "-ize",
+        "-ation"
+      ],
+      "readings": null,
+      "notes": "Classic 5-morpheme example (i18n)"
+    },
+    {
+      "word": "denationalization",
+      "ok": true,
+      "decomposition": {
+        "word": "denationalization",
+        "decomposition": [
+          {
+            "morpheme": "de-",
+            "type": "prefix",
+            "meaning": "remove, reverse, undo",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "nation",
+            "type": "root",
+            "meaning": "nation / birth",
+            "language": "Latin",
+            "canonical_root": "nation-",
+            "etymology": "natio"
+          },
+          {
+            "morpheme": "-al",
+            "type": "suffix",
+            "meaning": "relating to",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "-ize",
+            "type": "suffix",
+            "meaning": "make, cause to become",
+            "language": "Greek"
+          },
+          {
+            "morpheme": "-ation",
+            "type": "suffix",
+            "meaning": "process or result of",
+            "language": "Latin"
+          }
+        ],
+        "confidence": "high",
+        "reasoning": "A classic multi-layer Latin/Greek stack. The base root is Latin \"natio\" (nation/birth). Layering proceeds: nation + -al → \"national\" (adjective); + -ize → \"nationalize\" (verb, \"make national/state-owned\"); + -ation → \"nationalization\" (noun, the process); de- + nationalization → \"denationalization\" (the reversal/undoing of that process). All five morphemes are productive in modern English and well-recognized by learners. The suffixes -ize and -ation must be kept separate (not merged into -ization) so the learner can connect each to other words independently."
+      },
+      "usage": {
+        "input_tokens": 424,
+        "output_tokens": 469,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0105864,
+      "category": "multi_layer",
+      "expected_behavior": null,
+      "expected_morphemes": [
+        "de-",
+        "nation",
+        "-al",
+        "-ize",
+        "-ation"
+      ],
+      "readings": null,
+      "notes": "Reverses nationalization"
+    },
+    {
+      "word": "counterintuitive",
+      "ok": true,
+      "decomposition": {
+        "word": "counterintuitive",
+        "decomposition": [
+          {
+            "morpheme": "counter-",
+            "type": "prefix",
+            "meaning": "against, opposing",
+            "language": "Latin",
+            "etymology": "contra-"
+          },
+          {
+            "morpheme": "in-",
+            "type": "prefix",
+            "meaning": "into, inward",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "tuit",
+            "type": "root",
+            "meaning": "look at, contemplate",
+            "language": "Latin",
+            "canonical_root": "tuit-",
+            "etymology": "tueri"
+          },
+          {
+            "morpheme": "-ive",
+            "type": "suffix",
+            "meaning": "tending to, having the quality of",
+            "language": "Latin"
+          }
+        ],
+        "confidence": "high",
+        "reasoning": "The word breaks cleanly into four productive morphemes. counter- (from Latin contra-, \"against\") is a live English prefix seen in counteract, counterpart, counterproductive. in- is the Latin prefix \"into/inward\" (not the negating in-), seen in intuit, inspect, involve. The root tuit- comes from Latin tueri (\"to look at, watch over\"), which gives us intuition, tutor, tutelage. The suffix -ive is a standard Latin adjectival suffix meaning \"tending to / having the quality of\", seen in active, creative, attractive. Together: \"going against (what) looking inward (suggests)\" — i.e., against what intuition tells you. All morphemes are productive and learnable."
+      },
+      "usage": {
+        "input_tokens": 425,
+        "output_tokens": 459,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0104394,
+      "category": "multi_layer",
+      "expected_behavior": null,
+      "expected_morphemes": [
+        "counter-",
+        "intuit",
+        "-ive"
+      ],
+      "readings": null,
+      "notes": "counter- + intuit (Latin in- + tueri) + -ive"
+    },
+    {
+      "word": "predetermination",
+      "ok": true,
+      "decomposition": {
+        "word": "predetermination",
+        "decomposition": [
+          {
+            "morpheme": "pre-",
+            "type": "prefix",
+            "meaning": "before",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "de-",
+            "type": "prefix",
+            "meaning": "down, thoroughly",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "termin",
+            "type": "root",
+            "meaning": "limit, boundary, end",
+            "language": "Latin",
+            "canonical_root": "termin-",
+            "etymology": "terminus"
+          },
+          {
+            "morpheme": "-ate",
+            "type": "suffix",
+            "meaning": "cause to be / make",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "-ion",
+            "type": "suffix",
+            "meaning": "process or result of",
+            "language": "Latin"
+          }
+        ],
+        "confidence": "high",
+        "reasoning": "Clean Latin stack with four productive morphemes. pre- (\"before\") is a live prefix seen in predict, prepare, preview. de- (\"thoroughly/down\") is a live prefix seen in define, decide, demolish. The root termin- (\"limit/boundary\") from Latin terminus is productive in English: terminal, terminate, determine, exterminate. -ate is a standard Latin verb-forming suffix (as in create, activate). -ion nominalises the verb \"predetermine\" → \"predetermination\", and is one of the most productive suffixes in English. All five morphemes are individually recognisable and teach genuine cross-word patterns."
+      },
+      "usage": {
+        "input_tokens": 424,
+        "output_tokens": 392,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0094314,
+      "category": "multi_layer",
+      "expected_behavior": null,
+      "expected_morphemes": [
+        "pre-",
+        "de-",
+        "termin",
+        "-ation"
+      ],
+      "readings": null,
+      "notes": "Multiple Latin prefixes on Latin root termin-"
+    },
+    {
+      "word": "antidisestablishmentarian",
+      "ok": true,
+      "decomposition": {
+        "word": "antidisestablishmentarian",
+        "decomposition": [
+          {
+            "morpheme": "anti-",
+            "type": "prefix",
+            "meaning": "against",
+            "language": "Greek"
+          },
+          {
+            "morpheme": "dis-",
+            "type": "prefix",
+            "meaning": "apart, reverse of",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "establish",
+            "type": "root",
+            "meaning": "set up firmly, found",
+            "language": "Latin",
+            "canonical_root": "stabilis-",
+            "etymology": "stabilire"
+          },
+          {
+            "morpheme": "-ment",
+            "type": "suffix",
+            "meaning": "result or process of an action",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "-arian",
+            "type": "suffix",
+            "meaning": "one who believes in or supports",
+            "language": "Latin"
+          }
+        ],
+        "confidence": "high",
+        "reasoning": "This famous long word is a genuine layered derivation, not a false-root trap. It can be built up step by step:\n1. \"establish\" — from Old French establir, from Latin stabilire (to make firm), from stabilis (stable). A well-recognised English verb.\n2. + \"-ment\" → \"establishment\" (the institution or system that has been set up; specifically, the Church of England as the state church).\n3. \"dis-\" + \"establishment\" → \"disestablishment\" (the act of removing the Church of England's status as the state church).\n4. \"anti-\" + \"disestablishment\" → \"antidisestablishment\" (opposition to disestablishment).\n5. + \"-arian\" → \"antidisestablishmentarian\" (one who holds that position).\nAll five morphemes are productive in modern English: anti- (antibiotic, antisocial), dis- (disagree, disconnect), -ment (movement, government), -arian (libertarian, vegetarian, authoritarian). The root \"establish\" is a fully transparent English word. No false-root or frozen-compound issues here. Confidence is high."
+      },
+      "usage": {
+        "input_tokens": 428,
+        "output_tokens": 526,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.011453399999999999,
+      "category": "multi_layer",
+      "expected_behavior": null,
+      "expected_morphemes": [
+        "anti-",
+        "dis-",
+        "establish",
+        "-ment",
+        "-arian"
+      ],
+      "readings": null,
+      "notes": "Famous edge case; multi-prefix + nominalization + agent suffix"
+    },
+    {
+      "word": "reorganization",
+      "ok": true,
+      "decomposition": {
+        "word": "reorganization",
+        "decomposition": [
+          {
+            "morpheme": "re-",
+            "type": "prefix",
+            "meaning": "again, back",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "organ",
+            "type": "root",
+            "meaning": "instrument, tool, system",
+            "language": "Greek",
+            "canonical_root": "organ-",
+            "etymology": "organon"
+          },
+          {
+            "morpheme": "-ize",
+            "type": "suffix",
+            "meaning": "make, cause to become",
+            "language": "Greek"
+          },
+          {
+            "morpheme": "-ation",
+            "type": "suffix",
+            "meaning": "process or result of",
+            "language": "Latin"
+          }
+        ],
+        "confidence": "high",
+        "reasoning": "Clear, productive morpheme stack. re- (Latin prefix \"again\") + organ (Greek root \"instrument/system\") + -ize (Greek suffix \"make/cause to become\") + -ation (Latin suffix \"process/result of\"). All four morphemes are independently productive in modern English (re- in rebuild, rethink; organ- in organize, organism; -ize in modernize, capitalize; -ation in education, creation). The suffixes -ize and -ation must be kept separate per the chained-suffix rule."
+      },
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 344,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0087084,
+      "category": "multi_layer",
+      "expected_behavior": null,
+      "expected_morphemes": [
+        "re-",
+        "organ",
+        "-ize",
+        "-ation"
+      ],
+      "readings": null,
+      "notes": "re- + organ (Greek organon) + -ize + -ation"
+    },
+    {
+      "word": "misinterpretation",
+      "ok": true,
+      "decomposition": {
+        "word": "misinterpretation",
+        "decomposition": [
+          {
+            "morpheme": "mis-",
+            "type": "prefix",
+            "meaning": "wrongly / badly",
+            "language": "Germanic"
+          },
+          {
+            "morpheme": "inter-",
+            "type": "prefix",
+            "meaning": "between / among",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "pret",
+            "type": "root",
+            "meaning": "explain / understand",
+            "language": "Latin",
+            "canonical_root": "pret-",
+            "etymology": "praetium / interpretari"
+          },
+          {
+            "morpheme": "-ation",
+            "type": "suffix",
+            "meaning": "process / result of",
+            "language": "Latin"
+          }
+        ],
+        "confidence": "high",
+        "reasoning": "The word breaks cleanly into four productive morphemes: mis- (wrongly, as in misbehave, misunderstand-the-prefix-at-least, misuse), inter- (between/among, as in international, intervene), the Latin root -pret- from interpretari (to explain, expound), and the nominalising suffix -ation. The root -pret- is less independently common than port- or dict-, but it is stable and unambiguous within \"interpret\" and its derivatives (interpret, interpretation, interpreter). The layering is transparent: inter+pret = interpret → misinterpret → misinterpretation. Confidence is high because all four morphemes are productive and the etymology is uncontroversial."
+      },
+      "usage": {
+        "input_tokens": 426,
+        "output_tokens": 395,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0094824,
+      "category": "multi_layer",
+      "expected_behavior": null,
+      "expected_morphemes": [
+        "mis-",
+        "inter-",
+        "pret",
+        "-ation"
+      ],
+      "readings": null,
+      "notes": "mis- + inter- + Latin pret- (price/value, from interpres) + -ation"
+    },
+    {
+      "word": "incomprehensibility",
+      "ok": true,
+      "decomposition": {
+        "word": "incomprehensibility",
+        "decomposition": [
+          {
+            "morpheme": "in-",
+            "type": "prefix",
+            "meaning": "not",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "com-",
+            "type": "prefix",
+            "meaning": "together, with",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "prehens",
+            "type": "root",
+            "meaning": "grasp, seize",
+            "language": "Latin",
+            "canonical_root": "prehend-",
+            "etymology": "prehendere"
+          },
+          {
+            "morpheme": "-ible",
+            "type": "suffix",
+            "meaning": "capable of being",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "-ity",
+            "type": "suffix",
+            "meaning": "state or quality of",
+            "language": "Latin"
+          }
+        ],
+        "confidence": "high",
+        "reasoning": "\nThis is a classic Latin stack built in clear historical layers:\n1. The root is Latin prehendere (\"to grasp/seize\") → appearing as \"prehens\" in its participial stem form. This root is productive and visible in \"comprehend\", \"apprehend\", \"reprehensible\".\n2. The prefix com- (\"together, with\") fuses with the root to form \"comprehens-\", meaning \"grasp together / take in fully\" — the basis for \"comprehend\", \"comprehension\".\n3. The prefix in- (\"not\") negates the whole: \"incomprehens-\" = \"not able to be grasped\".\n4. The suffix -ible (\"capable of being\") forms the adjective \"incomprehensible\".\n5. The suffix -ity (\"state or quality of\") nominalises the adjective into \"incomprehensibility\".\nEach morpheme is productive in modern English and learnable. Emit -ible and -ity as SEPARATE suffixes.\n"
+      },
+      "usage": {
+        "input_tokens": 425,
+        "output_tokens": 486,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0108444,
+      "category": "multi_layer",
+      "expected_behavior": null,
+      "expected_morphemes": [
+        "in-",
+        "com-",
+        "prehens",
+        "-ible",
+        "-ity"
+      ],
+      "readings": null,
+      "notes": "Negation + Latin compound + adjectival + nominal"
+    },
+    {
+      "word": "unpredictability",
+      "ok": true,
+      "decomposition": {
+        "word": "unpredictability",
+        "decomposition": [
+          {
+            "morpheme": "un-",
+            "type": "prefix",
+            "meaning": "not",
+            "language": "Germanic"
+          },
+          {
+            "morpheme": "pre-",
+            "type": "prefix",
+            "meaning": "before",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "dict",
+            "type": "root",
+            "meaning": "say, tell",
+            "language": "Latin",
+            "canonical_root": "dict-",
+            "etymology": "dicere"
+          },
+          {
+            "morpheme": "-able",
+            "type": "suffix",
+            "meaning": "capable of being",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "-ity",
+            "type": "suffix",
+            "meaning": "state or quality of",
+            "language": "Latin"
+          }
+        ],
+        "confidence": "high",
+        "reasoning": "This is a well-layered Latin/Germanic stack built up productively in clear steps: (1) dict- (Latin dicere, \"to say/tell\") is a highly productive root visible in dictate, predict, verdict, diction; (2) pre- + dict = \"predict\" (say before); (3) predict + -able = \"predictable\" (capable of being predicted); (4) un- + predictable = \"unpredictable\" (not capable of being predicted); (5) unpredictable + -ity = \"unpredictability\" (the state of being unpredictable). Each morpheme is independently productive in modern English. Emit -able and -ity as separate suffixes."
+      },
+      "usage": {
+        "input_tokens": 425,
+        "output_tokens": 407,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0096594,
+      "category": "multi_layer",
+      "expected_behavior": null,
+      "expected_morphemes": [
+        "un-",
+        "pre-",
+        "dict",
+        "-able",
+        "-ity"
+      ],
+      "readings": null,
+      "notes": "un- + pre- + Latin dict- (say/speak) + -able + -ity"
+    }
+  ],
+  "ambiguous": [
+    {
+      "word": "unlockable",
+      "ok": true,
+      "decomposition": {
+        "word": "unlockable",
+        "decomposition": [
+          {
+            "morpheme": "un-",
+            "type": "prefix",
+            "meaning": "not / reverse of",
+            "language": "Germanic"
+          },
+          {
+            "morpheme": "lock",
+            "type": "root",
+            "meaning": "fasten / secure with a lock",
+            "language": "Germanic"
+          },
+          {
+            "morpheme": "-able",
+            "type": "suffix",
+            "meaning": "capable of being",
+            "language": "Latin"
+          }
+        ],
+        "confidence": "medium",
+        "reasoning": "The word contains three clearly identifiable morphemes: the Germanic prefix un-, the Germanic root lock, and the Latin suffix -able. However, the word is structurally ambiguous: it can be parsed as un-(lockable), meaning \"cannot be locked\", or as (unlock)-able, meaning \"capable of being unlocked\". Both readings use the same three morphemes in the same order, so the decomposition itself is not in dispute — only the semantic bracketing is. Medium confidence reflects this ambiguity rather than any uncertainty about the morphemes themselves."
+      },
+      "usage": {
+        "input_tokens": 424,
+        "output_tokens": 296,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0079914,
+      "category": "ambiguous",
+      "expected_behavior": null,
+      "expected_morphemes": null,
+      "readings": [
+        "un-(lock-able): cannot be locked",
+        "(unlock)-able: can be unlocked"
+      ],
+      "notes": "Classic ambiguity; both readings valid. Model should pick one and note ambiguity, or flag confidence:medium"
+    },
+    {
+      "word": "unmade",
+      "ok": true,
+      "decomposition": {
+        "word": "unmade",
+        "decomposition": [
+          {
+            "morpheme": "un-",
+            "type": "prefix",
+            "meaning": "reverse of / not",
+            "language": "Germanic"
+          },
+          {
+            "morpheme": "made",
+            "type": "root",
+            "meaning": "constructed / brought into being",
+            "language": "Germanic"
+          }
+        ],
+        "confidence": "high",
+        "reasoning": "A clean, live Germanic formation: the productive prefix un- (reverse action / negation) attaches to the past-participial form \"made\" (from Old English macian, \"to make\"). Both elements are fully transparent to modern English speakers. un- is widely productive (undo, untie, unfold, unwrap) and \"made\" is the standard past participle of \"make\". The compound means \"not made\" or \"having been reversed from a made state\" — exactly the kind of decomposition that helps a learner recognize the un- prefix in other words."
+      },
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 270,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0075984,
+      "category": "ambiguous",
+      "expected_behavior": null,
+      "expected_morphemes": null,
+      "readings": [
+        "un-(made): not made / never created",
+        "(unmake)-d: past tense of unmake (to undo)"
+      ],
+      "notes": "Both readings are real English; context-dependent"
+    },
+    {
+      "word": "unionized",
+      "ok": true,
+      "decomposition": {
+        "word": "unionized",
+        "decomposition": [
+          {
+            "morpheme": "uni",
+            "type": "root",
+            "meaning": "one / single",
+            "language": "Latin",
+            "canonical_root": "uni-",
+            "etymology": "unus"
+          },
+          {
+            "morpheme": "-on",
+            "type": "suffix",
+            "meaning": "(noun-forming, denoting a group or unit)",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "-ize",
+            "type": "suffix",
+            "meaning": "make / cause to become",
+            "language": "Greek"
+          },
+          {
+            "morpheme": "-ed",
+            "type": "suffix",
+            "meaning": "past tense / having been",
+            "language": "Germanic"
+          }
+        ],
+        "confidence": "medium",
+        "reasoning": "The word \"unionized\" is built transparently on the noun \"union\" (Latin uni- \"one\" + -on noun suffix) + -ize (Greek, \"make/cause to become\") + -ed (Germanic past tense/participial suffix). All morphemes are productive in modern English and the decomposition is etymologically sound. Confidence is \"medium\" rather than \"high\" because of a well-known surface ambiguity: \"unionized\" can be parsed as either (1) union + -ize + -ed (\"organized into a union\") or (2) un- + ionized (\"not ionized\", a chemistry term). Both readings share an identical surface form. Since the morpheme inventory differs between the two readings, this ambiguity warrants medium confidence. The decomposition provided reflects the \"labor union\" reading, which is the more common everyday sense."
+      },
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 470,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.010598400000000001,
+      "category": "ambiguous",
+      "expected_behavior": null,
+      "expected_morphemes": null,
+      "readings": [
+        "union-ized: organized into a union (labor)",
+        "un-ionized: not ionized (chemistry)"
+      ],
+      "notes": "Famous garden-path word; identical orthography, different morphology"
+    },
+    {
+      "word": "discover",
+      "ok": true,
+      "decomposition": {
+        "word": "discover",
+        "decomposition": [],
+        "confidence": "low",
+        "reasoning": "Synchronically opaque compound. Etymologically from Old French \"descovrir\" (dis- + covrir, \"to uncover\"), and one could segment it as dis- + cover. However, the modern meaning \"to find out / come upon something new\" is semantically drifted far from any literal \"un-covering\" sense that a learner would recognize. The \"dis-\" here would normally mean \"apart/not\", but \"discover\" does not mean \"not cover\" — it functions as a single semantic unit meaning \"find out\". Teaching a learner \"dis- = apart + cover = cover\" for this word would create a false analogy, suggesting the word is compositionally transparent when it is not. The surface decomposition does not reliably help a learner understand or remember the word's meaning. Refusing per the guideline for synchronically opaque words."
+      },
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 269,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0075804,
+      "category": "ambiguous",
+      "expected_behavior": null,
+      "expected_morphemes": null,
+      "readings": [
+        "dis-cover: remove the cover (etymological)",
+        "discover: find out (modern, opaque)"
+      ],
+      "notes": "Synchronically opaque; etymologically dis- + cover. Model could decompose or treat as opaque"
+    },
+    {
+      "word": "recover",
+      "ok": true,
+      "decomposition": {
+        "word": "recover",
+        "decomposition": [
+          {
+            "morpheme": "re-",
+            "type": "prefix",
+            "meaning": "again, back",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "cover",
+            "type": "root",
+            "meaning": "get, obtain / come to",
+            "language": "Latin",
+            "canonical_root": "recuper-",
+            "etymology": "recuperāre"
+          }
+        ],
+        "confidence": "medium",
+        "reasoning": "The word \"recover\" comes from Old French \"recovrer\" and Latin \"recuperāre\" (to get back, regain). The \"re-\" prefix meaning \"back/again\" is live and productive in modern English. The stem \"-cover\" here does NOT derive from the English word \"cover\" (to place a lid on); rather, it descends from Latin \"recuperāre\" via Old French. However, \"re-\" is clearly the productive prefix meaning \"again/back\", and the meaning of the whole word (\"get back to health / regain something\") is transparently \"again + get back\", which is reinforced by the re- prefix. The stem \"cover\" in this word is not the same as the English \"cover\" but is phonologically identical, making this semi-opaque. Medium confidence is appropriate: the re- prefix is genuinely productive and helpful to learners, but the base \"-cover\" is not a standalone productive root — it is a relic of the Latin stem. A partial decomposition showing re- is still useful and not misleading, as long as the learner understands the base is Latin-derived, not the English word \"cover\"."
+      },
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 416,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0097854,
+      "category": "ambiguous",
+      "expected_behavior": null,
+      "expected_morphemes": null,
+      "readings": [
+        "re-cover: cover again (literal)",
+        "recover: regain (modern, opaque)"
+      ],
+      "notes": "Same pattern as discover; two living senses"
+    },
+    {
+      "word": "inflammable",
+      "ok": true,
+      "decomposition": {
+        "word": "inflammable",
+        "decomposition": [
+          {
+            "morpheme": "in-",
+            "type": "prefix",
+            "meaning": "into, upon (intensifier)",
+            "language": "Latin"
+          },
+          {
+            "morpheme": "flamm",
+            "type": "root",
+            "meaning": "flame, fire",
+            "language": "Latin",
+            "canonical_root": "flamm-",
+            "etymology": "flamma"
+          },
+          {
+            "morpheme": "-able",
+            "type": "suffix",
+            "meaning": "capable of being",
+            "language": "Latin"
+          }
+        ],
+        "confidence": "high",
+        "reasoning": "\n\"Inflammable\" comes from Latin \"inflammare\" (to set on fire, to kindle), itself from \"in-\" (into/upon, used here as an intensifier) + \"flamma\" (flame). The \"-able\" suffix is the standard Latin-derived English suffix meaning \"capable of being.\" \n\nCrucially, the \"in-\" here is NOT the negating prefix (as in \"invisible\", \"inactive\") — it is the directional/intensifying \"in-\" meaning \"into/upon.\" This is a well-known source of confusion: \"inflammable\" and \"flammable\" mean the same thing (capable of catching fire). The morphemes are all productive and recognizable, making this a genuinely valuable decomposition for a learner — especially because it corrects the common misconception that \"in-\" here means \"not.\"\n"
+      },
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 422,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.009878399999999999,
+      "category": "ambiguous",
+      "expected_behavior": null,
+      "expected_morphemes": null,
+      "readings": [
+        "in-flammable: not flammable (folk reading)",
+        "inflam(e)-able: capable of being inflamed (correct)"
+      ],
+      "notes": "Famous false-prefix trap; in- here is Latin intensifier, not negation. Model should ideally choose the correct reading or flag ambiguity"
+    },
+    {
+      "word": "cleave",
+      "ok": true,
+      "decomposition": {
+        "word": "cleave",
+        "decomposition": [],
+        "confidence": "low",
+        "reasoning": "Single-morpheme word. \"Cleave\" is a native Old English word (cleofan / clifian) with no productive prefix, root, or suffix that a modern learner could identify and connect to other English words. Notably, it is also a classic \"auto-antonym\" — it means both \"to split apart\" and \"to cling together\" — but that semantic curiosity doesn't change the morphological reality: there are no separable morphemes here. Refuse."
+      },
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 188,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0063684,
+      "category": "ambiguous",
+      "expected_behavior": null,
+      "expected_morphemes": null,
+      "readings": [
+        "cleave (split): one root",
+        "cleave (cling to): different OE root"
+      ],
+      "notes": "Auto-antonym from two homonymous Old English verbs. Not really decomposable; flag or refuse"
+    },
+    {
+      "word": "oversight",
+      "ok": true,
+      "decomposition": {
+        "word": "oversight",
+        "decomposition": [
+          {
+            "morpheme": "over-",
+            "type": "prefix",
+            "meaning": "above, beyond",
+            "language": "Germanic"
+          },
+          {
+            "morpheme": "sight",
+            "type": "root",
+            "meaning": "act of seeing / vision",
+            "language": "Germanic"
+          }
+        ],
+        "confidence": "medium",
+        "reasoning": "The morphemes over- and sight are both Germanic and individually recognizable to modern English speakers. However, the word is semantically interesting — it has two near-opposite meanings: (1) watchful supervision (\"under the committee's oversight\") and (2) an inadvertent failure to notice something (\"it was an oversight on my part\"). Neither meaning follows straightforwardly from \"over- = above\" + \"sight = seeing\"; a learner might expect it simply to mean \"looking over something carefully\", which only partially maps to sense 1 and not at all to sense 2. The morphology is transparent but the semantics are semi-opaque, warranting medium confidence."
+      },
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 289,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0078804,
+      "category": "ambiguous",
+      "expected_behavior": null,
+      "expected_morphemes": null,
+      "readings": [
+        "over-sight: supervision (positive)",
+        "over-sight: failure to notice (negative)"
+      ],
+      "notes": "Same morphology, opposite meanings. Decomposition is unambiguous (over + sight); meaning is not"
+    },
+    {
+      "word": "sanction",
+      "ok": true,
+      "decomposition": {
+        "word": "sanction",
+        "decomposition": [],
+        "confidence": "low",
+        "reasoning": "Single-morpheme word borrowed as a whole from Latin \"sanctio\" (an ordinance, a decree making something sacred or inviolable), derived from \"sancire\" (to make sacred/inviolable). While Latin has the root \"sanct-\" (sacred/holy), \"sanction\" in English is not a productive decomposition — the \"-ion\" here is not the live English nominalising suffix added to an English verb; it was already baked into the Latin noun \"sanctio\" before it was borrowed. Teaching a learner \"-ion = process of\" applied to a stem \"sanct-\" would be misleading, since there is no English verb *\"sanct\" to nominalise. This is a case of a derivationally opaque borrowed noun that looks like it has a suffix but doesn't productively decompose in English."
+      },
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 266,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0075384,
+      "category": "ambiguous",
+      "expected_behavior": null,
+      "expected_morphemes": null,
+      "readings": [
+        "sanction: official approval",
+        "sanction: penalty"
+      ],
+      "notes": "Auto-antonym; same single morpheme with two meanings. Not decomposable"
+    },
+    {
+      "word": "dust",
+      "ok": true,
+      "decomposition": {
+        "word": "dust",
+        "decomposition": [],
+        "confidence": "low",
+        "reasoning": "Single-morpheme word. \"Dust\" comes from Old English \"dūst\", a simple Germanic root with no meaningful affixes to separate. There are no prefixes or suffixes to identify, and the root itself is not productively combined with other morphemes in a way that would benefit a learner. Refuse — never invent fake roots."
+      },
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 157,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 7598
+      },
+      "cost_usd": 0.0059004,
+      "category": "ambiguous",
+      "expected_behavior": null,
+      "expected_morphemes": null,
+      "readings": [
+        "dust (verb, remove dust)",
+        "dust (verb, apply dust as in baking)"
+      ],
+      "notes": "Auto-antonym verb; same single morpheme with opposite meanings. Not decomposable"
+    }
+  ]
+}
