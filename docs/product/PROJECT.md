@@ -204,6 +204,14 @@ mindmap
       Daily Life
 ```
 
+> [!info]- Auto-suggest classifier vs. user-facing labels
+>
+> The 15-leaf hierarchy above is the **canonical, user-facing taxonomy** — every domain chip, filter, and browse surface displays a hierarchy-leaf label.
+>
+> The auto-suggest classifier ([WP-664](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/664), recommended by [WP-655 spike §5.4](https://github.com/AnunnakiCosmoCrew/WordPower-docs/blob/main/spikes/embedding-domain-suggestions/FINDINGS.md#54-divergence-from-projectmd)) operates internally on a **flat 10-domain pragmatic list** (Law, Business, Finance, Engineering, Medicine, Science, Technology, Learning, Arts, Daily Life, + `Other`). Flat codes are an implementation detail and are never shown to users — the picker resolves each flat code to its hierarchy leaf via the mapping in [[DOMAIN_TAXONOMY_MAPPING]] before display.
+>
+> Decision recorded in [WP-665](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/665) on 2026-05-15.
+
 #### Axis 2: CEFR Levels
 
 | Level | Label | Example words |
