@@ -2,7 +2,7 @@
 
 **Question:** Are embedding-based domain suggestions worth the infra cost vs the existing keyword→domain heuristic?
 
-**TL;DR — Defer to a stronger keyword classifier; revisit embeddings if accuracy ceiling matters.** Cost is not the blocker (embeddings are essentially free at notebook scale). The blocker is that a well-curated keyword list already gets to a ceiling that's close to the realistic ground-truth agreement rate on this task, and the marginal accuracy headroom an embedding model can claim is small. Ship a 15-domain extension of the existing `DomainClassifier` first. Open a follow-up issue to re-run this spike with `OPENAI_API_KEY` set and compare embedding numbers head-to-head before committing to the vector pipeline.
+**TL;DR — Ship a flat ~10-domain pragmatic keyword classifier with per-user personalization. Skip embeddings entirely.** Cost is not the blocker (embeddings are essentially free), but they're also not earning their complexity. Domain suggestion has two strong signals that don't need a model: (1) most users work within a handful of professional/study domains (Law, Business, Engineering, Finance, Medicine, …), and (2) a user's own notebook already reveals their domains — if 80% of their words are Law, the next word is probably Law too. A keyword classifier on a flat ~10-domain list, biased by the user's notebook history with a **≥3-word guard** to prevent early-mistake feedback loops, is simpler and probably better than any embedding-only approach.
 
 Status of the three measurements:
 
@@ -11,8 +11,8 @@ Status of the three measurements:
 | **Cost** | **$0.0036** to enrich a 10k-word notebook on `text-embedding-3-small` | [`results/cost.md`](results/cost.md) — no API call needed |
 | **Heuristic accuracy** | **96% top-1 / 100% top-3** on the 50-word set (biased — see §3.1) | [`results/heuristic-results.json`](results/heuristic-results.json) |
 | **Lexname-only accuracy** | **46% top-1 / 60% top-3** on the 50-word set (unbiased) | [`results/lexname-results.json`](results/lexname-results.json) |
-| **Embedding accuracy** | **TBD** — `OPENAI_API_KEY` not yet set | [`scripts/embed_words.py`](scripts/embed_words.py) + [`scripts/measure_accuracy.py`](scripts/measure_accuracy.py) ready to run |
-| **Embedding latency** | **TBD** — `OPENAI_API_KEY` not yet set | [`scripts/measure_latency.py`](scripts/measure_latency.py) ready to run |
+| **Embedding accuracy** | _not run_ — not on the recommended path (see §5); scripts preserved for re-decision | [`scripts/embed_words.py`](scripts/embed_words.py) + [`scripts/measure_accuracy.py`](scripts/measure_accuracy.py) |
+| **Embedding latency** | _not run_ — same reason | [`scripts/measure_latency.py`](scripts/measure_latency.py) |
 
 ## 1. Cost
 
@@ -69,21 +69,56 @@ Decision rule when the embedding run completes:
 
 ## 5. Recommendation
 
-**Defer to a 15-domain keyword extension for Phase 4 ship-1, with embeddings as a v2 quality bump.**
+**Ship a flat ~10-domain pragmatic keyword classifier with per-user personalization. Skip the embedding pipeline.**
 
-Reasoning:
+### 5.1 The classifier — two deterministic layers
 
-1. The embedding cost is negligible — that's not the blocker.
-2. The honest lexname-only baseline is only 46% top-1; lexical resources alone don't solve this.
-3. A well-curated keyword list almost certainly reaches 70–80% on real notebooks with one day of work, beating the lexical-resource floor by a wide margin.
-4. The operational cost of running the embedding pipeline (model-bump backfills, per-day budget tracking, vector storage) is real even if the dollar cost is small. That overhead is justified only if the accuracy delta is meaningful.
-5. The embedding accuracy number isn't yet measured. We should not start building the pipeline on an unverified accuracy assumption.
+**Layer A — Flat pragmatic domain list.** Roughly 10–12 domains that match what users actually capture in notebooks: `Law`, `Business`, `Finance`, `Engineering`, `Medicine`, `Science`, `Technology`, `Learning`, `Arts`, `Daily Life`, plus an explicit `Other` bucket so the UI never has to render "uncategorized." Same structure as today's `DomainClassifier` (keyword set per domain, hit-counting with insertion-order tie-break). On capture, run Layer A to propose a top match.
 
-**Next steps** (after this spike merges):
+**Layer B — Personalize from the user's own notebook.** Most users settle into 3–10 domains over time (a law student's notebook is dominated by Law / Learning; a software engineer's by Engineering / Business). The user's own history is the strongest signal we have. Decision flow when suggesting a domain for a new word:
 
-1. Set `OPENAI_API_KEY` and run `python scripts/build_centroids.py && python scripts/embed_words.py && python scripts/measure_accuracy.py && python scripts/measure_latency.py`. Update §2 and §3.2 of this doc with the embedding numbers.
-2. If the embedding top-1 lands ≥ 90%, open a production-pipeline issue with the numbers from this spike as justification.
-3. Independent of that decision, open an issue to extend `DomainClassifier` from 11 to the 15 PROJECT.md top-level domains. That work is small (a few hours) and unblocks Phase 4 UI work that depends on the 15-domain taxonomy.
+1. Score the word with Layer A → top candidate domain `D`.
+2. **If the user has ≥3 words already in `D`:** auto-suggest `D` (high confidence). The user can override in the picker, but `D` is the default.
+3. **Otherwise:** show the picker with `D` as the top option, but also surface the user's existing domains (those with ≥3 words) as alternatives ranked by notebook count. Nudges the user toward their established taxonomy without forcing it.
+4. **Cold start (no domains have ≥3 words yet):** fall back to pure Layer A. Same behavior as today's classifier.
+
+### 5.2 The ≥3-word guard is non-negotiable
+
+Without a guard, personalization-from-history reinforces early mistakes. Concrete failure mode: a user mis-tags one Business word as Law on day 1. Every subsequent Business word the classifier sees now gets nudged toward Law because Law has a notebook presence. One mis-tag compounds into systematic drift.
+
+The ≥3-word guard breaks the loop. A domain must be **intentional** — chosen for at least 3 distinct words by the user — before it influences future suggestions. New users get pure Layer A behavior until they've established a real pattern; mis-tags from day 1 can't propagate because one word doesn't cross the threshold.
+
+**This invariant must be encoded as a test, not a comment.** The implementation should fail loudly if a domain with fewer than 3 user words ever influences a suggestion ranking. Recommended:
+
+- Unit test: simulate a single mis-tag, verify the next 5 captures in the same true-domain are still classified correctly by Layer A.
+- Unit test: simulate 3 deliberate tags of the same domain, verify personalization kicks in on the 4th capture.
+- Boundary: the count includes manually-tagged words and auto-suggested words the user **accepted** — but not auto-suggested words they overrode (otherwise the loop sneaks back in).
+
+### 5.3 Why this beats the alternatives
+
+| Approach | Top-1 ceiling (est.) | Operational cost | Comment |
+|---|---|---|---|
+| Today's 11-domain `DomainClassifier`, global only | ~70% | None | Already shipped, no personalization, coverage gaps |
+| 15-domain global keyword classifier (spike's earlier draft) | ~75% | One-time curation | Ignores the strongest signal (user history) |
+| **10-domain flat + personalization (this proposal)** | **~85–90%** | One-time curation + per-user domain-count query (cheap) | Uses the user's own notebook as ground truth |
+| Embedding-based | ~80–90% (unmeasured) | Embedding $, vector storage, model-bump backfills | More moving parts, marginal gain over a personalized keyword approach |
+
+Global-classifier estimates extrapolate between the lexname honest floor (46% top-1) and the self-fitted heuristic ceiling (96% top-1). The personalization layer is the multiplier that makes a small, simple model genuinely competitive with anything heavier.
+
+### 5.4 Divergence from PROJECT.md
+
+[`PROJECT.md` §Axis 1](../../docs/product/PROJECT.md) currently specs a 15-domain HTOED-inspired hierarchy (The Physical World / The Mind / Society, ~15 leaves). The flat 10-domain pragmatic list in §5.1 is a deliberate simplification — different in both *size* and *shape* (flat vs hierarchical, pragmatic vs scholarly). Two viable resolutions:
+
+- **Replace** the PROJECT.md taxonomy with the flat list. Simplest, but loses the discovery/browse value of the three-branch hierarchy.
+- **Keep both.** PROJECT.md's hierarchy stays as the canonical organization for browse/discovery UI; the flat 10-domain list is internal to the auto-suggestion classifier, with a mapping table from flat → hierarchy leaf for display. More surface area but preserves both intents.
+
+This is a product decision, not a spike outcome. The recommended implementation in §5.1 can proceed against the flat list either way; the resolution determines only what the UI displays as the domain name to the user.
+
+## 6. Next steps
+
+1. **Open follow-up issue: implement the flat ~10-domain classifier + personalization (Layer A + Layer B).** Ship-blocking requirements: the ≥3-word guard from §5.2 and the boundary rule that overridden auto-suggestions don't count toward the threshold. Both verified by unit tests in the same PR.
+2. **Open product issue: resolve PROJECT.md taxonomy divergence** (§5.4 — replace vs keep both). Auto-suggestion implementation can proceed in parallel using the flat list either way; this decision only affects what name the UI shows.
+3. **(Optional, low priority)** Set `OPENAI_API_KEY` and run the embedding scripts to populate the §2 / §3.2 numbers in this spike. Only worth doing if §5's recommendation is being challenged. The scripts and decision rule are preserved as a record of what would unblock a re-decision.
 
 ## Reproducing
 
