@@ -1,0 +1,522 @@
+{
+  "n": 50,
+  "top1_accuracy": 0.96,
+  "top3_accuracy": 1.0,
+  "no_signal_words": 0,
+  "per_word": [
+    {
+      "word": "biopsy",
+      "gold": "body_and_health",
+      "heuristic_top1": "body_and_health",
+      "heuristic_top3": [
+        "body_and_health"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "diagnosis",
+      "gold": "body_and_health",
+      "heuristic_top1": "body_and_health",
+      "heuristic_top3": [
+        "body_and_health"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "inflammation",
+      "gold": "body_and_health",
+      "heuristic_top1": "body_and_health",
+      "heuristic_top3": [
+        "body_and_health"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "fever",
+      "gold": "body_and_health",
+      "heuristic_top1": "body_and_health",
+      "heuristic_top3": [
+        "body_and_health"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "ecosystem",
+      "gold": "nature",
+      "heuristic_top1": "nature",
+      "heuristic_top3": [
+        "nature"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "estuary",
+      "gold": "nature",
+      "heuristic_top1": "nature",
+      "heuristic_top3": [
+        "nature"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "drought",
+      "gold": "nature",
+      "heuristic_top1": "nature",
+      "heuristic_top3": [
+        "nature"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "predator",
+      "gold": "nature",
+      "heuristic_top1": "nature",
+      "heuristic_top3": [
+        "nature"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "cuisine",
+      "gold": "food_and_drink",
+      "heuristic_top1": "food_and_drink",
+      "heuristic_top3": [
+        "food_and_drink"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "marinade",
+      "gold": "food_and_drink",
+      "heuristic_top1": "food_and_drink",
+      "heuristic_top3": [
+        "food_and_drink"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "vintage",
+      "gold": "food_and_drink",
+      "heuristic_top1": "food_and_drink",
+      "heuristic_top3": [
+        "food_and_drink",
+        "travel_and_places"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "mortgage",
+      "gold": "home_and_living",
+      "heuristic_top1": "home_and_living",
+      "heuristic_top3": [
+        "home_and_living",
+        "law_and_politics"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "wardrobe",
+      "gold": "home_and_living",
+      "heuristic_top1": "home_and_living",
+      "heuristic_top3": [
+        "home_and_living"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "thermostat",
+      "gold": "home_and_living",
+      "heuristic_top1": "science_and_technology",
+      "heuristic_top3": [
+        "science_and_technology",
+        "home_and_living"
+      ],
+      "match_top1": false,
+      "match_top3": true
+    },
+    {
+      "word": "algorithm",
+      "gold": "science_and_technology",
+      "heuristic_top1": "science_and_technology",
+      "heuristic_top3": [
+        "science_and_technology"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "photosynthesis",
+      "gold": "science_and_technology",
+      "heuristic_top1": "science_and_technology",
+      "heuristic_top3": [
+        "science_and_technology"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "encryption",
+      "gold": "science_and_technology",
+      "heuristic_top1": "science_and_technology",
+      "heuristic_top3": [
+        "science_and_technology"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "molecule",
+      "gold": "science_and_technology",
+      "heuristic_top1": "science_and_technology",
+      "heuristic_top3": [
+        "science_and_technology"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "melancholy",
+      "gold": "emotions_and_feelings",
+      "heuristic_top1": "emotions_and_feelings",
+      "heuristic_top3": [
+        "emotions_and_feelings"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "elation",
+      "gold": "emotions_and_feelings",
+      "heuristic_top1": "emotions_and_feelings",
+      "heuristic_top3": [
+        "emotions_and_feelings"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "grief",
+      "gold": "emotions_and_feelings",
+      "heuristic_top1": "emotions_and_feelings",
+      "heuristic_top3": [
+        "emotions_and_feelings"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "nostalgia",
+      "gold": "emotions_and_feelings",
+      "heuristic_top1": "emotions_and_feelings",
+      "heuristic_top3": [
+        "emotions_and_feelings"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "hypothesis",
+      "gold": "thinking_and_learning",
+      "heuristic_top1": "thinking_and_learning",
+      "heuristic_top3": [
+        "thinking_and_learning",
+        "law_and_politics",
+        "science_and_technology"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "curriculum",
+      "gold": "thinking_and_learning",
+      "heuristic_top1": "thinking_and_learning",
+      "heuristic_top3": [
+        "thinking_and_learning"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "intuition",
+      "gold": "thinking_and_learning",
+      "heuristic_top1": "thinking_and_learning",
+      "heuristic_top3": [
+        "thinking_and_learning"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "rhetoric",
+      "gold": "communication",
+      "heuristic_top1": "communication",
+      "heuristic_top3": [
+        "communication",
+        "culture_and_arts"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "broadcast",
+      "gold": "communication",
+      "heuristic_top1": "communication",
+      "heuristic_top3": [
+        "communication",
+        "science_and_technology"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "memorandum",
+      "gold": "communication",
+      "heuristic_top1": "communication",
+      "heuristic_top3": [
+        "communication"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "integrity",
+      "gold": "character_and_personality",
+      "heuristic_top1": "character_and_personality",
+      "heuristic_top3": [
+        "character_and_personality"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "stubborn",
+      "gold": "character_and_personality",
+      "heuristic_top1": "character_and_personality",
+      "heuristic_top3": [
+        "character_and_personality"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "ambitious",
+      "gold": "character_and_personality",
+      "heuristic_top1": "character_and_personality",
+      "heuristic_top3": [
+        "character_and_personality"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "freelance",
+      "gold": "work_and_business",
+      "heuristic_top1": "work_and_business",
+      "heuristic_top3": [
+        "work_and_business"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "leverage",
+      "gold": "work_and_business",
+      "heuristic_top1": "work_and_business",
+      "heuristic_top3": [
+        "work_and_business"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "commute",
+      "gold": "work_and_business",
+      "heuristic_top1": "work_and_business",
+      "heuristic_top3": [
+        "work_and_business",
+        "travel_and_places",
+        "home_and_living"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "invoice",
+      "gold": "work_and_business",
+      "heuristic_top1": "work_and_business",
+      "heuristic_top3": [
+        "work_and_business"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "itinerary",
+      "gold": "travel_and_places",
+      "heuristic_top1": "travel_and_places",
+      "heuristic_top3": [
+        "travel_and_places"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "expatriate",
+      "gold": "travel_and_places",
+      "heuristic_top1": "travel_and_places",
+      "heuristic_top3": [
+        "travel_and_places"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "vicinity",
+      "gold": "travel_and_places",
+      "heuristic_top1": "travel_and_places",
+      "heuristic_top3": [
+        "travel_and_places"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "fresco",
+      "gold": "culture_and_arts",
+      "heuristic_top1": "culture_and_arts",
+      "heuristic_top3": [
+        "culture_and_arts"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "ballet",
+      "gold": "culture_and_arts",
+      "heuristic_top1": "culture_and_arts",
+      "heuristic_top3": [
+        "culture_and_arts"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "novella",
+      "gold": "culture_and_arts",
+      "heuristic_top1": "culture_and_arts",
+      "heuristic_top3": [
+        "culture_and_arts"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "estranged",
+      "gold": "relationships",
+      "heuristic_top1": "relationships",
+      "heuristic_top3": [
+        "relationships"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "betrothed",
+      "gold": "relationships",
+      "heuristic_top1": "relationships",
+      "heuristic_top3": [
+        "relationships"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "mentor",
+      "gold": "relationships",
+      "heuristic_top1": "relationships",
+      "heuristic_top3": [
+        "relationships"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "plaintiff",
+      "gold": "law_and_politics",
+      "heuristic_top1": "law_and_politics",
+      "heuristic_top3": [
+        "law_and_politics"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "subpoena",
+      "gold": "law_and_politics",
+      "heuristic_top1": "law_and_politics",
+      "heuristic_top3": [
+        "law_and_politics"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "filibuster",
+      "gold": "law_and_politics",
+      "heuristic_top1": "law_and_politics",
+      "heuristic_top3": [
+        "law_and_politics",
+        "communication"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "errand",
+      "gold": "daily_life",
+      "heuristic_top1": "daily_life",
+      "heuristic_top3": [
+        "daily_life",
+        "travel_and_places",
+        "communication"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "laundry",
+      "gold": "daily_life",
+      "heuristic_top1": "home_and_living",
+      "heuristic_top3": [
+        "home_and_living",
+        "daily_life"
+      ],
+      "match_top1": false,
+      "match_top3": true
+    },
+    {
+      "word": "weekend",
+      "gold": "daily_life",
+      "heuristic_top1": "daily_life",
+      "heuristic_top3": [
+        "daily_life",
+        "work_and_business"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    }
+  ]
+}

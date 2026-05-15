@@ -1,0 +1,94 @@
+{
+  "assumptions": {
+    "tokens_per_char": 0.25,
+    "avg_tokens_per_word_payload": 18.22,
+    "p95_tokens_per_word_payload": 24,
+    "centroid_count": 15,
+    "centroid_total_tokens": 466,
+    "pricing_source": "https://platform.openai.com/docs/pricing",
+    "pricing_date": "2026-05"
+  },
+  "per_model": {
+    "text-embedding-3-small": {
+      "dim": 1536,
+      "usd_per_1m_input_tokens": 0.02,
+      "usd_per_word_enrichment": 3.6e-07,
+      "centroid_one_time_usd": 9.32e-06,
+      "bytes_per_vector_float32": 6144,
+      "notebooks": {
+        "light": {
+          "words": 100,
+          "enrichment_usd_per_user_once": 3.6e-05,
+          "vector_storage_bytes_per_user": 614400,
+          "vector_storage_mb_per_user": 0.586
+        },
+        "typical": {
+          "words": 1000,
+          "enrichment_usd_per_user_once": 0.000364,
+          "vector_storage_bytes_per_user": 6144000,
+          "vector_storage_mb_per_user": 5.859
+        },
+        "power": {
+          "words": 10000,
+          "enrichment_usd_per_user_once": 0.003644,
+          "vector_storage_bytes_per_user": 61440000,
+          "vector_storage_mb_per_user": 58.594
+        }
+      }
+    },
+    "text-embedding-3-large": {
+      "dim": 3072,
+      "usd_per_1m_input_tokens": 0.13,
+      "usd_per_word_enrichment": 2.37e-06,
+      "centroid_one_time_usd": 6.058e-05,
+      "bytes_per_vector_float32": 12288,
+      "notebooks": {
+        "light": {
+          "words": 100,
+          "enrichment_usd_per_user_once": 0.000237,
+          "vector_storage_bytes_per_user": 1228800,
+          "vector_storage_mb_per_user": 1.172
+        },
+        "typical": {
+          "words": 1000,
+          "enrichment_usd_per_user_once": 0.002369,
+          "vector_storage_bytes_per_user": 12288000,
+          "vector_storage_mb_per_user": 11.719
+        },
+        "power": {
+          "words": 10000,
+          "enrichment_usd_per_user_once": 0.023686,
+          "vector_storage_bytes_per_user": 122880000,
+          "vector_storage_mb_per_user": 117.188
+        }
+      }
+    },
+    "text-embedding-ada-002": {
+      "dim": 1536,
+      "usd_per_1m_input_tokens": 0.1,
+      "usd_per_word_enrichment": 1.82e-06,
+      "centroid_one_time_usd": 4.66e-05,
+      "bytes_per_vector_float32": 6144,
+      "notebooks": {
+        "light": {
+          "words": 100,
+          "enrichment_usd_per_user_once": 0.000182,
+          "vector_storage_bytes_per_user": 614400,
+          "vector_storage_mb_per_user": 0.586
+        },
+        "typical": {
+          "words": 1000,
+          "enrichment_usd_per_user_once": 0.001822,
+          "vector_storage_bytes_per_user": 6144000,
+          "vector_storage_mb_per_user": 5.859
+        },
+        "power": {
+          "words": 10000,
+          "enrichment_usd_per_user_once": 0.01822,
+          "vector_storage_bytes_per_user": 61440000,
+          "vector_storage_mb_per_user": 58.594
+        }
+      }
+    }
+  }
+}

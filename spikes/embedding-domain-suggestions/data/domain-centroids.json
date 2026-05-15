@@ -1,0 +1,97 @@
+{
+  "$schema": "centroid-seed-text-per-WordPower-domain",
+  "$source": "WordPower-docs/docs/product/PROJECT.md §Axis 1: Semantic Domain Tree",
+  "$note": "Seed text is a one-sentence canonical description of the domain. Embedding this text produces the centroid vector that test-word embeddings are scored against via cosine similarity.",
+  "centroids": [
+    {
+      "id": "nature",
+      "branch": "The Physical World",
+      "label": "Nature",
+      "seed": "Plants, animals, weather, geography, ecosystems, the natural environment, and the physical landscape of the earth."
+    },
+    {
+      "id": "body_and_health",
+      "branch": "The Physical World",
+      "label": "Body & Health",
+      "seed": "The human body, anatomy, illness, injury, medicine, diagnosis, treatment, surgery, hospitals, doctors, and physical health."
+    },
+    {
+      "id": "food_and_drink",
+      "branch": "The Physical World",
+      "label": "Food & Drink",
+      "seed": "Food, cuisine, ingredients, cooking, recipes, restaurants, meals, beverages, and the culture of eating and drinking."
+    },
+    {
+      "id": "home_and_living",
+      "branch": "The Physical World",
+      "label": "Home & Living",
+      "seed": "Houses, apartments, furniture, household objects, domestic life, household chores, and the spaces and routines of home."
+    },
+    {
+      "id": "science_and_technology",
+      "branch": "The Physical World",
+      "label": "Science & Technology",
+      "seed": "Physics, chemistry, biology, mathematics, engineering, computers, software, the internet, machinery, and scientific research."
+    },
+    {
+      "id": "emotions_and_feelings",
+      "branch": "The Mind",
+      "label": "Emotions & Feelings",
+      "seed": "Joy, sadness, anger, fear, love, grief, anxiety, hope, and the inner emotional life and moods of a person."
+    },
+    {
+      "id": "thinking_and_learning",
+      "branch": "The Mind",
+      "label": "Thinking & Learning",
+      "seed": "Reasoning, memory, knowledge, intelligence, study, education, schools, universities, ideas, problem solving, and cognition."
+    },
+    {
+      "id": "communication",
+      "branch": "The Mind",
+      "label": "Communication",
+      "seed": "Language, speech, writing, conversation, debate, media, news, journalism, letters, and the exchange of information between people."
+    },
+    {
+      "id": "character_and_personality",
+      "branch": "The Mind",
+      "label": "Character & Personality",
+      "seed": "Personal traits, temperament, virtues and vices, honesty, courage, ambition, kindness, and the qualities that define a person's character."
+    },
+    {
+      "id": "work_and_business",
+      "branch": "Society",
+      "label": "Work & Business",
+      "seed": "Jobs, professions, careers, employment, salary, offices, companies, commerce, trade, money, finance, and the world of work."
+    },
+    {
+      "id": "travel_and_places",
+      "branch": "Society",
+      "label": "Travel & Places",
+      "seed": "Cities, countries, geography, tourism, hotels, flights, transportation, vacations, and travelling to new locations."
+    },
+    {
+      "id": "culture_and_arts",
+      "branch": "Society",
+      "label": "Culture & Arts",
+      "seed": "Music, painting, literature, film, theatre, dance, sculpture, design, fashion, and the creative arts and cultural traditions."
+    },
+    {
+      "id": "relationships",
+      "branch": "Society",
+      "label": "Relationships",
+      "seed": "Family, friends, marriage, romance, parenting, social bonds, dating, and the relationships between people in their personal lives."
+    },
+    {
+      "id": "law_and_politics",
+      "branch": "Society",
+      "label": "Law & Politics",
+      "seed": "Government, elections, parliament, laws, courts, judges, lawyers, crimes, justice, policy, and the political and legal system."
+    },
+    {
+      "id": "daily_life",
+      "branch": "Society",
+      "label": "Daily Life",
+      "seed": "Everyday routines, shopping, errands, sports, leisure, hobbies, holidays, weekends, and the common activities of ordinary life."
+    }
+  ]
+}

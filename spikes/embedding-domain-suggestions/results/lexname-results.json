@@ -1,0 +1,533 @@
+{
+  "n": 50,
+  "top1_accuracy": 0.46,
+  "top3_accuracy": 0.6,
+  "no_signal_words": 2,
+  "per_word": [
+    {
+      "word": "biopsy",
+      "gold": "body_and_health",
+      "lexname_top1": "thinking_and_learning",
+      "lexname_top3": [
+        "thinking_and_learning"
+      ],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "diagnosis",
+      "gold": "body_and_health",
+      "lexname_top1": "daily_life",
+      "lexname_top3": [
+        "daily_life"
+      ],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "inflammation",
+      "gold": "body_and_health",
+      "lexname_top1": "body_and_health",
+      "lexname_top3": [
+        "body_and_health",
+        "daily_life"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "fever",
+      "gold": "body_and_health",
+      "lexname_top1": "body_and_health",
+      "lexname_top3": [
+        "body_and_health",
+        "emotions_and_feelings"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "ecosystem",
+      "gold": "nature",
+      "lexname_top1": "society",
+      "lexname_top3": [
+        "society"
+      ],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "estuary",
+      "gold": "nature",
+      "lexname_top1": "nature",
+      "lexname_top3": [
+        "nature"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "drought",
+      "gold": "nature",
+      "lexname_top1": "body_and_health",
+      "lexname_top3": [
+        "body_and_health",
+        "daily_life"
+      ],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "predator",
+      "gold": "nature",
+      "lexname_top1": "relationships",
+      "lexname_top3": [
+        "relationships",
+        "nature"
+      ],
+      "match_top1": false,
+      "match_top3": true
+    },
+    {
+      "word": "cuisine",
+      "gold": "food_and_drink",
+      "lexname_top1": "food_and_drink",
+      "lexname_top3": [
+        "food_and_drink"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "marinade",
+      "gold": "food_and_drink",
+      "lexname_top1": "food_and_drink",
+      "lexname_top3": [
+        "food_and_drink",
+        "daily_life"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "vintage",
+      "gold": "food_and_drink",
+      "lexname_top1": "food_and_drink",
+      "lexname_top3": [
+        "food_and_drink",
+        "character_and_personality"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "mortgage",
+      "gold": "home_and_living",
+      "lexname_top1": "work_and_business",
+      "lexname_top3": [
+        "work_and_business"
+      ],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "wardrobe",
+      "gold": "home_and_living",
+      "lexname_top1": "home_and_living",
+      "lexname_top3": [
+        "home_and_living"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "thermostat",
+      "gold": "home_and_living",
+      "lexname_top1": "home_and_living",
+      "lexname_top3": [
+        "home_and_living",
+        "relationships"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "algorithm",
+      "gold": "science_and_technology",
+      "lexname_top1": "thinking_and_learning",
+      "lexname_top3": [
+        "thinking_and_learning"
+      ],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "photosynthesis",
+      "gold": "science_and_technology",
+      "lexname_top1": "science_and_technology",
+      "lexname_top3": [
+        "science_and_technology"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "encryption",
+      "gold": "science_and_technology",
+      "lexname_top1": "daily_life",
+      "lexname_top3": [
+        "daily_life"
+      ],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "molecule",
+      "gold": "science_and_technology",
+      "lexname_top1": "science_and_technology",
+      "lexname_top3": [
+        "science_and_technology"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "melancholy",
+      "gold": "emotions_and_feelings",
+      "lexname_top1": "body_and_health",
+      "lexname_top3": [
+        "body_and_health",
+        "emotions_and_feelings"
+      ],
+      "match_top1": false,
+      "match_top3": true
+    },
+    {
+      "word": "elation",
+      "gold": "emotions_and_feelings",
+      "lexname_top1": "body_and_health",
+      "lexname_top3": [
+        "body_and_health",
+        "emotions_and_feelings"
+      ],
+      "match_top1": false,
+      "match_top3": true
+    },
+    {
+      "word": "grief",
+      "gold": "emotions_and_feelings",
+      "lexname_top1": "emotions_and_feelings",
+      "lexname_top3": [
+        "emotions_and_feelings",
+        "thinking_and_learning"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "nostalgia",
+      "gold": "emotions_and_feelings",
+      "lexname_top1": "emotions_and_feelings",
+      "lexname_top3": [
+        "emotions_and_feelings"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "hypothesis",
+      "gold": "thinking_and_learning",
+      "lexname_top1": "communication",
+      "lexname_top3": [
+        "communication",
+        "thinking_and_learning"
+      ],
+      "match_top1": false,
+      "match_top3": true
+    },
+    {
+      "word": "curriculum",
+      "gold": "thinking_and_learning",
+      "lexname_top1": "communication",
+      "lexname_top3": [
+        "communication"
+      ],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "intuition",
+      "gold": "thinking_and_learning",
+      "lexname_top1": "thinking_and_learning",
+      "lexname_top3": [
+        "thinking_and_learning"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "rhetoric",
+      "gold": "communication",
+      "lexname_top1": "communication",
+      "lexname_top3": [
+        "communication",
+        "thinking_and_learning"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "broadcast",
+      "gold": "communication",
+      "lexname_top1": "communication",
+      "lexname_top3": [
+        "communication",
+        "daily_life"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "memorandum",
+      "gold": "communication",
+      "lexname_top1": "communication",
+      "lexname_top3": [
+        "communication"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "integrity",
+      "gold": "character_and_personality",
+      "lexname_top1": "body_and_health",
+      "lexname_top3": [
+        "body_and_health",
+        "character_and_personality"
+      ],
+      "match_top1": false,
+      "match_top3": true
+    },
+    {
+      "word": "stubborn",
+      "gold": "character_and_personality",
+      "lexname_top1": null,
+      "lexname_top3": [],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "ambitious",
+      "gold": "character_and_personality",
+      "lexname_top1": null,
+      "lexname_top3": [],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "freelance",
+      "gold": "work_and_business",
+      "lexname_top1": "relationships",
+      "lexname_top3": [
+        "relationships"
+      ],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "leverage",
+      "gold": "work_and_business",
+      "lexname_top1": "nature",
+      "lexname_top3": [
+        "nature",
+        "character_and_personality",
+        "daily_life"
+      ],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "commute",
+      "gold": "work_and_business",
+      "lexname_top1": "daily_life",
+      "lexname_top3": [
+        "daily_life",
+        "travel_and_places"
+      ],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "invoice",
+      "gold": "work_and_business",
+      "lexname_top1": "communication",
+      "lexname_top3": [
+        "communication",
+        "work_and_business"
+      ],
+      "match_top1": false,
+      "match_top3": true
+    },
+    {
+      "word": "itinerary",
+      "gold": "travel_and_places",
+      "lexname_top1": "travel_and_places",
+      "lexname_top3": [
+        "travel_and_places",
+        "communication",
+        "thinking_and_learning"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "expatriate",
+      "gold": "travel_and_places",
+      "lexname_top1": "relationships",
+      "lexname_top3": [
+        "relationships",
+        "daily_life"
+      ],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "vicinity",
+      "gold": "travel_and_places",
+      "lexname_top1": "travel_and_places",
+      "lexname_top3": [
+        "travel_and_places"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "fresco",
+      "gold": "culture_and_arts",
+      "lexname_top1": "home_and_living",
+      "lexname_top3": [
+        "home_and_living",
+        "daily_life",
+        "culture_and_arts"
+      ],
+      "match_top1": false,
+      "match_top3": true
+    },
+    {
+      "word": "ballet",
+      "gold": "culture_and_arts",
+      "lexname_top1": "daily_life",
+      "lexname_top3": [
+        "daily_life",
+        "communication"
+      ],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "novella",
+      "gold": "culture_and_arts",
+      "lexname_top1": "communication",
+      "lexname_top3": [
+        "communication"
+      ],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "estranged",
+      "gold": "relationships",
+      "lexname_top1": "relationships",
+      "lexname_top3": [
+        "relationships",
+        "emotions_and_feelings"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "betrothed",
+      "gold": "relationships",
+      "lexname_top1": "relationships",
+      "lexname_top3": [
+        "relationships",
+        "communication"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "mentor",
+      "gold": "relationships",
+      "lexname_top1": "relationships",
+      "lexname_top3": [
+        "relationships",
+        "communication"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "plaintiff",
+      "gold": "law_and_politics",
+      "lexname_top1": "relationships",
+      "lexname_top3": [
+        "relationships"
+      ],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "subpoena",
+      "gold": "law_and_politics",
+      "lexname_top1": "communication",
+      "lexname_top3": [
+        "communication"
+      ],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "filibuster",
+      "gold": "law_and_politics",
+      "lexname_top1": "relationships",
+      "lexname_top3": [
+        "relationships",
+        "daily_life"
+      ],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "errand",
+      "gold": "daily_life",
+      "lexname_top1": "daily_life",
+      "lexname_top3": [
+        "daily_life"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    },
+    {
+      "word": "laundry",
+      "gold": "daily_life",
+      "lexname_top1": "home_and_living",
+      "lexname_top3": [
+        "home_and_living"
+      ],
+      "match_top1": false,
+      "match_top3": false
+    },
+    {
+      "word": "weekend",
+      "gold": "daily_life",
+      "lexname_top1": "daily_life",
+      "lexname_top3": [
+        "daily_life",
+        "character_and_personality"
+      ],
+      "match_top1": true,
+      "match_top3": true
+    }
+  ]
+}

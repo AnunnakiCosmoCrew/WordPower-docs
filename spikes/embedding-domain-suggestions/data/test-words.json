@@ -1,0 +1,71 @@
+{
+  "$schema": "fifty-word-test-set-with-triangulated-ground-truth",
+  "$ground_truth_priority": "hand_label (gold) > mw_collegiate_sl > wordnet_lexname",
+  "$note": "Stratified sample — ~3 words per WordPower top-level domain. 'gold' is the gold-standard hand-label. The 'short_def' is what a real enrichment payload would feed to the embedding (word + short definition).",
+  "words": [
+    {"word": "biopsy", "short_def": "the removal of a small piece of tissue for medical examination", "gold": "body_and_health"},
+    {"word": "diagnosis", "short_def": "the identification of the nature of an illness by examination of symptoms", "gold": "body_and_health"},
+    {"word": "inflammation", "short_def": "a localized reaction in the body producing redness, swelling, and heat", "gold": "body_and_health"},
+    {"word": "fever", "short_def": "an abnormally high body temperature, usually due to illness", "gold": "body_and_health"},
+
+    {"word": "ecosystem", "short_def": "a biological community of organisms interacting with their environment", "gold": "nature"},
+    {"word": "estuary", "short_def": "the tidal mouth of a large river where it meets the sea", "gold": "nature"},
+    {"word": "drought", "short_def": "a prolonged period of abnormally low rainfall", "gold": "nature"},
+    {"word": "predator", "short_def": "an animal that naturally preys on others for food", "gold": "nature"},
+
+    {"word": "cuisine", "short_def": "a style or method of cooking, especially as characteristic of a culture", "gold": "food_and_drink"},
+    {"word": "marinade", "short_def": "a sauce of vinegar, oil, and spices in which food is soaked before cooking", "gold": "food_and_drink"},
+    {"word": "vintage", "short_def": "the year or place in which a wine was produced", "gold": "food_and_drink"},
+
+    {"word": "mortgage", "short_def": "a legal agreement by which a bank lends money in exchange for property", "gold": "home_and_living"},
+    {"word": "wardrobe", "short_def": "a tall cupboard or cabinet in which clothes are hung", "gold": "home_and_living"},
+    {"word": "thermostat", "short_def": "a device that automatically regulates the temperature of a room", "gold": "home_and_living"},
+
+    {"word": "algorithm", "short_def": "a process or set of rules to be followed in calculations or problem solving", "gold": "science_and_technology"},
+    {"word": "photosynthesis", "short_def": "the process by which plants use sunlight to make food from carbon dioxide and water", "gold": "science_and_technology"},
+    {"word": "encryption", "short_def": "the process of converting information into a code to prevent unauthorized access", "gold": "science_and_technology"},
+    {"word": "molecule", "short_def": "a group of atoms bonded together representing the smallest unit of a chemical compound", "gold": "science_and_technology"},
+
+    {"word": "melancholy", "short_def": "a feeling of pensive sadness, typically with no obvious cause", "gold": "emotions_and_feelings"},
+    {"word": "elation", "short_def": "great happiness and exhilaration", "gold": "emotions_and_feelings"},
+    {"word": "grief", "short_def": "deep sorrow, especially that caused by someone's death", "gold": "emotions_and_feelings"},
+    {"word": "nostalgia", "short_def": "a sentimental longing for the past, typically for a happier time", "gold": "emotions_and_feelings"},
+
+    {"word": "hypothesis", "short_def": "a proposed explanation made on the basis of limited evidence as a starting point for further investigation", "gold": "thinking_and_learning"},
+    {"word": "curriculum", "short_def": "the subjects comprising a course of study in a school or college", "gold": "thinking_and_learning"},
+    {"word": "intuition", "short_def": "the ability to understand something immediately without conscious reasoning", "gold": "thinking_and_learning"},
+
+    {"word": "rhetoric", "short_def": "the art of effective or persuasive speaking and writing", "gold": "communication"},
+    {"word": "broadcast", "short_def": "to transmit a program by radio or television", "gold": "communication"},
+    {"word": "memorandum", "short_def": "a written message in business or diplomacy", "gold": "communication"},
+
+    {"word": "integrity", "short_def": "the quality of being honest and having strong moral principles", "gold": "character_and_personality"},
+    {"word": "stubborn", "short_def": "having a determined and unyielding refusal to change one's mind", "gold": "character_and_personality"},
+    {"word": "ambitious", "short_def": "having a strong desire and determination to succeed", "gold": "character_and_personality"},
+
+    {"word": "freelance", "short_def": "self-employed and hired to work for different companies on particular assignments", "gold": "work_and_business"},
+    {"word": "leverage", "short_def": "the use of borrowed capital to increase the potential return of an investment", "gold": "work_and_business"},
+    {"word": "commute", "short_def": "to travel some distance regularly between home and work", "gold": "work_and_business"},
+    {"word": "invoice", "short_def": "a list of goods sent or services provided with the prices charged", "gold": "work_and_business"},
+
+    {"word": "itinerary", "short_def": "a planned route or journey, especially a detailed travel plan", "gold": "travel_and_places"},
+    {"word": "expatriate", "short_def": "a person who lives outside their native country", "gold": "travel_and_places"},
+    {"word": "vicinity", "short_def": "the area near or surrounding a particular place", "gold": "travel_and_places"},
+
+    {"word": "fresco", "short_def": "a painting done rapidly in watercolor on wet plaster on a wall or ceiling", "gold": "culture_and_arts"},
+    {"word": "ballet", "short_def": "an artistic dance form performed to music using precise and highly formalized steps", "gold": "culture_and_arts"},
+    {"word": "novella", "short_def": "a short novel or long short story", "gold": "culture_and_arts"},
+
+    {"word": "estranged", "short_def": "no longer close or affectionate to someone, often in a family relationship", "gold": "relationships"},
+    {"word": "betrothed", "short_def": "engaged to be married", "gold": "relationships"},
+    {"word": "mentor", "short_def": "an experienced and trusted advisor to a less experienced person", "gold": "relationships"},
+
+    {"word": "plaintiff", "short_def": "a person who brings a legal case against another in a court of law", "gold": "law_and_politics"},
+    {"word": "subpoena", "short_def": "a writ ordering a person to attend a court of law", "gold": "law_and_politics"},
+    {"word": "filibuster", "short_def": "a long speech in parliament to delay or obstruct legislation", "gold": "law_and_politics"},
+
+    {"word": "errand", "short_def": "a short journey to deliver a message or perform a small task", "gold": "daily_life"},
+    {"word": "laundry", "short_def": "clothes and linens that need to be washed", "gold": "daily_life"},
+    {"word": "weekend", "short_def": "Saturday and Sunday, when most people do not work", "gold": "daily_life"}
+  ]
+}
