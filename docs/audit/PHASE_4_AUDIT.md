@@ -1,21 +1,31 @@
 # Phase 4 Audit — Vocabulary System: "Organized Learning"
 
 > [!abstract]
-> Phase 4 is **substantially complete**. 9 of 10 planned deliverables shipped: word lists, domain browsing, root families (with a fully custom build pipeline), word discovery, dashboard, quiz-content variety, least-recently-quizzed ordering, capture friction reduction, and a multi-source dictionary backbone. The Cambridge primary-source plan was shelved after the licensing spike returned incompatible terms; Merriam-Webster Learner's stepped in as the dev primary. Mixed quiz-type sessions (#389) is the only originally-scoped deliverable not yet started. 113 phase-4 issues closed; 17 remain open (8 in-flight UI/sync bugs surfaced in the final days + 8 epic parents whose sub-issues are all done + #350 epic still tracking the Oxford follow-up).
+> Phase 4 is **closed (2026-05-18)**. All 10 originally-scoped deliverables shipped — including mixed quiz-type sessions ([#389](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/389), the last one). The Cambridge primary-source plan was shelved after the licensing spike; Merriam-Webster Learner's stepped in as the dev primary with Free Dictionary as fallback. All 9 epics + all carry-over bugs from the 2026-05-14 smoke test closed. Two workflow improvements landed alongside: a **proof-of-fix gate** on bug PRs (#689) and a hardened **bug-close-audit** workflow (#699 + #703) — both prompted by the same failure mode (passing CI on broken behaviour) that caused four wasted #623 fix attempts.
 
 | | |
 |---|---|
 | **Phase** | Phase 4 — Vocabulary System: "Organized Learning" |
+| **Status** | ✅ **Closed** 2026-05-18 |
 | **Platform** | Web (Flutter) + iOS + Android + backend (Spring Boot) |
-| **Duration** | May 1 – May 16, 2026 (~16 days; bulk of work May 4–16) |
-| **App repo: planned epics** | 10 (per PROJECT.md Phase 4) |
-| **App repo: delivered issues** | 113 (all phase-4 labeled, all closed) |
-| **App repo: merged PRs in window** | 157 |
-| **App repo: commits on main in window** | 140 |
-| **Docs repo: commits in window** | 37 |
+| **Duration** | May 1 – May 18, 2026 (~18 days; bulk of work May 4–18) |
+| **App repo: planned epics** | 10 — all delivered (one re-scoped) |
+| **App repo: delivered issues** | 113+ (all phase-4 labeled, all closed) |
+| **App repo: merged PRs in window** | 165+ (incl. closure-day workflow + fix PRs) |
+| **App repo: commits on main in window** | 147+ |
+| **Docs repo: commits in window** | 37+ |
 | **Spikes completed** | 11 (Cambridge, MW Learner's, Oxford, browser extension, root-families A/B/C/D + re-spike, embedding-domain) |
-| **Open Phase 4 issues remaining** | 17 (8 in-flight bugs, 8 epic parents to close, #350 awaiting Oxford follow-up) |
+| **Open Phase 4 issues at close** | 0 |
 | **Docs repo audit issues** | None opened — audit findings folded into ad-hoc commits (same pattern as Phase 3) |
+
+## Closure-day delta (2026-05-18)
+
+The 2026-05-14 smoke test produced 27 carry-over bug issues (#603–#625 plus reopens of #550, #551, #596, #598). Most were resolved over May 14–17. Closure day cleaned up the rest:
+
+- **[#696](https://github.com/AnunnakiCosmoCrew/WordPower-app/pull/696)** — actual fix for [#623](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/623) (`[EXCEPTION] main.dart.js:6630` on every page load). Root cause: `LateInitializationError` on `_GoogleSignInPlugin.autoDetectedClientId`. Four prior speculative fix attempts (#645, #678, #685, #691) all missed the call site because the obfuscated stack pointed at a minified frame. Diagnosed in ~15 minutes by deploying a `flutter build web --profile --source-maps` bundle to a Firebase preview channel.
+- **[#624](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/624)** root-caused and closed as won't-fix-for-existing-users. The "Drift falls back to sharedIndexedDb" message turned out NOT to be a COOP/COEP failure (that work all landed correctly). It's the **existing-IndexedDB trap** in `drift_flutter`: pre-existing users have an IDB-backed drift database, and `moveExistingIndexedDbToOpfs` defaults to false for data safety. Fresh installs already get `opfsLocks` (OPFS-based). Acceptable cost vs. migration risk.
+- **[#690](https://github.com/AnunnakiCosmoCrew/WordPower-app/pull/690)** — proof-of-fix workflow gate. Bug PRs now must include a Chrome MCP screenshot (frontend) or curl output (backend) demonstrating the user-visible flow works.
+- **[#700](https://github.com/AnunnakiCosmoCrew/WordPower-app/pull/700)** + **[#704](https://github.com/AnunnakiCosmoCrew/WordPower-app/pull/704)** — `bug-close-audit` now matches both `#{N}` and `WP-{N}` commit refs, and ignores its own reopens (which had been locking bugs OPEN in a close → audit-reopen → close cycle).
 
 ---
 
@@ -110,9 +120,9 @@ v1 shipped May 7 (#414–#417); was judged thin (no real similarity engine, just
 |---|---|---|
 | #388 | Least-recently-quizzed candidate ordering (replaces Phase 3 random-sampling fix) | 207.4h |
 
-### Epic 8: Mixed quiz-type sessions (#389) — **Not shipped**
+### Epic 8: Mixed quiz-type sessions (#389) — ✅ Shipped
 
-The only originally-scoped deliverable that did not start. Carried over to Phase 5.
+Shipped via PR [#545](https://github.com/AnunnakiCosmoCrew/WordPower-app/pull/545) (2026-05-12). MCQ + FITB + flashcards interleave in a single configurable session. The earlier "not shipped" note in this audit was written before the catch-up sprint landed it.
 
 ### Epic 9: Quiz-content variety (#390)
 
@@ -229,8 +239,9 @@ A single dogfooding session on May 12 surfaced ~7 high-priority sync/dashboard b
 | **Word discovery redesigned end-to-end** | v1 shipped May 7 with thin WordNet-sibling fetch. v2 was designed and merged within 24h with a real similarity engine. Cost: 6 new issues; saved: rolling out a weak feature to users. |
 | **Domain taxonomy rebuilt mid-phase** | After Browse-by-Domain shipped, dogfooding revealed the old domain tree didn't match user mental models. Flat 10-domain taxonomy + per-user personalization replaced it (#664, #665), plus an embedding-suggestion spike (#655). |
 | **Root families exploded into a 4-spike + 7-phase build pipeline** | Original epic assumed "pick a dataset, ship a tree view." Reality: no off-the-shelf dataset had the quality + coverage needed. Built a custom morphology bundle from GCIDE + Haiku 4.5 LLM decomposition of top-10k SUBTLEX words. |
-| **Mixed quiz-type sessions (#389) deferred** | Time budget consumed by root-families build pipeline and word-discovery redesign. The only originally-scoped Phase 4 deliverable not started. |
-| **CI hardening added (#658, #659)** | Bug-close discipline gap was visible in Phase 3 retrospective (#544 "WP-471 was reverted, never replaced"). Two CI gates landed in the final 48h to prevent recurrence. |
+| **Mixed quiz-type sessions (#389) shipped late but shipped** | Originally at risk of slipping (time consumed by root-families pipeline + Discover v2). Landed via PR #545 on 2026-05-12 in the catch-up sprint. All originally-scoped Phase 4 deliverables shipped. |
+| **CI hardening added (#658, #659, #689, #699, #703)** | Bug-close discipline gap visible since Phase 3 retrospective (#544 "WP-471 was reverted, never replaced"). Five CI gates landed across May 14–18: bug-test-line requirement (#658), bug-close-audit (#659), proof-of-fix screenshot gate (#689), audit accepting `WP-{N}` refs (#699), and audit ignoring its own bot-triggered reopens (#703). The last two were prompted by the close → audit-reopen → close lock that surfaced on closure day. |
+| **Profile-build diagnosis pattern adopted** | Four speculative fix attempts on #623 all passed CI without resolving the user-visible exception. Root cause found in ~15 min by deploying `flutter build web --profile --source-maps` to a Firebase preview channel and reading the unobfuscated Dart stack. Same approach diagnosed #624 (existing-IDB trap, not COOP/COEP). Now the recommended path for obfuscated-stack bugs. |
 | **No iOS share-sheet / browser-extension / OCR rollout to production** | Capture-friction issues (#420, #421, #422) closed against design/spec doc, not against production rollout. App-store and extension-store distribution remain Phase 6. |
 
 ---
@@ -302,9 +313,10 @@ A single dogfooding session on May 12 surfaced ~7 high-priority sync/dashboard b
 | **Domain taxonomy rebuilt after the UI shipped** | Browse-by-Domain (#400) shipped May 6 against the old taxonomy; flat 10-domain replacement (#664, #665) landed May 15. Cost: ~5 issues rebuilding what the UI displayed. | Auto-enriched domain values weren't dogfooded against real notebooks before the UI was built. The taxonomy was inherited from Phase 2's enrichment work; no one questioned it until it was on screen. |
 | **Sync drift on web (#567, #572)** | Local Drift cache showed 23 words; server had 2. Found by dogfooding, not by tests. A user could plausibly lose data here. | Cloud-sync outbox + delta-pull flows have no integration test exercising "frontend believes more than backend." Phase 2's offline outbox tests don't catch divergence in the other direction. |
 | **19 UI bugs after Dashboard / Lists / Discovery shipped** | The final 4 days of the phase were dominated by polish bugs — modal scrim transparency, ghost quiz questions, web-only scroll bugs, glyph rendering. | The pluggable-quiz-engine and lists/dashboard UIs aren't covered by integration tests on web. Most bugs were "renders fine on iOS, looks broken on web." Need golden tests + integration coverage per platform. |
-| **Mixed quiz-type sessions (#389) deferred** | The only originally-scoped Phase 4 deliverable not started. | Time consumed by root-families build pipeline (~28% of issues) and Discover v2 redesign. Original Phase 4 plan didn't budget for either. |
+| **Mixed quiz-type sessions (#389) shipped in catch-up sprint** | Initially deferred mid-phase. Landed via PR #545 on 2026-05-12 once the root-families pipeline freed up bandwidth. | Time consumed by root-families build pipeline (~28% of issues) and Discover v2 redesign. Phase 4 plan didn't originally budget for either, but the catch-up sprint absorbed the variance. |
 | **Capture-friction items closed but not in production** | iOS share-sheet (#421), browser extension v1 (#420), and OCR (#422) all closed against spec docs and unit-level implementation, not against an end-to-end "user installs the extension and saves a word" test. | Distribution channels (App Store, Chrome Web Store) are Phase 6 work; capture-friction features were closed when "the code works on the dev box." Risk: they'll need rework when Phase 6 tries to ship them. |
-| **Epic parent issues stayed open after sub-issues closed** | 8 phase-4 epic parents (#383, #384, #385, #386, #387, #389 [legitimate], #390, #391) remain open despite all sub-issues being done. | Epic close behaviour differs from Phase 3, where epics got closed when sub-issues completed. Looks like a hygiene gap, not a real "incomplete" signal. |
+| **Epic parent issues stayed open after sub-issues closed → resolved on closure day** | The 9 phase-4 epic parents lingered open after their sub-issues closed, until the 2026-05-18 closure pass explicitly closed them with re-test evidence. Phase 3 had the same drift but smaller. | Standard Phase 4 close behaviour is "epic closes when last sub-issue closes" — but GitHub doesn't enforce it, and the team didn't have a checklist. Now codified: PHASE_4_CLOSURE.md doc + audit-workflow improvements. Phase 5 should auto-close epics or use sub-issues with `Closes #parent`. |
+| **Close → audit-reopen → close lock** | Eight bugs got stuck OPEN on closure day even though they were smoke-verified. The `bug-close-audit` workflow's "latest reopen" pointer included its own reopens, so any subsequent close found no commit in the (now-smaller) `--since` window. | Diagnosed and fixed on the same day (#703). Audit now ignores reopens triggered by `github-actions[bot]`. Worth a Phase 5 retro item: workflow code needs the same test-and-iterate discipline as feature code. |
 
 ### What to change for Phase 5
 
@@ -313,7 +325,7 @@ A single dogfooding session on May 12 surfaced ~7 high-priority sync/dashboard b
 3. **Add sync-divergence tests.** #567/#572 (frontend has 23, backend has 2) need a regression test. Phase 5 should add a property-style test: any sequence of online/offline writes leaves frontend and backend with the same word set.
 4. **Close epic parents on sub-issue completion.** Either automate it or add it to the close checklist. 8 stale epic parents skew Phase 4's "open issues" count.
 5. **Dogfood content models before shipping their UI.** Domain taxonomy needed a rebuild because no one tried Browse-by-Domain on a real notebook before the UI was built. Phase 5's semantic quizzes (synonym/antonym match, odd-one-out) should dogfood the underlying lexical data on a real notebook before the quiz UI lands.
-6. **Mixed quiz-type sessions (#389) ships in Phase 5.** Only originally-scoped Phase 4 deliverable not started — pull it into Phase 5 scope explicitly, don't let it drift.
+6. **Profile-build is the diagnostic default for obfuscated-stack bugs.** Four #623 fix attempts shipped without anyone reading the actual call site. After `flutter build web --profile --source-maps` + Firebase preview channel, root cause found in 15 minutes. Add this to the bug-triage runbook — when an exception stack points to `main.dart.js:NNNN`, deploy a profile build before writing any fix code.
 7. **Track "In Progress" timestamps.** Carried from Phases 2 and 3 lessons. Phase 4 still doesn't separate cycle time from lead time, and the capture-friction 256.8h numbers continue to mislead.
 
 ---
@@ -322,35 +334,35 @@ A single dogfooding session on May 12 surfaced ~7 high-priority sync/dashboard b
 
 ### Originally-scoped deliverables not yet started
 
-| # | Issue | Notes |
+_None._ All 10 Phase 4 deliverables shipped before close.
+
+### In-flight bugs at phase close — all resolved 2026-05-18
+
+| # | Issue | Resolution |
 |---|---|---|
-| #389 | Mixed quiz-type sessions | Only Phase 4 originally-scoped deliverable not started |
+| #603 | Browse by Domain shows "No domains yet" | ✅ Closed — chips render with counts on prod re-test. |
+| #606 | Word detail preview shows wrong POS (`ephemeral` tagged as noun) | ✅ Closed — `obsequious` (and `ephemeral`) tagged `adjective` on re-test. |
+| #615 | Escape key does not dismiss modal dialogs | ✅ Closed — Escape dismisses with the dialog's input field focused (standard Material behaviour). |
+| #618 | Duplicate snackbar lacks "view existing" affordance | ✅ Closed — `View` action present and navigates correctly. |
+| #619 | Word field error state doesn't clear when typing | ✅ Closed — helper + outline reset on first valid keystroke. |
+| #620 | Quick Capture: notes field label overlaps typed text | ✅ Closed — Personal notes label correctly floated. |
+| #622 | Stale Quick Capture form lingers in DOM on Word detail | ✅ Closed — `read_page interactive` returns no orphaned form on Word detail. |
+| #623 | Unhandled Dart exception fires on every page load | ✅ Closed — root-caused as `LateInitializationError` in `google_sign_in_web`; fixed by PR [#696](https://github.com/AnunnakiCosmoCrew/WordPower-app/pull/696) (lazy `late final GoogleSignIn`). |
+| #624 | Drift WASM SQLite falls back to sharedIndexedDb | ✅ Closed (won't-fix-for-existing-users) — RCA showed this is the "existing IndexedDB trap" in `drift_flutter`, not a COOP/COEP regression. New installs already get `opfsLocks` automatically. |
 
-### In-flight bugs (still open at phase close)
+### Phase 4 epics — all closed 2026-05-18
 
-| # | Issue | Severity |
+| # | Epic | Resolution |
 |---|---|---|
-| #603 | Browse by Domain shows "No domains yet" despite enriched words | Bug — backend |
-| #606 | Word detail preview shows wrong POS (`ephemeral` tagged as noun) | Bug — backend |
-| #615 | Escape key does not dismiss modal dialogs | Bug — frontend |
-| #619 | Quick Capture: Word field error state doesn't clear when typing | Bug — frontend |
-| #620 | Quick Capture: notes field label overlaps typed text | Bug — frontend |
-| #622 | Stale Quick Capture form lingers in DOM on Word detail | Bug — frontend |
-| #623 | Unhandled Dart exception fires on every page load | Bug — frontend |
-| #624 | Drift WASM SQLite falls back to sharedIndexedDb (COOP/COEP not effective) | Bug — frontend |
-
-### Epic parents still open (sub-issues done — needs hygiene close)
-
-| # | Epic |
-|---|---|
-| #383 | Word Lists & Folders (5/5 sub-issues closed) |
-| #384 | Domain browsing & filtering (4/4 sub-issues closed) |
-| #385 | Root families (all sub-issues + build pipeline closed) |
-| #386 | Word discovery (all v2 sub-issues closed) |
-| #387 | Dashboard (4/4 sub-issues closed) |
-| #390 | Quiz-content variety (3/3 sub-issues closed) |
-| #391 | Reduce capture friction (5/5 sub-issues closed) |
-| #350 | Multi-source dictionary (Cambridge shelved; awaiting Oxford follow-up) |
+| #350 | Multi-source dictionary | Closed as "not planned" — Cambridge shelved post-spike, MW Learner's took the primary slot. Oxford re-evaluation in #513. |
+| #383 | Word Lists & Folders | Completed |
+| #384 | Domain browsing & filtering | Completed |
+| #385 | Root families | Completed (including custom morphology bundle pipeline) |
+| #386 | Word discovery | Completed (v2 redesign + clustering fixes) |
+| #387 | Dashboard | Completed |
+| #389 | Mixed quiz-type sessions | Completed |
+| #390 | Quiz-content variety | Completed |
+| #391 | Reduce capture friction | Completed (Quick Capture surface); browser-extension / iOS share-sheet / OCR distribution deferred to Phase 6 |
 
 ### Deferred design decisions handed to Phase 5
 
@@ -378,5 +390,6 @@ Phase 4 leaves the project well-positioned for Phase 5 ("Advanced Modes: Deep Pr
 - Word Lists, Domain filter, Domain landing all in production ✅
 - CI bug-discipline gates (test-coverage requirement + auto-reopen) ✅
 - Capture-friction prototypes (browser extension, iOS share-sheet, OCR) ready for Phase 6 distribution ✅
-- Production bug-fix loop proven across two dogfooding waves (May 12 sync wave + May 13–15 UI polish wave) ✅
-- Mixed quiz-type sessions (#389) explicitly scoped into Phase 5 as the deferred Phase 4 deliverable ⏳
+- Production bug-fix loop proven across three dogfooding waves (May 12 sync wave + May 13–15 UI polish wave + May 18 closure smoke) ✅
+- Proof-of-fix workflow gate active for all future bug PRs ✅
+- Profile-build diagnostic pattern documented for obfuscated-stack bugs ✅

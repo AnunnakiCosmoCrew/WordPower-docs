@@ -468,7 +468,7 @@ Multiple sources are combined to power word connections:
 | **Auth** | Firebase Auth (email/password, Google Sign-In, Apple Sign-In) |
 | **Database** | PostgreSQL via Neon (serverless) |
 | **Cloud** | Google Cloud Platform (Cloud Run) |
-| **Dictionary API** | Free Dictionary API (Phase 1–5); Oxford Dictionaries API Lite (Phase 6+) with aggressive server-side caching in PostgreSQL |
+| **Dictionary API** | **Merriam-Webster Learner's** (primary, Phase 4+) + **Free Dictionary API** (coverage fallback). Cambridge was shelved post-spike ([#350](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/350)) due to licensing. Oxford is being reconsidered for Phase 6 pending pricing model — see [#513](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/513). All sources go through the multi-source `DictionaryAggregator` with composite `(word, source)` cache key. |
 | **Word Intelligence** | Open English WordNet 2025 (synonyms, hierarchy, domains) + Roget's 1911 (thematic clusters, quiz distractors) |
 | **CEFR Leveling** | CEFR-J Dataset + Wordfreq (frequency-to-level mapping) |
 | **Reference Material** | HTOED, David Crystal's *Words in Time and Place*, English Vocabulary Profile, Oxford Learner's Dictionaries — studied for taxonomy design and leveling methodology |
@@ -687,7 +687,7 @@ Words get richer, data lives in the cloud. iOS enters as the natural mobile home
 |---|---|
 | Firebase Auth | Email/password, Google Sign-In, Apple Sign-In |
 | Cloud sync | Real-time sync across devices via Spring Boot API |
-| Auto-enrichment | Definition, pronunciation (audio + IPA), part of speech, example sentences via ==Free Dictionary API== (Oxford deferred to Phase 6 to avoid ~$756/yr during development) |
+| Auto-enrichment | Definition, pronunciation (audio + IPA), part of speech, example sentences via ==Free Dictionary API== (the multi-source `DictionaryAggregator` arrived in Phase 4 with MW Learner's as primary — see Phase 4 below) |
 | Word Detail View | Full word card with all enriched data + personal notes |
 | iOS deployment | App Store submission for iOS |
 
@@ -702,22 +702,45 @@ Learning becomes structured and scientifically timed.
 | SM-2 spaced repetition | Familiarity score, intervals, next review date per word |
 | Daily review queue | Auto-generated from due words, mixed quiz types |
 
-### Phase 4 — Vocabulary System: "Organized Learning"
+### Phase 4 — Vocabulary System: "Organized Learning" ✅ Shipped 2026-05-18
 
-The notebook becomes a real vocabulary system.
+The notebook became a real vocabulary system. All 9 epics closed. See [[PHASE_4_AUDIT]] for the full delivered scope and decisions.
 
-| Deliverable | Details |
-|---|---|
-| **Cambridge Dictionary as primary source** | Multi-source `dictionary_cache` with Cambridge promoted to primary (lexicographer-curated, ESL-tuned, built-in CEFR tagging) and Free Dictionary kept as coverage fallback for words Cambridge doesn't have. Includes schema migration to a composite `(word, source)` key, a `DictionaryAggregator` with per-field source priority, two-pass async enrichment, and cache-miss instrumentation. Tracked in [epic #350](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/350) (~23 points across 6 sub-issues). See [[QUIZ_ENGINE#10. Deferred / Future Work]] for the full priority-chain spec. |
-| Word Lists / Folders | Custom collections (e.g., "IELTS Prep", "Words from Breaking Bad") |
-| Domain browsing & filtering | Filter by semantic domain, CEFR level, status |
-| Root families | Root → word family tree, prefix/suffix breakdowns. Requires a background download of the root-families bundle (~0.3 MB compressed) + WordNet (~8 MB compressed) on first use — see [[LOCAL_FIRST_ARCHITECTURE#Reference Data]]. |
-| Word discovery | "You know *transport* — try *export*, *import*, *portable*". Surface as both a standalone browse experience **and** as post-quiz prompts: after a session, suggest related words for the user to opt into adding. Words only enter the notebook on explicit tap — preserves the personal-notebook contract. See [[QUIZ_ENGINE#10. Deferred / Future Work]]. |
-| Dashboard | Stats, streaks, words collected/mastered, level progress |
-| Least-recently-quizzed candidate ordering | Replace random candidate-pool sampling (Phase 3 fix) with *least-recently-quizzed first* via a `UserWord.lastQuizzedAt` column. Pool cap then means "500 most-overdue words" instead of a random slice. Optionally fold in SRS-driven prioritisation (due-or-soon words first), merging the ad-hoc-quiz and review-queue flows where they overlap. See [[QUIZ_ENGINE#3. Candidate Pool]] and [[QUIZ_ENGINE#10. Deferred / Future Work]]. |
-| Mixed quiz-type sessions | Let one session mix question types — e.g. 3 MCQ + 3 flashcards + 3 spelling on the same word set. Helps with small-collection variety (same words, multiple framings) and is a richer practice mode in its own right. See [[QUIZ_ENGINE#10. Deferred / Future Work]]. |
-| Quiz-content variety (anti-string-pairing) | Counter the *encoding-specificity* problem where users memorise (word ↔ definition) or (stem-fragment ↔ word) as string matches without internalising meaning. Two changes: **(a) Definition-sense rotation in MCQ** — rotate which sense becomes the correct option across attempts (Free Dictionary returns multiple senses per word); **(b) FITB stem rotation** — random pick from matching cached example sentences per question rather than always the first match. See [[QUIZ_ENGINE#10. Deferred / Future Work]]. |
-| Reduce capture friction | A user persistently stuck at a small notebook is an onboarding/UX failure, not a quiz-engine problem. Invest in low-friction collection paths — improved Quick Capture, browser extension, share-sheet on iOS, OCR-from-screenshot — so the notebook keeps growing organically. The deeper fix for "quizzes feel repetitive" lives upstream of the quiz engine. |
+| Deliverable | Status | Details |
+|---|---|---|
+| **Dictionary primary-source pivot** | ✅ Shipped (re-scoped) | Original plan was Cambridge Learner's as primary. After spike [#353](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/353) Cambridge's licensing was incompatible (no persistent caching, no free-product tier). Pivoted to **Merriam-Webster Learner's** as the dev primary, Free Dictionary as coverage fallback. The `DictionaryAggregator`, composite-key schema, two-pass async enrichment, and cache-miss instrumentation all shipped on the MW spine. Original epic [#350](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/350) closed as "not planned" — Oxford or Cambridge may join later if pricing changes (#513). |
+| Word Lists / Folders | ✅ Shipped | Custom collections with inline-create-from-add-sheet, single-click navigation, and master-detail layout on wide windows. Epic [#383](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/383). |
+| Domain browsing & filtering | ✅ Shipped | Per-domain chip landing with counts, filtered word list. Internally a flat 10-domain classifier ([#664](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/664)) with hierarchy-leaf labels on the surface — see [[DOMAIN_TAXONOMY_MAPPING]]. Epic [#384](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/384). |
+| Root families | ✅ Shipped | Root → word family tree with POS-bucketed siblings and a custom morphology bundle pipeline (#526–#529, [[MORPHOLOGY_BUILD_PIPELINE]], [[ROOT_FAMILIES_ENGINE]]). v2 (top-30k bundle, more languages, alternative frequency lists) tracked under [#541](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/541) for later. Epic [#385](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/385). |
+| Word discovery | ✅ Shipped | Three-action cards (Add / Not now / Don't suggest) with per-Roget-seed caps and a hash-based tiebreaker so results aren't alphabetical clusters ([#596](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/596)). Post-quiz suggestion is still future. Epic [#386](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/386). |
+| Dashboard | ✅ Shipped | Stats page with CEFR distribution chart, 7-day activity chart, streak + words-mastered cards. Epic [#387](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/387). |
+| Least-recently-quizzed candidate ordering | ✅ Shipped | `UserWord.lastQuizzedAt` column drives candidate-pool ordering. Folding SRS-due prioritisation into the same pool is deferred. See [[QUIZ_ENGINE#3. Candidate Pool]]. |
+| Mixed quiz-type sessions | ✅ Shipped | One session can interleave MCQ + FITB + flashcards. Epic [#389](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/389). |
+| Quiz-content variety (anti-string-pairing) | ✅ Shipped | MCQ correct-answer sense rotation ([#411](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/411)), FITB LRU stem rotation ([#412](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/412)), `quiz_content_usage` tracking ([#413](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/413)). Epic [#390](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/390). |
+| Reduce capture friction | ✅ Shipped (Quick Capture surface) | Quick Capture got autofocus, duplicate detection with `View` action, instant error-helper clear, web DOM shim cleanup on route pop, notes-label fix. Browser extension + share-sheet + OCR-from-screenshot deferred to Phase 5/6. Epic [#391](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/391). |
+
+#### Phase 4 — process & workflow improvements (also shipped)
+
+Two failure modes surfaced repeatedly during the Phase 4 bug-fix sprint and prompted workflow changes. Both are now live:
+
+| Change | Trigger | What it adds |
+|---|---|---|
+| **Proof-of-fix gate** ([#689](https://github.com/AnunnakiCosmoCrew/WordPower-app/pull/690)) | #623 shipped three speculative fixes that all passed CI but didn't stop the user-visible exception. Unit tests pass, behavior still broken. | Every `bug`-labelled PR must include a Chrome MCP screenshot (frontend) or curl/output excerpt (backend) demonstrating the user-visible flow works after the fix. Escape hatch: `no-proof-required` label with explanation. Lives in `.github/PULL_REQUEST_TEMPLATE.md`, `CLAUDE.md`, and `.github/copilot-instructions.md`. |
+| **Bug-close-audit hardening** ([#699](https://github.com/AnunnakiCosmoCrew/WordPower-app/pull/700) + [#703](https://github.com/AnunnakiCosmoCrew/WordPower-app/pull/704)) | The audit's commit-reference grep only recognised `#{N}`, but squash-merge of `WP-{N}` PRs drops the body. And the audit treated its own auto-reopens as new evidence, creating a close → reopen → close lock. | Audit now matches both `#{N}` and `WP-{N}` commit refs, and filters out reopens triggered by `github-actions[bot]` so only human reopens move the `--since` pointer. |
+
+#### Phase 4 — diagnostic pattern that worked (write it down)
+
+After four failed speculative fix attempts on #623 (Dart exception on every page load), the bug was root-caused in 15 minutes by **building a profile bundle and reading the unobfuscated stack**:
+
+```bash
+cd frontend
+flutter build web --profile --source-maps --base-href "/" \
+  --dart-define=WORDPOWER_API_BASE_URL=...
+firebase hosting:channel:deploy debug-NNN --project wordpower-f2398 --expires 24h
+# Open the channel URL in Chrome MCP / DevTools. Console [EXCEPTION] line now has readable Dart frames.
+```
+
+This is now the recommended path for any "obfuscated stack at `main.dart.js:NNNN`" bug. The same approach diagnosed [#624](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/624) (existing-IndexedDB trap in `drift_flutter`, not the COOP/COEP regression everyone assumed).
 
 ### Phase 5 — Advanced Modes: "Deep Practice"
 
@@ -741,7 +764,7 @@ Polish and publish.
 
 | Deliverable | Details |
 |---|---|
-| Oxford API integration | Oxford Dictionaries API Lite (~$63/mo) + server-side PostgreSQL caching (1 call per word ever). Replaces Free Dictionary API via the abstract `DictionaryService` interface — single class swap, no frontend changes |
+| Oxford API integration (re-evaluate) | Originally planned for Phase 6 as a Free-Dictionary replacement. Re-evaluating against MW Learner's-as-primary (now shipping in Phase 4): Oxford's terms now ban persistent caching on affordable tiers, so the "1 call per word ever" caching model needs re-validation. Tracked in [#513](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/513). If Oxford remains incompatible, MW Learner's stays the primary into launch. |
 | Onboarding flow | First-run experience explaining the collect → learn loop |
 | UI polish | Animations, transitions, edge cases, accessibility |
 | Beta testing | TestFlight (iOS) + web beta |
@@ -761,11 +784,12 @@ timeline
     Phase 3 — Quiz Engine & SRS : Core quiz types (6 types)
                                 : SM-2 spaced repetition
                                 : Daily review queue
-    Phase 4 — Vocabulary System : Cambridge Dictionary as primary source
+    Phase 4 — Vocabulary System (shipped 2026-05-18) : MW Learner's primary + Free Dictionary fallback
                                 : Lists, folders, domain browsing
                                 : Root families, word discovery
                                 : Dashboard, stats, streaks
                                 : Quiz-content variety, mixed sessions
+                                : Proof-of-fix gate (workflow)
     Phase 5 — Advanced Modes : Semantic, contextual, gamified quizzes
                               : CSV import, notifications, offline
     Phase 6 — Launch : Onboarding, polish, beta testing
