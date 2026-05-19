@@ -287,7 +287,7 @@ Phase 2 leaves the project well-positioned for Phase 3 ("Quiz Engine & SRS: Lear
 - Dictionary enrichment populates definitions, CEFR levels, and domains ✅
 - CEFR-J + wordfreq reference data is seeded and ready for quiz distractors ✅
 - SRS algorithm (SM-2) is documented with overdue catch-up algorithm ✅
-- FSRS migration is pinned to Phase 5 with telemetry plan in place ✅
+- FSRS migration is pinned to V2 (post-launch) with telemetry plan in place ✅ *(originally pinned to Phase 5; reclassified after 2026-05-19 strategy pivot — see [[PROJECT#12. Milestones]])*
 - Testing infrastructure covers all 8 layers of the testing pyramid ✅
 - Coverage enforcement is active (80% unit / 70% component) ✅
 - iOS setup issues are queued as the first Phase 3 deliverables ✅

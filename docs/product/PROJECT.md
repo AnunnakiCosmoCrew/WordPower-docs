@@ -38,8 +38,9 @@ Related: [[SPACED_REPETITION]] | [[COMPETITIVE_ANALYSIS]]
     - [[#Phase 2 — Cloud & Enrichment: "Smart Notebook"]]
     - [[#Phase 3 — Quiz Engine & SRS: "Learn for Real"]]
     - [[#Phase 4 — Vocabulary System: "Organized Learning"]]
-    - [[#Phase 5 — Advanced Modes: "Deep Practice"]]
+    - [[#Phase 5 — Launch Prep]]
     - [[#Phase 6 — Launch: "Ship It"]]
+    - [[#V2 — Post-Launch Backlog]]
 
 ---
 
@@ -93,7 +94,7 @@ All quiz types draw from the user's personal word collection. New types are intr
 | **Matching** | Match a set of words to their definitions by dragging/tapping |
 | **Fill-in-the-Blank** | Complete a sentence with the correct word from the user's notebook |
 
-#### Semantic Quizzes (Phase 5 — Advanced Modes)
+#### Semantic Quizzes (V2 — Post-Launch)
 
 > [!note] Data source
 > Leverage WordNet synonyms/antonyms and domain groupings — ==no new data sources needed==.
@@ -103,7 +104,7 @@ All quiz types draw from the user's personal word collection. New types are intr
 | **Synonym/Antonym Match** | Provide a word and ask the user to pick its closest synonym or opposite from a list |
 | **Odd One Out** | Present 4 words (3 related, 1 unrelated). User must identify the word that doesn't belong in the semantic group |
 
-#### Contextual Quizzes (Phase 5 — Advanced Modes)
+#### Contextual Quizzes (V2 — Post-Launch)
 
 > [!warning] New data source required
 > Collocation Check needs a collocation data source not in the current pipeline (Oxford Collocations Dictionary or collocations mined from Oxford API example sentences).
@@ -114,7 +115,7 @@ All quiz types draw from the user's personal word collection. New types are intr
 | **Error Correction** | Show a sentence where the target word is used incorrectly (wrong tense, wrong context, or misspelled). The user must fix it |
 | **Sentence Scramble** | Provide a sentence using the target word, but with the words in random order. User must rearrange them correctly |
 
-#### Gamified Modes (Phase 5 — Advanced Modes)
+#### Gamified Modes (V2 — Post-Launch)
 
 > [!note]
 > Engagement and fluency layers built on top of the working quiz engine.
@@ -717,7 +718,7 @@ The notebook became a real vocabulary system. All 9 epics closed. See [[PHASE_4_
 | Least-recently-quizzed candidate ordering | ✅ Shipped | `UserWord.lastQuizzedAt` column drives candidate-pool ordering. Folding SRS-due prioritisation into the same pool is deferred. See [[QUIZ_ENGINE#3. Candidate Pool]]. |
 | Mixed quiz-type sessions | ✅ Shipped | One session can interleave MCQ + FITB + flashcards. Epic [#389](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/389). |
 | Quiz-content variety (anti-string-pairing) | ✅ Shipped | MCQ correct-answer sense rotation ([#411](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/411)), FITB LRU stem rotation ([#412](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/412)), `quiz_content_usage` tracking ([#413](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/413)). Epic [#390](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/390). |
-| Reduce capture friction | ✅ Shipped (Quick Capture surface) | Quick Capture got autofocus, duplicate detection with `View` action, instant error-helper clear, web DOM shim cleanup on route pop, notes-label fix. Browser extension + share-sheet + OCR-from-screenshot deferred to Phase 5/6. Epic [#391](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/391). |
+| Reduce capture friction | ✅ Shipped (Quick Capture surface) | Quick Capture got autofocus, duplicate detection with `View` action, instant error-helper clear, web DOM shim cleanup on route pop, notes-label fix. Browser extension + share-sheet + OCR-from-screenshot deferred to Phase 6 (distribution) / V2 (rollout polish). Epic [#391](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/391). |
 
 #### Phase 4 — process & workflow improvements (also shipped)
 
@@ -742,19 +743,20 @@ firebase hosting:channel:deploy debug-NNN --project wordpower-f2398 --expires 24
 
 This is now the recommended path for any "obfuscated stack at `main.dart.js:NNNN`" bug. The same approach diagnosed [#624](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/624) (existing-IndexedDB trap in `drift_flutter`, not the COOP/COEP regression everyone assumed).
 
-### Phase 5 — Advanced Modes: "Deep Practice"
+### Phase 5 — Launch Prep
 
-Richer quiz types and power-user features.
+> [!info] Strategy pivot (2026-05-19)
+> The original Phase 5 ("Advanced Modes: Deep Practice") was descoped after Phase 4 closure. Phase 4 already ships a complete vocabulary-notebook-and-learning product end-to-end, so we're pulling forward only what genuinely affects launch quality and deferring the rest to [[#V2 — Post-Launch Backlog]]. The pivot trades 5–7 weeks of pre-launch polish for real-user signal at launch — FSRS in particular trains *better* on real telemetry than dogfood telemetry.
 
-| Deliverable | Details |
-|---|---|
-| Semantic quizzes | Synonym/antonym match, odd one out |
-| Contextual quizzes | Collocation check, error correction, sentence scramble |
-| Gamified modes | Speed recall, definition reverse, word ladder |
-| FSRS migration | Replace SM-2 with FSRS for personalized scheduling — users have 100+ reviews by now (see [[SPACED_REPETITION#8. FSRS — The Modern Alternative]]) |
-| CSV/Excel import | Bulk import with field mapping |
-| Notifications | Review reminders, streak nudges |
-| Offline support | Local cache with sync-when-online |
+A short hardening sprint that pulls forward the launch-critical pieces from the original Phase 5 scope. Tracked on GitHub with the `pre-launch` label.
+
+| Deliverable | Why pre-launch | Issue |
+|---|---|---|
+| Playwright E2E suite for Flutter web | Phase 4 re-test cycle found 4 of 11 "fixed" bugs had regressed in production; JaCoCo + Flutter `integration_test` caught none. Playwright targets exactly that bug class — deploy-infra issues, runtime DOM leaks, end-to-end data flow, runtime exceptions. See [[PLAYWRIGHT_PRIMER]]. | [#705](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/705) |
+| Flutter `integration_test` for iOS + Android | Web is covered by Playwright; this covers mobile. Phase 4 audit recommendation #2. | [#706](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/706) |
+| Sync-divergence regression test | #567/#572 showed local Drift cache could diverge from server (frontend had 23 words, backend had 2). Property test prevents data-loss regression. Phase 4 audit recommendation #3. | [#708](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/708) |
+| Notifications (review reminders + streak nudges) | The one V2 feature that meaningfully affects launch retention. Day-1 / 7-day / 30-day numbers without push reminders will mislead subsequent product decisions. | [#715](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/715) |
+| Oxford API decision (re-evaluate) | Resolve [#513](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/513) before Phase 6 launch planning — either MW Learner's locks in as production primary, or Oxford re-enters if pricing has shifted. | [#513](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/513) |
 
 ### Phase 6 — Launch: "Ship It"
 
@@ -770,6 +772,24 @@ Polish and publish.
 | Beta testing | TestFlight (iOS) + web beta |
 | Store submission | iOS App Store + web deployment |
 | Analytics | Usage tracking, funnel analysis, crash reporting |
+
+### V2 — Post-Launch Backlog
+
+Items originally scoped for Phase 5 ("Advanced Modes: Deep Practice") and deferred to a post-launch V2 milestone after the 2026-05-19 strategy pivot. Each lives in the GitHub backlog with full sub-issue breakdown under the `v2` label.
+
+The rationale for deferring rather than building pre-launch: each of these is a depth/engagement layer on top of an already-working learning loop. Real-user signal is more valuable than pre-launch polish on features whose audience hasn't engaged with the V1 catalog yet.
+
+| Deliverable | Why V2 | Epic |
+|---|---|---|
+| **FSRS migration** | Optimization, not table stakes. SM-2 powers Anki and works fine. FSRS *trains* on real-user telemetry — V2 timing means the per-user models start from the real distribution, not 5–10 dogfooders. | [#710](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/710) |
+| **Semantic quizzes** (Synonym/Antonym Match, Odd One Out) | Variety expansion — V1's 6 quiz types already cover all 3 cognitive tiers (production / assisted production / recognition / self-assessed). | [#711](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/711) |
+| **Contextual quizzes** (Collocation, Error Correction, Sentence Scramble) | Highest-data-source-risk feature in the original Phase 5 — collocation source unresolved (Oxford Collocations licensing vs mining pipeline). Defer to V2 with real-traffic signal informing the source decision. | [#712](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/712) |
+| **Gamified modes** (Speed Recall, Definition Reverse, Word Ladder) | Pure engagement layer for power users. | [#713](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/713) |
+| **CSV/Excel import + export** | Migration tool for users coming from Anki/Quizlet. Tiny day-1 audience; build when real users request specific source formats. | [#714](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/714) |
+| **Offline progressive sync** | Already conditional on telemetry showing cold-start hurts. V2 verifies the trigger via real users rather than dogfood. | [#716](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/716) |
+| **Embedding-based domain suggestions** | UX polish on a working feature (manual domain override). Production rollout pending budget call. | [#717](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/717) |
+| **Algorithm spec docs** | Only needed when the corresponding V2 epic starts. | [#707](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/707) |
+| **Lexical-data dogfooding** | Preflight for Semantic Quizzes V2 work. | [#709](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/709) |
 
 ```mermaid
 timeline
@@ -790,8 +810,14 @@ timeline
                                 : Dashboard, stats, streaks
                                 : Quiz-content variety, mixed sessions
                                 : Proof-of-fix gate (workflow)
-    Phase 5 — Advanced Modes : Semantic, contextual, gamified quizzes
-                              : CSV import, notifications, offline
+    Phase 5 — Launch Prep : Playwright + native integration_test
+                          : Sync-divergence regression test
+                          : Notifications
+                          : Oxford API decision
     Phase 6 — Launch : Onboarding, polish, beta testing
                      : App Store + web deployment
+    V2 (post-launch) : FSRS migration
+                     : Semantic + contextual + gamified quizzes
+                     : CSV import/export, offline upgrade
+                     : Embedding domain suggestions
 ```

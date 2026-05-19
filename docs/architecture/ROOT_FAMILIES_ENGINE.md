@@ -16,7 +16,7 @@ When a user captures (or views) any English word, the app should show:
 - **Family link**: tap-through to the `port-` family browse screen.
 - **Graceful degradation**: when a confident decomposition isn't possible, fall back to "Contains the root *X*" (L0) or no morphology section at all — **never** a wrong-looking parse.
 
-This targets **L2 ambition** on the ladder below. L3 (graph network UI, allomorph variants UI, ambiguity warnings) is deferred to Phase 5+.
+This targets **L2 ambition** on the ladder below. L3 (graph network UI, allomorph variants UI, ambiguity warnings) is deferred to V2+.
 
 ### 1.1 Ambition ladder
 
@@ -25,7 +25,7 @@ This targets **L2 ambition** on the ladder below. L3 (graph network UI, allomorp
 | L0 | "Contains root *port-* (carry)" | Already covered by [[ROOT_FAMILIES_SPIKE]] |
 | L1 | Linear morpheme breakdown with meanings | The whole debate below |
 | **L2 (target)** | L1 + etymology + original Latin/Greek form | L1 + Wikipedia etymology field |
-| L3 | L2 + graph network + allomorph UI + ambiguity warnings | Deferred to Phase 5+ |
+| L3 | L2 + graph network + allomorph UI + ambiguity warnings | Deferred to V2+ |
 
 ## 2. Full Option Matrix
 
@@ -374,13 +374,13 @@ After Week 1 the architecture is one of:
 
 Explicit non-goals so we don't scope-creep this into a thesis:
 
-- **L3 graph UI / network visualization** — deferred to Phase 5 conversation. Data layer is graph-shaped (per §5 layering), but UI ships only trees and lists.
+- **L3 graph UI / network visualization** — deferred to V2 conversation (originally "Phase 5"; reclassified 2026-05-19). Data layer is graph-shaped (per §5 layering), but UI ships only trees and lists.
 - **Other languages** — English-only for the foreseeable future; multilingual morphology is a separate problem.
 - **User-contributed corrections** — needs moderation infrastructure; not for v1.
 - **Real-time bundle updates** — bundle ships with app version; updates only on app store push.
 - **Allomorph table as a separate UI feature** — captured in `canonical_root` field but not surfaced as its own screen for v1.
 - **Productive vs unproductive root marker** — interesting linguistically but not load-bearing for learning UX.
-- **Personal-notebook graph view** — deferred to Phase 5+; only meaningful once users have 200+ captured words.
+- **Personal-notebook graph view** — deferred to V2+; only meaningful once users have 200+ captured words.
 
 ## 12. Cross-references
 

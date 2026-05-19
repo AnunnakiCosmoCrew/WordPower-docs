@@ -512,8 +512,8 @@ Things we've decided to defer rather than re-litigate. Each entry has a short ra
 > [!info] Phase 4+ — Reduce capture friction for retention
 > A user persistently stuck at a small notebook is an onboarding/UX failure, not a quiz-engine problem. Quick Capture, browser extension, share-sheet on iOS, OCR-from-screenshot — all the collection paths should make it trivial to keep the notebook growing. Quiz-side variety mechanisms (the layered chain in §5, the deferrals above) help around the edges, but the deeper fix is upstream. Tracked in [[PROJECT#Phase 4 — Vocabulary System: "Organized Learning"]].
 
-> [!info] Phase 5+ — Sentence-audio dictation mode for spelling
-> Synthesised audio of the example sentence ("hear the sentence, spell the word") is strictly better pedagogy than blanked text but is its own epic — TTS provider, caching, object-storage layout, offline pre-download, voice/accent UX, billing model. Revisit once v1 spelling completion-rate data is in. Originally noted under [issue #237](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/237).
+> [!info] V2+ — Sentence-audio dictation mode for spelling
+> Synthesised audio of the example sentence ("hear the sentence, spell the word") is strictly better pedagogy than blanked text but is its own epic — TTS provider, caching, object-storage layout, offline pre-download, voice/accent UX, billing model. Revisit once v1 spelling completion-rate data is in. Originally noted under [issue #237](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/237). (Reclassified from "Phase 5+" to "V2+" after the 2026-05-19 strategy pivot — see [[PROJECT#12. Milestones]].)
 
 ## Glossary
 

@@ -1,5 +1,8 @@
 # Phase 4 Audit — Vocabulary System: "Organized Learning"
 
+> [!warning] Strategy pivot recorded 2026-05-19
+> This audit's "Phase 5 Readiness" and "What to change for Phase 5" sections were written assuming the original Phase 5 ("Advanced Modes: Deep Practice") would run next. **That plan was descoped on 2026-05-19** — Phase 5 is now a short *Launch Prep* sprint (Playwright + native `integration_test` + sync-divergence test + Notifications + Oxford decision), and the original Advanced Modes deliverables (FSRS, semantic / contextual / gamified quizzes, CSV import, offline upgrade) moved to a post-launch V2 backlog. The recommendations below still apply — they're discipline gates for *whatever comes next*, not specifically the Advanced-Modes scope. Current roadmap lives in [[PROJECT#12. Milestones]].
+
 > [!abstract]
 > Phase 4 is **closed (2026-05-18)**. All 10 originally-scoped deliverables shipped — including mixed quiz-type sessions ([#389](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/389), the last one). The Cambridge primary-source plan was shelved after the licensing spike; Merriam-Webster Learner's stepped in as the dev primary with Free Dictionary as fallback. All 9 epics + all carry-over bugs from the 2026-05-14 smoke test closed. Two workflow improvements landed alongside: a **proof-of-fix gate** on bug PRs (#689) and a hardened **bug-close-audit** workflow (#699 + #703) — both prompted by the same failure mode (passing CI on broken behaviour) that caused four wasted #623 fix attempts.
 
@@ -377,9 +380,9 @@ _None._ All 10 Phase 4 deliverables shipped before close.
 
 ---
 
-## Phase 5 Readiness
+## Launch Readiness (originally drafted as "Phase 5 Readiness")
 
-Phase 4 leaves the project well-positioned for Phase 5 ("Advanced Modes: Deep Practice"):
+Phase 4 leaves the project well-positioned for what comes next — now scoped as a short Phase 5 *Launch Prep* sprint followed by Phase 6 launch, with the original Advanced Modes scope deferred to V2 (see strategy-pivot callout at the top of this audit and [[PROJECT#12. Milestones]]):
 
 - All 6 Phase 3 quiz types still operating; quiz-content variety (sense + stem rotation) layered on ✅
 - SM-2 SRS persisting per-word state — ready for FSRS migration evaluation ✅

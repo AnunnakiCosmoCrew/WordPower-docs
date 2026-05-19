@@ -208,8 +208,8 @@ Instead of a fixed formula, FSRS uses a trained model that learns:
 
 > [!tip] Recommendation: Hybrid approach
 > 1. **Start with SM-2** (Phase 3) — simple to implement, well-understood, works from day one with no training data
-> 2. **Migrate to FSRS in Phase 5** — by Phase 5 ("Advanced Modes"), users will have accumulated 100+ reviews, giving FSRS enough data to train per-user models
-> 3. SM-2 provides a solid experience from launch, and FSRS replaces it as a ==Phase 5 deliverable== without changing the user-facing quiz experience
+> 2. **Migrate to FSRS in V2 (post-launch)** — V2 timing means the optimizer trains on the real user distribution rather than 5–10 dogfooders. Population-level priors come from real traffic, per-user models converge faster, and the migration runbook can be tuned against actual lapse rates seen in production. See the [strategy pivot in PROJECT.md](../product/PROJECT.md#phase-5--launch-prep).
+> 3. SM-2 provides a solid experience from launch, and FSRS replaces it as a ==V2 deliverable== without changing the user-facing quiz experience. Tracked in [#710](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/710) (label `v2`).
 
 ## 9. The Daily Review Queue
 
@@ -410,14 +410,14 @@ WordPower classifies each quiz type by its ==cognitive demand==:
 | **Listening** | 3 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
 | **Matching** | 3 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
 | **Fill-in-the-Blank** | 3 | Assisted Production | 4 (Good) | 3 (Hard) | 1 (Again) |
-| **Synonym/Antonym Match** | 4 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
-| **Odd One Out** | 4 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
-| **Collocation Check** | 5 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
-| **Error Correction** | 5 | Gamified | 3 (micro-bump) | 3 | Ignored |
-| **Sentence Scramble** | 5 | Production | 4 (Good) | 3 (Hard) | 1 (Again) |
-| **Speed Recall** | 6 | Gamified | 3 (micro-bump) | 3 | Ignored |
-| **Definition Reverse** | 6 | Production | 4 (Good) | 3 (Hard) | 1 (Again) |
-| **Word Ladder** | 6 | Gamified | 3 (micro-bump) | 3 | Ignored |
+| **Synonym/Antonym Match** | V2 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
+| **Odd One Out** | V2 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
+| **Collocation Check** | V2 | Recognition | 3 (Hard) | 3 (Hard) | 1 (Again) |
+| **Error Correction** | V2 | Gamified | 3 (micro-bump) | 3 | Ignored |
+| **Sentence Scramble** | V2 | Production | 4 (Good) | 3 (Hard) | 1 (Again) |
+| **Speed Recall** | V2 | Gamified | 3 (micro-bump) | 3 | Ignored |
+| **Definition Reverse** | V2 | Production | 4 (Good) | 3 (Hard) | 1 (Again) |
+| **Word Ladder** | V2 | Gamified | 3 (micro-bump) | 3 | Ignored |
 
 ## 11. Review Telemetry — Preparing for FSRS
 
