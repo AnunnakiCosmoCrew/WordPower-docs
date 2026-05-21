@@ -1,10 +1,15 @@
-# WordPower (Working Title) — Project Document
+# WordPower (Codename) / LexiPower (Public Brand) — Project Document
 
 > [!abstract] Vision
 > A personal word notebook that turns everyday vocabulary discoveries into lasting knowledge — collect words from daily life, and let the app teach you their meaning, spelling, pronunciation, and related vocabulary through quizzes, flashcards, and spaced repetition.
 
+> [!note] Naming
+> The product ships publicly as **LexiPower** (decided 2026-05-21 during [#842](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/842) — `wordpower.app` and `wordpower.com` were unavailable). **WordPower** remains the internal codename used in repos (`WordPower-app`, `WordPower-docs`), branches (`feature/wp-…`), commit prefixes (`WP-<N>`), and Issue/PR titles. See [[BRAND]] for usage rules.
+
 | | |
 |---|---|
+| **Public Brand** | LexiPower |
+| **Internal Codename** | WordPower |
 | **Project Manager** | Mert Ertugrul |
 | **Originally Conceived** | January 17, 2024 |
 | **Platform** | Flutter (Web → iOS → Android) |
