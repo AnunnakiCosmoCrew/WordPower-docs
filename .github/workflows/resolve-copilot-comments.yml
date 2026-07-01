@@ -19,22 +19,35 @@ on:
   pull_request_review:
     types: [submitted]
 
+# Serialize runs per PR so overlapping Copilot reviews (or re-runs) can't race
+# on commits/pushes to the same branch.
+concurrency:
+  group: resolve-copilot-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
 jobs:
   resolve-copilot:
-    if: github.event.review.user.login == 'copilot-pull-request-reviewer[bot]'
+    # Copilot's review only, AND only for same-repo PRs — fork PRs can't be
+    # pushed back to and must never run this with write permissions/secrets.
+    if: >-
+      github.event.review.user.login == 'copilot-pull-request-reviewer[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     permissions:
       contents: write        # push fixes to the PR branch
       pull-requests: write    # reply to / resolve review threads
     steps:
       - name: Checkout PR branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
+          persist-credentials: true   # keep the token so fixes can be pushed back
 
       - name: Resolve Copilot comments
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@fad22eb3fa582b7357fc0ea48af6645851b884fd  # v1
+        env:
+          GH_TOKEN: ${{ github.token }}   # gh api / GraphQL auth for the agent
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: |
