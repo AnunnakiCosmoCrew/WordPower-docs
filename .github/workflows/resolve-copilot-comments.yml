@@ -1,0 +1,73 @@
+name: Resolve Copilot review comments
+
+# Auto-resolves GitHub Copilot's PR review comments: Claude reads Copilot's
+# feedback, applies the valid fixes, pushes them to the PR branch, and resolves
+# the threads it actually addressed.
+#
+# Scope note: on CODE repos this is expected on every PR. On DOCS repos, PRs are
+# optional (changes often land straight on main), so a Copilot review isn't
+# guaranteed there — this workflow simply stays dormant when there's no PR or no
+# Copilot review. It's a harmless, zero-cost safety net on docs repos, not a
+# requirement.
+#
+# Requires an ANTHROPIC_API_KEY secret — set it ONCE at the org level so every
+# repo inherits it:
+#   gh secret set ANTHROPIC_API_KEY --org AnunnakiCosmoCrew --visibility all
+# Only fires for same-repo PRs (fork PRs can't be pushed back to).
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+# Serialize runs per PR so overlapping Copilot reviews (or re-runs) can't race
+# on commits/pushes to the same branch.
+concurrency:
+  group: resolve-copilot-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  resolve-copilot:
+    # Copilot's review only, AND only for same-repo PRs — fork PRs can't be
+    # pushed back to and must never run this with write permissions/secrets.
+    if: >-
+      github.event.review.user.login == 'copilot-pull-request-reviewer[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write        # push fixes to the PR branch
+      pull-requests: write    # reply to / resolve review threads
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+          persist-credentials: true   # keep the token so fixes can be pushed back
+
+      - name: Resolve Copilot comments
+        uses: anthropics/claude-code-action@fad22eb3fa582b7357fc0ea48af6645851b884fd  # v1
+        env:
+          GH_TOKEN: ${{ github.token }}   # gh api / GraphQL auth for the agent
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            GitHub Copilot (login `copilot-pull-request-reviewer[bot]`) just left a
+            code review on this PR. Address its review comments:
+
+            1. Fetch Copilot's inline comments and review summaries via `gh api`
+               (repos/.../pulls/NUMBER/comments and .../reviews), keeping only
+               entries whose author login contains `copilot`.
+            2. For each comment, read the referenced file/line and apply the fix if
+               the suggestion is correct. If a suggestion is wrong or not applicable,
+               do not apply it — explain why in your reply instead.
+            3. Run the build/tests/lint if present; don't push failing code.
+            4. Commit and push the fixes to this PR branch.
+            5. Reply to each thread you addressed and resolve it using the GraphQL
+               `resolveReviewThread` mutation. Never resolve a thread you didn't fix.
+          claude_args: |
+            --model claude-sonnet-5
+            --max-turns 20
+            --allowedTools Edit,Read,Write,Bash
