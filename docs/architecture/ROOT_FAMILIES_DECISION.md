@@ -385,3 +385,43 @@ This doc is the **decision** — the architecture is locked, the action plan is 
 Phase 1 is the immediate next action. Estimated start: as soon as this doc is reviewed and approved. Estimated completion of all 7 phases: 2-3 weeks elapsed, part-time.
 
 The Week 1 spike programme cost ~$0.83 in API spend and produced three rigorous findings docs plus this synthesis. The Week 2-3 build programme is projected at ~$25 in API spend plus mobile-bundle validation. The whole engine ships at roughly the cost of dinner for two.
+
+---
+
+## Addendum: WP-551 — canonical-root post-process patch
+
+**Date:** 2026-05-12
+
+**Symptom:** The shipped `root-families.json.gz` rendered short Latin stems
+(`stru-`, `dic-`, `spec-`, `duc-`, `tex-`, `fric-`, `rep-`, `sec-`) as the
+canonical root chip. Etymology dictionaries (Wiktionary, Online Etymology
+Dictionary) conventionally cite the longer form with the productive consonant
+cluster preserved (`struct-`, `dict-`, `spect-`, `duct-`, `text-`, `frict-`,
+`rept-`, `sect-`).
+
+**Root cause:** Not the L1 LLM cache (Phase 3) as the issue first assumed —
+the L1 cache's canonical roots are correct (`struct-`, `port-`, `phon-`).
+The shipped bundle is built by `backend/scripts/root-families/build_root_families.py`
+(WP-406) from Wikipedia's "List of Greek and Latin roots in English". Wikipedia
+rows list short and long variants together (e.g. `stru-, struct-`); the build
+script picks the first comma-separated form as canonical.
+
+**Decision:** Post-process patch script over the existing bundle — no LLM
+rebuild, no re-spike. Path (b) from the issue.
+
+**Why not full rebuild (path a):** The L1 LLM cache is already correct, so a
+prompt+rebuild fixes nothing for this issue. The shipped bundle is the
+Wikipedia-derived artifact, which is deterministic and cheap to re-patch.
+
+**Why not blanket rule:** 60 families have a short-then-long alias pattern,
+but most are legitimate (`ab-/abs-`, `aut-/auto-`, `phil-/-phile`, `re-/red-`).
+A blanket rule would create new bugs.
+
+**Implementation:** `backend/scripts/root-families/patch_canonical_roots.py`
+holds a curated `CANONICAL_RENAMES` map (8 entries) and rewrites root +
+aliases + per-word decomp triples idempotently. Re-gzips with `mtime=0` to
+keep the WP-406 reproducibility invariant.
+
+**Operational note:** Whenever `build_root_families.py` is re-run (e.g. on a
+Wikipedia revision bump), `patch_canonical_roots.py` must be re-run before
+committing the regenerated bundle.
