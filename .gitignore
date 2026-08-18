@@ -7,3 +7,6 @@
 # Python
 __pycache__/
 *.pyc
+
+# Obsidian per-machine UI state (pane layout, open tabs)
+.obsidian/workspace.json
