@@ -76,7 +76,14 @@ The successor guard therefore protects the lock's *honesty*, not the build:
 1. every `exact:` native pin a plugin declares matches `Package.resolved`;
 2. every native iOS plugin ships an iOS `Package.swift` — the one failure mode SPM
    introduces, since there is no CocoaPods to fall back to;
-3. the two `Package.resolved` copies agree.
+3. the two `Package.resolved` copies agree on **version and revision** — two copies
+   that both say `12.18.0` but point at different commits are not in sync (raised in
+   Copilot's review of PR #1049);
+4. the SwiftPM wiring stays intact and CocoaPods stays gone: `Runner.xcodeproj`
+   references `FlutterGeneratedPluginSwiftPackage`, the scheme runs the *Prepare
+   Flutter Framework Script* pre-action, and there is no `ios/Podfile`, `[CP]` build
+   phase or `Pods` framework. Without that wiring the committed `Package.resolved`
+   is not what gets built.
 
 Range-resolved transitive pins (15 of the 17 today, e.g. GoogleSignIn,
 GoogleUtilities, gRPC, leveldb) are not compared: for those the committed
@@ -137,9 +144,15 @@ Run with Flutter 3.47.3 / Xcode 26.6 on macOS during WordPower-app#1047:
   the stale pin. Xcode re-resolved to the plugins' exact requirement instead of failing,
   which is why the successor guard protects the lock's honesty rather than the build.
   The guard itself exited 1 on that stale lock, with one finding per Firebase plugin.
-- Successor guard: exits 0 on the committed state; exits 1 on a stale Firebase pin,
-  on disagreeing `Package.resolved` copies, on a native plugin without
-  `Package.swift`, and on missing inputs.
+- Successor guard: exits 0 on the committed state and exits 1 on each of 11 failure
+  cases — stale version; copies disagreeing on version; copies agreeing on version
+  but not revision; a native plugin without `Package.swift`; missing
+  `.flutter-plugins-dependencies` or `Package.resolved`; a reintroduced `Podfile`; a
+  project without `FlutterGeneratedPluginSwiftPackage`; a `[CP]` build phase; a scheme
+  without the SPM pre-action; a missing `project.pbxproj`.
+- `e2e-ios.yml` on CI's macOS 15 runner (run 34591352096): Xcode fetched the SwiftPM
+  dependencies, no `pod install` ran, and the simulator smoke test passed — a second
+  environment beyond the local Xcode 26.6 builds.
 
 ## References
 
