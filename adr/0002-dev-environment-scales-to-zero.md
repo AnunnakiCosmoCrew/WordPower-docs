@@ -39,8 +39,8 @@ Dev is used only by `pr-preview.yml` reviewers and occasional manual on-device t
   ~49 s) run on the main thread first. This matches the 125 s+ latencies that led to
   WP-895. `pr-preview.yml` points its web build at dev with a 60 s API timeout, so the
   first preview request after idle times out; a retry succeeds once the instance is up.
-  Startup-CPU boost stays on. Follow-up options: make the seed loaders non-blocking, or
-  raise the preview timeout.
+  Startup-CPU boost stays on. Follow-up: [WordPower-app#1066](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/1066) (make the seed loaders non-blocking, or
+  raise the preview timeout). Decision 2026-09-30: accept the failed first preview request meanwhile.
 - **Background jobs do not run on dev** while it is scaled to zero
   (`NightlyNotificationScheduler`, `EnrichmentBackfillService`). Acceptable for dev; prod
   keeps its warm instance and still runs them.
