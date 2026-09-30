@@ -225,7 +225,7 @@ This is a follow-up implementation concern, not a blocker for this spike.
 
 **Use Merriam-Webster Learner's Dictionary as the primary upstream for definitions, examples, IPA, and audio.** Contingency rules:
 
-1. **If Cambridge ghosts or rejects (#355):** MW becomes the launch primary with no rework needed — its field coverage is sufficient for every functional UX surface that doesn't depend on CEFR labels (definitions, examples, audio, IPA).
+1. **If Cambridge ghosts or rejects:** MW becomes the launch primary with no rework needed — its field coverage is sufficient for every functional UX surface that doesn't depend on CEFR labels (definitions, examples, audio, IPA).
 2. **If Cambridge offers reasonable terms:** keep both, and let the aggregator (#356) prefer Cambridge for the fields where it is strictly richer:
    - `cefrLevel` — Cambridge **only**, since MW does not expose it
    - `phonetics[uk]` (BrE IPA + audio) — Cambridge **only**
