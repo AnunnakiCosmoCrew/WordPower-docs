@@ -32,8 +32,15 @@ Dev is used only by `pr-preview.yml` reviewers and occasional manual on-device t
 
 ## Consequences
 
-- **Cold start:** the first request after idle takes about 22–28 s (JVM start). Accepted
-  for dev. Startup-CPU boost stays on.
+- **Cold start:** measured 2026-09-30 after merge: the first request after idle took
+  **about 120 s**, not the 22–28 s assumed when this ADR was drafted. Tomcat is up after
+  ~19 s, but the startup probe only passes ~120 s after instance start because the
+  dictionary seed loaders (`CefrWordMapLoader` ~49 s, `WordNetDictionarySeedLoader`
+  ~49 s) run on the main thread first. This matches the 125 s+ latencies that led to
+  WP-895. `pr-preview.yml` points its web build at dev with a 60 s API timeout, so the
+  first preview request after idle times out; a retry succeeds once the instance is up.
+  Startup-CPU boost stays on. Follow-up options: make the seed loaders non-blocking, or
+  raise the preview timeout.
 - **Background jobs do not run on dev** while it is scaled to zero
   (`NightlyNotificationScheduler`, `EnrichmentBackfillService`). Acceptable for dev; prod
   keeps its warm instance and still runs them.
