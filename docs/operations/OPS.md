@@ -172,7 +172,7 @@ flowchart LR
 
 | Setting | Value | Why |
 |---|---|---|
-| Min instances | 0 | Scale to zero when idle ($0 at rest) |
+| Min instances | 0 (dev) / 1 (prod) | Dev scales to zero when idle ([ADR 0002](../../adr/0002-dev-environment-scales-to-zero.md)); prod keeps one warm instance |
 | Max instances | 5 | Cost protection during development |
 | Memory | 512 MB | Sufficient for Spring Boot + Testcontainers-free runtime |
 | CPU | 1 vCPU | Sufficient for expected load |
