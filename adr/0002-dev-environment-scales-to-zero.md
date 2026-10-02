@@ -29,6 +29,9 @@ Dev is used only by `pr-preview.yml` reviewers and occasional manual on-device t
 
 `service-dev.yaml` sets `minScale: "0"` and `cpu-throttling: "true"`. Prod
 (`service-prod.yaml`) is unchanged: `minScale: "1"`, `cpu-throttling: "false"`.
+*(Superseded by [ADR 0003](0003-prod-request-based-billing-external-job-triggers.md) on
+2026-10-02 for prod's CPU setting: prod now runs `cpu-throttling: "true"`. `minScale: "1"`
+stands.)*
 
 ## Consequences
 
@@ -43,7 +46,10 @@ Dev is used only by `pr-preview.yml` reviewers and occasional manual on-device t
   raise the preview timeout). Decision 2026-09-30: accept the failed first preview request meanwhile.
 - **Background jobs do not run on dev** while it is scaled to zero
   (`NightlyNotificationScheduler`, `EnrichmentBackfillService`). Acceptable for dev; prod
-  keeps its warm instance and still runs them.
+  keeps its warm instance and still runs them. *(Superseded by
+  [ADR 0003](0003-prod-request-based-billing-external-job-triggers.md): prod no longer runs
+  them in-process; Cloud Scheduler triggers them over HTTP. Dev has the HTTP endpoints too
+  but no Scheduler job.)*
 - **Savings:** ~$84/month (~$52 Cloud Run + ~$32 Neon), plus the Neon dev endpoint now
   autosuspends.
 - **Deploy path:** merging to `main` runs `backend-deploy.yml`, dev then prod with the
