@@ -44,6 +44,14 @@ stands.)*
   first preview request after idle times out; a retry succeeds once the instance is up.
   Startup-CPU boost stays on. Follow-up: [WordPower-app#1066](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/1066) (make the seed loaders non-blocking, or
   raise the preview timeout). Decision 2026-09-30: accept the failed first preview request meanwhile.
+- **Cold start re-measured 2026-10-09** after [WordPower-app#1099](https://github.com/AnunnakiCosmoCrew/WordPower-app/pull/1099)
+  (#1066: seed loaders moved off the startup path). On revision `wordpower-api-dev-00166-99r`, the instance
+  started 09:12:19, Spring Boot was up 09:12:45 (23.6 s), and the startup probe passed 09:12:50: **31 s**,
+  down from about 120 s. The first `/actuator/health` request was served in 37 ms, so the 60 s preview
+  timeout is met and the 2026-09-30 acceptance of a failed first preview request no longer applies.
+  Trade-off found: with `cpu-throttling=true` the background loaders get almost no CPU between requests
+  (`CefrWordMapLoader` 8 min 15 s; the "already seeded" skip finished about 15 min after start), so on an
+  idle dev they may restart on every cold start. Follow-up: [WordPower-app#1100](https://github.com/AnunnakiCosmoCrew/WordPower-app/issues/1100).
 - **Background jobs do not run on dev** while it is scaled to zero
   (`NightlyNotificationScheduler`, `EnrichmentBackfillService`). Acceptable for dev; prod
   keeps its warm instance and still runs them. *(Superseded by
